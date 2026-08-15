@@ -10,7 +10,7 @@
     container-type: inline-size;
 
     > :last-child {
-      min-inline-size: var(--content-width);
+      min-inline-size: min(100%, var(--content-width));
     }
 
     > aside {
