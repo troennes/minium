@@ -1,0 +1,96 @@
+@layer base {
+  progress,
+  meter {
+    appearance: none;
+    block-size: 0.5em;
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-f);
+    box-shadow: var(--shadow-inner);
+    overflow: hidden;
+    inline-size: 100%;
+  }
+
+  progress {
+    background-color: var(--color-fill);
+
+    &::-webkit-progress-bar {
+      background: none;
+      border-radius: var(--border-radius-f);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--color-primary);
+      transition: width 0.1s ease-in-out;
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-primary);
+    }
+  }
+
+  progress:indeterminate {
+    background: var(--color-fill) 
+      linear-gradient( to right, var(--color-primary) 30%, transparent 30% ) 
+      top left / 150% 150% no-repeat;
+    animation: progress-indeterminate 1s linear infinite;
+
+    &::-webkit-progress-value {
+      background-color: transparent;
+    }
+
+    &::-moz-progress-bar {
+      background-color: transparent;
+    }
+  }
+
+  @keyframes progress-indeterminate {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    progress:indeterminate {
+      animation: none;
+      background-position: 100% 0;
+    }
+  }
+
+  meter {
+    background: var(--color-fill);
+
+    &::-moz-meter-bar {
+      background: var(--color-success);
+    }
+
+    &:-moz-meter-sub-optimum::-moz-meter-bar {
+      background: var(--color-warning);
+    }
+
+    &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+      background: var(--color-danger);
+    }
+
+    &::-webkit-meter-bar {
+      background: transparent;
+      border-radius: var(--border-radius-f);
+      block-size: 0.5em;
+    }
+
+    &::-webkit-meter-optimum-value {
+      background: var(--color-success);
+    }
+
+    &::-webkit-meter-suboptimum-value {
+      background: var(--color-warning);
+    }
+
+    &::-webkit-meter-even-less-good-value {
+      background: var(--color-danger);
+    }
+  }
+}

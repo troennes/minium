@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Colors | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../css/colors.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css"><style>
+  .palette-reference {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  .palette-reference table {
+    border-collapse: separate;
+    border-spacing: 0.25rem;
+    inline-size: max-content;
+    min-inline-size: 100%;
+  }
+
+  .palette-reference th {
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+    font-weight: var(--font-weight);
+    line-height: 1;
+    padding: 0.15rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .palette-reference tbody th {
+    color: var(--color-text);
+    padding-inline-end: var(--space-xs);
+    text-align: left;
+    text-transform: capitalize;
+  }
+
+  .palette-reference td {
+    padding: 0;
+  }
+
+  .palette-swatch {
+    block-size: 2.75rem;
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-s);
+    display: block;
+    inline-size: clamp(2.5rem, 5vw, 3.75rem);
+  }
+
+</style>
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Getting started</p>
+<h1>Colors</h1>
+
+<p><code>css/colors.css</code> defines Minium's raw color scales. Map these scales to semantic tokens in <code>css/theme.css</code> to create or replace a theme without changing component styles.</p>
+
+<h2>Radix color scales</h2>
+<p>Minium uses color scales from <a href="https://www.radix-ui.com/colors">Radix Colors</a>. Each solid scale has a corresponding alpha scale. For example, <code>--sand-*</code> uses solid colors, while <code>--sand-a*</code> uses partially transparent colors. <code>css/theme.css</code> maps these palette tokens to semantic tokens such as <code>--color-text</code>, <code>--color-surface</code>, and <code>--color-primary</code>.</p>
+
+<p>Separating palette tokens from semantic tokens keeps theme changes localized. To change a brand color, remap the relevant semantic tokens in <code>css/theme.css</code>. To replace the underlying palette, change the scale definitions in <code>css/colors.css</code>.</p>
+
+<h2>Full solid palette</h2>
+<p>The table lists the solid color scales loaded by this page. Its swatches update with the active light or dark theme.</p>
+
+<div class="palette-reference" id="palette-reference" aria-live="polite"></div>
+
+<h2>Alpha fill colors</h2>
+<p>Minium CSS uses partially transparent color tokens for many fill surfaces, such as <code>--color-fill</code>, <code>--color-primary-fill</code>, and <code>--color-accent-fill</code>. Partially transparent fills blend with their background. Components can therefore use the same fill tokens across different surfaces without separate hard-coded colors.</p>
+
+<p>The following example shows how the same default and accent badges blend with four surface levels.</p>
+
+<article class="card bg-surface">
+  <div class="switcher">
+    <section class="bg-sunken p-s flow-tight">
+      <h3 class="size-small">Sunken</h3>
+      <p><a href="#" class="badge">Default badge</a></p>
+      <p><a href="#" class="badge accent">Accent badge</a></p>
+    </section>
+
+    <section class="bg-default p-s flow-tight">
+      <h3 class="size-small">Default surface</h3>
+      <p><a href="#" class="badge">Default badge</a></p>
+      <p><a href="#" class="badge accent">Accent badge</a></p>
+    </section>
+
+    <section class="bg-raised p-s flow-tight">
+      <h3 class="size-small">Raised</h3>
+      <p><a href="#" class="badge">Default badge</a></p>
+      <p><a href="#" class="badge accent">Accent badge</a></p>
+    </section>
+
+    <section class="bg-overlay p-s flow-tight">
+      <h3 class="size-small">Overlay</h3>
+      <p><a href="#" class="badge">Default badge</a></p>
+      <p><a href="#" class="badge accent">Accent badge</a></p>
+    </section>
+  </div>
+</article>
+
+
+<h2>Build pruning</h2>
+<p>The production build excludes unused palette tokens. When you run <code>npm run build</code>, the build script finds the palette tokens referenced by <code>css/theme.css</code>. It then includes only those tokens in the production CSS.</p>
+
+
+<h2>Learn more about Radix Colors</h2>
+<p>See the <a href="https://www.radix-ui.com/colors">Radix Colors documentation</a> for scale definitions, token naming, accessibility guidance, alpha colors, and Display P3 support.</p>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script><script>
+  (() => {
+    const palette = document.getElementById("palette-reference");
+    if (!palette) return;
+
+    const steps = Array.from({ length: 12 }, (_, index) => index + 1);
+    const preferredOrder = [
+      "gray",
+      "mauve",
+      "slate",
+      "sage",
+      "olive",
+      "sand",
+      "tomato",
+      "red",
+      "ruby",
+      "crimson",
+      "pink",
+      "plum",
+      "purple",
+      "violet",
+      "iris",
+      "indigo",
+      "blue",
+      "cyan",
+      "teal",
+      "jade",
+      "green",
+      "grass",
+      "bronze",
+      "gold",
+      "brown",
+      "orange",
+      "amber",
+      "yellow",
+      "lime",
+      "mint",
+      "sky"
+    ];
+
+    function collectTokensFromStylesheets() {
+      const families = new Map();
+
+      function addToken(name) {
+        const match = name.match(/^--([a-z]+)-([1-9]|1[0-2])$/);
+        if (!match) return;
+
+        const family = match[1];
+        const step = Number(match[2]);
+        if (!families.has(family)) {
+          families.set(family, new Set());
+        }
+        families.get(family).add(step);
+      }
+
+      function walkRules(rules) {
+        for (const rule of rules) {
+          if ("style" in rule && rule.style) {
+            for (let index = 0; index < rule.style.length; index += 1) {
+              addToken(rule.style.item(index));
+            }
+          }
+
+          if ("cssRules" in rule) {
+            walkRules(rule.cssRules);
+          }
+        }
+      }
+
+      try {
+        for (const sheet of document.styleSheets) {
+          walkRules(sheet.cssRules);
+        }
+      } catch {
+        const rootStyles = getComputedStyle(document.documentElement);
+        for (let index = 0; index < rootStyles.length; index += 1) {
+          addToken(rootStyles.item(index));
+        }
+      }
+
+      return families;
+    }
+
+    function getSolidFamilies() {
+      const families = collectTokensFromStylesheets();
+      const completeFamilies = [...families]
+        .filter(([, familySteps]) => steps.every((step) => familySteps.has(step)))
+        .map(([family]) => family);
+
+      return [
+        ...preferredOrder.filter((family) => completeFamilies.includes(family)),
+        ...completeFamilies
+          .filter((family) => !preferredOrder.includes(family))
+          .sort((a, b) => a.localeCompare(b))
+      ];
+    }
+
+    function createCell(tagName, text) {
+      const cell = document.createElement(tagName);
+      cell.textContent = text;
+      return cell;
+    }
+
+    function renderPalette() {
+      const families = getSolidFamilies();
+
+      if (families.length === 0) {
+        palette.textContent = "No solid color scales found.";
+        return;
+      }
+
+      const table = document.createElement("table");
+      table.className = "border-none";
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+      const headerRow = document.createElement("tr");
+
+
+      headerRow.append(createCell("th", ""));
+
+      for (const step of steps) {
+        headerRow.append(createCell("th", step));
+      }
+
+      thead.append(headerRow);
+
+      for (const family of families) {
+        const row = document.createElement("tr");
+        row.append(createCell("th", family));
+
+        for (const step of steps) {
+          const token = `--${family}-${step}`;
+          const cell = document.createElement("td");
+          const swatch = document.createElement("span");
+          swatch.className = "palette-swatch";
+          swatch.style.background = `var(${token})`;
+          swatch.title = token;
+          swatch.setAttribute("role", "img");
+          swatch.setAttribute("aria-label", token);
+          cell.append(swatch);
+          row.append(cell);
+        }
+
+        tbody.append(row);
+      }
+
+      table.append(thead, tbody);
+      palette.replaceChildren(table);
+    }
+
+    renderPalette();
+  })();
+</script></body></html>

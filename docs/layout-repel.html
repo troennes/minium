@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Repel | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Repel</h1>
+
+<p>The <code>.repel</code> layout pushes items apart using <code>justify-content: space-between</code> while keeping wrapping behavior. Use it for rows with content at opposite edges, such as toolbars and action rows.</p>
+
+<p>For site navigation, use the semantic navbar pattern: <code>&lt;header&gt;&lt;nav&gt;&lt;ul&gt;...&lt;/ul&gt;&lt;/nav&gt;&lt;/header&gt;</code>. A <code>&lt;nav&gt;</code> that is a direct child of <code>&lt;header&gt;</code> already behaves like <code>.repel</code> and does not usually need the class.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="repel"</code> to the parent element.</li>
+  <li>Set <code>--gap</code> to control spacing between wrapped items.</li>
+  <li>Set <code>--repel-vertical-alignment</code> to control cross-axis alignment. The fallback value is <code>center</code>.</li>
+  <li>Add <code>.nowrap</code> to prevent wrapping.</li>
+</ul>
+
+<div class="example">
+  <article class="resizable">
+    <h2 class="size-body">Default repel</h2>
+    <div class="repel bg-raised p-s">
+      <strong>Project status</strong>
+      <span>Last updated: today</span>
+    </div>
+
+    <h2 class="size-body">Repel without wrapping</h2>
+    <div class="repel nowrap bg-raised p-s">
+      <div class="cluster">
+        <button type="button">Save</button>
+        <button type="button">Preview</button>
+        <button type="button">Publish</button>
+      </div>
+      <a href="#">View changelog</a>
+    </div>
+  </article>
+</div>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

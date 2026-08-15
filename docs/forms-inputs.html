@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Inputs | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Forms</p>
+<h1>Inputs</h1>
+
+<p>Minium styles input elements without requiring classes. Forms add consistent vertical spacing between labels, input elements, helper text, and buttons.</p>
+
+<h2>Input types</h2>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="inputs-text">Text</label>
+      <input id="inputs-text" type="text" placeholder="Text">
+
+      <label for="inputs-email">Email</label>
+      <input id="inputs-email" type="email" placeholder="name@example.com">
+
+      <label for="inputs-number">Number</label>
+      <input id="inputs-number" type="number" placeholder="42">
+
+      <label for="inputs-password">Password</label>
+      <input id="inputs-password" type="password" placeholder="Password">
+
+      <label for="inputs-tel">Telephone</label>
+      <input id="inputs-tel" type="tel" placeholder="+47 12 34 56 78">
+
+      <label for="inputs-url">URL</label>
+      <input id="inputs-url" type="url" placeholder="https://example.com">
+
+      <label for="inputs-search">Search</label>
+      <input id="inputs-search" type="search" placeholder="Search docs">
+
+      <label for="inputs-date">Date</label>
+      <input id="inputs-date" type="date">
+
+      <label for="inputs-datetime">Local date and time</label>
+      <input id="inputs-datetime" type="datetime-local">
+
+      <label for="inputs-month">Month</label>
+      <input id="inputs-month" type="month">
+
+      <label for="inputs-time">Time</label>
+      <input id="inputs-time" type="time">
+
+      <label for="inputs-color">Color</label>
+      <input id="inputs-color" type="color" value="#00beef" aria-label="Accent color">
+
+      <label for="inputs-file">File</label>
+      <input id="inputs-file" type="file">
+
+      <label for="inputs-range">Range</label>
+      <input id="inputs-range" type="range" min="0" max="11" value="6">
+
+      <label for="inputs-button">Button input</label>
+      <input id="inputs-button" type="button" value="Button input">
+
+      <label for="inputs-submit">Submit input</label>
+      <input id="inputs-submit" type="submit" value="Submit input">
+
+      <label for="inputs-reset">Reset input</label>
+      <input id="inputs-reset" type="reset" value="Reset input">
+    </form>
+  </article>
+</div>
+
+<h2>Show validation states</h2>
+<p>Set <code>aria-invalid="false"</code> or <code>aria-invalid="true"</code> to show a valid or invalid state. Add helper text that explains the state.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="inputs-valid">Valid input</label>
+      <input id="inputs-valid" type="email" value="jane@example.com" aria-invalid="false">
+      <small>Looks valid.</small>
+
+      <label for="inputs-invalid">Invalid input</label>
+      <input id="inputs-invalid" type="email" value="jane@" aria-invalid="true">
+      <small>Please enter a complete email address.</small>
+    </form>
+  </article>
+</div>
+
+<h2>Group related controls</h2>
+<p>Use <code>&lt;fieldset role="group"&gt;</code> to group related controls in a compact cluster, such as a search input and its action button.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset role="group">
+        <input id="inputs-group-search" type="search" placeholder="Search docs" aria-label="Search docs">
+        <input type="submit" value="Search">
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Show disabled and read-only inputs</h2>
+<p>Disable an input when users cannot interact with it. Make an input read-only when users may view or submit its value but cannot change it.</p>
+<div class="example">
+  <article>
+    <form>
+      <label for="inputs-disabled">Disabled</label>
+      <input id="inputs-disabled" type="text" value="Disabled input" disabled>
+
+      <label for="inputs-readonly">Read-only</label>
+      <input id="inputs-readonly" type="text" value="Read-only input" readonly>
+    </form>
+  </article>
+</div>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

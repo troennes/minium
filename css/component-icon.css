@@ -1,0 +1,17 @@
+@layer components {
+  .icon {
+    height: var(--icon-size, 1em);
+    width: var(--icon-size, 1em);
+    vertical-align: var(--icon-align, -0.125em);
+  }
+
+  .icon.small {
+    --icon-size: 0.75em;
+    --icon-align: -0.07em;
+  }
+
+  .icon.large {
+    --icon-size: 1.5em;
+    --icon-align: -0.37em;
+  }
+}

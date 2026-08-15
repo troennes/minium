@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tabs | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Tabs</h1>
+
+<p>Tabs display related navigation links or controls in a horizontal row. An underline marks the current item.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>&lt;nav class="tabs" aria-label="..."&gt;</code> with a descriptive label.</li>
+  <li>Add an unclassed <code>&lt;ul&gt;</code> containing the tab items.</li>
+  <li>Use links to navigate to separate URLs. Use buttons only when your JavaScript switches content in place.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <nav class="tabs" aria-label="Animals">
+      <ul>
+        <li><a href="#" aria-current="page">Snow leopard</a></li>
+        <li><a href="#">Honey bee</a></li>
+        <li><a href="#">Elephant</a></li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>Tabs with icons</h2>
+<p>Icons inherit their link's text color, including its current-state color.</p>
+
+<div class="example">
+  <article>
+    <nav class="tabs" aria-label="Workspace">
+      <ul>
+        <li>
+          <a href="#" aria-current="page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            Overview
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.5.5 0 0 1-.96 0L9.68 3.18a.5.5 0 0 0-.96 0l-2.35 8.36A2 2 0 0 1 4.44 13H2"/></svg>
+            Activity
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+            Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>Tab panels and JavaScript</h2>
+<p>Minium provides CSS for the tab strip but does not switch content panels. Use separate URLs for link-based navigation, or add JavaScript to control panel visibility.</p>
+
+<p>The following example uses JavaScript to update the displayed panel when you select a button.</p>
+
+<div class="example">
+  <article>
+    <nav class="tabs" aria-label="Animals" id="tabs-demo">
+      <ul>
+        <li><button type="button" data-panel="snow-leopard" aria-current="page">Snow leopard</button></li>
+        <li><button type="button" data-panel="honey-bee">Honey bee</button></li>
+        <li><button type="button" data-panel="elephant">Elephant</button></li>
+      </ul>
+    </nav>
+    <p id="tabs-demo-panel">The snow leopard is a large cat native to the mountain ranges of Central and South Asia.</p>
+    <script>
+      (function () {
+        const nav = document.getElementById("tabs-demo");
+        const panel = document.getElementById("tabs-demo-panel");
+        const content = {
+          "snow-leopard": "The snow leopard is a large cat native to the mountain ranges of Central and South Asia.",
+          "honey-bee": "The honey bee is a flying insect known for producing honey and pollinating crops worldwide.",
+          "elephant": "The elephant is the largest living land animal, recognized by its long trunk and tusks.",
+        };
+
+        nav.addEventListener("click", function (event) {
+          const button = event.target.closest("button[data-panel]");
+          if (!button) return;
+
+          nav.querySelectorAll("[aria-current]").forEach((el) => el.removeAttribute("aria-current"));
+          button.setAttribute("aria-current", "page");
+          panel.textContent = content[button.dataset.panel];
+        });
+      })();
+    </script>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>The <code>.tabs</code> component does not implement the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">ARIA Authoring Practices Guide tabs pattern</a>. Link-based tabs provide navigation; button-based panel switching requires additional JavaScript and accessibility behavior.</li>
+  <li>Add <code>aria-current="page"</code> to the current link or button, not to the <code>&lt;li&gt;</code>, so assistive technology announces the current state with the control.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

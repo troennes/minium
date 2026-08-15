@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Quick start | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Getting Started</p>
+<h1>Quick start</h1>
+
+<p>Minium CSS styles semantic HTML elements by default, and adds layout primitives and common components. The library requires no JavaScript runtime, Sass pipeline, or configuration step.</p>
+
+<h2>Install</h2>
+<p>Until the npm package is published, run the build from the repository root:</p>
+
+<pre><code class="language-bash">npm run build</code></pre>
+
+<p>This creates the production stylesheets in <code>dist/</code>.</p>
+
+<p>After the package is published, install it from npm:</p>
+
+<pre><code class="language-bash">npm install minium-css</code></pre>
+
+<h2>Load the stylesheet</h2>
+<p>Use the core stylesheet in your page. If your project has its own CSS, load it after Minium so project rules can override the library cleanly.</p>
+
+<pre><code class="language-html">&lt;link rel="stylesheet" href="dist/minium.css"&gt;
+&lt;link rel="stylesheet" href="project.css"&gt;</code></pre>
+
+<p>In a bundled app, import the built CSS from the package:</p>
+
+<pre><code class="language-js">import "minium-css";</code></pre>
+
+<h2>Start with semantic HTML</h2>
+<p>Minium CSS styles common document structure, forms, tables, buttons, links, and typographic elements by default. Add classes only when you need layout, a component, or a modifier.</p>
+
+<div class="example">
+  <article>
+    <section>
+      <h2>Red lead notes</h2>
+      <p>Minium is the historic name for red lead, an orange-red lead oxide pigment.</p>
+      <p><button>Create note</button></p>
+    </section>
+  </article>
+</div>
+
+<h2>Next steps</h2>
+<ul>
+  <li><a href="customization.html">Customize tokens</a> when you want to change fonts, colors, spacing, radii, or layout widths.</li>
+  <li><a href="layout.html">Use layout primitives</a> for composition such as containers, grids, clusters, sidebars, and switchers.</li>
+  <li><a href="content-typography.html">Review content defaults</a> for typography.</li>
+  <li><a href="integrations.html">Load integrations</a> only for third-party markup you actually use.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

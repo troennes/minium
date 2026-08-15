@@ -1,0 +1,205 @@
+@layer layout {
+  /* Source and inspiration for most of these are 
+     https://piccalil.li/blog/a-css-project-boilerplate/ 
+     and https://every-layout.dev/ */
+
+
+  /* FLOW - Consistent vertical rhythm 
+   * 
+   * Properties:
+   * --flow-space: Space between items. Default: 1em
+   *
+   * Modifiers:
+   * see utilities.css for ways to override flow-space with classes
+   */
+  .flow > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  /* CLUSTER - Consistent horizontal spacing with flex+wrap
+   * 
+   * Properties:
+   * --gap: Space between items
+   * --cluster-horizontal-alignment: Flexbox alignment value 
+   * --cluster-vertical-alignment: Flexbox alignment value
+   */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs-s);
+    justify-content: var(--cluster-horizontal-alignment, flex-start);
+    align-items: var(--cluster-vertical-alignment, center);
+  }
+
+  /* CONTAINER - Sets a max-width, adds a gutter and horizontally centers content
+   * 
+   * Properties:
+   * --container-max-width: Maximum width of the container
+   * --gutter: Gutter size
+   *
+   * Modifiers:
+   * .slim: Lower maximum width corresponding with recommended content width
+   * .full: No maximum width
+   */
+  .container {
+    max-inline-size: var(--container-max-width, var(--main-width));
+    margin-inline: auto;
+    padding-inline: var(--gutter, var(--space-s-l));
+    inline-size: 100%;
+
+    &.slim {
+      max-inline-size: var(--content-width);
+    }
+
+    &.full {
+      max-inline-size: 100%;
+    }
+  }
+
+  /* FRAME - Control and crop media objects to a certain aspect ratio
+   * 
+   * Properties:
+   * --n: Numerator - represents the width
+   * --d: Denominator - represents the height
+   */
+  .frame {
+    --n: 16;
+    --d: 9;
+    
+    aspect-ratio: var(--n) / var(--d);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > :is(img, video) {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* GRID - Auto-fill grid with configurable item sizes
+   * 
+   * Properties:
+   * --gap: Space between items
+   * --grid-min-size: Ideal minimum size of an item
+   * --grid-placement: "auto-fill" or "auto-fit" grid value
+   *
+   * Modifiers:
+   * .halves: Two column layout
+   * .thirds; Three column layout
+   */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(
+      var(--grid-placement, auto-fill),
+      minmax(var(--grid-min-size, 15rem), 1fr)
+    );
+    gap: var(--gap);
+
+    &.halves {
+      --grid-placement: auto-fit;
+      --grid-min-size: max(15rem, calc((100% - 2 * var(--gap)) / 2 ));
+    }
+
+    &.thirds {
+      --grid-placement: auto-fit;
+      --grid-min-size: max(15rem, calc((100% - 2 * var(--gap)) / 3 ));
+    }
+  }
+
+  /* SIDEBAR - "Fixed" width sidebar and flexible main content area
+   * 
+   * Properties:
+   * --gap: Space between items
+   * --sidebar-target-width: How large the sidebar should be
+   * --sidebar-content-min-width: The minimum size of the main content area
+   *
+   * Modifiers:
+   * .reversed: Flips the sidebar to be on the right side
+   * .media: Sidebar width equals media object. It's intinsic instead of fixed 
+   */
+  .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    align-items: stretch;
+
+    > :first-child {
+      flex-basis: var(--sidebar-target-width, 15rem);
+      flex-grow: 1;
+    }
+  
+    > :last-child {
+      flex-basis: 0;
+      flex-grow: 999;
+      min-inline-size: var(--sidebar-content-min-width, 50%);
+    }
+
+    &.reversed {
+      flex-direction: row-reverse;
+    }
+
+    &.no-stretch {
+      align-items: flex-start;
+    }
+
+    &.media {
+      --gap: var(--space-xs);
+
+      align-items: center;
+
+      > :first-child {
+        flex: none;
+      }
+    }
+  }
+
+  /* REPEL - Push items away from each other
+   * 
+   * Properties:
+   * --gap: Space between items
+   * --repel-vertical-alignment: Flexbox alignment value
+   *
+   * Modifiers:
+   * .nowrap: Prevent flexbox wrapping
+   */
+  .repel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: var(--repel-vertical-alignment, center);
+    gap: var(--gap);  
+    
+    &.nowrap {
+      flex-wrap: nowrap;
+    }
+  }
+
+  /* SWITCHER - Switch from horizontal to vertical stacking when you run out of space
+   * 
+   * Properties:
+   * --gap: Space between items
+   * --switcher-vertical-alignment: Flexbox alignment value
+   * --switcher-breakpoint: Container breakpoint that switches from horizontal to vertical layout
+   *   
+   */
+  .switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    align-items: var(--switcher-vertical-alignment, flex-start);
+    
+    > * {
+      flex-grow: 1;
+      flex-basis: calc((var(--switcher-breakpoint, var(--content-width)) - 100%) * 999);
+    }
+
+    /* Max 4 items, so we target everything *after* those */
+    > :nth-last-child(n + 5),
+    > :nth-last-child(n + 5) ~ * {
+      flex-basis: 100%;
+    }
+  }
+}

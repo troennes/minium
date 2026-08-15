@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cluster | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Cluster</h1>
+
+<p>The <code>.cluster</code> layout groups tags, buttons, filters, and other inline controls with consistent spacing, and wraps them to prevent overflow.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="cluster"</code> to the parent element.</li>
+  <li>Place items as direct children.</li>
+</ul>
+
+<p>Use these optional custom properties to adjust the layout:</p>
+<ul>
+  <li><code>--gap</code>: Sets the space between items (default token value: <span id="cluster-gap"></span>).</li>
+  <li><code>--cluster-horizontal-alignment</code>: Aligns items horizontally (fallback: <code>flex-start</code>).</li>
+  <li><code>--cluster-vertical-alignment</code>: Aligns items vertically (fallback: <code>center</code>).</li>
+</ul>
+
+<div class="example">
+  <article class="resizable">
+    <h2 class="size-body">Default cluster</h2>
+    <div class="cluster bg-sunken p-xs" style="min-height: 6rem;">
+      <span class="badge">All</span>
+      <span class="badge">Design</span>
+      <span class="badge">Code</span>
+      <span class="badge">Accessibility</span>
+      <span class="badge">Docs</span>
+      <span class="badge">Performance</span>
+    </div>
+
+    <h2 class="size-body">Customize alignment and gap</h2>
+    <div class="cluster bg-sunken p-xs" style="
+      --gap: var(--space-xs); 
+      --cluster-horizontal-alignment: center; 
+      --cluster-vertical-alignment: flex-start;
+      min-height: 6rem;
+    ">
+      <span class="badge">React</span>
+      <span class="badge">Vue</span>
+      <span class="badge">Svelte</span>
+      <span class="badge">Web Components</span>
+      <span class="badge">Solid</span>
+    </div>
+  </article>
+</div>
+
+<script>
+function populateClusterValues() {
+  const gapEl = document.getElementById("cluster-gap");
+  if (!gapEl) return;
+
+  const rootStyles = getComputedStyle(document.documentElement);
+  gapEl.textContent = rootStyles.getPropertyValue("--gap").trim();
+}
+populateClusterValues();
+</script>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

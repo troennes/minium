@@ -1,0 +1,57 @@
+{
+  "name": "minium-css",
+  "version": "0.1.0",
+  "description": "The minimum CSS and HTML to build anything. A semantic-first, pure-CSS, modern CSS library",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kim Trønnes",
+  "keywords": [
+    "css",
+    "semantic-html",
+    "cascade-layers",
+    "design-tokens",
+    "css-framework",
+    "minimal",
+    "semantic",
+    "lightweight"
+  ],
+  "homepage": "https://github.com/troennes/minium-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/troennes/minium-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/troennes/minium-css/issues"
+  },
+  "style": "dist/minium.css",
+  "exports": {
+    ".": "./dist/minium.css",
+    "./min": "./dist/minium.min.css",
+    "./integrations/*": "./dist/integrations/*",
+    "./fonts/*": "./dist/fonts/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build-css.mjs",
+    "test": "npm run test:lint && npm run test:size",
+    "test:lint": "stylelint \"css/**/*.css\"",
+    "test:size": "node scripts/check-size.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1"
+  }
+}

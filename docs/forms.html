@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Forms | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Forms</p>
+<h1>Forms overview</h1>
+
+<p>Minium styles form controls from semantic HTML. Most text-based controls fill the available width, so forms work best in a narrow container. Forms already provide consistent vertical spacing, so you do not need to add <code>.flow</code>.</p>
+
+<div class="example">
+  <article>
+    <form >
+      <label for="forms-name">Name</label>
+      <input id="forms-name" name="name" type="text" placeholder="Jane Doe">
+      <small>Helper text appears directly after the field.</small>
+
+      <label for="forms-email">Email</label>
+      <input id="forms-email" name="email" type="email" placeholder="jane@example.com" aria-invalid="false">
+      <small>This field is not marked as invalid.</small>
+
+      <label for="forms-password">Password</label>
+      <input id="forms-password" name="password" type="password" placeholder="Minimum 8 characters" aria-invalid="true">
+      <small>This field shows the invalid state.</small>
+
+      <button type="submit">Submit</button>
+    </form>
+  </article>
+</div>
+
+<h2>Use input types</h2>
+<p>This example shows the main input types.</p>
+
+<div class="example">
+  <article>
+    <form >
+      <label for="forms-text">Text</label>
+      <input id="forms-text" type="text" placeholder="Text">
+
+      <label for="forms-number">Number</label>
+      <input id="forms-number" type="number" placeholder="42">
+
+      <label for="forms-tel">Telephone</label>
+      <input id="forms-tel" type="tel" placeholder="+47 12 34 56 78">
+
+      <label for="forms-url">URL</label>
+      <input id="forms-url" type="url" placeholder="https://example.com">
+
+      <label for="forms-search">Search</label>
+      <input id="forms-search" type="search" placeholder="Search docs">
+
+      <label for="forms-date">Date</label>
+      <input id="forms-date" type="date">
+
+      <label for="forms-datetime">Local date and time</label>
+      <input id="forms-datetime" type="datetime-local">
+
+      <label for="forms-month">Month</label>
+      <input id="forms-month" type="month">
+
+      <label for="forms-time">Time</label>
+      <input id="forms-time" type="time">
+
+      <label for="forms-color">Color</label>
+      <input id="forms-color" type="color" value="#00beef" aria-label="Accent color">
+
+      <label for="forms-file">File</label>
+      <input id="forms-file" type="file">
+
+      <label for="forms-range">Range</label>
+      <input id="forms-range" type="range" min="0" max="11" value="6">
+
+      <label for="forms-disabled">Disabled</label>
+      <input id="forms-disabled" type="text" value="Disabled field" disabled>
+
+      <label for="forms-readonly">Read-only</label>
+      <input id="forms-readonly" type="text" value="Read-only field" readonly>
+    </form>
+  </article>
+</div>
+
+<h2>Use a textarea and select menu</h2>
+<div class="example">
+  <article>
+    <form >
+      <label for="forms-textarea">Message</label>
+      <textarea id="forms-textarea" rows="4" placeholder="Write your message"></textarea>
+
+      <label for="forms-select">Select</label>
+      <select id="forms-select" name="pet">
+        <option value="">Choose an option</option>
+        <option>Dog</option>
+        <option>Cat</option>
+        <option>Rabbit</option>
+      </select>
+    </form>
+  </article>
+</div>
+
+<h2>Use checkboxes, radio buttons, and a switch</h2>
+<div class="example">
+  <article>
+    <form >
+      <fieldset>
+        <legend>Preferences</legend>
+
+        <label for="forms-checkbox-news">
+          <input id="forms-checkbox-news" type="checkbox" checked>
+          Newsletter
+        </label>
+
+        <label for="forms-checkbox-updates">
+          <input id="forms-checkbox-updates" type="checkbox">
+          Product updates
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Plan</legend>
+
+        <label for="forms-radio-starter">
+          <input id="forms-radio-starter" type="radio" name="plan" checked>
+          Starter
+        </label>
+
+        <label for="forms-radio-team">
+          <input id="forms-radio-team" type="radio" name="plan">
+          Team
+        </label>
+
+        <label for="forms-radio-enterprise">
+          <input id="forms-radio-enterprise" type="radio" name="plan">
+          Enterprise
+        </label>
+      </fieldset>
+
+      <label for="forms-switch-dark">
+        <input id="forms-switch-dark" type="checkbox" role="switch" checked>
+        Dark mode
+      </label>
+    </form>
+  </article>
+</div>
+
+<h2>Group fields with a fieldset</h2>
+<p>A <code>&lt;fieldset&gt;</code> displays a border and styled legend by default. Add <code>.bare</code> to remove the box. The <code>.grid</code> and <code>.switcher</code> layout classes and <code>role="group"</code> also remove it.</p>
+<div class="example">
+  <article>
+    <form >
+      <fieldset >
+        <legend>Personal information</legend>
+
+        <label for="forms-first-name">First name</label>
+        <input id="forms-first-name" name="first-name" type="text">
+
+        <label for="forms-birthdate">Date of birth</label>
+        <input id="forms-birthdate" name="birthdate" type="date">
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pagination | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Pagination</h1>
+
+<p>Pagination is a group of controls that lets users move between pages of related content.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Wrap the pagination controls in <code>&lt;nav aria-label="Pagination"&gt;</code>.</li>
+  <li>Place the controls in an unclassed <code>&lt;ul&gt;</code>.</li>
+  <li>Add <code>aria-current="page"</code> to the control for the current page.</li>
+  <li>Add <code>aria-disabled="true"</code> to disabled controls.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <nav aria-label="Pagination">
+      <ul>
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#" aria-current="page">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">Next</a></li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>States</h2>
+<p>Minium styles current and unavailable controls from their ARIA states.</p>
+
+<div class="example">
+  <article>
+    <nav aria-label="Pagination">
+      <ul>
+        <li><span aria-disabled="true">Previous</span></li>
+        <li><a href="#" aria-current="page">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><span aria-hidden="true">…</span></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#">9</a></li>
+        <li><a href="#">Next</a></li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>Mixed interactive elements</h2>
+<p>Pagination applies consistent styling to links, buttons, and elements with <code>link</code> or <code>button</code> roles.</p>
+
+<div class="example">
+  <article>
+    <nav aria-label="Pagination">
+      <ul>
+        <li><a href="#" role="button">Previous</a></li>
+        <li><a href="#" aria-current="page">1</a></li>
+        <li><button type="button">2</button></li>
+        <li><span role="link" tabindex="0">3</span></li>
+        <li><span role="button" tabindex="0">4</span></li>
+        <li><button type="button">Next</button></li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>To remove a disabled control from the tab order, add <code>tabindex="-1"</code>. The <code>aria-disabled="true"</code> attribute alone does not prevent focus or activation.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

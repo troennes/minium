@@ -1,0 +1,4083 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Minium Testbench</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../dist/minium.css">
+  <link rel="stylesheet" href="../dist/integrations/django.css">
+  <link rel="stylesheet" href="../dist/integrations/prism.css">
+  <style>
+    .h1 { margin-top: var(--space-l); margin-bottom: var(--space-m);}
+    .fixture { padding: 1rem; border: 2px dashed color-mix(in oklch, currentColor 25%, transparent); border-radius: var(--border-radius-m); margin: 1rem 0; }
+    .fixture > * + * {margin-block-start: var(--flow-space);}
+    .testcase > h3 {  font-size: var(--size-body); }
+    .testcase > ul { margin: 0;  color: var(--color-text-muted); font-size: var(--size-small); }
+    .testcase > * + * {margin-block-start: var(--flow-space);}
+    .resizable {
+      resize: horizontal;
+      overflow: auto;
+      min-inline-size: 20rem;
+      max-inline-size: 100%;
+      border-bottom-right-radius: 2px;
+    }
+    body > header [popovertarget] .icon {width: 1.5rem; height: 1.5rem;}
+  </style>
+</head>
+
+<body>
+  <header class="sticky">
+      <nav class="container">
+        <h1 class="size-h4">Minium CSS testbench</h1>
+        <ul>
+          <li>
+            <div class="dropdown border-none center" style="--dropdown-width: var(--content-width); --switcher-breakpoint: 20rem;">
+              <button popovertarget="mainmenu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+              </button>
+              <div id="mainmenu" popover >
+                <div class="switcher p-s">
+               
+              <nav>
+                <h3 class="eyebrow">Layout</h3>
+                <ul>
+                  <li><a href="#cluster">Cluster</a></li>
+                  <li><a href="#containers">Containers</a></li>
+                  <li><a href="#flow">Flow</a></li>
+                  <li><a href="#frame">Frame</a></li>
+                  <li><a href="#grid">Grid</a></li>
+                  <li><a href="#landmarks">Landmarks</a></li>
+                  <li><a href="#repel">Repel</a></li>
+                  <li><a href="#sidebar">Sidebar</a></li>
+                  <li><a href="#switcher">Switcher</a></li>
+                </ul>
+              </nav><nav>
+                <h3 class="eyebrow">Content</h3>
+                <ul>
+                  <li><a href="#typography">Typography</a></li>
+                  <li><a href="#buttons">Buttons</a></li>
+                  <li><a href="#tables">Tables</a></li>
+                  <li><a href="#links">Links</a></li>
+                  <li><a href="#forms">Forms</a></li>
+                </ul>
+              </nav><nav>
+                <h3 class="eyebrow">Components</h3>
+                <ul>
+                  <li><a href="#accordions">Accordions</a></li>
+                  <li><a href="#alerts">Alerts</a></li>
+                  <li><a href="#avatar">Avatar</a></li>
+                  <li><a href="#badges">Badges</a></li>
+                  <li><a href="#cards">Cards</a></li>
+                  <li><a href="#dropdown">Dropdown</a></li>
+                  <li><a href="#gallery">Gallery</a></li>
+                  <li><a href="#group">Group</a></li>
+                  <li><a href="#icons">Icons</a></li>
+                  <li><a href="#loading">Loading</a></li>
+                  <li><a href="#skeleton">Skeleton</a></li>
+                  <li><a href="#modal">Modal</a></li>
+                  <li><a href="#navs">Navs</a></li>
+                  <li><a href="#progress">Progress</a></li>
+                  <li><a href="#pagination">Pagination</a></li>
+                  <li><a href="#tabs">Tabs</a></li>
+                  <li><a href="#tooltip">Tooltip</a></li>
+                </ul>
+              </nav><nav>
+                <h3 class="eyebrow">Extras</h3>
+                <ul>
+                  <li><a href="#utilities">Utilities</a></li>
+                  <li><a href="#django-integration">Django integration</a></li>
+                  <li><a href="#syntax-highlighting">Prism integration</a></li>
+                </ul>
+              </nav>
+              </div>
+             
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <div class="dropdown border-none">
+              <button popovertarget="themeselector">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
+              </button>
+              <nav id="themeselector" popover>
+                <ul>
+                  <li><button onclick="changeThemeSelector('dark')">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -2 24 24" width="24" fill="currentColor"><path d="M2 10c0 4.43 3.478 8 7.742 8 .658 0 1.302-.085 1.922-.248-2.996-2.2-4.896-5.786-4.896-9.752 0-2.09.527-4.095 1.489-5.853C4.699 2.863 2 6.097 2 10zm6.768-2c0 4.632 3.068 8.528 7.232 9.665A9.555 9.555 0 0 1 9.742 20C4.362 20 0 15.523 0 10S4.362 0 9.742 0c.868 0 1.71.117 2.511.335A10.086 10.086 0 0 0 8.768 8z"></path></svg>
+                    Dark
+                  </button></li>
+                  <li><button onclick="changeThemeSelector('light')">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-15a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM1 9h2a1 1 0 1 1 0 2H1a1 1 0 0 1 0-2zm16 0h2a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2zm.071-6.071a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM5.757 14.243a1 1 0 0 1 0 1.414L4.343 17.07a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM4.343 2.929l1.414 1.414a1 1 0 0 1-1.414 1.414L2.93 4.343A1 1 0 0 1 4.343 2.93zm11.314 11.314l1.414 1.414a1 1 0 0 1-1.414 1.414l-1.414-1.414a1 1 0 1 1 1.414-1.414z"></path></svg>
+                    Light
+                  </button></li>
+                  <li><button onclick="changeThemeSelector('system')">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
+                    System
+                  </button></li>
+                </ul>
+              </nav>
+            </div>
+          </li>
+        </ul>
+      </nav>
+  </header>
+
+  <main><div class="container">
+
+<section>
+  <h2>Template</h2>
+  <p>Use this template for sections and testcases</p>
+  <pre><code>&lt;section id=&quot;breakpoints&quot;&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;
+
+  &lt;article class=&quot;testcase&quot;&gt;
+    &lt;h3&gt;Paragraph + inline elements&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Link has hover/active styles&lt;/li&gt;
+      &lt;li&gt;...&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div class=&quot;fixture&quot;&gt;
+      ...
+    &lt;/div&gt;
+  &lt;/article&gt;
+...
+&lt;/section&gt;</code></pre>
+</section>
+
+<h1 class="h1">Layout</h1>
+
+<section id="flow">
+  <h2>Flow</h2>
+
+  <article class="testcase">
+    <h3>Different flows</h3>
+    <ul>
+      <li>Compare default, glue, tight, loose, and no flow-space</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <article class="flow">
+          <h4>Animal facts</h4>
+          <p>Animals show a wide range of adaptations that reflect their habitats and evolutionary history. Pups are born in dens and are cared for by multiple pack members.</p>          <p><a href="#">Explore</a></p>
+        </article>
+        <article class="flow-glue">
+          <h4>Animal facts</h4>
+          <p>Animals show a wide range of adaptations that reflect their habitats and evolutionary history. Pups are born in dens and are cared for by multiple pack members.</p>          <p><a href="#">Explore</a></p>
+        </article>
+        <article class="flow-tight">
+          <h4>Animal facts</h4>
+          <p>Animals show a wide range of adaptations that reflect their habitats and evolutionary history. Pups are born in dens and are cared for by multiple pack members.</p>          <p><a href="#">Explore</a></p>
+        </article>
+        <article class="flow-loose">
+          <h4>Animal facts</h4>
+          <p>Animals show a wide range of adaptations that reflect their habitats and evolutionary history. Pups are born in dens and are cared for by multiple pack members.</p>           <p><a href="#">Explore</a></p>
+        </article>
+        <article class="flow-none">
+          <h4>Animal facts</h4>
+          <p>Animals show a wide range of adaptations that reflect their habitats and evolutionary history. Pups are born in dens and are cared for by multiple pack members.</p>          <p><a href="#">Explore</a></p>
+        </article>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section id="cluster">
+  <h2>Cluster</h2>
+
+  <article class="testcase">
+    <h3>Default cluster wrapping</h3>
+    <ul>
+      <li>Items should keep consistent horizontal/vertical spacing</li>
+      <li>Items should wrap naturally when fixture is resized</li>
+    </ul>
+    <div class="resizable fixture bg-sunken">
+      <div class="cluster">
+        <div class="bg-raised"><input type="radio" id="hindi" name="second-language">
+        <label for="hindi">Hindi</label></div>
+        <div class="bg-raised"><input type="radio" id="swahili" name="second-language">
+        <label for="swahili">Swahili</label></div>
+        <div class="bg-raised"><input type="radio" id="english" name="second-language">
+        <label for="english">English</label></div>
+        <div class="bg-raised"><input type="radio" id="spanish" name="second-language">
+        <label for="spanish">Spanish</label></div>
+        <div class="bg-raised"><input type="radio" id="german" name="second-language">
+        <label for="german">German</label></div>
+        <div class="bg-raised"><input type="radio" id="french" name="second-language">
+        <label for="french">French</label></div>
+        <div class="bg-raised"><input type="radio" id="navi" name="second-language">
+        <label for="navi">Na'vi</label></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Cluster variants</h3>
+    <ul>
+      <li><code>--gap</code> should change spacing density</li>
+      <li><code>--cluster-horizontal-alignment</code> should move item grouping</li>
+      <li><code>--cluster-vertical-alignment</code> should align mixed-height items</li>
+    </ul>
+    <div class="resizable fixture flow">
+      <div class="cluster bg-sunken p-s" style="--gap: var(--space-2xs);">
+        <span class="bg-raised p-s">Tight</span>
+        <span class="bg-raised p-s">Gap</span>
+        <span class="bg-raised p-s">Cluster</span>
+        <span class="bg-raised p-s">Example</span>
+      </div>
+
+      <div class="cluster bg-sunken p-s" style="--cluster-horizontal-alignment: center;">
+        <span class="bg-raised p-s">Centered</span>
+        <span class="bg-raised p-s">Horizontal</span>
+        <span class="bg-raised p-s">Alignment</span>
+      </div>
+
+      <div class="cluster bg-sunken p-s" style="--cluster-vertical-alignment: flex-end;">
+        <span class="bg-raised p-s">Short</span>
+        <span class="bg-raised p-s size-h4">Tall</span>
+        <span class="bg-raised p-s">Short</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="containers">
+  <h2>Containers</h2>
+
+  <article class="testcase">
+    <h3>Containers</h3>
+    <ul>
+      <li>centered viewpoint, with max width equal to breakpoints</li>
+    </ul>
+</div>
+    <div class="container full " style="border: 2px dashed color-mix(in oklch, currentColor 25%, transparent);">
+      <p>container full</p>
+    </div>
+    <div class="container" style="border: 2px dashed color-mix(in oklch, currentColor 25%, transparent);">
+      <p>container</p>
+    </div>
+    <div class="container slim" style="border: 2px dashed color-mix(in oklch, currentColor 25%, transparent);">
+      <p>container slim</p>
+    </div>
+
+<div class="container">
+
+  </article>
+
+  <article class="testcase">
+    <h3>Nested containers</h3>
+    <ul>
+      <li>A <code>.container.slim</code> inside a <code>.container</code> should be horizontally centered within the parent</li>
+    </ul>
+</div>
+    <div class="container bg-sunken" style="border: 2px dashed color-mix(in oklch, currentColor 25%, transparent);">
+      <p>container (outer)</p>
+      <div class="container slim bg-raised" style="border: 2px dashed color-mix(in oklch, currentColor 50%, transparent);">
+        <p>container slim (nested)</p>
+      </div>
+      <p><br></p>
+    </div>
+<div class="container">
+  </article>
+
+
+
+
+<section id="frame">
+  <h2>Frame</h2>
+
+  <article class="testcase">
+    <h3>Frame</h3>
+    <ul>
+      <li>Aspect ratios: 16/9, 3/2, 1/2, 1</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <figure class="frame bg-raised">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="">
+        </figure>
+        <div class="frame bg-raised" style="--n:3; --d:2;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="">
+        </div>
+        <div class="frame bg-raised" style="--n:1; --d:2;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="">
+        </div>
+        <div class="frame bg-raised" style="--n:1; --d:1;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="grid">
+  <h2>Grid</h2>
+
+  <article class="testcase">
+    <h3>Auto-fill default</h3>
+    <ul>
+      <li>Items should auto-wrap based on available inline size</li>
+      <li>Drag the fixture edge to test responsive behavior</li>
+    </ul>
+    <div class="fixture resizable bg-sunken ">
+      <div class="grid">
+        <article class="bg-raised p-s"><h4>Card 1</h4><p>Default grid item.</p></article>
+        <article class="bg-raised p-s"><h4>Card 2</h4><p>Default grid item.</p></article>
+        <article class="bg-raised p-s"><h4>Card 3</h4><p>Default grid item.</p></article>
+        <article class="bg-raised p-s"><h4>Card 4</h4><p>Default grid item.</p></article>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Grid modifiers</h3>
+    <ul>
+      <li><code>.halves</code> should prefer two columns</li>
+      <li><code>.thirds</code> should prefer denser columns</li>
+    </ul>
+    <div class="fixture resizable bg-sunken">
+      <div class="grid halves">
+        <article class="bg-raised p-s">Halves A</article>
+        <article class="bg-raised p-s">Halves B</article>
+        <article class="bg-raised p-s">Halves C</article>
+      </div>
+      <div class="grid thirds">
+        <article class="bg-raised p-s">Thirds A</article>
+        <article class="bg-raised p-s">Thirds B</article>
+        <article class="bg-raised p-s">Thirds C</article>
+        <article class="bg-raised p-s">Thirds D</article>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="sidebar">
+  <h2>Sidebar</h2>
+
+  <article class="testcase">
+    <h3>Default and reversed sidebar</h3>
+    <ul>
+      <li>First child acts as sidebar width target</li>
+      <li><code>.reversed</code> should move sidebar to the right</li>
+    </ul>
+    <div class="fixture resizable bg-sunken">
+      <div class="sidebar">
+        <aside class="bg-raised p-s">
+          <h4>Sidebar</h4>
+          <p>Navigation and metadata.</p>
+        </aside>
+        <article class="bg-raised p-s">
+          <h4>Main content</h4>
+          <p>Flexible content area that should take remaining width.</p>
+        </article>
+      </div>
+
+      <div class="sidebar reversed">
+        <aside class="bg-raised p-s">
+          <h4>Sidebar</h4>
+          <p>Reversed on right.</p>
+        </aside>
+        <article class="bg-raised p-s">
+          <h4>Main content</h4>
+          <p>Main content should stay flexible.</p>
+        </article>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Media object sidebar</h3>
+    <ul>
+      <li>Sidebar can compose a media object: image/avatar on the side, content fills the rest</li>
+      <li>First child sets the media width; content stays flexible</li>
+    </ul>
+    <div class="fixture resizable bg-sunken">
+      <div class="sidebar media bg-raised p-s">
+        <figure class="avatar large">
+          <img src="assets/avatar-2.png" alt="">
+        </figure>
+        <div>
+          <h4>Ada Lovelace</h4>
+          <p>Avatar as the media element, with title and supporting text filling the remaining space.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="repel">
+  <h2>Repel</h2>
+
+  <article class="testcase">
+    <h3>Default and nowrap</h3>
+    <ul>
+      <li>Items should push to opposite sides with maintained gap</li>
+      <li><code>.nowrap</code> should keep one-line layout</li>
+    </ul>
+    <div class="fixture resizable">
+      <div class="repel">
+        <strong>Card title</strong>
+        <div class="cluster">
+          <button type="button" class="small">Edit</button>
+          <button type="button" class="small secondary">Archive</button>
+        </div>
+      </div>
+
+      <div class="repel nowrap">
+        <span>Very long meta label that would otherwise wrap</span>
+        <time datetime="2026-03-14">14 Mar 2026</time>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="switcher">
+  <h2>Switcher</h2>
+
+  <article class="testcase">
+    <h3>Responsive item switching</h3>
+    <ul>
+      <li>Items should line up horizontally when there is room</li>
+      <li>Items should stack when below <code>--switcher-breakpoint</code></li>
+    </ul>
+    <div class="fixture resizable bg-sunken">
+      <div class="switcher" style="--switcher-breakpoint: 24rem;">
+        <article class="bg-raised p-s">
+          <h4>Plan A</h4>
+          <p>Starter option for individuals.</p>
+        </article>
+        <article class="bg-raised p-s">
+          <h4>Plan B</h4>
+          <p>Team option with collaboration tools.</p>
+        </article>
+        <article class="bg-raised p-s">
+          <h4>Plan C</h4>
+          <p>Enterprise option with advanced controls.</p>
+        </article>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="landmarks">
+  <h2>Landmarks</h2>
+  <article class="testcase">
+    <h3>Landmarks</h3>
+    <ul>
+      <li>Header as direct child of body gets background and padding</li>
+      <li>Footer as direct child of body gets background and padding</li>
+      <li>Footer on short pages are affixed to bottom</li>
+      <li>Pages without container layout gets horizontal padding</li>
+    </ul>
+    <div class="fixture">
+       <a href="layout1.html">Click to see an example</a>
+    </div>
+  </article>
+
+</section>
+
+
+<h1 class="h1">Content</h1>
+<section id='typography'>
+  <h2>Typography and text elements</h2>
+  <article class="testcase">
+    <h3>Headings</h3>
+    <ul>
+      <li>Headings h1-h6 and classes .size-h1 - .size-small have appropriate sizes</li>
+      <li>Classes .size-X override h1-h6 tags</li>
+    </ul>
+    <div class="fixture">
+      <h6 class="size-h1"> Whereas disregard and contempt for human rights </h6>
+      <h5 class="size-h2"> Whereas disregard and contempt for human rights </h5>
+      <h4 class="size-h3"> Whereas disregard and contempt for human rights </h4>
+      <h3 class="size-h4"> Whereas disregard and contempt for human rights </h3>
+      <h2 class="size-body"> Whereas disregard and contempt for human rights </h2>
+      <h1 class="size-small"> Whereas disregard and contempt for human rights </h1>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Headings group</h3>
+    <ul>
+      <li>Last child is small and muted</li>
+    </ul>
+    <div class="fixture">
+      <hgroup >
+        <h1 class="size-h3">Get inspired with CSS</h1>
+        <p><small>How to use CSS to add glam to your Website?</small></p>
+      </hgroup>
+      <hgroup >
+        <h3>Get inspired with CSS</h3>
+        <h5>How to use CSS to add glam to your Website?</h5>
+      </hgroup>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Eyebrow above headings</h3>
+    <ul>
+      <li><code>.eyebrow</code> renders as tiny uppercase label with increased letter spacing.</li>
+      <li>Works as a pre-heading label for common heading levels.</li>
+    </ul>
+    <div class="fixture">
+      <article class="flow">
+        <p class="eyebrow">Documentation</p>
+        <h1>Build Semantic Components Faster</h1>
+      </article>
+      <article class="flow">
+        <p class="eyebrow">Getting Started</p>
+        <h2>Install and Configure the Base Styles</h2>
+      </article>
+      <article class="flow">
+        <p class="eyebrow">API Reference</p>
+        <h3>Dropdown Contract and Usage</h3>
+      </article>
+      <article class="flow">
+        <p class="eyebrow">Advanced</p>
+        <h4>Token Overrides and Local Customization</h4>
+      </article>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Eyebrow in compact nav-like blocks</h3>
+    <ul>
+      <li>Eyebrow remains legible in tight blocks used in side menus/panels.</li>
+      <li>Eyebrow + heading stack preserves clear hierarchy at small widths.</li>
+    </ul>
+    <div class="fixture container slim">
+      <aside class="flow">
+        <section class="flow">
+          <p class="eyebrow">Account</p>
+          <h5>Profile settings</h5>
+        </section>
+        <section class="flow">
+          <p class="eyebrow">Team</p>
+          <h5>Members and roles</h5>
+        </section>
+        <section class="flow">
+          <p class="eyebrow">Billing</p>
+          <h5>Plan and invoices</h5>
+        </section>
+      </aside>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Lead paragraph text</h3>
+    <ul>
+      <li><code>.lead</code> should be visibly larger than default paragraph text.</li>
+      <li>Lead text should work with regular body copy and links in the same flow.</li>
+    </ul>
+    <div class="fixture container slim">
+      <article class="flow">
+        <h3>Arctic Wildlife Research Update</h3>
+        <p class="lead">This season's field observations confirm earlier migration patterns while highlighting new pressure points near coastal habitats.</p>
+        <p>Standard body paragraph follows the lead and should look clearly smaller while keeping the same reading rhythm and color tone.</p>
+        <p><a href="#">Read the full field report</a></p>
+      </article>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Inline text elements</h3>
+    <ul>
+      <li>strong and b are equal, em and i are equal</li>
+      <li>quote adds "" beofre and after</li>
+      <li>strike and underline are thick and offset</li>
+      <li>sub and sup are smaller than small and does not affect line height</li>
+      <li>kbd looks like a keyboard key</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+      <ul>
+        <li>Abbr.(<code>&lt;abbr&gt;</code>): <abbr title="National Aeronautics and Space Administration">NASA</abbr></li> 
+        <li>Bold/Strong (<code>&lt;strong&gt;</code>): <strong>Strong tag</strong> and <b>b tag</b></li>
+        <li>Italic/Emphasis (<code>&lt;em&gt;</code>): <em>&lt;em&gt;phasis</em> and <i>&lt;i&gt;talic</i>, and
+          <em><strong>em+b</strong></em></li>
+        <li>Underline (<code>&lt;u&gt;</code>): <u>Underlined text</u></li>
+        <li>Strikethrough (<code>&lt;s&gt;</code>): <s>Striked out</s></li>
+        <li>Small(<code>&lt;small&gt;</code>): <small>smaller text is also possible</small></li>
+        <li>Deleted (<code>&lt;del&gt;</code>): <del>Deleted text</del></li>
+        <li>Time (<code>&lt;time&gt;</code>): <time datetime="2020-08-17 08:00">Monday at 8:00 AM</time></li>
+        <li>Definition (<code>&lt;dfn&gt;</code>): It's used to define (<dfn>&lt;dfn&gt;</dfn>) a term</li>
+
+      </ul><ul>
+        <li>Inserted (<code>&lt;ins&gt;</code>): <ins>Inserted text</ins></li>
+        <li>Highlighted (<code>&lt;mark&gt;</code>): <mark>Highlighted text</mark></li>
+        <li>Subscript (<code>&lt;sub&gt;</code>): H<sub>2</sub>O</li>
+        <li>Superscript (<code>&lt;sup&gt;</code>): E=MC<sup>2</sup></li>
+        <li>Code (<code>&lt;code&gt;</code>,<code>&lt;samp&gt;</code>): <code>print("Hello World!")</code></li>
+        <li>KBD (<code>&lt;kbd&gt;</code>): <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>DEL</kbd></li>
+        <li>Variable (<code>&lt;var&gt;</code>): <var> variable </var> = 1000;</li>
+        <li>Quote (<code>&lt;q&gt;</code>): <q>Some short quote</q></li>
+        <li>Ruby (<code>&lt;ruby&gt; &lt;rp&gt; &lt;rt&gt;</code>): <ruby>漢<rp>(</rp><rt>kan</rt><rp>)</rp>字<rp>(</rp><rt>ji</rt><rp>)</rp></ruby></li>
+      </ul>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Block-level text elements</h3>
+    <ul>
+      <li>p has margins</li>
+      <li>blockquote supports footer with cite</li>
+      <li>hr = horizontal line</li>
+    </ul>
+    <div class="fixture resizable">
+<p>Paragraph/unstyled text (<code>&lt;p&gt;</code>): Penguins are a group of aquatic flightless birds from the order Sphenisciformes (/sfɪˈnɪsəfɔːrmiːz/)</p>
+<p>They spend about half of their lives on land and the other half in the sea.</p>
+<p>Blockquote (<code>&lt;blockquote&gt;</code> and <code>&lt;cite&gt;</code>):</p>
+
+
+      <div class="switcher">
+        <div class="p-s bg-sunken">
+          <blockquote> This instead is a long quote that is going to use a lot of words and also cite who said that.
+            <footer><cite>—(Cite)Some People</cite> </footer>
+          </blockquote>      
+      </div>
+        <div class="p-s">
+          <blockquote> This instead is a long quote that is going to use a lot of words and also cite who said that.
+            <footer><cite>—(Cite)Some People</cite> </footer>
+          </blockquote>
+        </div>
+        <div class="p-s bg-raised" >
+          <blockquote> This instead is a long quote that is going to use a lot of words and also cite who said that.
+            <footer><cite>—(Cite)Some People</cite> </footer>
+          </blockquote>
+        </div>
+        <div class="p-s bg-overlay">
+          <blockquote> This instead is a long quote that is going to use a lot of words and also cite who said that.
+            <footer><cite>—(Cite)Some People</cite> </footer>
+          </blockquote>
+      </div>
+      </div>
+      <p>hline</p>
+      <div class="switcher">
+        <div class="p-s bg-sunken" >
+          <p>Paragraph before the horizontal line.</p>
+          <hr />
+          <p>Paragraph after the horizontal line.</p>        
+      </div>
+        <div class="p-s" >
+          <p>Paragraph before the horizontal line.</p>
+          <hr />
+          <p>Paragraph after the horizontal line.</p>
+        </div>
+        <div class="p-s bg-raised" >
+          <p>Paragraph before the horizontal line.</p>
+          <hr />
+          <p>Paragraph after the horizontal line.</p>
+        </div>
+        <div class="p-s bg-overlay" >
+          <p>Paragraph before the horizontal line.</p>
+          <hr />
+          <p>Paragraph after the horizontal line.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Lists</h3>
+    <ul>
+      <li>ol, ul, dl</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <ul>
+          <li>item 1</li>
+          <li>item 2</li>
+          <ul>
+            <li>nested 1</li>
+            <ul>
+              <li>nested 2</li>
+              <ul>
+                <li>nested 3</li>
+              </ul>
+            </ul>
+          </ul>
+        </ul>
+        <ol>
+          <li>item 1</li>
+          <li>item 2</li>
+          <ol>
+            <li>nested 1</li>
+            <ol>
+              <li>nested 2</li>
+              <ol>
+                <li>nested 3</li>
+              </ol>
+            </ol>
+          </ol>
+        </ol>
+        <dl>
+          <dt>Beast of Bodmin</dt>
+          <dd>A large feline inhabiting Bodmin Moor.</dd>
+          <dt>Morgawr</dt>
+          <dd>A sea serpent.</dd>
+        </dl>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Code block</h3>
+    <ul>
+      <li>pre code</li>
+    </ul>
+    <div class="fixture">
+<pre><code>// code tag
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+  cout &lt;&lt; "Hello World!" &lt;&lt; endl;
+  return 0;
+}
+</code></pre>
+    </div>
+  </article>
+
+
+    <article class="testcase">
+    <h3>Inline text on all surfaces</h3>
+    <ul>
+      <li>Line height is kept</li>
+      <li>Fill color works</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <div class="p-s bg-sunken" >
+          <p>Wolves appear prominently in myth and literature across many societies. Wolves <code>code</code> have <mark>mark</mark> keen senses of smell and hearing that aid in hunting and navigation.</p>
+        </div>
+        <div class="p-s">
+          <p>Wolves appear prominently in myth and literature across many societies. Wolves <code>code</code> have <mark>mark</mark> keen senses of smell and hearing that aid in hunting and navigation.</p>
+ 
+        </div>
+        <div class="p-s bg-raised" >
+          <p>Wolves appear prominently in myth and literature across many societies. Wolves <code>code</code> have <mark>mark</mark> keen senses of smell and hearing that aid in hunting and navigation.</p>
+
+        </div>
+        <div class="p-s bg-overlay" >
+          <p>Wolves appear prominently in myth and literature across many societies. Wolves <code>code</code> have <mark>mark</mark> keen senses of smell and hearing that aid in hunting and navigation.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+
+</section>
+
+
+
+<section id="tables">
+
+  <article class="testcase">
+    <h3>Regular table</h3>
+    <ul>
+      <li></li>
+    </ul>
+    <div class="fixture">
+        <table>
+  <thead>
+    <tr>
+      <th scope="col">Planet</th>
+      <th scope="col">Diameter (km)</th>
+      <th scope="col">Distance to Sun (AU)</th>
+      <th scope="col">Orbit (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">Mercury</td>
+      <td>4,880</td>
+      <td>0.39</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td scope="row">Venus</td>
+      <td>12,104</td>
+      <td>0.72</td>
+      <td>225</td>
+    </tr>
+    <tr>
+      <td scope="row">Earth</td>
+      <td>12,742</td>
+      <td>1.00</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <td scope="row">Mars</td>
+      <td>6,779</td>
+      <td>1.52</td>
+      <td>687</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row">Average</th>
+      <td>9,126</td>
+      <td>0.91</td>
+      <td>341</td>
+    </tr>
+  </tfoot>
+</table>    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Full-width table</h3>
+    <ul>
+      <li>table should fill the fixture width</li>
+    </ul>
+    <div class="fixture">
+        <table class="full-width">
+  <thead>
+    <tr>
+      <th scope="col">Planet</th>
+      <th scope="col">Diameter (km)</th>
+      <th scope="col">Distance to Sun (AU)</th>
+      <th scope="col">Orbit (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">Mercury</td>
+      <td>4,880</td>
+      <td>0.39</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td scope="row">Venus</td>
+      <td>12,104</td>
+      <td>0.72</td>
+      <td>225</td>
+    </tr>
+    <tr>
+      <td scope="row">Earth</td>
+      <td>12,742</td>
+      <td>1.00</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <td scope="row">Mars</td>
+      <td>6,779</td>
+      <td>1.52</td>
+      <td>687</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row">Average</th>
+      <td>9,126</td>
+      <td>0.91</td>
+      <td>341</td>
+    </tr>
+  </tfoot>
+</table>    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Table (wrapped in .overflow-x)</h3>
+    <ul>
+      <li>wide table should scroll horizontally inside the wrapper, not the page</li>
+    </ul>
+    <div class="fixture resizable">
+      <div class="overflow-x">
+        <table class="striped"><thead><tr><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading</th><th>Heading (last)</th></tr></thead><tbody><tr><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td></tr><tr><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td></tr><tr><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td><td>Cell</td></tr></tbody></table>
+      </div>
+    </div>
+  </article>
+
+
+
+
+
+<section id="links">
+  <h2>Links</h2>
+
+  <article class="testcase">
+    <h3>Different link classes</h3>
+    <ul>
+
+      <li>...</li>
+    </ul>
+    <div class="fixture">
+      <p>Penguins are a group of <a href="#">flightless</a>, semi-aquatic, sea birds which live almost exclusively in the Southern Hemisphere<br>
+      <a href="#">Primary</a><br>
+      <a href="#" class="secondary">Secondary</a><br>
+      <a href="#" class="tertiary">Tertiary</a><br>
+      <a href="#" class="accent">Accent</a><br>
+      <a href="#" class="accent secondary">Accent secondary</a><br>
+      <a href="#" class="neutral ">Neutral</a><br>
+      <a href="#" class="neutral secondary">Neutral secondary</a><br></p>
+      <p class="cluster">
+        <a href="#" role="button">Button link</a>
+        <a href="#" role="button" class="secondary">Secondary button link</a>
+        <a href="#" role="button" class="accent">Accent button link</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Links inside &lt;small&gt;</h3>
+    <ul>
+      <li>Links inside &lt;small&gt; should keep their link color (primary/accent/neutral) and not pick up the muted small color.</li>
+      <li>Secondary and tertiary variants should also preserve their respective colors.</li>
+    </ul>
+    <div class="fixture">
+      <p><small>Small text with a <a href="#">primary link</a>, a <a href="#" class="secondary">secondary link</a>, and a <a href="#" class="tertiary">tertiary link</a> inline.</small></p>
+      <p><small>Small text with an <a href="#" class="accent">accent link</a>, an <a href="#" class="accent secondary">accent secondary link</a>, and an <a href="#" class="accent tertiary">accent tertiary link</a> inline.</small></p>
+      <p><small>Small text with a <a href="#" class="neutral">neutral link</a> and a <a href="#" class="neutral secondary">neutral secondary link</a> inline.</small></p>
+      <p>
+        <small><a href="#">Primary</a></small><br>
+        <small><a href="#" class="secondary">Secondary</a></small><br>
+        <small><a href="#" class="tertiary">Tertiary</a></small><br>
+        <small><a href="#" class="accent">Accent</a></small><br>
+        <small><a href="#" class="accent secondary">Accent secondary</a></small><br>
+        <small><a href="#" class="accent tertiary">Accent tertiary</a></small><br>
+      </p>
+    </div>
+  </article>
+
+</section>
+
+<section id="buttons">
+  <h2>Buttons</h2>
+
+  <article class="testcase">
+    <h3>All button class combinations</h3>
+    <ul>
+      <li>...</li>
+    </ul>
+    <div class="fixture">
+      <table class="border-none">
+        <tbody><tr>
+          <th></th>
+          <td>regular</td>
+          <th><code>.secondary</code></th>
+          <th><code>.tertiary</code></th>
+
+          <th><code>disabled</code></th>
+        </tr>
+        <tr>
+          <td>regular</td>
+          <td><button>Primary</button></td>
+          <td><button class="secondary">Primary</button></td>
+          <td><button class="tertiary">Primary</button></td>
+          <td><button disabled="">Primary</button></td>
+        </tr>
+        <tr>
+          <th><code>.accent</code></th>
+          <td><button class="accent">Accent</button></td>
+          <td><button class="accent secondary">Accent</button></td>
+          <td><button class="accent tertiary">Accent</button></td>
+          <td><button class="accent" disabled="">Accent</button></td>
+        </tr>
+        <tr>
+          <th><code>.danger</code></th>
+          <td><button class="danger">Danger</button></td>
+          <td><button class="danger secondary">Success</button></td>
+          <td><button class="danger tertiary">Success</button></td>
+          <td><button class="danger" disabled="">Danger</button></td>
+        </tr>
+        <tr>
+          <th><code>.warning</code></th>
+          <td><button class="warning">Warning</button></td>
+          <td><button class="warning secondary">Warning</button></td>
+          <td><button class="warning tertiary">Warning</button></td>
+          <td><button class="warning" disabled="">Warning</button></td>
+        </tr>
+        <tr>
+          <th><code>.success</code></th>
+          <td><button class="success">Success</button></td>
+          <td><button class="success secondary">Success</button></td>
+          <td><button class="success tertiary">Success</button></td>
+          <td><button class="success" disabled="">Success</button></td>
+        </tr>
+        <tr>
+          <th><code>.info</code></th>
+          <td><button class="info">Info</button></td>
+          <td><button class="info secondary">Info</button></td>
+          <td><button class="info tertiary">Info</button></td>
+          <td><button class="info" disabled="">Info</button></td>
+        </tr>
+        <tr>
+          <th><code>.contrast</code></th>
+          <td><button class="contrast">Contrast</button></td>
+          <td><button class="contrast secondary">Contrast</button></td>
+          <td><button class="contrast tertiary">Contrast</button></td>
+          <td><button class="contrast" disabled="">Contrast</button></td>
+        </tr>
+        <tr>
+          <th><code>.neutral</code></th>
+          <td><button class="neutral">Neutral</button></td>
+          <td><button class="neutral secondary">Neutral</button></td>
+          <td><button class="neutral tertiary">Neutral</button></td>
+          <td><button class="neutral" disabled="">Neutral</button></td>
+        </tr>
+        <tr>
+          <th><code>.small</code></th>
+          <td><button class="small">Small</button></td>
+          <td><button class="small secondary">Small</button></td>
+          <td><button class="small tertiary">Small</button></td>
+          <td><button class="small" disabled="">Small</button></td>
+        </tr>
+        <tr>
+          <th><code>.small.accent</code></th>
+          <td><button class="accent small">Accent</button></td>
+          <td><button class="accent small secondary">Accent</button></td>
+          <td><button class="accent small tertiary">Accent</button></td>
+          <td><button class="accent small" disabled="">Accent</button></td>
+        </tr>
+        <tr>
+          <th><code>.large</code></th>
+          <td><button class="large">Accent</button></td>
+          <td><button class="large secondary">Accent</button></td>
+          <td><button class="large tertiary">Accent</button></td>
+          <td><button class="large" disabled="">Accent</button></td>
+        </tr>
+      </tbody></table>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Form buttons</h3>
+    <ul>
+      <li>type="submit" (1) and type="button" (2) inputs are also displayed as buttons</li>
+      <li>form buttons are width: 100%</li>
+      <li>Reset inputs (3) have the secondary style by default</li>
+    </ul>
+    <div class="fixture container slim">
+      <input type="submit">
+      <input type="button" value="Input">
+      <input type="reset">
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Role button</h3>
+    <ul>
+      <li>Clickable elements with role="button" are rendered as buttons.</li>
+    </ul>
+    <div class="fixture">
+      <div role="button" tabindex="0">Div as a button</div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Grouped buttons</h3>
+    <ul>
+      <li>You can use role="group" with buttons</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <div role="group">
+          <a href="#" role="button">Button</a>
+          <a href="#" role="button" class="accent">Button</a>
+          <button class="danger">Button</button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Icon buttons</h3>
+    <ul>
+      <li>Buttons support inline SVG icons with visible text.</li>
+      <li>Icon-only buttons use the default border radius unless <code>.rounded</code> is added.</li>
+      <li><code>.rounded</code> should produce a circular icon button when width and height are equal.</li>
+      <li><code>.icon-only</code> gives any button square padding, a bumped icon size, and a fill-tint hover; pair with an <code>aria-label</code>.</li>
+      <li><code>.close</code> is a preset icon-only button with the X icon built in — no inner markup needed.</li>
+    </ul>
+    <div class="fixture flow">
+         <div class="cluster">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        Add item
+      </button>
+      <button class="secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></svg>
+        Filter
+      </button>
+      <button class="accent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+        Download
+      </button>
+    </div>
+
+    <div class="cluster">
+      <button data-tooltip="Search" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      </button>
+      <button class="secondary rounded" data-tooltip="Favorite" aria-label="Favorite">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+      </button>
+      <button class="accent rounded" data-tooltip="Settings" aria-label="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <button class="icon-only" aria-label="Search">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      </button>
+      <button class="close" aria-label="Close"></button>
+      <button class="close rounded" aria-label="Close"></button>
+    </div>
+  </article>
+
+</section>
+
+</section>
+<h1 class="h1">Forms</h1>
+<section id="forms">
+
+  <article class="testcase">
+    <h3>All form elements</h3>
+    <ul>
+      <li>&lt;small&gt; below form elements are muted and act as helper texts.</li>
+    </ul>
+    <div class="fixture container slim">
+      <form>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+        <small>Helptext</small>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+        <input type="submit" value="Subscribe!" />
+    </form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>All input elements supported</h3>
+    <ul>
+      <li>type="search" has icon on left side</li>
+      <li>type="color" is also consistent with the other input types</li>
+      <li>Input type file button has button style.</li>
+    </ul>
+    <div class="fixture container slim">
+      <input type="text" placeholder="Text" />
+      <input type="email" placeholder="Email" />
+      <input type="number" placeholder="Number" />
+      <input type="password" placeholder="Password" />
+      <input type="tel" placeholder="Tel" />
+      <input type="url" placeholder="Url" />
+      <input type="search" placeholder="Search" />
+      <input class="rounded" type="search" placeholder="Search with .rounded utility class" />
+      <input type="date" />
+      <input type="datetime-local" />
+      <input type="month" />
+      <input type="time" />
+      <input type="color" value="#00beef" aria-label="Color picker"/>
+      <input type="file" />
+      <input type="text" placeholder="Disabled field" disabled />
+      <input type="text" value="Read-only field" readonly />
+      <input type="button" value="Button" />
+      <input type="range" name="volume" min="0" max="11" />
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Inputs inside or outside label</h3>
+    <div class="fixture container slim">
+      <form>
+        <label>
+          First name
+          <input name="first_name" placeholder="First name" autocomplete="given-name">
+        </label>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" autocomplete="email">
+      </form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Submit after label-wrapped controls</h3>
+    <ul>
+      <li>A label wrapping its own control is not the label-for-the-next-field, so a following input[type="submit"] should get the regular flow margin (not the compact label+input pairing).</li>
+      <li>(1) wrapped checkboxes followed by a submit button</li>
+      <li>(2) wrapped text input followed by a submit button</li>
+    </ul>
+    <div class="fixture container slim">
+      <form>
+        <label><input type="checkbox" name="o1" />Trend monitoring</label>
+        <label><input type="checkbox" name="o2" />Custom reports</label>
+        <label><input type="checkbox" name="o3" />User segmentation</label>
+        <input type="submit" value="Continue">
+      </form>
+      <form>
+        <label>
+          Full name
+          <input name="full_name" placeholder="Full name" autocomplete="name">
+        </label>
+        <input type="submit" value="Continue">
+      </form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Form with switcher</h3>
+    <ul>
+      <li>You can use .switcher inside a form.</li>
+    </ul>
+    <div class="fixture container slim resizable">
+      <form>
+        <fieldset class="switcher" style="--switcher-breakpoint:24rem; --gap: var(--space-s);">
+          <input name="login" placeholder="Login" aria-label="Login" autocomplete="username">
+          <input type="password" name="password" placeholder="Password" aria-label="Password" autocomplete="current-password">
+          <input type="submit" value="Log in">
+        </fieldset>
+      </form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Form with group</h3>
+    <ul>
+      <li>You can use role="group" with form elements</li>
+      <li>Never collapsed on mobile</li>
+    </ul>
+    <div class="fixture container slim">
+      <form>
+        <fieldset role="group">
+          <input type="email" name="email" placeholder="Enter your email" autocomplete="email">
+          <input type="submit" value="Subscribe">
+        </fieldset>
+        <form>
+        </form>
+          <fieldset role="group">
+            <input name="email" type="email" placeholder="Email" autocomplete="email" />
+            <input name="password" type="password" placeholder="Password" />
+            <input type="submit" value="Log in" />
+          </fieldset>
+        </form>
+        <form role="search">
+          <input name="search" type="search" placeholder="Search" />
+          <input type="submit" value="Search" />
+        </form>
+      
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Textarea</h3>
+    <ul>
+      <li>Can it be dragged to overflow the area?</li>
+    </ul>
+    <div class="fixture container slim">
+      <textarea id="textarea" name="textarea" rows="4" cols="50">Textarea</textarea>
+      <textarea name="disabled" disabled>Disabled</textarea>
+      <textarea name="read-only" readonly>Read-only</textarea>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Select</h3>
+    <ul>
+      <li>The dropdown is equal to details.dropdown</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="switcher">
+        <select name="pets" id="pet-select">
+          <option value="" selected disabled>--Please choose an option--</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+        </select>
+      </div>
+        <div class="dropdown">
+          <button popovertarget="fake-select">--Please choose an option--</button>
+          <nav popover id="fake-select">
+            <ul>
+              <li><button>Dog</button></li>
+              <li><button>Cat</button></li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Multiselect and disabled select</h3>
+    <ul>
+      <li>Selected items looks like dropdown</li>
+    </ul>
+    <div class="fixture container slim">
+      <select aria-label="Select your favorite snacks..." multiple size="6">
+        <option disabled>
+          Select your favorite snacks...
+        </option>
+        <option>Cheese</option>
+        <option selected>Fruits</option>
+        <option selected>Nuts</option>
+        <option>Chocolate</option>
+        <option>Crackers</option>
+      </select>
+      <select name="meal-type" aria-label="Select a meal type..." disabled>
+        <option>Select a meal type...</option>
+        <option>...</option>
+      </select>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Checkbox</h3>
+    <ul>
+      <li>Vertical (1) and horizontal (2) stacking based on html</li>
+      <li>Indeterminate (3) property works [-]</li>
+    </ul>
+    <div class="fixture container slim">
+      <fieldset id="vertical">
+        <legend>Language preferences:</legend>
+        <label>
+          <input type="checkbox" name="english" checked />
+          English
+        </label>
+        <label>
+          <input type="checkbox" name="french" checked />
+          French
+        </label>
+        <label>
+          <input type="checkbox" name="mandarin" />
+          Mandarin
+        </label>
+        <label>
+          <input type="checkbox" name="thai" />
+          Thai
+        </label>
+        <label aria-disabled="true">
+          <input type="checkbox" name="dothraki" disabled />
+          Dothraki
+        </label>
+      </fieldset>
+      <fieldset id="horizontal">
+        <legend>Language preferences:</legend>
+        <input type="checkbox" id="hindi" name="hindi" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="checkbox" id="swahili" name="swahili" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="checkbox" id="navi" name="navi" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+        <input type="checkbox" id="hindi" name="hindi" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="checkbox" id="swahili" name="swahili" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="checkbox" id="navi" name="navi" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+        <input type="checkbox" id="hindi" name="hindi" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="checkbox" id="swahili" name="swahili" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="checkbox" id="navi" name="navi" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+        <input type="checkbox" id="hindi" name="hindi" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="checkbox" id="swahili" name="swahili" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="checkbox" id="navi" name="navi" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+        <input type="checkbox" id="hindi" name="hindi" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="checkbox" id="swahili" name="swahili" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="checkbox" id="navi" name="navi" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+      </fieldset>
+      <fieldset>
+        <label><input type="checkbox" id="indeterminate" name="indeterminate" />Indeterminate</label>
+        <script>
+          const checkbox = document.querySelector('#indeterminate');
+          checkbox.indeterminate = true;
+        </script>
+      </fieldset>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Radio</h3>
+    <ul>
+      <li>Vertical (1) and horizontal (2) stacking based on html</li>
+    </ul>
+    <div class="fixture container slim">
+      <fieldset>
+        <legend>Language preference:</legend>
+        <label>
+          <input type="radio" name="language" checked />
+          English
+        </label>
+        <label>
+          <input type="radio" name="language" />
+          French
+        </label>
+        <label>
+          <input type="radio" name="language" />
+          Mandarin
+        </label>
+        <label>
+          <input type="radio" name="language" />
+          Thai
+        </label>
+        <label aria-disabled="true">
+          <input type="radio" name="language" disabled />
+          Dothraki
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Second language:</legend>
+        <input type="radio" id="hindi" name="second-language" checked />
+        <label htmlFor="hindi">Hindi</label>
+        <input type="radio" id="swahili" name="second-language" />
+        <label htmlFor="swahili">Swahili</label>
+        <input type="radio" id="navi" name="second-language" disabled />
+        <label htmlFor="navi" aria-disabled="true">Na'vi</label>
+      </fieldset>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Switch</h3>
+    <ul>
+      <li>Switch component in pure CSS works like checkbox, with alternative looks</li>
+      <li>Disabled (2) works</li>
+    </ul>
+    <div class="fixture container slim">
+      <fieldset>
+        <label><input name="terms" type="checkbox" role="switch" />I agree to the Terms</label>
+        <label><input name="opt-in" type="checkbox" role="switch" checked />Receive news and offers</label>
+      </fieldset>
+      <fieldset>
+        <label><input name="publish" type="checkbox" role="switch" disabled />Publish on my profile</label>
+        <label><input name="change-password" type="checkbox" role="switch" checked disabled />Change my password at next login</label>
+      </fieldset>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Disabled</h3>
+    <ul>
+      <li></li>
+    </ul>
+    <div class="fixture container slim">
+      <input type="password" minlength="8" disabled />
+      <input type="range" min="0" max="11" disabled />
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Fieldset</h3>
+    <ul>
+      <li>Fieldset groups form elements, use fieldset and legend</li>
+    </ul>
+    <div class="fixture container slim">
+<form>
+  <fieldset>
+    <legend>(Fieldset)Personal Information</legend>
+    <label for="name">Name</label>
+    <input name="name" id="name">
+    <label for="dob">Date of Birth<label>
+    <input name="dob" id="dob" type="date">
+  </fieldset>
+</form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Small and helptext placement</h3>
+    <ul>
+      <li>Error helptext (Django) should have same formatting</li>
+    </ul>
+    <div class="fixture container slim">
+      <form>
+        <div>
+          <label for="name">Name</label>
+          <ul id="name-errors" class="errorlist">
+            <li>Please enter a valid name</li>
+          </ul>
+          <input name="name" id="name" aria-invalid="true" aria-describedby="name-errors">
+        </div>
+        <div>
+          <label for="name">Name</label>
+          <input name="name" id="name" aria-invalid="true" aria-describedby="name-error">
+          <small id="name-error">Please enter a valid name</small>
+        </div>
+      </form>
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Validation states</h3>
+    <ul>
+      <li>aria-invalid="false" gives success outline and check icon on right</li>
+      <li>aria-invalid="true" gives danger outline and warning icon on right</li>
+      <li>Helper texts, defined with &lt;small&gt; below the form element, inherit the validation state color.</li>
+      <li>checkboxes, switches and radios has success/danger colors that works when checked and unchecked</li>
+    </ul>
+    <div class="fixture container slim">
+      <input type="text" name="valid" value="Valid" aria-invalid="false">
+      <small id="valid-helper">Looks good!</small>
+      <input type="text" name="invalid" value="Invalid" aria-invalid="true">
+      <small id="invalid-helper">Please provide a valid value!</small>
+      <h6>Textarea</h6>
+      <textarea name="valid" aria-invalid="false" aria-describedby="valid-helper2">Valid</textarea>
+      <small id="valid-helper2">Looks good!</small>
+      <textarea name="invalid" aria-invalid="true" aria-describedby="invalid-helper2"> Invalid</textarea>
+      <small id="invalid-helper2">Please provide a valid value!</small>
+      <h6>Select</h6>
+      <select name="pizza-topping" aria-label="Select your favorite pizza topping..." aria-invalid="false"><option disabled="">Select your favorite pizza topping...</option><option selected="">Pepperoni</option><option>Mushrooms</option><option>Onions</option><option>Green Peppers</option><option>Olives</option></select>
+      <small>Great choice!</small>
+      <select name="pizza-topping" aria-label="Select your favorite pizza topping..." required="" aria-invalid="true"><option disabled="" value="" selected="">Select your favorite pizza topping...</option><option>Pepperoni</option><option>Mushrooms</option><option>Onions</option><option>Green Peppers</option><option>Olives</option></select>
+      <small>Please select your favorite pizza topping!</small>
+      <h6>Checkboxes</h6>
+      <label><input type="checkbox" name="valid" aria-invalid="false" />Valid</label>
+      <label><input type="checkbox" name="invalid" aria-invalid="true" />Invalid</label>
+      <h6>Radios</h6>
+      <label><input type="radio" name="validation-states" aria-invalid="false" />Valid</label>
+      <label><input type="radio" name="validation-states" aria-invalid="true" />Invalid</label>
+      <h6>Switches</h6>
+      <label><input name="2fa" type="checkbox" role="switch" aria-invalid="false" />Enable two-factor authentication</label>
+      <label><input name="subscription" type="checkbox" role="switch" aria-invalid="true" />Automatic subscription renewal</label>
+
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Form on different surfaces</h3>
+    <ul>
+      <li></li>
+
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <div class="p-s bg-sunken">
+          <label>Email<input type="email"></label>
+      </div>
+        <div class="p-s bg-surface">
+          <label>Email<input type="email"></label>
+        </div>
+        <div class="p-s bg-raised">
+            <label>Email<input type="email"></label>
+        </div>
+        <div class="p-s bg-overlay">
+          <label>Email<input type="email"></label>
+      </div>
+      
+
+
+    </div>
+  </article>
+
+
+
+
+</section>
+
+<section id="progress">
+  
+
+  <article class="testcase">
+    <h3>Progress bars in pure HTML</h3>
+    <ul>
+      <li>Regular (1) and indeterminate (2)</li>
+    </ul>
+    <div class="fixture">
+      <div>
+        <progress value="43" max="100"></progress>
+      </div>
+      <div>
+        <progress></progress>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Meter bar</h3>
+    <ul>
+      <li>Has filling color depending on the current value compared to low, high, and optimum values.</li>
+    </ul>
+    <div class="fixture">
+      <meter min="0" max="100" low="40" high="70" optimum="99" value="33"></meter>
+      <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      <meter min="0" max="100" low="40" high="70" optimum="99" value="100"></meter>
+    </div>
+  </article>
+
+
+
+</section>
+
+
+<h1 class="h1">Components</h1>
+
+<section id="accordions">
+  <h2>Accordion</h2>
+
+  <article class="testcase">
+    <h3>Card fluid media and inset media</h3>
+    <ul>
+      <li>pure HTML accordion (1)</li>
+      <li>use name="" to only open one at a time (2-4)</li>
+    </ul>
+    <div class="fixture container slim">
+      <details>
+        <summary>Spoiler alert!</summary>
+        <p>You smell. 🙂</p>
+      </details>
+
+      <details name="faq">
+        <summary>FAQ 1</summary>
+        <p>Can you smell that?</p>
+      </details>
+
+      <details name="faq">
+        <summary>FAQ 2</summary>
+        <p>Something really stinks.</p>
+      </details>
+
+      <details name="faq">
+        <summary>FAQ 3</summary>
+        <p>Oh, it's you. 🙂</p>
+      </details>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Card fluid media and inset media</h3>
+    <ul>
+      <li>use role=group to group them</li>
+
+    </ul>
+    <div class="fixture container slim">
+      <div role="group">
+        <details name="faq">
+          <summary>FAQ 2</summary>
+          <p>Something really stinks.</p>
+        </details>
+
+        <details name="faq">
+          <summary>FAQ 3</summary>
+          <p>Oh, it's you. 🙂</p>
+        </details>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Card fluid media and inset media</h3>
+    <ul>
+      <li>.border-none has no borders</li>
+
+    </ul>
+    <div class="fixture container slim">
+
+      <details class="border-none">
+        <summary>FAQ 2</summary>
+        <p>Something really stinks.</p>
+      </details>
+
+      <details class="border-none">
+        <summary>FAQ 3</summary>
+        <p>Oh, it's you. 🙂</p>
+      </details>
+
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Button accordion</h3>
+    <ul>
+      <li>use role="button" on summary to make button variant</li>
+      <li>supports any button class</li>
+    </ul>
+    <div class="fixture container slim">
+      <details><summary role="button">Button (Primary)</summary><p>Owls are nocturnal birds of prey that are known for their distinctive hooting calls. A group of owls is called a parliament, and these birds are often associated with wisdom and intelligence. Owls have excellent hearing and vision, which helps them hunt prey in the dark.</p></details>
+      <details><summary role="button" class="secondary">Secondary</summary><p>Ostriches are the largest birds in the world and are native to Africa. They have long, powerful legs that they use to run at high speeds, and they can reach up to 45 miles per hour. An ostrich’s eye is bigger than its brain, which is unusual for birds.</p></details>
+      <details><summary role="button" class="accent">Accent</summary><p>Koalas are arboreal marsupials that are native to Australia. They are known for their cute and cuddly appearance, but they can be quite aggressive if provoked. The fingerprints of koalas are so similar to those of humans that they have been mistaken for crime scene prints.</p></details>
+      <details><summary role="button" class="outline">Primary outline</summary><p>Elephants are the largest land animals and highly intelligent with intricate communication systems. They use infrasonic sounds to talk and have long memories. They create and maintain habitats for other species, and can eat up to 300 pounds of vegetation per day. Their elongated incisor teeth, called tusks, serve various purposes, including digging and defense.</p></details>
+      <details><summary role="button" class="outline secondary">Secondary outline</summary><p>Crows are intelligent birds that are known for their problem-solving abilities. A group of crows is called a murder, and these birds have a reputation for being mischievous and sometimes even aggressive. Despite their negative image in some cultures, crows are important for their role in controlling pest populations and maintaining ecological balance.</p></details>
+      <details><summary role="button" class="small accent">Small accent</summary><p>Penguins are flightless birds with a tuxedo-like appearance. They swim well and can hold their breath for up to 20 minutes. Penguins are social, forming tight-knit communities, and some mate for life. They have adaptations to survive in cold climates, including thick feathers and a layer of fat for insulation.</p></details>
+    </div>
+
+</section>
+
+<section id="dropdown">
+  <h2>Dropdown</h2>
+
+
+
+  <article class="testcase">
+    <h3>Popover dropdown</h3>
+    <ul>
+      <li>Minimal semantic structure with button trigger and <code>nav[popover]</code>.</li>
+      <li>No JavaScript is required in browsers that support the Popover API and CSS anchor positioning.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown">
+        <button type="button" popovertarget="dropdown-account" aria-controls="dropdown-account" aria-haspopup="true">Account</button>
+        <nav id="dropdown-account" popover>
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Icon-only dropdown trigger</h3>
+    <ul>
+      <li>Tests <code>.icon-only</code> trigger sizing and chevron suppression.</li>
+      <li>The trigger carries an accessible label.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown">
+        <button type="button" class="icon-only" popovertarget="dropdown-icon-only" aria-controls="dropdown-icon-only" aria-haspopup="true" aria-label="Open account menu">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        </button>
+        <nav id="dropdown-icon-only" popover tabindex="0">
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Popover button class variants</h3>
+    <ul>
+      <li>Popover trigger can use button classes for tone/variant coverage.</li>
+      <li>Includes primary/default, secondary, tertiary, accent and semantic state classes.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown">
+        <button type="button" class="primary" popovertarget="dropdown-btn-primary" aria-controls="dropdown-btn-primary" aria-haspopup="true">Primary</button>
+        <nav id="dropdown-btn-primary" popover tabindex="0">
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="secondary" popovertarget="dropdown-btn-secondary" aria-controls="dropdown-btn-secondary" aria-haspopup="true">Secondary</button>
+        <nav id="dropdown-btn-secondary" popover tabindex="0">
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="tertiary" popovertarget="dropdown-btn-tertiary" aria-controls="dropdown-btn-tertiary" aria-haspopup="true">Tertiary</button>
+        <nav id="dropdown-btn-tertiary" popover tabindex="0">
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="accent" popovertarget="dropdown-btn-accent" aria-controls="dropdown-btn-accent" aria-haspopup="true">Accent</button>
+        <nav id="dropdown-btn-accent" popover tabindex="0">
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="danger" popovertarget="dropdown-btn-danger" aria-controls="dropdown-btn-danger" aria-haspopup="true">Danger</button>
+        <nav id="dropdown-btn-danger" popover tabindex="0">
+          <ul>
+            <li><a href="#">Delete</a></li>
+            <li><a href="#">Archive</a></li>
+            <li><button type="button">Cancel</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="success" popovertarget="dropdown-btn-success" aria-controls="dropdown-btn-success" aria-haspopup="true">Success</button>
+        <nav id="dropdown-btn-success" popover tabindex="0">
+          <ul>
+            <li><a href="#">Publish</a></li>
+            <li><a href="#">Preview</a></li>
+            <li><button type="button">Done</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="warning" popovertarget="dropdown-btn-warning" aria-controls="dropdown-btn-warning" aria-haspopup="true">Warning</button>
+        <nav id="dropdown-btn-warning" popover tabindex="0">
+          <ul>
+            <li><a href="#">Pause</a></li>
+            <li><a href="#">Hold</a></li>
+            <li><button type="button">Cancel</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="info" popovertarget="dropdown-btn-info" aria-controls="dropdown-btn-info" aria-haspopup="true">Info</button>
+        <nav id="dropdown-btn-info" popover tabindex="0">
+          <ul>
+            <li><a href="#">Docs</a></li>
+            <li><a href="#">Examples</a></li>
+            <li><button type="button">Close</button></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="contrast" popovertarget="dropdown-btn-contrast" aria-controls="dropdown-btn-contrast" aria-haspopup="true">Contrast</button>
+        <nav id="dropdown-btn-contrast" popover tabindex="0">
+          <ul>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><button type="button">Log out</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Popover borderless dropdown</h3>
+    <ul>
+      <li>Tests <code>.dropdown.border-none</code> trigger styling.</li>
+      <li>Verifies both default and button-variant trigger behavior.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown border-none">
+        <button type="button" popovertarget="dropdown-borderless-default" aria-controls="dropdown-borderless-default" aria-haspopup="true">Borderless default</button>
+        <nav id="dropdown-borderless-default" popover tabindex="0">
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Billing</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Dropdown alignment</h3>
+    <ul>
+      <li>Default anchors popover <em>right</em> edge to trigger right edge (popover grows leftward).</li>
+      <li><code>.left</code> anchors popover left edge to trigger left edge (popover grows rightward).</li>
+      <li><code>.center</code> centers popover horizontally on trigger.</li>
+      <li>All variants use <code>position-try-fallbacks</code> to flip if they would overflow the viewport.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="repel">
+        <div class="dropdown left">
+          <button type="button" popovertarget="dropdown-align-left" aria-controls="dropdown-align-left" aria-haspopup="true">Left</button>
+          <nav id="dropdown-align-left" popover tabindex="0">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><button type="button">Sign out</button></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="dropdown center">
+          <button type="button" popovertarget="dropdown-align-center" aria-controls="dropdown-align-center" aria-haspopup="true">Center</button>
+          <nav id="dropdown-align-center" popover tabindex="0">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><button type="button">Sign out</button></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="dropdown">
+          <button type="button" popovertarget="dropdown-align-default" aria-controls="dropdown-align-default" aria-haspopup="true">Default (right)</button>
+          <nav id="dropdown-align-default" popover tabindex="0">
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><button type="button">Sign out</button></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Custom dropdown width via tokens</h3>
+    <ul>
+      <li>Override <code>--dropdown-width</code>, <code>--dropdown-min-width</code>, or <code>--dropdown-max-width</code> to size any single dropdown without a modifier class.</li>
+      <li>Works inline, in <code>project.css</code>, or on any ancestor.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown" style="--dropdown-width: 35rem">
+        <button type="button" popovertarget="dropdown-custom-width" aria-controls="dropdown-custom-width" aria-haspopup="true">Fixed 35rem</button>
+        <nav id="dropdown-custom-width" popover tabindex="0">
+          <ul>
+            <li><a href="#">A long item with descriptive helper text</a></li>
+            <li><a href="#">Another item</a></li>
+            <li><button type="button">One more</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Nested popover dropdowns</h3>
+    <ul>
+      <li>Tests popover dropdown nested inside another popover dropdown menu.</li>
+      <li>Inner trigger uses the same <code>.dropdown</code> contract.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown">
+        <button type="button" popovertarget="dropdown-nested-root" aria-controls="dropdown-nested-root" aria-haspopup="true">Actions</button>
+        <nav id="dropdown-nested-root" popover tabindex="0">
+          <ul>
+            <li><a href="#">Edit</a></li>
+            <li>
+              <div class="dropdown">
+                <button type="button" popovertarget="dropdown-nested-share" aria-controls="dropdown-nested-share" aria-haspopup="true">Share</button>
+                <nav id="dropdown-nested-share" popover="manual" tabindex="0">
+                  <ul>
+                    <li><a href="#">Copy link</a></li>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Slack</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </li>
+            <li><button type="button">Delete</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Dropdowns with checkboxes and radios</h3>
+    <ul>
+      <li>Dropdown panels can contain radio buttons and checkboxes.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="dropdown">
+        <button type="button" popovertarget="dropdown-phase-radio" aria-controls="dropdown-phase-radio" aria-haspopup="true">Select a phase of matter...</button>
+        <nav id="dropdown-phase-radio" popover tabindex="0">
+          <ul>
+            <li><label><input type="radio" value="Solid" name="phase">Solid</label></li>
+            <li><label><input type="radio" value="Liquid" name="phase">Liquid</label></li>
+            <li><label><input type="radio" value="Gas" name="phase">Gas</label></li>
+            <li><label><input type="radio" value="Plasma" name="phase">Plasma</label></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="dropdown">
+        <button type="button" popovertarget="dropdown-phase-checkbox" aria-controls="dropdown-phase-checkbox" aria-haspopup="true">Select phases of matter...</button>
+        <nav id="dropdown-phase-checkbox" popover tabindex="0">
+          <ul>
+            <li><label><input type="checkbox" value="Solid" name="solid">Solid</label></li>
+            <li><label><input type="checkbox" value="Liquid" name="liquid">Liquid</label></li>
+            <li><label><input type="checkbox" value="Gas" name="gas">Gas</label></li>
+            <li><label><input type="checkbox" value="Plasma" name="plasma">Plasma</label></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Nav dropdown support</h3>
+    <ul>
+      <li>Dropdowns can be used inside navigation without additional wrapper classes.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav class="navbar">
+        <ul>
+          <li><strong>Acme Corp</strong></li>
+        </ul>
+        <ul>
+          <li><a href="#" class="secondary">Services</a></li>
+          <li>
+            <div class="dropdown">
+              <button type="button" popovertarget="dropdown-nav-account" aria-controls="dropdown-nav-account" aria-haspopup="true">Account</button>
+              <nav id="dropdown-nav-account" popover tabindex="0">
+                <ul>
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">Settings</a></li>
+                  <li><a href="#">Security</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </nav>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Dropdown at edges</h3>
+    <ul>
+      <li>Panels flip inline to avoid viewport overflow.</li>
+    </ul>
+</div>
+<div class="container-full">
+  <div class="fixture p-s">
+    <div class="repel">
+    <div class="dropdown">
+      <button type="button" popovertarget="dropdown-left-side" aria-controls="dropdown-left-side" aria-haspopup="true">L</button>
+      <nav id="dropdown-left-side" popover tabindex="0">
+        <ul>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="dropdown right">
+      <button type="button" popovertarget="dropdown-right-side" aria-controls="dropdown-right-side" aria-haspopup="true">R</button>
+      <nav id="dropdown-right-side" popover tabindex="0">
+        <ul>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+    </div>
+  </div>
+</div><div class="container">
+  </article>
+
+</section>
+
+
+<section id="alerts">
+  <h2>Alerts</h2>
+
+  <article class="testcase">
+    <h3>Paragraph + inline elements</h3>
+    <ul>
+      <li>Link has hover/active styles</li>
+      <li>Border prevents bleed into bg</li>
+    </ul>
+    <div class="fixture">
+      <div class="alert">
+        A simple alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert primary">
+        A simple primary alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert accent">
+        A simple accent alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert success">
+        A simple success alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert danger">
+        A simple danger alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert warning">
+        A simple warning alert with <a href="#">an example link</a> — check it out!
+      </div>
+      <div class="alert info" >
+        A simple info alert with <a href="#">an example link</a> — check it out!
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Alerts on different backgrounds</h3>
+    <ul>
+      <li>...</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher" style="--gap: 0;">
+        <div class="p-s bg-sunken flow">
+          <div class="alert">A simple alert!</div><div class="alert primary" >A simple primary alert!</div><div class="alert accent">A simple accent alert!</div><div class="alert success">A simple success alert!</div><div class="alert danger">A simple danger alert!</div><div class="alert warning">A simple warning alert!</div><div class="alert info">A simple info alert!</div>
+        </div>
+        <div class="p-s bg-raised flow">
+          <div class="alert">A simple alert!</div><div class="alert primary" >A simple primary alert!</div><div class="alert accent">A simple accent alert!</div><div class="alert success">A simple success alert!</div><div class="alert danger">A simple danger alert!</div><div class="alert warning">A simple warning alert!</div><div class="alert info">A simple info alert!</div>        </div>
+        <div class="p-s bg-overlay flow">
+          <div class="alert">A simple alert!</div><div class="alert primary" >A simple primary alert!</div><div class="alert accent">A simple accent alert!</div><div class="alert success">A simple success alert!</div><div class="alert danger">A simple danger alert!</div><div class="alert warning">A simple warning alert!</div><div class="alert info">A simple info alert!</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Dismissable alert with pinned close</h3>
+    <ul>
+      <li>A .close as direct child docks in the top inline-end corner; icon aligns with the content edge</li>
+      <li>The alert reserves inline-end padding so content never runs under the button</li>
+      <li>Long headings wrap before the button instead of underneath it</li>
+      <li>Works with bare text content (no wrapper element)</li>
+      <li>RTL: button docks in the top left corner</li>
+    </ul>
+    <div class="fixture resizable">
+      <div class="alert warning">
+        <h4>Storage almost full</h4>
+        <p>You have used 95% of your quota. Older exports will be deleted first.</p>
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+
+      <div class="alert info">
+        <h4>A very long heading that should wrap to the next line before it ever collides with the pinned close button in the corner</h4>
+        <p>Body text uses the reserved space too.</p>
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+
+      <div class="alert success">
+        Bare text alert with a pinned close button and no wrapper element around the text.
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+
+      <div class="alert danger" dir="rtl">
+        <h4>تنبيه</h4>
+        <p>زر الإغلاق يظهر في الزاوية اليسرى العليا.</p>
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Flow modes and semantics</h3>
+    <ul>
+      <li>Default flow, compact flow, loose flow and disabled flow</li>
+      <li>Supports plain .alert and role="alert" usage</li>
+    </ul>
+    <div class="fixture">
+      <div class="alert">
+        <h4>Default flow</h4>
+        <p>Flow spacing is inherited from the component default.</p>
+        <p><a href="#">Read docs</a> or <button class="small">Take action</button>.</p>
+      </div>
+      <div class="alert flow-tight">
+        <h4>Tight flow</h4>
+        <p>Compact spacing for dense UI blocks.</p>
+        <p><a href="#">Read docs</a> or <button class="small">Take action</button>.</p>
+      </div>
+      <div class="alert flow-loose">
+        <h4>Loose flow</h4>
+        <p>Looser spacing for roomy layouts.</p>
+        <p><a href="#">Read docs</a> or <button class="small">Take action</button>.</p>
+      </div>
+      <div class="alert flow-none">
+        <h4>No flow</h4><p>No automatic vertical spacing between children.</p><p><a href="#">Read docs</a> or <button class="small">Take action</button>.</p>
+      </div>
+      <div class="alert info" role="alert">
+        <h4>Live region example</h4>
+        <p>This shows how role="alert" markup renders with component styles.</p>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+
+<section id="avatar">
+  <h2>Avatar</h2>
+
+  <article class="testcase">
+    <h3>Avatars with different shapes</h3>
+    <ul>
+      <li>Default, size, and shape modifiers should align in one row</li>
+    </ul>
+    <div class="fixture">
+      <div class="cluster">
+        <figure class="avatar">
+          <img src="assets/avatar-1.jpg" alt="avatar1">
+        </figure>
+        <figure class="avatar">
+          <img src="assets/avatar-2.png" alt="avatar2">
+        </figure>
+        <figure class="avatar">
+          <img src="assets/avatar-3.png" alt="avatar3">
+        </figure>
+      </div>
+      <div class="cluster">
+        <figure class="avatar large">
+          <img src="assets/avatar-1.jpg" alt="avatar1">
+        </figure>
+        <figure class="avatar">
+          <img src="assets/avatar-2.png" alt="avatar2">
+        </figure>
+        <figure class="avatar small">
+          <img src="assets/avatar-3.png" alt="avatar3">
+        </figure>
+      </div>
+      <div class="cluster">
+        <figure class="avatar square">
+          <img src="assets/avatar-1.jpg" alt="avatar1">
+        </figure>
+        <figure class="avatar">
+          <img src="assets/avatar-2.png" alt="avatar2">
+        </figure>
+        <figure class="avatar squircle">
+          <img src="assets/avatar-3.png" alt="avatar3">
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Avatars groups </h3>
+    <ul>
+      <li>Grouped avatars should stay aligned with mixed sizes</li>
+    </ul>
+    <div class="fixture">
+      <div class="cluster">
+        <div role="group">
+          <figure class="avatar">
+            <img src="assets/avatar-1.jpg" alt="avatar1">
+          </figure>
+          <figure class="avatar">
+            <img src="assets/avatar-2.png" alt="avatar2">
+          </figure>
+          <figure class="avatar">
+            <img src="assets/avatar-3.png" alt="avatar3">
+          </figure>
+        </div>
+        <div role="group">
+          <figure class="avatar large">
+            <img src="assets/avatar-1.jpg" alt="avatar1">
+          </figure>
+          <figure class="avatar">
+            <img src="assets/avatar-2.png" alt="avatar2">
+          </figure>
+          <figure class="avatar small">
+            <img src="assets/avatar-3.png" alt="avatar3">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Text inside</h3>
+    <ul>
+      <li>Fallback text should remain centered and legible</li>
+    </ul>
+    <div class="fixture">
+      <div class="cluster">
+        <div class="avatar">
+          <span>ALM</span>
+        </div>
+        <div class="avatar">
+          <strong>mh</strong>
+        </div>
+        <div class="avatar">
+          <span>ABCDEFG</span>
+        </div>
+        <div class="avatar large">
+          <span>ALM</span>
+        </div>
+        <div class="avatar">
+          <small>+99</small>
+        </div>
+        <div class="avatar small">
+          <span>JS</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Avatar edge cases</h3>
+    <ul>
+      <li>Long fallback labels and interactive avatar wrappers</li>
+      <li>Broken/missing image source behavior</li>
+    </ul>
+    <div class="fixture">
+      <div class="cluster">
+        <div class="avatar"><span>LONGNAME</span></div>
+        <div class="avatar"><span>XY</span></div>
+        <div class="avatar"><span>1</span></div>
+        <div class="avatar"><span>+99</span></div>
+      </div>
+      <div class="cluster">
+        <a href="#" class="avatar" aria-label="Open profile">
+          <img src="assets/avatar-2.png" alt="">
+        </a>
+        <button class="avatar" type="button" aria-label="Open notifications">
+          <span>3</span>
+        </button>
+        <figure class="avatar">
+          <img src="assets/avatar-missing.png" alt="missing avatar">
+        </figure>
+        <div class="avatar">
+          <img src="assets/avatar-missing.png" alt="AB">
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Avatar group ring colors on surfaces</h3>
+    <ul>
+      <li>Ring color should adapt to the surrounding surface</li>
+      <li>Verify overlap contrast on all standard background variants</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher" style="--gap: 0;">
+        <div class="p-s bg-default flow">
+          <p><small>Default surface</small></p>
+          <div role="group">
+            <figure class="avatar"><img src="assets/avatar-1.jpg" alt="avatar1"></figure>
+            <figure class="avatar"><img src="assets/avatar-2.png" alt="avatar2"></figure>
+            <figure class="avatar"><img src="assets/avatar-3.png" alt="avatar3"></figure>
+          </div>
+        </div>
+        <div class="p-s bg-sunken flow">
+          <p><small>Sunken surface</small></p>
+          <div role="group">
+            <figure class="avatar"><img src="assets/avatar-1.jpg" alt="avatar1"></figure>
+            <figure class="avatar"><img src="assets/avatar-2.png" alt="avatar2"></figure>
+            <figure class="avatar"><img src="assets/avatar-3.png" alt="avatar3"></figure>
+          </div>
+        </div>
+        <div class="p-s bg-raised flow">
+          <p><small>Raised surface</small></p>
+          <div role="group">
+            <figure class="avatar"><img src="assets/avatar-1.jpg" alt="avatar1"></figure>
+            <figure class="avatar"><img src="assets/avatar-2.png" alt="avatar2"></figure>
+            <figure class="avatar"><img src="assets/avatar-3.png" alt="avatar3"></figure>
+          </div>
+        </div>
+        <div class="p-s bg-overlay flow">
+          <p><small>Overlay surface</small></p>
+          <div role="group">
+            <figure class="avatar"><img src="assets/avatar-1.jpg" alt="avatar1"></figure>
+            <figure class="avatar"><img src="assets/avatar-2.png" alt="avatar2"></figure>
+            <figure class="avatar"><img src="assets/avatar-3.png" alt="avatar3"></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section id="badges">
+  <h2>Badges</h2>
+
+  <article class="testcase">
+    <h3>Paragraph + inline elements</h3>
+    <ul>
+      <li>Works inline</li>
+      <li>Pills and bagdes support all colors</li>
+      <li>Link has hover/active styles</li>
+      <li>...</li>
+    </ul>
+    <div class="fixture">
+      <p>Blue whales can dive for minutes <span class="badge">Wow</span> at a time, adjusting buoyancy and conserving oxygen.</p>
+      <p>
+        <span class="badge primary">Primary</span> 
+        <span class="badge accent">Accent</span> 
+        <span class="badge info">Info</span>
+        <span class="badge warning">Warning</span>
+        <span class="badge danger">Danger</span>
+        <span class="badge success">Success</span>
+        <span class="badge ">Neutral</span>
+        <span class="badge muted">Muted text</span>
+      </p>
+      <p>
+        <span class="pill primary">Primary</span> 
+        <span class="pill accent">Accent</span> 
+        <span class="pill info">Info</span>
+        <span class="pill warning">Warning</span>
+        <span class="pill danger">Danger</span>
+        <span class="pill success">Success</span>
+        <span class="pill ">Neutral</span>
+        <span class="pill muted">Muted text</span>
+      </p>
+      <p>
+        <a href="#" class="badge">Link badge</a>
+        <span class="badge" role="link">Badge with link role</span>
+        <button class="badge">Button badge</button>
+        <a href="#" role="button" class="badge">Link with button role and badge class</a>
+      </p>
+      <p>
+        <a href="#" class="badge primary">Primary</a> 
+        <a href="#" class="badge accent">Accent</a> 
+        <a href="#" class="badge info">Info</a>
+        <a href="#" class="badge warning">Warning</a>
+        <a href="#" class="badge danger">Danger</a>
+        <a href="#" class="badge success">Success</a>
+        <a href="#" class="badge">Neutral</a>
+        <a href="#" class="badge muted">Muted text</a>
+      </p>
+    </div>
+  </article>
+
+    <article class="testcase">
+    <h3>Badges in headings</h3>
+    <ul>
+      <li>Size preserved</li>
+
+    </ul>
+    <div class="fixture">
+      <h1>Example heading <span class="badge">Badge</span></h1>
+      <h2>Example heading <span class="badge">Badge</span></h2>
+      <h3>Example heading <span class="badge">Badge</span></h3>
+      <h4>Example heading <span class="badge">Badge</span></h4>
+      <h5>Example heading <span class="badge">Badge</span></h5>
+      <h6>Example heading <span class="badge">Badge</span></h6>
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Badges with icons</h3>
+    <ul>
+      <li>Icon + text alignment should stay centered</li>
+      <li>Works with tone variants and pill shape</li>
+    </ul>
+    <div class="fixture">
+      <p class="cluster">
+        <span class="badge">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          Stable
+        </span>
+        <span class="badge info">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Info
+        </span>
+        <span class="badge warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          Warning
+        </span>
+        <span class="pill success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          Passed
+        </span>
+      </p>
+      <p class="cluster">
+        <span class="badge danger" role="img" aria-label="Error">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>        </span>
+        <a href="#" class="badge accent">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          New
+        </a>
+      </p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Badge edge cases</h3>
+    <ul>
+      <li>Long labels and wrapping behavior</li>
+      <li>Icon-only badges and contrast on different surfaces</li>
+    </ul>
+    <div class="fixture resizable">
+      <p><span class="badge">Very long badge label for overflow and wrapping behavior checks in narrow containers</span></p>
+      <div class="switcher" style="--gap: 0;">
+        <div class="p-s bg-sunken cluster" style="--gap: var(--space-2xs);">
+          <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+          <span class="badge primary">Primary</span> 
+          <span class="badge accent">Accent</span> 
+          <span class="badge info">Info</span>
+          <span class="badge warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Warning</span>
+          <span class="badge danger">Danger</span>
+          <span class="badge success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Success</span>
+          <span class="badge ">Neutral</span>
+          <span class="badge muted">Muted text</span>
+        </div>
+        <div class="p-s bg-raised cluster" style="--gap: var(--space-2xs);">
+          <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+          <span class="badge primary">Primary</span> 
+          <span class="badge accent">Accent</span> 
+          <span class="badge info">Info</span>
+          <span class="badge warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Warning</span>
+          <span class="badge danger">Danger</span>
+          <span class="badge success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Success</span>
+          <span class="badge ">Neutral</span>
+          <span class="badge muted">Muted text</span>
+        </div>
+        <div class="p-s bg-overlay cluster" style="--gap: var(--space-2xs);">
+          <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+          <span class="badge primary">Primary</span> 
+          <span class="badge accent">Accent</span> 
+          <span class="badge info">Info</span>
+          <span class="badge warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Warning</span>
+          <span class="badge danger">Danger</span>
+          <span class="badge success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Success</span>
+          <span class="badge ">Neutral</span>
+          <span class="badge muted">Muted text</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+
+
+
+     
+
+</section>
+
+
+<section id="cards">
+  <h2>Cards</h2>
+
+  <article class="testcase">
+    <h3>Card fluid media and inset media</h3>
+    <ul>
+      <li>Fluid image (left) and .inset image (right)</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+      <article class="card">
+        <figure><img src=" https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="penguin"></figure>
+        <h3>Southern rockhopper penguin</h3>
+        <p>This is the smallest of the yellow-crested, black-and-white penguins in the genus Eudyptes.</p>
+      </article>
+      <article class="card">
+        <figure class="inset"><img src=" https://upload.wikimedia.org/wikipedia/commons/3/3f/Falkland_Islands_Penguins_70.jpg" alt="penguin"></figure>
+        <h3>Southern rockhopper penguin</h3>
+        <p>This is the smallest of the yellow-crested, black-and-white penguins in the genus Eudyptes.</p>
+      </article>
+      </div>
+    </div>
+  </article>
+
+
+  
+    
+
+
+  <article class="testcase">
+    <h3>Card with media object</h3>
+    <ul>
+      <li>When using .grid in card, figure should use minimal width</li>
+      <li>Fluid image (left) and .inset image (right)</li>
+    </ul>
+    <div class="fixture container slim">
+    
+      <article class="card" style="--card-padding: var(--space-s)">
+        <div class="sidebar" style="--sidebar-target-width: 128px">
+          <figure><img src="assets/avatar.png" alt="img128x128" height="128px" width="128px"></figure>
+          <div>
+            <h3>Pingu</h3>
+            <p><a href="https://en.wikipedia.org/wiki/Pingu">Pingu</a> is a charming and cheeky young penguin who is always up to mischief.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card" style="--card-padding: var(--space-s)">
+        <div class="sidebar reversed" style="--sidebar-target-width: 128px">
+          <figure><img src="assets/avatar.png" alt="img128x128" height="128px" width="128px"></figure>
+          <div>
+            <h3>Pingu</h3>
+            <p><a href="https://en.wikipedia.org/wiki/Pingu">Pingu</a> is a charming and cheeky young penguin who is always up to mischief.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="sidebar" style="--sidebar-target-width: 128px">
+          <figure class="inset"><img src="assets/avatar.png" alt="img128x128" height="128px" width="128px"></figure>
+          <div>
+            <h3>Pingu</h3>
+            <p><a href="https://en.wikipedia.org/wiki/Pingu">Pingu</a> is a charming and cheeky young penguin who is always up to mischief.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Card with header/footer</h3>
+    <ul>
+      <li>Header/footer different bg-color</li>
+    </ul>
+    <div class="fixture container slim">
+      <article class="card">
+        <header><h3>Title</h3></header>
+        <p>Content</p>
+        <hr>
+        <p>Content</p>
+        <footer><p><small>Footer</small></p></footer>
+      </article>
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Link cards </h3>
+    <ul>
+      <li>Equal change on hover/active for both variants</li>
+      <li>Text looks like plain card text (no underline, link color or bold)</li>
+      <li>Pointer cursor, focus outline when tabbing</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <a href="#" class="card">
+          <h3>Title</h3>
+          <p>Content</p>
+        </a>
+        <article class="card" role="link" tabindex="0">
+          <h3>Title</h3>
+          <p>Content</p>
+        </article>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Card with form</h3>
+    <ul>
+      <li>Margin/padding ok</li>
+      <li>Bg-color on forms is different from card bg-color</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="card">
+        <form>
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" required />
+          <small>Helptext</small>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required />
+          <input type="submit" value="Subscribe!" />
+
+          <h6>All inputs</h6>
+
+          <input type="text" placeholder="Text" />
+          <input type="email" placeholder="Email" />
+          <input type="number" placeholder="Number" />
+          <input type="password" placeholder="Password" />
+          <input type="tel" placeholder="Tel" />
+          <input type="url" placeholder="Url" />
+          <input type="search" placeholder="Search" />
+          <input type="date" />
+          <input type="datetime-local" />
+          <input type="month" />
+          <input type="time" />
+          <input type="color" value="#ff9500" />
+          <input type="file" />
+          <input type="text" placeholder="Disabled field" disabled />
+          <input type="text" value="Read-only field" readonly />
+          <input type="button" value="Button" />
+          <input type="range" name="volume" min="0" max="11" />
+
+          <h6>Textarea</h6>
+            
+          <textarea id="textarea" name="textarea" rows="4" cols="50">Textarea</textarea>
+
+          <h6>Select</h6>
+
+          <select name="pets" id="pet-select">
+            <option value="">--Please choose an option--</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+          </select>
+
+          <h6>Checkbox</h6>
+
+          <label for="scales">
+            <input type="checkbox" id="scales" name="scales" />Scales
+          </label>
+          <label for="horns">
+            <input type="checkbox" id="horns" name="horns" />Horns
+          </label>
+
+          <h6>Radio</h6>
+
+          <label for="male">
+            <input type="radio" id="male" name="gender" />Male
+          </label>
+          <label for="female">
+            <input type="radio" id="female" name="gender" />Female
+          </label>
+          <label for="other">
+            <input type="radio" id="other" name="gender" />Other
+          </label>
+
+          <h6>Disabled</h6>
+          <input type="password" minlength="8" disabled />
+          <input type="range" min="0" max="11" disabled />
+
+          <h6>Fieldset</h6>
+          <fieldset>
+          <legend>(Fieldset)Personal Information</legend>
+          <label for="name">Name</label>
+          <input name="name" id="name">
+          <label for="dob">Date of Birth<label>
+          <input name="dob" id="dob" type="date">
+          </fieldset>
+
+        </form>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section id="icons">
+  <h2>Icon</h2>
+
+  <article class="testcase">
+    <h3>Inline SVG sizing and baseline alignment</h3>
+    <ul>
+      <li><code>.icon</code> should size SVGs to a 1em square and follow the text color.</li>
+      <li><code>.icon.small</code> and <code>.icon.large</code> should keep alignment in mixed text sizes.</li>
+      <li><code>--icon-size</code> and <code>--icon-align</code> should support scoped overrides.</li>
+    </ul>
+    <div class="fixture flow">
+      <p>
+        Default icon
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+        stays aligned with body copy.
+      </p>
+      <p class="size-small">
+        Since size i em-based
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+        small text works too.
+      </p>
+      <p class="size-h4">
+        Larger label
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+        also works with default .icon.
+      </p>
+      <p>
+        Small icon is as large as an x
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon small"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+        using 1ex.
+      </p>
+      <p>
+        Large icon is as large as the line height.
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon large"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+        using 1.5em.
+      </p>
+      <p>
+
+      </p>
+
+      <div class="cluster">
+        <span class="badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon small"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+          Small
+        </span>
+        <span class="badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+          Default
+        </span>
+        <span class="badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon large"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+          Large
+        </span>
+        <span class="badge" style="--icon-size: 2em; --icon-align: -0.5em;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+          Custom
+        </span>
+      </div>
+    </div>
+  </article>
+
+
+  <article class="testcase">
+    <h3>Some icons are stored as custom properties</h3>
+    <ul>
+      <li>They should just fit within a line at 1.5em size</li>
+    </ul>
+    <div class="fixture">
+      <p>
+        The oldest known fossil penguin species are known from the Waipara Greensand of New Zealand, which spans the late Danian to early Thanetian stages (~62.5–58 Ma) of the
+        <span style="mask: var(--icon-loading)    center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-hamburger) center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-chevron)   center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-close)     center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-invalid)   center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-valid)     center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-minus)     center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-search)    center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-check)     center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        <span style="mask: var(--icon-info)      center / contain no-repeat; background-color: currentColor; display: inline-block; height: 1.5em; width: 1.5em; vertical-align: -0.37em;"></span>
+        Paleocene epoch. Several genera have been named from these outcrops, including Archaeodyptes, Daniadyptes, Muriwaimanu, Sequiwaimanu, Waimanu, Waimanutaha, and Waiparadyptes.
+      </p>
+    </div>
+  </article>
+</section>
+
+
+
+<section id="loading">
+  <h2>Loading component</h2>
+
+  <article class="testcase">
+    <h3>Loading: aria-busy="true"</h3>
+    <ul>
+      <li>Link has hover/active styles</li>
+      <li>Works with any block (1) and inline (2) element</li>
+      <li>Works with buttons (3-4)</li>
+    </ul>
+    <div class="fixture">
+      <div aria-busy="true"></div>
+      <p>
+        <span aria-busy="true">Generating your link...</span>
+      </p>
+      <div class="switcher mb-1.5" id="buttons"><button aria-busy="true" aria-label="Please wait…"></button><button aria-busy="true" aria-label="Please wait…" class="secondary"></button><button aria-busy="true" aria-label="Please wait…" class="accent"></button></div>
+      <div class="switcher"><button aria-busy="true" class="outline">Please wait…</button><button aria-busy="true" class="outline secondary">Please wait…</button><button aria-busy="true" class="outline accent">Please wait…</button></div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Small and large spinners</h3>
+    <ul>
+      <li>Size modifiers should work for inline and block contexts</li>
+      <li>Buttons should keep label + spinner alignment for each size</li>
+    </ul>
+    <div class="fixture">
+      <p class="cluster">
+        <span aria-busy="true" class="loader-small" aria-label="Loading (small)"></span>
+        <span aria-busy="true" aria-label="Loading (default)"></span>
+        <span aria-busy="true" class="loader-large" aria-label="Loading (large)"></span>
+      </p>
+      <div class="cluster">
+        <div aria-busy="true" class="loader-small" aria-label="Loading card (small)"></div>
+        <div aria-busy="true" aria-label="Loading card (default)"></div>
+        <div aria-busy="true" class="loader-large" aria-label="Loading card (large)"></div>
+      </div>
+      <div class="cluster">
+        <button aria-busy="true" class="loader-small">Saving</button>
+        <button aria-busy="true">Saving</button>
+        <button aria-busy="true" class="loader-large">Saving</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Overlay spinner on alert content</h3>
+    <ul>
+      <li>Spinner should be centered on top of the alert</li>
+      <li>Alert content should be dimmed and non-interactive while busy</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="alert overlay loader-large" aria-busy="true" aria-label="Loading alert">
+        <h4>Syncing profile</h4>
+        <p>Your settings are being updated. This can take a few seconds.</p>
+        <button class="small">Cancel</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Wrapping text while busy</h3>
+    <ul>
+      <li>Long text should wrap in narrow containers</li>
+      <li>Spinner should not force single-line layout</li>
+    </ul>
+    <div class="fixture container slim">
+      <p aria-busy="true" style="max-inline-size: 22ch;">
+        Generating a very long status message for this operation so we can verify text wrapping in constrained width.
+      </p>
+      <div class="alert" aria-busy="true" style="max-inline-size: 30ch;">
+        <h4>Uploading files</h4>
+        <p>
+          Processing multiple large files and generating metadata previews to test multiline wrapping while the busy indicator is visible.
+        </p>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="skeleton">
+  <h2>Skeleton</h2>
+
+  <article class="testcase">
+    <h3>Line, box and circle placeholders</h3>
+    <ul>
+      <li>Container uses <code>aria-busy="true"</code> while loading.</li>
+      <li>Skeleton placeholders are decorative with <code>aria-hidden="true"</code>.</li>
+    </ul>
+    <div class="fixture container slim" aria-busy="true" aria-label="Loading content">
+      <div class="skeleton line" aria-hidden="true"></div>
+      <div class="skeleton line" aria-hidden="true" style="inline-size: 72%;"></div>
+      <div class="skeleton box" aria-hidden="true" style="block-size: 8rem;"></div>
+      <div class="sidebar no-stretch">
+        <div class="skeleton circle" aria-hidden="true" ></div>
+        <div class="flow" style="inline-size: 100%;">
+          <div class="skeleton line" aria-hidden="true"></div>
+          <div class="skeleton line" aria-hidden="true" style="inline-size: 55%;"></div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+
+<section id="modal">
+  <h2>Modal</h2>
+
+  <article class="testcase">
+    <h3>Dialog modal with Popover API (no JS)</h3>
+    <ul>
+      <li>Backdrop</li>
+      <li>No scrolling</li>
+    </ul>
+    <div class="fixture container slim" style="display: flex; gap: 1rem; flex-direction: column;">
+      <div>Dialog modal with Popover API (no JS)</div>
+      <dialog id="dialog1" popover>
+        <p>Greetings, one and all!</p>
+        <button popovertarget="dialog1">Close modal</button>
+      </dialog>
+      <button popovertarget="dialog1">Open modal</button>
+
+      <div>Dialog modal with showModal() button</div>
+      <dialog id="dialog2">
+        <p>Greetings, one and all!</p>
+        <form method="dialog">
+          <button>Close modal</button>
+        </form>
+      </dialog>
+      <button onclick="document.getElementById('dialog2').showModal()">Open modal</button>
+    
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Modal</h3>
+    <ul>
+      <li>Open Modals and cards are similar and can contain form elements</li>
+      <li>Close button floats right and have hoverable x icon</li>
+      <li>header and footer has same color as cards</li>
+      <li>right-aligned in footer</li>
+    </ul>
+    <div class="fixture container slim">
+      <dialog id="dialog3" popover>
+        <article>
+          <header>
+            
+            <p><strong>🗓️ Thank You for Registering!</strong></p>
+          </header>
+          <p>
+            We're excited to have you join us for our
+            upcoming event. Please arrive at the museum 
+            on time to check in and get started.
+          </p>
+          <ul>
+            <li>Date: Saturday, April 15</li>
+            <li>Time: 10:00am - 12:00pm</li>
+          </ul>
+          <footer>
+            <button popovertarget="dialog3" class="secondary">Cancel</button>
+            <button popovertarget="dialog3">Confirm</button>
+          </footer>
+        </article>
+        <button class="close" aria-label="Close" rel="prev" popovertarget="dialog3"></button>
+      </dialog>
+      <button popovertarget="dialog3">Open modal</button>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Modal with pinned corner close</h3>
+    <ul>
+      <li>A .close as last direct child of the dialog docks in the top inline-end corner</li>
+      <li>Popover variant: closes via popovertarget, no JS</li>
+      <li>showModal() variant: closes via form method="dialog"; the wrapper form takes no space (display: contents)</li>
+      <li>Header keeps clear of the button; footer still bleeds to the bottom edge with the close last in the markup</li>
+      <li>Structured variant: close stays a direct child of the dialog even with an article wrapper</li>
+    </ul>
+    <div class="fixture container slim" style="display: flex; gap: 1rem; flex-direction: column;">
+      <div>Popover dialog, bare .close direct child (no JS)</div>
+      <dialog id="dialog-close-popover" popover aria-label="Greeting">
+        <p>Greetings, one and all! This dialog opens and closes without any JavaScript.</p>
+        <button class="close" popovertarget="dialog-close-popover" popovertargetaction="hide" aria-label="Close"></button>
+      </dialog>
+      <button popovertarget="dialog-close-popover">Open popover dialog</button>
+
+      <div>showModal() dialog, .close in form method="dialog", direct header/footer</div>
+      <dialog id="dialog-close-modal" aria-labelledby="dialog-close-modal-title">
+        <header><strong id="dialog-close-modal-title">A long dialog title that must wrap before reaching the pinned close button</strong></header>
+        <p>The footer below must still bleed to the bottom edge even though the close form comes after it in the markup.</p>
+        <footer>
+          <form method="dialog" class="cluster" style="--cluster-horizontal-alignment: flex-end;">
+            <button class="secondary">Cancel</button>
+            <button>Confirm</button>
+          </form>
+        </footer>
+        <form method="dialog">
+          <button class="close" aria-label="Close"></button>
+        </form>
+      </dialog>
+      <button onclick="document.getElementById('dialog-close-modal').showModal()">Open modal dialog</button>
+
+      <div>Structured dialog with article wrapper, .close still a direct child of the dialog</div>
+      <dialog id="dialog-close-structured" aria-labelledby="dialog-close-structured-title">
+        <article>
+          <header>
+            <p id="dialog-close-structured-title"><strong>Registration confirmed</strong></p>
+          </header>
+          <p>Your seat has been reserved for the event.</p>
+          <footer>
+            <form method="dialog" class="cluster" style="--cluster-horizontal-alignment: flex-end;">
+              <button class="secondary">Cancel</button>
+              <button>Confirm</button>
+            </form>
+          </footer>
+        </article>
+        <form method="dialog">
+          <button class="close" aria-label="Close"></button>
+        </form>
+      </dialog>
+      <button onclick="document.getElementById('dialog-close-structured').showModal()">Open structured dialog</button>
+    </div>
+  </article>
+
+
+
+</section>
+
+
+
+</section>
+
+<section id="navs">
+  <h2>Navigation</h2>
+
+  <article class="testcase">
+    <h3>Nav header typical menu</h3>
+    <ul>
+      <li>Navbar applies to <code>header &gt; nav</code> (first example) or <code>nav.navbar</code> anywhere (second example).</li>
+      <li>Add <code>.sticky</code> to the <code>&lt;header&gt;</code>, or alongside <code>.navbar</code> on a standalone <code>&lt;nav&gt;</code>.</li>
+      <li>&lt;ul&gt; are automatically distributed horizontally.</li>
+      <li>&lt;li&gt;are unstyled and inlined.</li>
+      <li>&lt;a&gt; are underlined only on :hover.</li>
+    </ul>
+    <div class="fixture container slim">
+      <header>
+        <nav>
+          <ul>
+            <li><strong>Acme Corp</strong></li>
+          </ul>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Products</a></li>
+          </ul>
+        </nav>
+      </header>
+      <hr>
+      <nav class="navbar"><ul><li><a class="secondary" aria-label="Menu" data-discover="true" href="/docs/nav"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1rem" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-menu"><path d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"></path></svg></a></li></ul><ul><li><strong>Acme Corp</strong></li></ul><ul><li><a class="secondary" aria-label="Twitter" data-discover="true" href="/docs/nav"><svg xmlns="http://www.w3.org/2000/svg" height="1rem" width="100%" viewBox="0 0 512 512" class="icon-x"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg></a></li></ul></nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Nav with button</h3>
+    <ul>
+      <li>You can use &lt;button&gt; inside &lt;li&gt;.</li>
+      <li>Button sizes automatically match link size and margin.</li>
+    </ul>
+    <div class="fixture resizable">
+      <nav class="navbar">
+        <ul>
+          <li><strong>Acme Corp</strong></li>
+        </ul>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a role="button" href="#">Services</a></li>
+          <li><button class="secondary">Products</button></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Nav with dropdown</h3>
+    <ul>
+      <li>You can use dropdowns inside Nav.</li>
+    </ul>
+    <div class="fixture resizable">
+      <nav class="navbar">
+        <ul>
+          <li><strong>Acme Corp</strong></li>
+        </ul>
+        <ul>
+          <li><a href="#" class="secondary">Services</a></li>
+          <li>
+            <div class="dropdown">
+              <button popovertarget="navddtest">Account</button>
+              <nav id="navddtest" popover>
+                <ul>
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">Settings</a></li>
+                  <li><a href="#">Security</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </nav>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Breadcrumb</h3>
+    <ul>
+      <li>With &lt;nav aria-label="breadcrumb"&gt; you can turn a nav into a breadcrumb.</li>
+    </ul>
+    <div class="fixture resizable">
+      <nav aria-label="breadcrumb">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Main area</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Design</a></li>
+        </ul>
+      </nav>
+      <hr>
+      <nav aria-label="Breadcrumb">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Main area</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Design</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Breadcrumb edge cases: long labels and overflow</h3>
+    <ul>
+      <li>Long crumb labels should wrap or truncate predictably</li>
+      <li>Many crumbs should remain usable in narrow containers</li>
+    </ul>
+    <div class="fixture resizable" style="inline-size: 28rem;">
+      <nav aria-label="breadcrumb">
+        <ol>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">A very long section name that stresses breadcrumb label layout</a></li>
+          <li><a href="#">Another long intermediate destination label</a></li>
+          <li><a href="#">Final destination</a></li>
+        </ol>
+      </nav>
+      <hr>
+      <nav aria-label="breadcrumb">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Components</a></li>
+          <li><a href="#">Navigation</a></li>
+          <li><a href="#">Breadcrumb</a></li>
+          <li><a href="#">API</a></li>
+          <li><a href="#">Current page</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Breadcrumb semantics and current page</h3>
+    <ul>
+      <li>Supports <code>aria-current="page"</code> on final link</li>
+      <li>Also supports non-link final item</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="breadcrumb">
+        <ol>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Library</a></li>
+          <li><a href="#" aria-current="page">Data</a></li>
+        </ol>
+      </nav>
+      <hr>
+      <nav aria-label="breadcrumb">
+        <ol>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Library</a></li>
+          <li><span aria-current="page">Data</span></li>
+        </ol>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Breadcrumb in RTL</h3>
+    <ul>
+      <li>Separator direction and spacing should remain correct in RTL</li>
+    </ul>
+    <div class="fixture container slim" dir="rtl">
+      <nav aria-label="breadcrumb" >
+        <ol>
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="#">المكتبة</a></li>
+          <li><a href="#" aria-current="page">البيانات</a></li>
+        </ol>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Vertical menu</h3>
+    <ul>
+      <li>Inside &lt;aside&gt;, navs items are stacked vertically.</li> 
+      <li>Nested lists are supported</li> 
+      <li>a inside is hoverable</li>
+      <li>aria-disabled="true" (muted) and aria-current attributes are supported</li>
+    </ul>
+    <div class="fixture resizable" style="width: 20rem;">
+      <aside>
+        <nav>
+          <ul>
+            <li>
+              <a href="#">Viennoiseries</a>
+              <ul>
+                <li><a href="#">Croissant</a></li>
+                <li><a href="#" aria-current="page">Éclair</a></li>
+                <li>
+                  <a href="#">Tartelettes</a>
+                  <ul>
+                    <li><a href="#">Aux mûres</a></li>
+                    <li><a href="#">Aux framboises</a></li>
+                    <li aria-disabled="true"><a href="#">Aux fraises</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Pain au chocolat</a></li>
+              </ul>
+            </li>
+            <li ><a href="#">Macarons</a></li>
+            <li aria-disabled="true"><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li role="separator"><hr></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+          </ul>
+          <h6 class="eyebrow">Heading</h6>
+          <ul>
+            <li><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li><a href="#">Pain perdu</a></li>
+            <li><details>
+              <summary>Accordion</summary>
+              <ul>
+                <li><a href="#">Pain perdu</a></li>
+                <li><a href="#">Pain perdu</a></li>
+                <li><a href="#">Pain perdu</a></li>
+              </ul>
+            </details></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Side menu hover vs. aria-current stacking</h3>
+    <ul>
+      <li>Fill colors use the alpha channel, so hover must paint on a separate layer to <em>stack</em> over the selected background instead of replacing it.</li>
+      <li>Regular item: hover/active should show <code>--color-fill</code>; idle is transparent.</li>
+      <li><code>aria-current</code> item: idle shows the selected fill; hovering should make it <strong>darker</strong> (stacked), never lighter.</li>
+      <li>Both <code>&lt;a&gt;</code> links and <code>&lt;button&gt;</code> items must behave identically.</li>
+    </ul>
+    <div class="fixture resizable" style="width: 20rem;">
+      <aside>
+        <nav>
+          <h6 class="eyebrow">Links</h6>
+          <ul>
+            <li><a href="#">Regular link (hover me)</a></li>
+            <li><a href="#" aria-current="page">Current link (hover me &mdash; should darken)</a></li>
+          </ul>
+          <h6 class="eyebrow">Buttons</h6>
+          <ul>
+            <li><button type="button">Regular button (hover me)</button></li>
+            <li><button type="button" aria-current="page">Current button (hover me &mdash; should darken)</button></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Full-height side menu (aside.full-height)</h3>
+    <ul>
+      <li>Adding <code>.full-height</code> to an <code>&lt;aside&gt;</code> opts into the full-height side-menu pattern</li>
+      <li>Inner <code>&lt;nav&gt;</code> scrolls when its content overflows</li>
+      <li><code>&lt;footer&gt;</code> is pinned to the bottom of the aside</li>
+      <li>In real pages the aside fills the viewport (<code>block-size: 100dvh</code>)</li>
+      <li>Full height does not make the aside sticky; page shells own sticky positioning and its responsive behavior</li>
+      <li>Plain <code>&lt;aside&gt;</code> (without <code>.full-height</code>) stays its natural size &mdash; see the Vertical menu testcase above</li>
+    </ul>
+    <div class="fixture" style="width: 20rem;">
+      <aside class="full-height">
+        <header class="p-s"><strong>Workspace</strong></header>
+        <nav>
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#">Chats</a></li>
+            <li aria-current="page"><a href="#">Agents</a></li>
+            <li><a href="#">Models</a></li>
+            <li><a href="#">Files</a></li>
+            <li><a href="#">Evaluations</a></li>
+            <li><a href="#">Deployments</a></li>
+            <li><a href="#">Usage</a></li>
+            <li><a href="#">Billing</a></li>
+            <li><a href="#">API keys</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Webhooks</a></li>
+            <li><a href="#">Logs</a></li>
+            <li><a href="#">Audit log</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Integrations</a></li>
+            <li><a href="#">Marketplace</a></li>
+          </ul>
+        </nav>
+        <footer class="p-s"><small>Signed in as Kim</small></footer>
+      </aside>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Dropdown with internal sidemenu</h3>
+    <ul>
+      <li>You can also use nested lists in dropdows to create a similar sidemenu</li>
+    </ul>
+    <div class="fixture">
+      <nav class="navbar">
+        <ul>
+          <li>
+            <div class="dropdown">
+              <button popovertarget="ddwsm">Menu</button>
+              <nav id="ddwsm" popover>
+                <ul>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Products</a>
+                    <ul>
+                      <li><a href="#">Product 1</a></li>
+                      <li><a href="#">Product 2</a></li>
+                      <li>
+                        <ul>
+                          <li><a href="#">Subproduct 1</a></li>
+                          <li><a href="#">Subproduct 2</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+</section>
+
+<section id="pagination">
+  <h2>Pagination</h2>
+
+  <article class="testcase">
+    <h3>Basic pagination nav</h3>
+    <ul>
+      <li>Uses semantic <code>nav</code> with <code>aria-label="pagination"</code>.</li>
+      <li>Current page is marked with <code>aria-current="page"</code>.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="pagination">
+        <ul>
+          <li><a href="#">Previous</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#" aria-current="page">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Button pagination</h3>
+    <ul>
+      <li>Pagination that triggers in-page actions should use <code>&lt;button&gt;</code>, not anchors.</li>
+      <li>Buttons should inherit color, background, and border-radius from the pagination strip — no default button chrome.</li>
+      <li>Current button is marked with <code>aria-current="page"</code> and gets the same fill as the link variant.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="pagination">
+        <ul>
+          <li><button>Previous</button></li>
+          <li><button>1</button></li>
+          <li><button>2</button></li>
+          <li><button aria-current="page">3</button></li>
+          <li><button>4</button></li>
+          <li><button>5</button></li>
+          <li><button>Next</button></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Current page marked on the <code>li</code></h3>
+    <ul>
+      <li>Current-page styling must also apply when <code>aria-current="page"</code> is set on the <code>&lt;li&gt;</code> instead of the link.</li>
+      <li>Item 3 should get the same fill and bold weight as the link-marked variant above.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="pagination">
+        <ul>
+          <li><a href="#">Previous</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li aria-current="page"><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Pagination states</h3>
+    <ul>
+      <li>Disabled and selected states should remain visible and legible.</li>
+      <li>Supports icon-like labels and compact page ranges.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="pagination">
+        <ul>
+          <li><span aria-disabled="true">Previous</span></li>
+          <li><a href="#" aria-current="page">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><span aria-hidden="true">…</span></li>
+          <li><a href="#">8</a></li>
+          <li><a href="#">9</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Mixed interactive element types</h3>
+    <ul>
+      <li>Supports anchor, button, <code>role="link"</code>, and <code>role="button"</code> patterns.</li>
+      <li>Visual style and spacing should stay consistent across element types.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav aria-label="pagination">
+        <ul>
+          <li><a href="#" role="button">Previous</a></li>
+          <li><a href="#" aria-current="page">1</a></li>
+          <li><button type="button">2</button></li>
+          <li><span role="link" tabindex="0">3</span></li>
+          <li><span role="button" tabindex="0">4</span></li>
+          <li><button type="button">Next</button></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Pagination in narrow width</h3>
+    <ul>
+      <li>Should remain usable in constrained container widths.</li>
+    </ul>
+    <div class="fixture container slim" style="max-inline-size: 22rem;">
+      <nav aria-label="pagination">
+        <ul>
+          <li><a href="#">Prev very long to test wrapping</a></li>
+          <li><a href="#">10</a></li>
+          <li><a href="#">11</a></li>
+          <li><a href="#" aria-current="page">12</a></li>
+          <li><a href="#">13</a></li>
+          <li><a href="#">14</a></li>
+          <li><a href="#">Next very long to test wrapping</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+</section>
+
+<section id="tabs">
+  <h2>Tabs</h2>
+
+  <article class="testcase">
+    <h3>Base tabs (link header)</h3>
+    <ul>
+      <li>Horizontal row of links inside <code>nav.tabs</code>.</li>
+      <li>Current tab is marked with <code>aria-current="page"</code> on the link.</li>
+      <li>Panel content and tab switching are the consumer's responsibility (routing or JS).</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Animals">
+        <ul>
+          <li><a href="#" aria-current="page">Snow leopard</a></li>
+          <li><a href="#">Honey bee</a></li>
+          <li><a href="#">Elephant</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Button header</h3>
+    <ul>
+      <li>Tabs that switch panels in place should use <code>&lt;button&gt;</code>, not anchors.</li>
+      <li>Buttons should inherit color, background, and font weight from the tab strip — no default button chrome.</li>
+      <li>Current button is marked with <code>aria-current="page"</code> and gets the same underline as the link variant.</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Animals (buttons)">
+        <ul>
+          <li><button type="button" aria-current="page">Snow leopard</button></li>
+          <li><button type="button">Honey bee</button></li>
+          <li><button type="button">Elephant</button></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Current tab marked on the <code>li</code></h3>
+    <ul>
+      <li>Current-tab underline must also apply when <code>aria-current="page"</code> is set on the <code>&lt;li&gt;</code> instead of the link.</li>
+      <li>"Snow leopard" should get the same underline and bold weight as the link-marked variant above.</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Animals (li-marked)">
+        <ul>
+          <li aria-current="page"><a href="#">Snow leopard</a></li>
+          <li><a href="#">Honey bee</a></li>
+          <li><a href="#">Elephant</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>No current tab</h3>
+    <ul>
+      <li>Tab strip should render correctly when no link has <code>aria-current</code>.</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Sections">
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Activity</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Long tab labels and narrow container</h3>
+    <ul>
+      <li>Long labels should remain readable in constrained width.</li>
+      <li>Row should wrap or scroll predictably without breaking the strip.</li>
+    </ul>
+    <div class="fixture container slim">
+      <nav class="tabs" aria-label="Polar research">
+        <ul>
+          <li><a href="#" aria-current="page">Polar research expedition planning and logistics</a></li>
+          <li><a href="#">Wildlife population tracking with seasonal migration overlays</a></li>
+          <li><a href="#">Community education partnerships and conservation programs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Multiple tab strips on same page</h3>
+    <ul>
+      <li>Each strip maintains its own current state independently.</li>
+      <li>Strips should be distinguishable to assistive tech via separate <code>aria-label</code> values.</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <nav class="tabs" aria-label="Left group">
+          <ul>
+            <li><a href="#" aria-current="page">Overview</a></li>
+            <li><a href="#">Details</a></li>
+          </ul>
+        </nav>
+        <nav class="tabs" aria-label="Right group">
+          <ul>
+            <li><a href="#">Status</a></li>
+            <li><a href="#" aria-current="page">History</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Many tabs</h3>
+    <ul>
+      <li>Strip should handle higher tab counts without breaking layout.</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Project sections">
+        <ul>
+          <li><a href="#">Summary</a></li>
+          <li><a href="#" aria-current="page">Activity</a></li>
+          <li><a href="#">Files</a></li>
+          <li><a href="#">Members</a></li>
+          <li><a href="#">Permissions</a></li>
+          <li><a href="#">Audit log</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Tabs with icons</h3>
+    <ul>
+      <li>Icon and label should align on the same baseline.</li>
+      <li>Icon color should follow the link's text color, including the current state.</li>
+    </ul>
+    <div class="fixture">
+      <nav class="tabs" aria-label="Workspace">
+        <ul>
+          <li>
+            <a href="#" aria-current="page">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              Overview
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.5.5 0 0 1-.96 0L9.68 3.18a.5.5 0 0 0-.96 0l-2.35 8.36A2 2 0 0 1 4.44 13H2"/></svg>
+              Activity
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+              Settings
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+</section>
+
+<section id="tooltip">
+  <h2>Tooltip component</h2>
+
+  <article class="testcase">
+    <h3>Tooltips without JS on any element</h3>
+    <ul>
+      <li>Change display side (data-placement="top|right|bottom|left")</li>
+    </ul>
+    <div class="fixture">
+      <p>Tooltip on a <a href="#" data-tooltip="Tooltip">link</a></p>
+      <p>Tooltip on <em data-tooltip="Tooltip" tabindex="0">inline element</em></p>
+      <p><button data-tooltip="Tooltip">Tooltip on a button</button></p>
+      <div class="switcher">
+        <button data-tooltip="Top" data-placement="top">Top</button>
+        <button data-tooltip="Right" data-placement="right">Right</button>
+        <button data-tooltip="Bottom" data-placement="bottom">Bottom</button>
+        <button data-tooltip="Left" data-placement="left">Left</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Tooltip edge cases</h3>
+    <ul>
+      <li>Long tooltip text wrapping and readability</li>
+      <li>Focusable non-interactive targets and edge placements</li>
+    </ul>
+    <div class="fixture">
+      <div class="switcher">
+        <button data-placement="top" data-tooltip="This is a very long tooltip string used to test wrapping, clipping, and readable line breaks in constrained space.">Long top tooltip</button>
+        <button data-placement="right" data-tooltip="Tooltip near the right side should stay readable.">Right edge</button>
+        <button data-placement="left" data-tooltip="Tooltip near the left side should stay readable.">Left edge</button>
+        <button data-placement="bottom" data-tooltip="Bottom placement with enough content to verify spacing and caret position.">Bottom long</button>
+      </div>
+      <p>
+        <em data-placement="top" tabindex="0" data-tooltip="Keyboard reachable inline tooltip with tabindex.">Focusable inline text</em>
+      </p>
+      <p>
+        <abbr data-placement="right" tabindex="0" data-tooltip="Abbreviation tooltip content shown with custom styling.">WCAG</abbr>
+      </p>
+    </div>
+  </article>
+  ...
+</section>
+
+<h1>Utilities</h1>
+<section id="utilities">
+
+  <article class="testcase">
+    <h3>Color utilities</h3>
+    <ul>
+      <li>Neutral and semantic backgrounds should remain distinct in light and dark themes</li>
+      <li>Foreground colors should stay readable, and contrast surfaces should use inverse text</li>
+    </ul>
+    <div class="fixture flow">
+      <h4>Surface backgrounds</h4>
+      <div class="switcher gap-xs">
+        <div class="p-s bg-sunken">.bg-sunken</div>
+        <div class="p-s bg-surface">.bg-surface</div>
+        <div class="p-s bg-raised">.bg-raised</div>
+        <div class="p-s bg-overlay">.bg-overlay</div>
+        <div class="p-s bg-fill">.bg-fill</div>
+        <div class="p-s bg-contrast">.bg-contrast</div>
+        <div class="p-s bg-transparent border-weak">.bg-transparent</div>
+      </div>
+
+      <h4>Semantic backgrounds</h4>
+      <div class="switcher gap-xs">
+        <div class="p-s bg-primary">.bg-primary</div>
+        <div class="p-s bg-accent">.bg-accent</div>
+        <div class="p-s bg-success">.bg-success</div>
+        <div class="p-s bg-danger">.bg-danger</div>
+        <div class="p-s bg-warning">.bg-warning</div>
+        <div class="p-s bg-info">.bg-info</div>
+      </div>
+
+      <h4>Foreground colors</h4>
+      <div class="switcher gap-xs">
+        <div class="p-s border-weak fg-muted">.fg-muted</div>
+        <div class="p-s border-weak fg-primary">.fg-primary</div>
+        <div class="p-s border-weak fg-accent">.fg-accent</div>
+        <div class="p-s border-weak fg-success">.fg-success</div>
+        <div class="p-s border-weak fg-danger">.fg-danger</div>
+        <div class="p-s border-weak fg-warning">.fg-warning</div>
+        <div class="p-s border-weak fg-info">.fg-info</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Borders, radii, and shadows</h3>
+    <ul>
+      <li>Border roles and radius steps should be visually ordered</li>
+      <li>Shadow elevation should increase from small to large; inner shadow should remain inset</li>
+    </ul>
+    <div class="fixture flow">
+      <h4>Borders</h4>
+      <div class="switcher gap-m">
+        <div class="p-m bg-raised border-none">.border-none</div>
+        <div class="p-m bg-raised border-weak">.border-weak</div>
+        <div class="p-m bg-raised border-strong">.border-strong</div>
+      </div>
+
+      <h4>Border radius</h4>
+      <div class="switcher gap-m">
+        <div class="p-s bg-primary radius-0">.radius-0</div>
+        <div class="p-s bg-primary radius-s">.radius-s</div>
+        <div class="p-s bg-primary radius-m">.radius-m</div>
+        <div class="p-s bg-primary radius-l">.radius-l</div>
+        <div class="p-s bg-primary radius-f">.radius-f</div>
+        <div class="p-s bg-primary rounded">.rounded</div>
+      </div>
+
+      <h4>Shadows</h4>
+      <div class="switcher gap-l">
+        <div class="p-m bg-raised shadow-none">.shadow-none</div>
+        <div class="p-m bg-raised shadow-s">.shadow-s</div>
+        <div class="p-m bg-raised shadow-m">.shadow-m</div>
+        <div class="p-m bg-raised shadow-l">.shadow-l</div>
+        <div class="p-m bg-raised shadow-inner">.shadow-inner</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Spacing utilities</h3>
+    <ul>
+      <li>Gap should increase through the complete spacing scale</li>
+      <li>All-side and logical-axis margin and padding utilities should affect only their intended sides</li>
+      <li>Zero utilities should remove spacing, and <code>.mx-auto</code> should center a constrained block</li>
+    </ul>
+    <div class="fixture flow">
+      <h4>Gap scale</h4>
+      <div class="flow-tight">
+        <div class="cluster gap-0"><code>.gap-0</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-3xs"><code>.gap-3xs</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-2xs"><code>.gap-2xs</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-xs"><code>.gap-xs</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-s"><code>.gap-s</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-m"><code>.gap-m</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-l"><code>.gap-l</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-xl"><code>.gap-xl</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-2xl"><code>.gap-2xl</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+        <div class="cluster gap-3xl"><code>.gap-3xl</code><span class="p-3xs bg-primary">A</span><span class="p-3xs bg-primary">B</span><span class="p-3xs bg-primary">C</span></div>
+      </div>
+
+      <h4>Padding</h4>
+      <div class="switcher gap-m">
+        <div class="border-strong bg-raised p-0">.p-0</div>
+        <div class="border-strong bg-raised p-s">.p-s</div>
+        <div class="border-strong bg-raised p-l">.p-l</div>
+        <div class="border-strong bg-raised px-l">.px-l</div>
+        <div class="border-strong bg-raised py-l">.py-l</div>
+      </div>
+
+      <h4>Margin</h4>
+      <div class="switcher gap-m">
+        <div class="border-weak bg-sunken"><div class="m-0 p-3xs bg-raised">.m-0</div></div>
+        <div class="border-weak bg-sunken"><div class="m-s p-3xs bg-raised">.m-s</div></div>
+        <div class="border-weak bg-sunken"><div class="mx-l p-3xs bg-raised">.mx-l</div></div>
+        <div class="border-weak bg-sunken"><div class="my-l p-3xs bg-raised">.my-l</div></div>
+        <div class="border-weak bg-sunken"><div class="mx-auto p-3xs bg-raised" style="inline-size: 50%;">.mx-auto</div></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Utility cascade overrides</h3>
+    <ul>
+      <li>Utilities should override lower-layer component defaults</li>
+      <li>The adjusted card should have no padding, border, radius, or shadow</li>
+      <li>The adjusted button should have no component chrome and should use semantic foreground color</li>
+    </ul>
+    <div class="fixture flow">
+      <div class="switcher gap-l">
+        <article class="card">
+          <h4>Default card</h4>
+          <p>Component padding, border, radius, and shadow.</p>
+        </article>
+        <article class="card p-0 border-none radius-0 shadow-none">
+          <h4>Utility-adjusted card</h4>
+          <p>No padding, border, radius, or shadow.</p>
+        </article>
+      </div>
+      <div class="cluster gap-m">
+        <button>Default button</button>
+        <button class="bg-transparent fg-primary border-none radius-0 shadow-none weight-normal">Utility-adjusted button</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Typography utilities</h3>
+    <ul>
+      <li><code>.size-tiny</code> should use the smallest type token</li>
+      <li>Weight utilities should override semantic element defaults</li>
+      <li><code>.text-center</code> should center text without changing its container</li>
+    </ul>
+    <div class="fixture flow">
+      <p class="size-tiny">Tiny text using <code>.size-tiny</code></p>
+      <p><strong class="weight-normal">A strong element reset with .weight-normal</strong></p>
+      <p class="weight-bold">A paragraph promoted with .weight-bold</p>
+      <p class="text-center border-weak p-s">Centered text using .text-center</p>
+    </div>
+  </article>
+
+</section>
+
+<section id="django-integration">
+  <h2>Django integration</h2>
+
+  <article class="testcase">
+    <h3>Form help text and error list</h3>
+    <ul>
+      <li>Django <code>.helptext</code> should sit in form flow like Minium's native <code>&lt;small&gt;</code> helper text.</li>
+      <li>Django <code>.errorlist</code> should sit between the label and an <code>aria-invalid="true"</code> field.</li>
+      <li>Assume <code>{{form.as_div}}</code> (default) is used, form elements wrapped in divs.</li>
+    </ul>
+    <div class="fixture container slim">
+
+        <div class="switcher" style="--switcher-breakpoint: 24rem;">
+          <form>
+            <label for="minium-help-email">Email</label>
+            <input type="email" id="minium-help-email" name="minium-help-email" value="ada@example.com" aria-describedby="minium-help-email-text">
+            <small id="minium-help-email-text">Used for account notifications.</small>
+          </form>
+
+          <form>
+            <div>
+              <label for="django-help-email">Email</label>
+              <input type="email" id="django-help-email" name="django-help-email" value="ada@example.com" aria-describedby="django-help-email-helptext">
+              <div id="django-help-email-helptext" class="helptext">Used for account notifications.</div>
+            </div>
+          </form>
+        </div>
+
+        <hr>
+
+        <div class="switcher" style="--switcher-breakpoint: 24rem;">
+          <form>
+
+            <label for="minium-error-email">Email</label>
+            <input type="email" id="minium-error-email" name="minium-error-email" value="ada@" aria-invalid="true" aria-describedby="minium-error-email-text">
+            <small id="minium-error-email-text">Enter a valid email address.</small>
+          </form>
+
+          <form>
+            <div>
+              <label for="django-error-email">Email</label>
+              <ul id="django-error-email-errors" class="errorlist">
+                <li>Enter a valid email address.</li>
+              </ul>
+              <input type="email" id="django-error-email" name="django-error-email" value="ada@" aria-invalid="true" aria-describedby="django-error-email-errors">
+            </div>
+          </form>
+        </div>
+
+    </div>
+  </article>
+</section>
+
+<section id="syntax-highlighting">
+  <h2>Prism integration</h2>
+
+  <article class="testcase">
+    <h3>Prism highlighting support</h3>
+    <ul>
+      <li>...</li>
+    </ul>
+    <div class="fixture">
+<pre><code class="language-cpp">// code tag
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+  cout &lt;&lt; "Hello World!" &lt;&lt; endl;
+  return 0;
+}
+</code></pre>
+<p>Some inline code <code class="language-python">print "Hello world!"</code>. This would print some text</p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>HTML</h3>
+    <ul>
+      <li>Tests tag, attribute, and entity highlighting.</li>
+    </ul>
+    <div class="fixture">
+<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Greeting --&gt;
+    &lt;h1 class="title" data-id="42"&gt;Hello &amp; welcome&lt;/h1&gt;
+    &lt;a href="https://example.com"&gt;Read more&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Inline: <code class="language-markup">&lt;span class="badge"&gt;new&lt;/span&gt;</code> renders a badge.</p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>CSS</h3>
+    <ul>
+      <li>Tests selectors, properties, values, custom properties, and at-rules.</li>
+    </ul>
+    <div class="fixture">
+<pre><code class="language-css">/* Theme tokens */
+:root {
+  --color-accent: oklch(70% 0.15 250);
+  --space-m: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  gap: var(--space-m);
+  padding: 0.5em 1em;
+  background: var(--color-accent);
+  border-radius: 4px;
+
+  &amp;:hover {
+    filter: brightness(1.1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --color-accent: #4ea1ff; }
+}
+</code></pre>
+<p>Inline: <code class="language-css">color: var(--text);</code> applies the text color token.</p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>JavaScript</h3>
+    <ul>
+      <li>Tests keywords, strings, template literals, regex, and comments.</li>
+    </ul>
+    <div class="fixture">
+<pre><code class="language-javascript">// Fetch and render users
+import { html, render } from './lib.js';
+
+const API = 'https://api.example.com/users';
+
+async function loadUsers(query = '') {
+  const res = await fetch(`${API}?q=${encodeURIComponent(query)}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+const isEmail = (s) =&gt; /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+
+loadUsers().then((users) =&gt; {
+  const valid = users.filter((u) =&gt; isEmail(u.email));
+  render(html`&lt;ul&gt;${valid.map((u) =&gt; html`&lt;li&gt;${u.name}&lt;/li&gt;`)}&lt;/ul&gt;`);
+});
+</code></pre>
+<p>Inline: <code class="language-javascript">const x = arr.map((n) =&gt; n * 2);</code> doubles each item.</p>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Python</h3>
+    <ul>
+      <li>Tests keywords, decorators, f-strings, numbers, and docstrings.</li>
+    </ul>
+    <div class="fixture">
+<pre><code class="language-python">"""Compute Fibonacci numbers with memoization."""
+from functools import lru_cache
+
+
+@lru_cache(maxsize=None)
+def fib(n: int) -&gt; int:
+    if n &lt; 2:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+
+if __name__ == "__main__":
+    values = [fib(i) for i in range(10)]
+    print(f"First 10 Fibonacci numbers: {values}")
+</code></pre>
+<p>Inline: <code class="language-python">sum(x for x in range(10) if x % 2 == 0)</code> sums even numbers.</p>
+    </div>
+  </article>
+
+</section>
+<script src="assets/prism.js"></script>
+
+  </div></main>
+  <footer>
+    <div class="container">
+      <p>Copyright &copy; 2026, Kim Trønnes</p>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

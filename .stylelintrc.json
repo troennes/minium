@@ -1,0 +1,33 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "ignoreFiles": ["css/colors.css"],
+  "overrides": [
+    {
+      "files": ["css/reset.css"],
+      "rules": {
+        "property-no-vendor-prefix": null,
+        "value-keyword-case": null
+      }
+    },
+    {
+      "files": ["css/theme.css"],
+      "rules": {
+        "custom-property-empty-line-before": null
+      }
+    }
+  ],
+  "rules": {
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["corner-shape"]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["light-dark"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Select | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Forms</p>
+<h1>Select</h1>
+
+<p>Minium styles native <code>&lt;select&gt;</code> elements.</p>
+
+<h2>Usage</h2>
+<p>Pair the <code>&lt;select&gt;</code> with a label and an option list. Single-select fields display the browser's built-in indicator.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="select-country">Country</label>
+      <select id="select-country" name="country">
+        <option value="">Choose a country</option>
+        <option>Norway</option>
+        <option>Sweden</option>
+        <option>Denmark</option>
+        <option>Finland</option>
+      </select>
+    </form>
+  </article>
+</div>
+
+<h2>Show validation states</h2>
+<p>Set <code>aria-invalid="false"</code> or <code>aria-invalid="true"</code> to style the select as valid or invalid. Place helper text immediately after the field.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="select-valid">Valid select</label>
+      <select id="select-valid" aria-invalid="false">
+        <option>Starter</option>
+        <option selected>Team</option>
+        <option>Enterprise</option>
+      </select>
+      <small>Looks good.</small>
+
+      <label for="select-invalid">Invalid select</label>
+      <select id="select-invalid" aria-invalid="true">
+        <option selected value="">Choose a plan</option>
+        <option>Starter</option>
+        <option>Team</option>
+        <option>Enterprise</option>
+      </select>
+      <small>Please choose a plan.</small>
+    </form>
+  </article>
+</div>
+
+<h2>Disable a select</h2>
+<p>Add <code>disabled</code> when users cannot select an option.</p>
+<div class="example">
+  <article>
+    <form>
+      <label for="select-disabled">Disabled select</label>
+      <select id="select-disabled" disabled>
+        <option selected>Temporarily unavailable</option>
+      </select>
+    </form>
+  </article>
+</div>
+
+<h2>Use multiple and grouped options</h2>
+<p>Add <code>multiple</code> to let users select more than one option. Use <code>&lt;optgroup&gt;</code> to organize a long option list.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="select-multiple">Features</label>
+      <select id="select-multiple" multiple size="6">
+        <optgroup label="Core">
+          <option selected>Chat</option>
+          <option selected>Files</option>
+          <option>Search</option>
+        </optgroup>
+        <optgroup label="Advanced">
+          <option>Agents</option>
+          <option>Evaluations</option>
+          <option>Deployments</option>
+        </optgroup>
+      </select>
+    </form>
+  </article>
+</div>
+
+<h2>Choose a select size</h2>
+<p>Use <code>.small</code> for a compact select or <code>.large</code> for a larger select.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="select-small">Small</label>
+      <select id="select-small" class="small">
+        <option selected>Compact</option>
+        <option>Default</option>
+        <option>Large</option>
+      </select>
+
+      <label for="select-default">Default</label>
+      <select id="select-default">
+        <option selected>Default size</option>
+        <option>Compact</option>
+        <option>Large</option>
+      </select>
+
+      <label for="select-large">Large</label>
+      <select id="select-large" class="large">
+        <option>Compact</option>
+        <option>Default</option>
+        <option selected>Large size</option>
+      </select>
+    </form>
+  </article>
+</div>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

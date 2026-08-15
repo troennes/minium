@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.claude/
+.agents/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/editor
+.DS_Store

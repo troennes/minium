@@ -1,0 +1,376 @@
+@layer base {
+  /* Common styles */
+  :where(input, select, textarea) {
+    background-color: var(--form-color-surface);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--border-radius-m);
+    box-shadow: var(--shadow-small);
+    line-height: var(--line-height);
+  }
+
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]),
+  input[type="file"]::file-selector-button,
+  select,
+  textarea {
+    appearance: none;
+    padding: var(--space-2xs) var(--space-xs);
+
+    &.small {
+      padding: var(--space-3xs) var(--space-2xs);
+      font-size: var(--size-small);
+    }
+
+    &.large {
+      padding: var(--space-xs) var(--space-s);
+      font-size: var(--size-h4);
+    }
+  }
+
+  input:not([type="checkbox"], [type="radio"]),
+  select,
+  textarea,
+  form button:not(.icon-only, .close) {
+    inline-size: 100%;
+  }
+
+  /* Allow use of cluster to make form elements use their intrinsic width */
+  .cluster > :is(input:not([type="checkbox"], [type="radio"]), select, textarea, button) {
+    inline-size: auto;
+  }
+
+  label {
+    display: block;
+  }
+
+  :where(form, fieldset) > small {
+    display: block;
+    color: var(--color-text-muted);
+  }
+
+  :is(input, select, textarea) {
+    &[aria-invalid="false"] {
+      border-color: var(--color-success-border-strong);
+
+      + small {
+        color: var(--color-success-text);
+      }
+    }
+
+    &[aria-invalid="true"] {
+      border-color: var(--color-danger-border-strong);
+
+      + small {
+        color: var(--color-danger-text);
+      }
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    border-bottom-right-radius: min(var(--border-radius-s), 4px);
+  }
+
+  /* Fieldset and legend */
+  fieldset {
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-s);
+    padding: var(--space-xs);
+
+    legend {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--size-small);
+    }
+  }
+
+  fieldset:is(
+      [role="group"], 
+      .bare, .cluster, .container, .grid, .sidebar, .repel, .switcher
+    ) {
+    border: 0;
+    padding: 0;
+
+    /* min-inline-size: 0; */
+
+ /* Add if overflow problems to switcher/grid */
+  }
+
+  /* Hide focus ring for read-only fields */
+  :is(input, textarea)[readonly]:focus {
+    outline: transparent;
+  }
+
+  /* Disabled state */
+  input:not([type="submit"], [type="button"], [type="reset"], [role="switch"])[disabled],
+  select[disabled],
+  textarea[disabled],
+  :where(fieldset[disabled]) :is(input:not([type="submit"], [type="button"], [type="reset"]), select, textarea) {
+    background-color: transparent;
+    border-color: var(--form-color-border-disabled); 
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  label[aria-disabled="true"],
+  label:has(> input[disabled]),
+  input:is([type="checkbox"], [type="radio"])[disabled] + label {
+    /* TODO: More consistent coloring by having a designated border color, text color and bg color when disabled */
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Placeholder text */
+  input::placeholder,
+  textarea::placeholder,
+  select:invalid {
+    color: var(--color-text-muted);
+    opacity: 0.9;
+  }
+
+  /* Color and file input */
+  input:is([type="color"], [type="file"]) {
+    --padding-vertical: var(--space-2xs);
+
+    block-size: calc(
+      (1em * var(--line-height)) +
+      (var(--padding-vertical) * 2) +
+      (var(--border-width) * 2)
+    );
+    cursor: pointer;
+
+    &.small {
+      --padding-vertical: var(--space-3xs);
+    }
+
+    &.large {
+      --padding-vertical: var(--space-xs);    
+    }
+  }
+
+  input[type="color"]::-moz-color-swatch,
+  input[type="color"]::-webkit-color-swatch {
+    /* TODO: BUG: this does not work in Chrome */
+    border: none;
+    border-radius: var(--border-radius-s);
+  }
+
+  input[type="file"] {
+    &::file-selector-button {
+      background-color: var(--color-primary);
+      color: var(--color-primary-inverse);
+      box-shadow: var(--shadow-small);
+      padding: var(--space-2xs) var(--space-xs);
+      border: var(--border-width) solid var(--color-primary);
+      font-weight: bold;
+      line-height: var(--line-height);
+      text-align: center;
+      margin-inline-end: var(--space-xs);
+      border-radius: 0;
+      font-family: inherit;
+    }
+
+    &:is([aria-current], :hover)::file-selector-button {
+      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+    }
+
+    &:active::file-selector-button {
+      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+    }
+
+    &.small::file-selector-button {
+      padding: var(--space-3xs) var(--space-2xs);
+      font-size: var(--size-small);
+    }
+
+    &.large::file-selector-button {
+      padding: var(--space-xs) var(--space-s);
+      font-size: var(--size-h4);
+    }
+  }
+
+  input[type="range"] {
+    background-color: var(--color-fill);
+    border-color: var(--color-border-weak);
+    height: 0.33em;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-inner);
+
+    &::-moz-range-thumb {
+      width: 1em;
+      height: 1em;
+      background-color: var(--color-text);
+      border-radius: var(--border-radius-f);
+      border: none;
+      box-shadow: var(--shadow-small);
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 1em;
+      height: 1em;
+      background-color: var(--color-text);
+      border-radius: var(--border-radius-f);
+      box-shadow: var(--shadow-small);
+    }
+
+    &:active {
+      background-color: var(--color-fill-hover);
+
+      &::-moz-range-thumb {
+        outline: 2px solid var(--color-primary-focus);
+      }
+
+      &::-webkit-slider-thumb {
+        outline: 2px solid var(--color-primary-focus);
+      }
+    }
+
+    &:focus-visible {
+      outline: transparent;
+      box-shadow: 0 0 0 var(--outline-width) var(--color-primary-focus);
+    }
+  }
+
+  input[type="search"] {
+    padding-inline-start: calc(var(--space-xs) + var(--space-2xs) + 1em);
+    background-image: var(--icon-search);
+    background-size: 1em auto;
+    background-position: center left var(--space-xs);
+    background-repeat: no-repeat; 
+  }
+
+  input:not([type="checkbox"], [type="radio"], [type="date"], [type="datetime-local"], 
+    [type="month"], [type="time"], [type="week"], [type="range"]),
+  textarea {
+    &[aria-invalid] {
+      background-size: 1em auto;
+      background-repeat: no-repeat;
+      padding-inline-end: calc(var(--space-xs) + var(--space-2xs) + 1em);
+    }
+
+    &[aria-invalid="false"]{
+      background-image: var(--icon-valid);
+    }
+
+    &[aria-invalid="true"]{
+      background-image: var(--icon-invalid);
+    }
+  }
+
+  input:not([type="checkbox"], [type="radio"], [type="date"], [type="datetime-local"], 
+    [type="month"], [type="time"], [type="week"], [type="range"])[aria-invalid] {
+      background-position: center right var(--space-xs);
+    }
+
+  textarea[aria-invalid] {
+    background-position: top calc(var(--space-2xs) + 0.3em) right var(--space-xs);
+  }
+
+  select:not([multiple], [size]) {
+    background-image: var(--icon-select);
+    background-position: center right var(--space-xs);
+    background-size: 1.125rem;
+    background-repeat: no-repeat;
+  }
+
+  select[multiple] option:checked {
+    background-color: var(--color-fill-hover);
+  }
+
+  /* Focus state */
+  input:not([type="submit"], [type="button"], [type="reset"], [type="range"], [type="checkbox"], [type="radio"], [readonly]):focus,
+  select:is(:focus, :open),
+  textarea:not([readonly]):focus {
+    outline: var(--outline-width, 2px) solid var(--color-primary-focus);
+    outline-offset: calc(var(--outline-width) * -1);
+    border-color: transparent;
+
+    &[aria-invalid="false"] {
+      outline-color: var(--color-success-focus);
+    }
+
+    &[aria-invalid="true"] {
+      outline-color: var(--color-danger-focus);
+    }
+  }
+
+  /* Vertical rhythm */
+  :where(form, fieldset):not(.cluster, .container, .grid, .sidebar, .repel, .switcher, [role="group"]){
+    > * + * {
+      margin-block-start: var(--flow-space);
+    }
+
+    > label:not(:has(> :is(input, select, textarea))) + :is(input, select, textarea),
+    > :is(input, select, textarea) + small {
+      --flow-space: var(--flow-space-glue);
+    }
+
+    /* Radio/checkbox pair has no margin */
+    > input:is([type="radio"], [type="checkbox"]) + label,
+    > label + input:is([type="radio"], [type="checkbox"]) {
+      --flow-space: 0;
+    }
+
+    /* Consecutive radio/checkboxes has tight margin */
+    > input:is([type="radio"], [type="checkbox"]) + input:is([type="radio"], [type="checkbox"]),
+    > label:has(> :is([type="radio"], [type="checkbox"])) + label:has(> :is([type="radio"], [type="checkbox"])) {
+      --flow-space: var(--flow-space-tight);
+    }
+  }
+
+  /* Handle inputs inside labels */
+  label > :is(input, select, textarea) {
+    margin-block-start: var(--flow-space-glue);
+  }
+
+  /* Fieldset has padding, so legend should have no margin */
+  fieldset:not(.bare, .cluster, .container, .grid, .sidebar, .repel, .switcher, [role="group"]) > legend + * {
+    margin-block-start: 0;
+  }
+
+  [dir="rtl"] { 
+    input[type="search"],
+    select:not([multiple], [size]),
+    input:not([type="checkbox"], [type="radio"], [type="date"], [type="datetime-local"], 
+    [type="month"], [type="time"], [type="week"], [type="range"])[aria-invalid] {
+      background-position: center left var(--space-xs);
+    }
+
+    textarea[aria-invalid] {
+      background-position: top calc(var(--space-2xs) + 0.3em) left var(--space-xs);
+    }
+  }
+
+}
+
+@layer components {
+  [role="group"]:not(:has(> :is(details, .avatar))) {
+    display: flex;
+    align-items: center;
+
+    > * {
+      border-radius: 0;
+    }
+
+    :not(:first-child, button, input:is([type="submit"], [type="button"], [type="reset"])) {
+      border-inline-start: 0;
+    }
+    
+    :last-child {
+      border-bottom-right-radius: var(--border-radius-m);
+      border-top-right-radius: var(--border-radius-m);
+    }
+
+    :first-child {
+      border-bottom-left-radius: var(--border-radius-m);
+      border-top-left-radius: var(--border-radius-m);
+    }
+
+    button,
+    input:is([type="submit"], [type="button"], [type="reset"]) {
+      width: unset;
+    }
+  }  
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Navbar | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Navbar</h1>
+
+<p>A navbar groups your brand, primary navigation, and actions in a single horizontal bar.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Place the <code>&lt;nav&gt;</code> as a direct child of a <code>&lt;header&gt;</code>. Outside a header, add the <code>.navbar</code> class instead.</li>
+  <li>Organize the brand, navigation links, and actions into one or more direct child <code>&lt;ul&gt;</code> elements without classes.</li>
+  <li>The nav itself behaves like <code>.repel</code>, and each direct child <code>&lt;ul&gt;</code> behaves like a horizontal <code>.cluster</code>.</li>
+  <li>Use links or links styled as buttons inside the list items.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <header>
+      <nav>
+        <ul>
+          <li><strong>Acme AI</strong></li>
+        </ul>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#" role="button">Start building</a></li>
+        </ul>
+      </nav>
+    </header>
+  </article>
+</div>
+
+<h2>Multiple navigation groups</h2>
+<p>Use separate lists when the navbar contains three or more groups, such as a brand, primary links, and utility actions.</p>
+
+<div class="example">
+  <article>
+    <header>
+      <nav>
+        <ul>
+          <li><strong>Minium CSS</strong></li>
+        </ul>
+        <ul>
+          <li><a href="#">Layout</a></li>
+          <li><a href="#">Content</a></li>
+          <li><a href="#">Components</a></li>
+        </ul>
+        <ul>
+          <li><a href="#" class="secondary">Sign in</a></li>
+          <li><a href="#" role="button">Get started</a></li>
+        </ul>
+      </nav>
+    </header>
+  </article>
+</div>
+
+<h2>Outside a header</h2>
+<p>For a <code>&lt;nav&gt;</code> that is not a direct child of a <code>&lt;header&gt;</code>, add the <code>.navbar</code> class to enable the navbar layout.</p>
+
+<div class="example">
+  <article>
+    <nav class="navbar">
+      <ul>
+        <li><strong>Acme AI</strong></li>
+      </ul>
+      <ul>
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </nav>
+  </article>
+</div>
+
+<h2>Keep a navbar visible</h2>
+
+<p>Add <code>.sticky</code> to keep a navbar at the top of its scroll container. For the semantic navbar pattern, add the modifier to the containing <code>&lt;header&gt;</code>. For a standalone <code>nav.navbar</code>, add the modifier to the <code>&lt;nav&gt;</code>.</p>
+
+<pre><code class="language-html">&lt;header class=&quot;sticky&quot;&gt;
+  &lt;nav class=&quot;container&quot;&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;nav class=&quot;navbar sticky&quot;&gt;...&lt;/nav&gt;
+</code></pre>
+
+<h2>Behavior and constraints</h2>
+<ul>
+  <li>This pattern is intended for header-style navigation, not side menus, breadcrumbs, or pagination.</li>
+  <li>If a page header uses a <code>.container</code>, apply the class to the <code>&lt;nav&gt;</code> so that the <code>&lt;nav&gt;</code> remains a direct child of the <code>&lt;header&gt;</code>.</li>
+  <li>A <code>&lt;nav&gt;</code> outside a <code>&lt;header&gt;</code> without <code>.navbar</code> uses only the shared navigation styles: no list markers and inherited link color. Use this configuration as a neutral starting point.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

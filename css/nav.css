@@ -1,0 +1,206 @@
+@layer components {
+  /* Common styles */
+  nav :is(ol,ul) {
+    list-style: none;
+    padding: 0;
+  }
+
+  nav a:not([role="button"], [role="link"]:not([role="button"])) {
+      color: inherit;
+      font-weight: inherit;
+
+      &:not(:hover, :active, :focus) {
+        text-decoration: none;
+      }
+  }
+
+  /* Navbar / header nav */
+  header > nav,
+  nav.navbar {
+    /* @apply repel */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap);
+
+    > ul  {
+      /* @apply cluster */
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs-s);
+      justify-content: flex-start;
+      align-items: center;      
+    }
+  }
+
+  /* Sticky navbar */
+  header.sticky:has(> nav),
+  nav.navbar.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+  }
+
+  /* Full-height side menu with scrolling and bottom footer */
+  aside.full-height {
+    display: flex;
+    flex-direction: column;
+
+    > nav {
+      flex: 1;
+      min-block-size: 0;
+      overflow-y: auto;
+    }
+
+    > footer:last-of-type {
+      margin-block-start: auto;
+    }
+  }
+
+  /* Common styles for tabs and pagination */
+  /* stylelint-disable-next-line no-descending-specificity */
+  nav.tabs > ul,
+  nav[aria-label="pagination" i] > :is(ol,ul) {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    li {
+      min-inline-size: 2rem;
+      text-align: center;
+      flex-shrink: 0;
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      a,
+      [role="link"] {
+        text-decoration: none;
+      }
+
+      button,
+      [role="button"] {
+        background-color: transparent;
+        color: inherit;
+        box-shadow: none;
+        font-weight: inherit;
+        line-height: inherit;
+        border-radius: inherit;
+        width: 100%;
+      }
+
+      [aria-disabled="true"] {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+
+  /* Tab header */
+  /* stylelint-disable-next-line no-descending-specificity */
+  nav.tabs > ul {
+    inline-size: 100%;
+    border-bottom: var(--border-width) solid var(--color-border-weak);
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+
+    li {
+      padding: var(--space-3xs) var(--space-2xs);
+
+      &:is(:hover, :active) {
+        color: var(--color-text);
+      }
+      
+      &:is([aria-current], :has([aria-current])) {
+        color: var(--color-text);
+        font-weight: var(--font-weight-bold);
+        border-bottom: calc(var(--border-width) + 1px) solid var(--color-primary);
+      }
+
+      button,
+      [role="button"] {
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+
+  /* Pagination */
+  nav[aria-label="pagination" i] > :is(ol,ul) {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--border-radius-s);
+    box-shadow: var(--shadow-small);
+
+    li {
+      /* stylelint-disable-next-line no-descending-specificity */
+      + li {
+        border-inline-start: var(--border-width) solid var(--color-border-strong);
+      }
+
+      &:is([aria-current], :has([aria-current])) {
+        background-color: var(--color-fill-hover);
+        font-weight: var(--font-weight-bold);
+      }
+
+      > * {
+        padding: var(--space-3xs) var(--space-2xs);
+        display: block;
+        font-size: var(--size-small);
+        border: none;
+      }
+
+      a,
+      [role="link"],
+      button,
+      [role="button"] {
+        /* stylelint-disable-next-line no-descending-specificity */
+        &:is(:hover, :active) {
+          background-color: var(--color-fill);
+        }
+      }
+    }
+  }
+
+  /* Breadcrumb */
+  nav[aria-label="breadcrumb" i] > :is(ol,ul) {
+    /* @apply cluster */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs-s);
+    justify-content: flex-start;
+    align-items: center;
+
+    li:not(:last-child)::after {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-color: currentcolor;
+      mask: var(--icon-chevron) center / 100% no-repeat;
+      transform: rotate(-90deg);
+      content: "";
+      vertical-align: middle;
+      margin: 0;
+      margin-inline-start: var(--space-xs-s);
+    }
+
+    li:last-child,
+    [aria-current] {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+
+  [dir="rtl"] nav[aria-label="breadcrumb" i] > :is(ol,ul) li:not(:last-child)::after {
+    transform: rotate(90deg);
+  }
+}
+
+/* Keep full-height side menus within the viewport when used in a sidebar
+   layout. The flex item still stretches alongside the main content. */
+@layer utilities {
+  .sidebar > .full-height {
+    block-size: auto;
+    max-block-size: 100dvh;
+  }
+}

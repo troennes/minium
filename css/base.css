@@ -1,0 +1,57 @@
+@layer tokens, theme, reset, base, layout, components, project, utilities;
+
+@layer base {
+  html {
+    text-rendering: optimizelegibility;
+    tab-size: 4;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-size: var(--size-body, 1rem);
+    background-color: var(--color-surface, canvas);
+    color: var(--color-text, canvastext);
+    font-family: var(--font, system-ui, sans-serif);
+    font-weight: var(--font-weight, 400);
+    border-width: var(--border-width, 1px);
+    outline-width: var(--outline-width, 2px);
+    line-height: var(--line-height, 1.5);
+    overflow-wrap: break-word;
+    text-underline-offset: var(--text-underline-offset, 1px);
+
+    /* Ensure footer is at bottom on short pages */
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    gap: var(--gap);
+
+    > header:first-of-type {
+      background-color: var(--color-surface-raised);
+      border-bottom: var(--border-width) solid var(--header-color-border, var(--color-border-weak));
+      box-shadow: var(--shadow-medium);
+      padding-block: var(--space-2xs);
+    }
+
+    > footer:last-of-type {
+      background-color: var(--color-surface-sunken);
+      border-top: var(--border-width) solid var(--footer-color-border, transparent);
+      padding-block: var(--space-2xs) var(--space-3xl);
+      margin-block-start: auto;
+    }
+
+  }
+
+  /* Vertical rhythm on base documents */
+  main:not([class]), 
+  article:not([class]),
+  section:not([class]) {
+    > * + * {
+      margin-block-start: var(--flow-space);
+    }
+  }
+
+  :focus-visible {
+    outline: var(--outline-width, 2px) solid var(--color-primary-focus);
+    outline-offset: var(--outline-offset, 1px);
+  }
+}

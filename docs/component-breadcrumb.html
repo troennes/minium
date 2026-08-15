@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Breadcrumb | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Breadcrumb</h1>
+
+<p>A breadcrumb shows where the current page sits in the site hierarchy and lets users step back up to parent pages.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>&lt;nav aria-label="Breadcrumb"&gt;</code>.</li>
+  <li>Inside, use <code>&lt;ol&gt;</code> with list items.</li>
+  <li>Mark the current page with <code>aria-current="page"</code>. If the current page is plain text, add the attribute to the <code>&lt;li&gt;</code>. If it links to itself, add the attribute to the <code>&lt;a&gt;</code>.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <nav aria-label="Breadcrumb">
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Components</a></li>
+        <li aria-current="page">Breadcrumb</li>
+      </ol>
+    </nav>
+  </article>
+</div>
+
+<h2>Behavior</h2>
+<ul>
+  <li>CSS adds chevron separators to every item except the last.</li>
+  <li>The breadcrumb automatically supports right-to-left layouts.</li>
+  <li>The current-page item uses bold text.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

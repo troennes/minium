@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Minium CSS</title><link rel="stylesheet" href="dist/minium.css"><link rel="stylesheet" href="dist/integrations/prism.css">
+  <style>
+    main > section,
+    body > footer {
+      margin-block-start: var(--space-2xl);
+    }
+
+    .card > p {color: var(--color-text-muted)}
+
+    .example {
+      border-radius: var(--border-radius-m);
+
+      > * {
+        border-radius: 0;
+        padding: var(--space-s-m);
+        border: var(--border-width) solid var(--color-border-strong);
+        border-top: none;
+      }
+
+      > :first-child {
+        border-top: var(--border-width) solid var(--color-border-strong);
+        border-top-left-radius: var(--border-radius-m);
+        border-top-right-radius: var(--border-radius-m);
+      }
+
+      > :last-child {
+        border-bottom-left-radius: var(--border-radius-m);
+        border-bottom-right-radius: var(--border-radius-m);
+      }
+
+      > article {
+        position: relative;
+
+        > * + * {margin-block-start: var(--flow-space);}
+      }
+    }
+
+    .showcase-tabs li:has(> [aria-selected="true"]) {
+      color: var(--color-text);
+      font-weight: var(--font-weight-bold);
+      border-bottom: calc(var(--border-width) + 1px) solid var(--color-primary);
+    }
+
+    .example[role="tabpanel"][hidden] {
+      display: none;
+    }
+
+    .example-form > :first-child > .card,
+    .example-details > :first-child > article {
+      max-inline-size: var(--content-width);
+      margin-inline: auto;
+    }
+  </style>
+</head><body>
+  
+<header>
+  <nav class="container">
+    <ul><li><strong>Minium CSS</strong></li></ul>
+    <ul class="gap-2xs">
+      <li>
+        <a href="llms.txt" role="button" class="icon-only" data-tooltip="View llms.txt for agents" data-placement="left"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></a>
+      </li>
+      <li>
+        <a href="https://github.com/troennes/minium-css" role="button" class="icon-only" data-tooltip="View on GitHub" data-placement="left"><svg class="icon" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="currentColor"/></svg></a>
+      </li>
+      <li>
+        <div class="dropdown">
+          <button popovertarget="themeselector" class="icon-only" data-tooltip="Choose theme" data-placement="left">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
+          </button>
+          <nav id="themeselector" popover>
+            <ul>
+              <li><button onclick="changeThemeSelector('dark')">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -2 24 24" width="24" fill="currentColor"><path d="M2 10c0 4.43 3.478 8 7.742 8 .658 0 1.302-.085 1.922-.248-2.996-2.2-4.896-5.786-4.896-9.752 0-2.09.527-4.095 1.489-5.853C4.699 2.863 2 6.097 2 10zm6.768-2c0 4.632 3.068 8.528 7.232 9.665A9.555 9.555 0 0 1 9.742 20C4.362 20 0 15.523 0 10S4.362 0 9.742 0c.868 0 1.71.117 2.511.335A10.086 10.086 0 0 0 8.768 8z"></path></svg>
+                Dark
+              </button></li>
+              <li><button onclick="changeThemeSelector('light')">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-15a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM1 9h2a1 1 0 1 1 0 2H1a1 1 0 0 1 0-2zm16 0h2a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2zm.071-6.071a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM5.757 14.243a1 1 0 0 1 0 1.414L4.343 17.07a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM4.343 2.929l1.414 1.414a1 1 0 0 1-1.414 1.414L2.93 4.343A1 1 0 0 1 4.343 2.93zm11.314 11.314l1.414 1.414a1 1 0 0 1-1.414 1.414l-1.414-1.414a1 1 0 1 1 1.414-1.414z"></path></svg>
+                Light
+              </button></li>
+              <li><button onclick="changeThemeSelector('system')">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
+                System
+              </button></li>
+            </ul>
+          </nav>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container flow-loose">
+
+<section class="text-center flow-loose">
+  <hgroup>
+    <h1>Minium CSS</h1>
+    <p>The minimum CSS and HTML to build anything</p>
+  </hgroup>
+  <p class="fg-muted">
+    Minium is a semantic-first CSS library that makes<br>
+    ordinary HTML look good, then adds class-light lay-<br>
+    outs and components for building real interfaces
+  </p>
+  <div class="cluster" style="--cluster-horizontal-alignment: center">
+    <a href="docs/index.html" role="button">Get started</a>
+    <a href="examples/dashboard.html" role="button" class="contrast">View example</a>
+  </div>
+</section>
+
+<section class="container slim flow" aria-labelledby="examples-heading">
+
+  <nav class="tabs showcase-tabs" aria-label="Examples">
+    <ul id="example-tabs" role="tablist" aria-label="Examples">
+      <li role="presentation">
+        <button id="tab-form" type="button" role="tab" aria-selected="true" aria-controls="panel-form">Form</button>
+      </li>
+      <li role="presentation">
+        <button id="tab-dashboard" type="button" role="tab" aria-selected="false" aria-controls="panel-dashboard" tabindex="-1">Dashboard</button>
+      </li>
+      <li role="presentation">
+        <button id="tab-details" type="button" role="tab" aria-selected="false" aria-controls="panel-details" tabindex="-1">Native HTML</button>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="panel-form" class="example example-form" role="tabpanel" aria-labelledby="tab-form" tabindex="0">
+    <div>
+      <article class="card">
+        <h3>Account settings</h3>
+        <form>
+          <label>
+            Workspace name
+            <input type="text" name="workspace" value="Acme Analytics">
+          </label>
+          <label>
+            <input type="checkbox" role="switch" checked>
+            Send a weekly summary
+          </label>
+          <button type="submit">Save changes</button>
+        </form>
+      </article>
+    </div>
+    <pre class="language-html"><code>&lt;article class="card"&gt;
+  &lt;h3&gt;Account settings&lt;/h3&gt;
+  &lt;form&gt;
+    &lt;label&gt;
+      Workspace name
+      &lt;input type="text" name="workspace" value="Acme Analytics"&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+      &lt;input type="checkbox" role="switch" checked&gt;
+      Send a weekly summary
+    &lt;/label&gt;
+    &lt;button type="submit"&gt;Save changes&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/article&gt;</code></pre>
+  </div>
+
+  <div id="panel-dashboard" class="example" role="tabpanel" aria-labelledby="tab-dashboard" tabindex="0" hidden>
+    <div>
+      <section class="grid">
+        <article class="card">
+          <p class="eyebrow">Monthly revenue</p>
+          <h3>$124,560</h3>
+          <p><span class="badge success">+12.4%</span> <small>vs March</small></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Quarterly goal</p>
+          <h3>72%</h3>
+          <progress value="72" max="100">72% complete</progress>
+        </article>
+      </section>
+    </div>
+    <pre class="language-html"><code>&lt;section class="grid"&gt;
+  &lt;article class="card"&gt;
+    &lt;p class="eyebrow"&gt;Monthly revenue&lt;/p&gt;
+    &lt;h3&gt;$124,560&lt;/h3&gt;
+    &lt;p&gt;&lt;span class="badge success"&gt;+12.4%&lt;/span&gt; &lt;small&gt;vs March&lt;/small&gt;&lt;/p&gt;
+  &lt;/article&gt;
+  &lt;article class="card"&gt;
+    &lt;p class="eyebrow"&gt;Quarterly goal&lt;/p&gt;
+    &lt;h3&gt;72%&lt;/h3&gt;
+    &lt;progress value="72" max="100"&gt;72% complete&lt;/progress&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+  </div>
+
+  <div id="panel-details" class="example example-details" role="tabpanel" aria-labelledby="tab-details" tabindex="0" hidden>
+    <article>
+      <h4>Frequently asked questions</h4>
+      <div role="group">
+        <details name="minium-faq">
+          <summary>Does Minium require JavaScript?</summary>
+          <p>No. Minium has no JavaScript dependency.</p>
+        </details>
+        <details name="minium-faq">
+          <summary>Can I customize the theme?</summary>
+          <p>Yes. Change custom properties in the <code>theme.css</code> file.</p>
+        </details>
+        <details name="minium-faq">
+          <summary>Can I use it commercially?</summary>
+          <p>Yes. Minium is MIT licensed.</p>
+        </details>
+      </div>
+    </article>
+    <pre class="language-html"><code>&lt;h4&gt;Frequently asked questions&lt;/h4&gt;
+&lt;div role="group"&gt;
+  &lt;details name="minium-faq"&gt;
+    &lt;summary&gt;Does Minium require JavaScript?&lt;/summary&gt;
+    &lt;p&gt;No. Minium has no JavaScript dependency.&lt;/p&gt;
+  &lt;/details&gt;
+  &lt;details name="minium-faq"&gt;
+    &lt;summary&gt;Can I customize the theme?&lt;/summary&gt;
+    &lt;p&gt;Yes. Change custom properties in the &lt;code&gt;theme.css&lt;/code&gt; file.&lt;/p&gt;
+  &lt;/details&gt;
+  &lt;details name="minium-faq"&gt;
+    &lt;summary&gt;Can I use it commercially?&lt;/summary&gt;
+    &lt;p&gt;Yes. Minium is MIT licensed.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+</section>
+
+<section class="grid thirds">
+  <article class="card">
+    <h4>Semantic HTML first</h4>
+    <p>Minium styles native HTML elements directly: <code>&lt;button&gt;</code>, <code>&lt;details&gt;</code>, <code>&lt;dialog&gt;</code> and <code>&lt;input&gt;</code> all work without classes.</p>
+  </article>
+  <article class="card">
+    <h4>Composable layout classes</h4>
+    <p>Compose pages with tiny layout utilities: <code>.container</code>, <code>.grid</code>, <code>.sidebar</code>, <code>.cluster</code>, <code>.switcher</code> and more. They adapt to available space without custom media queries.</p>
+  </article>
+  <article class="card">
+    <h4>Common components included</h4>
+    <p>Cards, alerts, modals, dropdowns, tabs, side menus, badges, avatars, skeletons, and progress states cover common app UI</p>
+  </article>
+  <article class="card">
+    <h4>Class-light by design</h4>
+    <p>One meaningful class beats wrapper stacks, utility chains, and framework-shaped HTML.</p>
+  </article>
+  <article class="card">
+    <h4>Accessible defaults</h4>
+    <p>Minium favors native elements and browser behavior, preserves visible focus states, styles semantic and ARIA states, and respects reduced-motion preferences.</p>
+  </article>
+  <article class="card">
+    <h4>Easy to customize</h4>
+    <p>Design tokens and cascade layers let you change color, type, spacing, radii, and density without rewriting components. All changes can be made in one file.</p>
+  </article>
+</section>
+
+<section class="container slim flow">
+  <h4>Why?</h4>
+  <p>I built Minium because I was tired of bloated CSS and JavaScript frameworks and the constant churn of their dependencies. I wanted a simpler way to build fast web applications without replacing native HTML features with more JavaScript. Minium relies on semantic HTML and modern CSS keep applications light and easy to maintain.</p>
+</section>
+
+</main>
+<footer id="footer">
+  <div class="container text-center">
+    <p><small>Made by <a href="https://github.com/troennes">Kim Trønnes</a>. Licensed under the <a href="https://github.com/troennes/minium/blob/main/LICENSE">MIT license</a>.</small></p>
+  </div>
+</footer>
+<script src="docs/main.js"></script><script src="docs/prism.js"></script>
+<script>
+  const exampleTablist = document.querySelector("#example-tabs");
+  const exampleTabs = [...exampleTablist.querySelectorAll('[role="tab"]')];
+
+  function selectExampleTab(selectedTab) {
+    for (const tab of exampleTabs) {
+      const selected = tab === selectedTab;
+      const panel = document.getElementById(tab.getAttribute("aria-controls"));
+
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      panel.hidden = !selected;
+    }
+  }
+
+  exampleTablist.addEventListener("click", (event) => {
+    const tab = event.target.closest('[role="tab"]');
+
+    if (tab && exampleTablist.contains(tab)) {
+      selectExampleTab(tab);
+    }
+  });
+
+  exampleTablist.addEventListener("keydown", (event) => {
+    const currentTab = event.target.closest('[role="tab"]');
+
+    if (!currentTab) return;
+
+    const currentIndex = exampleTabs.indexOf(currentTab);
+    let nextIndex;
+
+    switch (event.key) {
+      case "ArrowRight":
+        nextIndex = (currentIndex + 1) % exampleTabs.length;
+        break;
+      case "ArrowLeft":
+        nextIndex = (currentIndex - 1 + exampleTabs.length) % exampleTabs.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = exampleTabs.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+
+    const nextTab = exampleTabs[nextIndex];
+    selectExampleTab(nextTab);
+    nextTab.focus();
+  });
+
+  document.querySelector("#panel-form form").addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+</script>
+</body></html>

@@ -1,0 +1,42 @@
+@layer components {
+  .skeleton{
+    background-color: var(--color-fill-hover);
+    border-radius: var(--border-radius-m);
+    background-image: linear-gradient(
+      90deg, 
+      transparent 0%,
+      var(--color-fill-hover) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton 2s infinite;
+
+    &.line {
+      block-size: 1em;
+      inline-size: 100%;
+    }
+
+    &.box {
+      block-size: 4em;
+      inline-size: 4em;     
+    }
+
+    &.circle {
+      block-size: 3em;
+      inline-size: 3em;
+      border-radius: var(--border-radius-f);
+      flex: none; /* Don't grow in flexbox layouts */
+    }
+  }
+
+  @keyframes skeleton {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton {
+      animation: none;
+    }
+  }
+}

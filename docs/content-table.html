@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Table | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Content</p>
+<h1>Table</h1>
+
+<p>The base typography layer styles semantic tables. Captions use muted italic text, while header and footer rows use stronger separators.</p>
+
+<h2>Usage</h2>
+
+<p>Use <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code> when they describe the table's content.</p>
+
+<div class="example">
+  <article>
+    <table class="striped">
+      <caption>Pigment records</caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Formula</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td>3 records</td>
+          <td>Latest: minium</td>
+          <td>2 cataloged</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <td>Minium</td>
+          <td>Pb<sub>3</sub>O<sub>4</sub></td>
+          <td>Cataloged</td>
+        </tr>
+        <tr>
+          <td>Vermilion</td>
+          <td>HgS</td>
+          <td>Cataloged</td>
+        </tr>
+        <tr>
+          <td>Ochre</td>
+          <td>Fe<sub>2</sub>O<sub>3</sub></td>
+          <td>Needs review</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+</div>
+
+<h2>Apply table modifiers</h2>
+
+<p>Use the following modifiers to adjust table presentation:</p>
+<ul>
+  <li>Use <code>.striped</code> to add alternating backgrounds to body rows.</li>
+  <li>Use <code>.centered</code> to center cell content.</li>
+  <li>Use <code>.border-none</code> to remove cell borders.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <div class="switcher gap-l">
+      <div>
+        <table class="centered">
+          <caption>Centered values</caption>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Q1</th>
+              <th>Q2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Uptime</td>
+              <td>99.9%</td>
+              <td>99.95%</td>
+            </tr>
+            <tr>
+              <td>Latency</td>
+              <td>182 ms</td>
+              <td>164 ms</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div>
+      <table class="border-none">
+        <caption>Borderless table</caption>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Seats</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starter</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Team</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </article>
+<pre><code class="language-html">&lt;table class="centered"&gt;
+  &lt;caption&gt;Centered values&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table class="border-none"&gt;
+  &lt;caption&gt;Borderless table&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+</code></pre>
+</div>
+
+<h2>Make a table full width</h2>
+
+<p>By default, a table uses the natural width of its content. Add <code>.full-width</code> to make the table fill its container.</p>
+
+<div class="example">
+  <article>
+    <table class="striped full-width">
+      <caption>Plans</caption>
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Seats</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Starter</td><td>3</td><td>$0</td></tr>
+        <tr><td>Team</td><td>10</td><td>$24</td></tr>
+        <tr><td>Enterprise</td><td>Unlimited</td><td>Contact us</td></tr>
+      </tbody>
+    </table>
+  </article>
+  <pre><code class="language-html">&lt;table class="striped full-width"&gt;
+  &lt;caption&gt;Plans&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+    &lt;tr&gt;...&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</div>
+
+<h2>Add horizontal scrolling</h2>
+
+<p>When a table is wider than its container, wrap it in a <code>&lt;div class=&quot;overflow-x&quot;&gt;</code> to enable horizontal scrolling:</p>
+
+<pre><code class="language-html">&lt;div class=&quot;overflow-x&quot;&gt;
+  &lt;table&gt;...&lt;/table&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The wrapper handles overflow without changing the table's native layout. Column sizing, sticky headers, and other table features continue to work as expected.</p>
+
+<p>Use <code>.full-width</code> when a table should fill its container. Use <code>.overflow-x</code> when a table may exceed the available width. These utilities solve different problems and usually do not need to be combined.</p>
+
+<div class="example">
+  <article>
+    <div class="overflow-x">
+      <table class="striped">
+        <caption>Quarterly metrics across many regions</caption>
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>Q1 revenue</th>
+            <th>Q2 revenue</th>
+            <th>Q3 revenue</th>
+            <th>Q4 revenue</th>
+            <th>YoY change</th>
+            <th>Active accounts</th>
+            <th>New signups</th>
+            <th>Support tickets</th>
+            <th>Churn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>North America</td>
+            <td>$1.2M</td>
+            <td>$1.4M</td>
+            <td>$1.5M</td>
+            <td>$1.7M</td>
+            <td>+18%</td>
+            <td>4,210</td>
+            <td>612</td>
+            <td>184</td>
+            <td>2.1%</td>
+          </tr>
+          <tr>
+            <td>EMEA</td>
+            <td>$0.9M</td>
+            <td>$1.0M</td>
+            <td>$1.1M</td>
+            <td>$1.2M</td>
+            <td>+12%</td>
+            <td>3,180</td>
+            <td>448</td>
+            <td>137</td>
+            <td>1.8%</td>
+          </tr>
+          <tr>
+            <td>APAC</td>
+            <td>$0.6M</td>
+            <td>$0.7M</td>
+            <td>$0.9M</td>
+            <td>$1.1M</td>
+            <td>+24%</td>
+            <td>2,470</td>
+            <td>521</td>
+            <td>96</td>
+            <td>2.4%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+  <pre><code class="language-html">&lt;div class="overflow-x"&gt;
+  &lt;table class="striped"&gt;
+    &lt;caption&gt;Quarterly metrics across many regions&lt;/caption&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;...&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;...&lt;/tr&gt;
+      &lt;tr&gt;...&lt;/tr&gt;
+      &lt;tr&gt;...&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

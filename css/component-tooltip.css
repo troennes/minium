@@ -1,0 +1,107 @@
+@layer components {
+  [data-tooltip] {
+    position: relative;
+
+    &:not(a, button, input, img) {
+      border-bottom: 1px dotted;
+      text-decoration: none;
+      cursor: help;
+    }
+
+    &::before,
+    &::after {
+      display: block;
+      z-index: 1080;
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      inset-inline-start: 50%;
+    }
+
+    /* Text 
+     * TODO: BUG: Tooltip text might overflow if close to the edge or long text. 
+     * Use anchor positioning to fix when it has wider support (~2027) 
+     */
+    &::before {
+      inset-block-end: calc(100% + 0.625rem);
+      padding: var(--space-3xs) var(--space-2xs);
+      overflow: hidden;
+      transform: translate(-50%, 0.25rem);
+      border-radius: var(--border-radius-s);
+      background-color: var(--tooltip-background-color, var(--color-contrast));
+      content: attr(data-tooltip);
+      color: var(--tooltip-color, var(--color-contrast-inverse));
+      font-style: normal;
+      font-weight: var(--font-weight);
+      font-size: var(--size-small);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Caret */
+    &::after {
+      inset-block-end: calc(100% - 0.25rem);
+      transform: translate(-50%, -0.3125rem);
+      border-top: 0.3125rem solid;
+      border-right: 0.3125rem solid transparent;
+      border-left: 0.3125rem solid transparent;
+      background-color: transparent;
+      content: "";
+      color: var(--tooltip-background-color, var(--color-contrast));
+    }
+
+    &[data-placement="bottom"] {
+      &::before,
+      &::after {
+        inset-block: 100% auto;
+        transform: translate(-50%, 0.25rem);
+      }
+
+      &::after {
+        transform: translate(-50%, -0.3125rem);
+        border: 0.3125rem solid transparent;
+        border-bottom: 0.3125rem solid;
+      }
+    }
+
+    &[data-placement="left"] {
+      &::before,
+      &::after {
+        inset: 50% 100% auto auto;
+        transform: translate(-0.25rem, -50%);
+      }
+
+      &::after {
+        transform: translate(0.3125rem, -50%);
+        border: 0.3125rem solid transparent;
+        border-left: 0.3125rem solid;
+      }
+    }
+
+    &[data-placement="right"] {
+      &::before,
+      &::after {
+        inset: 50% auto auto 100%;
+        transform: translate(0.25rem, -50%);
+      }
+
+      &::after {
+        transform: translate(-0.3125rem, -50%);
+        border: 0.3125rem solid transparent;
+        border-right: 0.3125rem solid;
+      }
+    }
+
+    /* Display */
+    &:focus-visible,
+    &:hover {
+      &::before,
+      &::after {
+        transition: visibility 0s 500ms;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

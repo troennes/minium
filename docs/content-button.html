@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Button | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Content</p>
+<h1>Button</h1>
+
+<p>Minium styles button controls with minimal markup.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>&lt;button&gt;</code> without classes for the primary button style.</li>
+  <li>Use <code>.secondary</code> or <code>.tertiary</code> for a lower-intensity button.</li>
+  <li>Choose a semantic variant: <code>.accent</code>, <code>.danger</code>, <code>.success</code>, <code>.warning</code>, <code>.info</code>, <code>.contrast</code>, or <code>.neutral</code>.</li>
+  <li>Use <code>.small</code> or <code>.large</code> to change the button size.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <button>Primary</button>
+  </article>
+</div>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <button class="secondary">Secondary</button>
+      <button class="tertiary">Tertiary</button>
+    </div>
+  </article>
+  <pre><code class="language-html">&lt;button class="secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre>
+</div>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <button class="contrast">Contrast</button>
+      <button class="accent">Accent</button>
+      <button class="danger">Danger</button>
+      <button class="success">Success</button>
+      <button class="warning">Warning</button>
+      <button class="info">Info</button>
+      <button class="neutral">Neutral</button>
+    </div>
+  </article>
+  <pre><code class="language-html">&lt;button class="accent"&gt;Accent&lt;/button&gt;
+&lt;button class="danger"&gt;Danger&lt;/button&gt;
+&lt;button class="success"&gt;Success&lt;/button&gt;
+&lt;button class="warning"&gt;Warning&lt;/button&gt;
+&lt;button class="info"&gt;Info&lt;/button&gt;
+&lt;button class="contrast"&gt;Contrast&lt;/button&gt;
+&lt;button class="neutral"&gt;Neutral&lt;/button&gt;</code></pre>
+</div>
+
+<h2>Set a button’s size or disabled state</h2>
+<div class="example">
+  <article>
+    <div class="cluster">
+      <button class="small">Small</button>
+      <button>Default</button>
+      <button class="large">Large</button>
+      <button disabled>Disabled</button>
+    </div>
+  </article>
+<pre><code class="language-html">&lt;button class="small"&gt;Small&lt;/button&gt;
+&lt;button&gt;Default&lt;/button&gt;
+&lt;button class="large"&gt;Large&lt;/button&gt;
+&lt;button disabled&gt;Disabled&lt;/button&gt;</code></pre>
+</div>
+
+<h2>Add an icon to a button</h2>
+<p>A button can contain an inline SVG icon and text. Add <code>.icon</code> to the SVG to apply the correct size and alignment.</p>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        Add item
+      </button>
+      <button class="secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></svg>
+        Filter
+      </button>
+      <button class="accent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+        Download
+      </button>
+    </div>
+
+    <div class="cluster">
+      <button data-tooltip="Search" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      </button>
+      <button class="secondary rounded" data-tooltip="Favorite" aria-label="Favorite">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+      </button>
+      <button class="accent rounded" data-tooltip="Settings" aria-label="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </article>
+  <pre><code class="language-html">&lt;button&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt; Add item&lt;/button&gt;
+&lt;button class="secondary"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt; Filter&lt;/button&gt;
+&lt;button class="accent"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt; Download&lt;/button&gt;
+
+&lt;button data-tooltip="Search" aria-label="Search"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;button class="secondary rounded" data-tooltip="Favorite" aria-label="Favorite"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;button class="accent rounded" data-tooltip="Settings" aria-label="Settings"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt;&lt;/button&gt;</code></pre>
+</div>
+
+<h3>Create an icon-only button</h3>
+<p>Use <code>.icon-only</code> to apply square padding, a transparent surface, and a tinted hover background. Add an <code>aria-label</code> that describes the action. Add <code>.rounded</code> for a circular button. Use <code>.close</code> to add an X icon with <code>::before</code>; this preset does not require inner markup.</p>
+
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <button class="icon-only" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      </button>
+      <button class="icon-only rounded" aria-label="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <button class="close" aria-label="Close"></button>
+    </div>
+  </article>
+<pre><code class="language-html">&lt;button class="icon-only" aria-label="Search"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;button class="icon-only rounded" aria-label="Settings"&gt;&lt;svg class="icon" ... &gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;button class="close" aria-label="Close"&gt;&lt;/button&gt;</code></pre>
+</div>
+
+<h2>Use a link as a button</h2>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <a href="#" role="button">Link button</a>
+      <a href="#" role="button" class="accent secondary">Accent link button</a>
+    </div>
+  </article>
+<pre><code class="language-html">&lt;a href="#" role="button"&gt;Link button&lt;/a&gt;
+&lt;a href="#" role="button" class="accent secondary"&gt;Accent link button&lt;/a&gt;</code></pre>
+</div>
+
+<h2>Use buttons and inputs in a form</h2>
+<p>Inside forms, buttons are full width by default. Outside forms, use the <code>.full-width</code> utility to make a button fill its container.</p>
+
+<div class="example" >
+  <article class="resizable"  style="width: 24rem;">
+    <form>
+      <button>Button in form</button>
+      <input type="submit" value="Submit input">
+      <input type="button" value="Button input">
+      <input type="reset" value="Reset input">
+    </form>
+    <button class="full-width">Full-width button</button>
+  </article>
+</div>
+
+<h2>Group buttons</h2>
+<p>Use <code>role="group"</code> for a tightly related set of controls. Use <code>.cluster</code> for toolbar-style actions that can wrap with wider spacing.</p>
+
+<div class="example">
+  <article>
+    <div role="group">
+      <a href="#" role="button">Button</a>
+      <a href="#" role="button" class="accent">Button</a>
+      <button class="danger">Button</button>
+    </div>
+
+    <div class="cluster">
+      <button>Save</button>
+      <button class="secondary">Preview</button>
+      <button class="accent">Publish</button>
+      <button class="neutral">Share</button>
+    </div>
+  </article>
+</div>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

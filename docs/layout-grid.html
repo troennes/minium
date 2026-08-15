@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Grid | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Grid</h1>
+
+<p>The <code>.grid</code> layout creates responsive columns that wrap to fit the available space. Use it for card lists, feature blocks, and galleries with a variable number of items.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="grid"</code> to the parent element.</li>
+  <li>Optionally, set the following custom properties:
+    <ul>
+      <li><code>--gap</code>: Sets the spacing between items. The current token value is <span id="grid-gap"></span>.</li>
+      <li><code>--grid-min-size</code>: Sets the preferred minimum item width. The default is <code>16rem</code>.</li>
+      <li><code>--grid-placement</code>: Controls track placement. Use <code>auto-fill</code> or <code>auto-fit</code>. The default is <code>auto-fill</code>.</li>
+    </ul>
+  </li>
+  <li>Use <code>.halves</code> to create two columns or <code>.thirds</code> to create three columns when enough space is available.</li>
+</ul>
+
+<div class="example">
+  <article class="resizable">
+    <h2 class="size-body">Default grid</h2>
+    <div class="grid">
+      <article class="bg-raised p-s">Card 1</article>
+      <article class="bg-raised p-s">Card 2</article>
+      <article class="bg-raised p-s">Card 3</article>
+      <article class="bg-raised p-s">Card 4</article>
+      <article class="bg-raised p-s">Card 5</article>
+    </div>
+
+    <h2 class="size-body">Halves preset</h2>
+    <div class="grid halves">
+      <article class="bg-raised p-s">Half 1</article>
+      <article class="bg-raised p-s">Half 2</article>
+      <article class="bg-raised p-s">Half 3</article>
+    </div>
+
+    <h2 class="size-body">Thirds preset</h2>
+    <div class="grid thirds">
+      <article class="bg-raised p-s">Third 1</article>
+      <article class="bg-raised p-s">Third 2</article>
+      <article class="bg-raised p-s">Third 3</article>
+      <article class="bg-raised p-s">Third 4</article>
+      <article class="bg-raised p-s">Third 5</article>
+      <article class="bg-raised p-s">Third 6</article>
+    </div>
+  </article>
+</div>
+
+<script>
+function populateGridValues() {
+  const gapEl = document.getElementById("grid-gap");
+  if (!gapEl) return;
+
+  const rootStyles = getComputedStyle(document.documentElement);
+  gapEl.textContent = rootStyles.getPropertyValue("--gap").trim();
+}
+populateGridValues();
+</script>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

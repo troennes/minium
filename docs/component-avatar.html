@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Avatar | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Avatar</h1>
+
+<p>An avatar represents a user or entity with a photo or fallback initials.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="avatar"</code> to a <code>&lt;figure&gt;</code>.</li>
+  <li>Add text for fallback initials.</li>
+  <li>Use <code>.small</code> or <code>.large</code> to change the avatar size.</li>
+  <li>If the built-in sizes do not meet your needs, set <code>--avatar-size</code> to a custom size.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <figure class="avatar">M</figure>
+    <figure class="avatar small">S</figure>
+    <figure class="avatar large">L</figure>
+    <figure class="avatar" style="--avatar-size: 5rem;">XL</figure>
+  </article>
+</div>
+
+<h2>Image avatars</h2>
+<p>Place an <code>&lt;img&gt;</code> directly inside the avatar. The image fills the avatar and uses <code>object-fit: cover</code> to crop when necessary.</p>
+
+<div class="example">
+  <article>
+    <figure class="avatar">
+      <img src="../tests/assets/avatar-3.png" alt="Avatar A">
+    </figure>
+    <figure class="avatar small">
+      <img src="../tests/assets/avatar-3.png" alt="Avatar B">
+    </figure>
+    <figure class="avatar large">
+      <img src="../tests/assets/avatar-3.png" alt="Avatar C">
+    </figure>
+  </article>
+</div>
+
+<h2>Shape variants</h2>
+<p>Add <code>.square</code> or <code>.squircle</code> to change the avatar shape.</p>
+<div class="example">
+  <article>
+    <figure class="avatar">O</figure>
+    <figure class="avatar square">L</figure>
+    <figure class="avatar squircle">J</figure>
+  </article>
+</div>
+
+<h2>Avatar groups</h2>
+<p>Wrap avatars in an element with <code>role="group"</code> to overlap them and display a separating ring around each avatar.</p>
+
+<div class="example">
+  <article>
+    <div role="group">
+      <figure class="avatar"><img src="../tests/assets/avatar-3.png" alt="Ken"></figure>
+      <figure class="avatar"><img src="../tests/assets/avatar-4.png" alt="Lina"></figure>
+      <figure class="avatar"><img src="../tests/assets/avatar-5.png" alt="Mike"></figure>
+      <figure class="avatar">+3</figure>
+    </div>
+  </article>
+</div>
+
+<h2>Media object pattern</h2>
+<p>Combine <code>.avatar</code> with <code>.sidebar.media</code> to create a profile row containing an avatar, name, and one-line description.</p>
+
+<div class="example">
+  <article>
+    <article class="sidebar media">
+      <figure class="avatar">
+        <img src="../tests/assets/avatar-1.jpg" alt="">
+      </figure>
+      <div>
+        <p><strong>Ken Roberts</strong></p>
+        <p><small>Design systems engineer focused on semantic CSS architecture.</small></p>
+      </div>
+    </article>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>If the visible name is nearby, use <code>alt=""</code> or <code>aria-hidden="true"</code> to avoid duplicate announcements.</li>
+  <li>If the avatar is the only visible identity, provide the full name with <code>alt</code> or <code>aria-label</code>.</li>
+  <li>For avatar groups, provide a group label or accessible names for the individual avatars.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

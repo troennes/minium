@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Radio | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Forms</p>
+<h1>Radio</h1>
+
+<p>Minium styles native radio inputs.</p>
+
+<h2>Usage</h2>
+<p>Use radio buttons when users can select one option from a set. Give every radio input in the group the same <code>name</code>.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="radio-starter">
+        <input id="radio-starter" type="radio" name="plan-default" checked>
+        Starter
+      </label>
+
+      <label for="radio-team">
+        <input id="radio-team" type="radio" name="plan-default">
+        Team
+      </label>
+
+      <label for="radio-enterprise">
+        <input id="radio-enterprise" type="radio" name="plan-default">
+        Enterprise
+      </label>
+    </form>
+  </article>
+</div>
+
+<h2>Create a horizontal radio group</h2>
+<p>To create a horizontal group, place each label immediately after its radio input. Minium styles this adjacent <code>input + label</code> pattern inline.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Plan</legend>
+
+        <input id="radio-inline-starter" type="radio" name="plan-inline" checked>
+        <label for="radio-inline-starter">Starter</label>
+
+        <input id="radio-inline-team" type="radio" name="plan-inline">
+        <label for="radio-inline-team">Team</label>
+
+        <input id="radio-inline-enterprise" type="radio" name="plan-inline">
+        <label for="radio-inline-enterprise">Enterprise</label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Group related radio buttons</h2>
+<p>Use <code>fieldset</code> to group related radio buttons and <code>legend</code> to name the group.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Billing cycle</legend>
+
+        <label for="radio-monthly">
+          <input id="radio-monthly" type="radio" name="billing" checked>
+          Monthly
+        </label>
+
+        <label for="radio-yearly">
+          <input id="radio-yearly" type="radio" name="billing">
+          Yearly
+        </label>
+
+        <label for="radio-custom">
+          <input id="radio-custom" type="radio" name="billing">
+          Custom contract
+        </label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Show validation states</h2>
+<p>Set <code>aria-invalid="true"</code> when the selection fails validation. Use <code>aria-invalid="false"</code> only when you need to expose an explicit valid state.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Valid support level</legend>
+
+        <label for="radio-valid">
+          <input id="radio-valid" type="radio" name="support-valid" checked aria-invalid="false">
+          Standard support
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Invalid support level</legend>
+
+        <label for="radio-invalid">
+          <input id="radio-invalid" type="radio" name="support-invalid" aria-invalid="true">
+          Premium support
+        </label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Disable radio buttons</h2>
+<p>Add <code>disabled</code> to prevent users from selecting a radio button.</p>
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Environment</legend>
+
+        <label for="radio-disabled-dev">
+          <input id="radio-disabled-dev" type="radio" name="environment" disabled>
+          Development
+        </label>
+
+        <label for="radio-disabled-prod">
+          <input id="radio-disabled-prod" type="radio" name="environment" checked disabled>
+          Production
+        </label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

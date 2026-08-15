@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Link | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Content</p>
+<h1>Link</h1>
+
+<p>Links retain native link behavior and support visual variants for different levels of emphasis.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use an <code>&lt;a&gt;</code> element with an <code>href</code> attribute for links.</li>
+  <li>Use <code>.secondary</code>, <code>.tertiary</code>, <code>.accent</code>, or <code>.neutral</code> to adjust the visual treatment.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <p>Read more about <a href="#">semantic HTML</a> and documentation systems.</p>
+    <p><a href="#">Primary</a></p>
+    <p><a href="#" class="secondary">Secondary</a></p>
+    <p><a href="#" class="tertiary">Tertiary</a></p>
+    <p><a href="#" class="accent">Accent</a></p>
+    <p><a href="#" class="accent secondary">Accent secondary</a></p>
+    <p><a href="#" class="neutral">Neutral</a></p>
+    <p><a href="#" class="neutral secondary">Neutral secondary</a></p>
+  </article>
+</div>
+
+<h2>Button-like links</h2>
+<p>To present a link as a button, add <code>role="button"</code> and use the <a href="content-button.html">button API</a>.</p>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <a href="#" role="button">Button link</a>
+      <a href="#" role="button" class="secondary">Secondary button link</a>
+      <a href="#" role="button" class="accent">Accent button link</a>
+      <a href="#" role="button" class="accent small secondary">Accent small secondary</a>
+    </div>
+  </article>
+</div>
+
+<h2>Choose a link variant</h2>
+<ul>
+  <li><code>.secondary</code> and <code>.tertiary</code> reduce the default link emphasis.</li>
+  <li><code>.tertiary</code> hides the underline until the link receives hover or focus.</li>
+  <li><code>.accent</code> changes the link decoration color, while <code>.neutral</code> inherits the surrounding text color.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

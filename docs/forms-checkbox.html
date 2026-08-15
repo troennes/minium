@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Checkboxes | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Forms</p>
+<h1>Checkboxes</h1>
+
+<p>Minium styles native checkboxes without requiring a component class.</p>
+
+<h2>Usage</h2>
+<p>Wrap a native <code>&lt;input type="checkbox"&gt;</code> in a label to associate the control with its text.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="checkbox-newsletter">
+        <input id="checkbox-newsletter" type="checkbox" checked>
+        Weekly newsletter
+      </label>
+
+      <label for="checkbox-updates">
+        <input id="checkbox-updates" type="checkbox">
+        Product updates
+      </label>
+    </form>
+  </article>
+</div>
+
+<h2>Create a horizontal checkbox group</h2>
+<p>Place each input immediately before its label. The CSS targets this <code>input + label</code> pattern.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Channels</legend>
+
+        <input id="checkbox-inline-email" type="checkbox" checked>
+        <label for="checkbox-inline-email">Email</label>
+
+        <input id="checkbox-inline-sms" type="checkbox">
+        <label for="checkbox-inline-sms">SMS</label>
+
+        <input id="checkbox-inline-push" type="checkbox" checked>
+        <label for="checkbox-inline-push">Push</label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Group related checkboxes</h2>
+<p>Place related checkboxes in a <code>fieldset</code>, and describe the group with a <code>legend</code>.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset>
+        <legend>Notification channels</legend>
+
+        <label for="checkbox-email">
+          <input id="checkbox-email" type="checkbox" checked>
+          Email
+        </label>
+
+        <label for="checkbox-sms">
+          <input id="checkbox-sms" type="checkbox">
+          SMS
+        </label>
+
+        <label for="checkbox-push">
+          <input id="checkbox-push" type="checkbox" checked>
+          Push notifications
+        </label>
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Show validation states</h2>
+<p>Set <code>aria-invalid</code> to <code>false</code> for a valid checkbox or <code>true</code> for an invalid checkbox.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="checkbox-valid">
+        <input id="checkbox-valid" type="checkbox" checked aria-invalid="false">
+        Terms accepted
+      </label>
+
+      <label for="checkbox-invalid">
+        <input id="checkbox-invalid" type="checkbox" aria-invalid="true">
+        I agree to the processing terms
+      </label>
+    </form>
+  </article>
+</div>
+
+<h2>Show an indeterminate state</h2>
+<p>Use the indeterminate state when a parent checkbox represents a partially selected group. Set the input's <code>indeterminate</code> property to <code>true</code> with JavaScript.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <label for="checkbox-parent">
+        <input id="checkbox-parent" type="checkbox">
+        All projects
+      </label>
+    </form>
+  </article>
+</div>
+
+<h2>Disable a checkbox</h2>
+<p>Disable a checkbox when users cannot change its value.</p>
+<div class="example">
+  <article>
+    <form>
+      <label for="checkbox-disabled-unchecked">
+        <input id="checkbox-disabled-unchecked" type="checkbox" disabled>
+        Optional add-on
+      </label>
+
+      <label for="checkbox-disabled-checked">
+        <input id="checkbox-disabled-checked" type="checkbox" checked disabled>
+        Included by default
+      </label>
+    </form>
+  </article>
+</div>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script><script>
+  const checkboxParent = document.getElementById("checkbox-parent");
+  if (checkboxParent) checkboxParent.indeterminate = true;
+</script></body></html>

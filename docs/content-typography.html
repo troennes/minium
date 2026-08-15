@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Typography | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Content</p>
+<h1>Typography</h1>
+
+<p>Minium styles semantic text elements without requiring classes.</p>
+
+<h2>Usage</h2>
+<p>Choose each element by its meaning; Minium applies its default presentation.</p>
+
+<h3>Use headings and introductory text</h3>
+<p>Headings use the type scale automatically.</p>
+
+<div class="example">
+  <article>
+    <h1>Heading level 1</h1>
+    <h2>Heading level 2</h2>
+    <h3>Heading level 3</h3>
+    <h4>Heading level 4</h4>
+    <h5>Heading level 5</h5>
+    <h6>Heading level 6</h6>
+  </article>
+</div>
+
+<p>Use <code>.eyebrow</code> and <code>.lead</code> to structure introductory text.</p>
+<div class="example">
+  <article>
+    <p class="eyebrow">Mineral note</p>
+    <h1>Minium: red lead</h1>
+    <p class="lead">Minium is the historic name for red lead, an orange-red lead oxide once used as a pigment.</p>
+  </article>
+</div>
+
+<p>Use <code>hgroup</code> to associate a heading with supporting text.</p>
+<div class="example">
+  <article>
+    <hgroup>
+      <h2>Dropdown API</h2>
+      <p><small>Pure HTML patterns for menus, toolbars, and popovers.</small></p>
+    </hgroup>
+  </article>
+</div>
+
+<h3>Use lists</h3>
+<p>Use <code>ul</code>, <code>ol</code>, or <code>dl</code> to structure lists.</p>
+<div class="example">
+  <article>
+    <div class="grid thirds">
+      <ul>
+        <li>Unordered item</li>
+        <li>Another item</li>
+        <li>Nested list
+          <ul>
+            <li>Nested item</li>
+          </ul>
+        </li>
+      </ul>
+
+      <ol>
+        <li>Ordered item</li>
+        <li>Another item</li>
+        <li>Step with detail</li>
+      </ol>
+
+      <dl>
+        <dt>Token</dt>
+        <dd>A reusable custom property.</dd>
+        <dt>Utility</dt>
+        <dd>A class that applies one focused behavior.</dd>
+      </dl>
+    </div>
+  </article>
+</div>
+
+<h3>Use blockquotes</h3>
+<p>Use <code>blockquote</code> for quoted content.</p>
+<div class="example">
+  <article>
+    <blockquote>
+      Good typography lets readers focus on the content.
+      <footer><cite>Design systems notes</cite></footer>
+    </blockquote>
+  </article>
+</div>
+
+<h3>Use inline text</h3>
+<p>Inline elements identify changes, annotations, and supporting details within a sentence.</p>
+
+<div class="example">
+  <article>
+    <div class="switcher">
+      <ul>
+        <li><strong>Strong importance uses bold text.</strong></li>
+        <li><em>Emphasis uses italic text.</em></li>
+        <li><strong><em>Strong emphasis uses bold italic text.</em></strong></li>
+        <li><s>This information is no longer relevant.</s></li>
+        <li><abbr title="Cascading Style Sheets">CSS</abbr> controls the presentation of a document.</li>
+        <li><mark>This text is highlighted for reference.</mark></li>
+      </ul>
+      <ul>
+        <li><ins>This sentence was added to the document.</ins></li>
+        <li><del>This sentence is no longer current.</del></li>
+        <li>The chemical formula for water is H<sub>2</sub>O.</li>
+        <li>The area of the room is 20 m<sup>2</sup>.</li>
+        <li><small>Small text is small and muted.</small></li>
+        <li><ruby>漢<rp>(</rp><rt>kan</rt><rp>)</rp>字<rp>(</rp><rt>ji</rt><rp>)</rp></ruby> includes a pronunciation annotation.</li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<h3>Use captions</h3>
+<p><code>figcaption</code> and <code>caption</code> use small, muted, italic text.</p>
+<div class="example">
+  <article>
+    <figure>
+      <img src="../tests/assets/bridge-city.png">
+      <figcaption>Placeholder figure for a typography example.</figcaption>
+    </figure>
+  </article>
+</div>
+
+<h3>Use horizontal rules</h3>
+<p><code>hr</code> uses a muted horizontal divider style.</p>
+<div class="example">
+  <article>
+    <p>Paragraph before rule</p>
+    <hr>
+    <p>Paragraph after rule</p>
+  </article>
+</div>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Layouts | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<style>
+  .card > .sidebar > :first-child {
+    margin-block: calc(var(--card-padding) * -1);
+    margin-inline-start: calc(var(--card-padding) * -1);
+  }
+
+  .card > .sidebar {
+    --sidebar-content-min-width: 10%;
+    --sidebar-target-width: 17rem;
+  }
+</style>
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Overview</h1>
+
+<p>Layout primitives are small utility classes for building page structures. Each primitive solves one structural concern. Compose several primitives to create more complex layouts.</p>
+
+<h2>Simple pages have sensible defaults</h2>
+
+<p><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code> receive default surface colors, borders, padding, and sticky footer behavior when they are direct children of <code>&lt;body&gt;</code>. You do not need classes for a simple page.</p>
+
+<pre style="border: var(--border-width) solid var(--color-border-weak);"><code class="language-html">&lt;body&gt;
+  &lt;header&gt;Site header&lt;/header&gt;
+  &lt;main&gt;Page content&lt;/main&gt;
+  &lt;footer&gt;Site footer&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>Classless <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;section&gt;</code> elements also receive automatic vertical rhythm between direct children. To disable this rhythm, add a class to the <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, or <code>&lt;section&gt;</code> element.</p>
+
+<p><a href="layout-landmarks.html">Landmark details →</a></p>
+
+<h2>Layout primitives</h2>
+
+<article class="card bg-sunken py-0">
+  <div class="container slim bg-raised py-s flow">
+  <h3 class="h4">Container</h3>
+  <p>The container centers content within a maximum width and adds a horizontal gutter. Use it as a page wrapper. <a href="layout-containers.html">Container details →</a></p>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+    <div class="grid bg-sunken p-s" style="--grid-min-size: 4rem;">
+      <div class="bg-raised p-xs">1</div>
+      <div class="bg-raised p-xs">2</div>
+      <div class="bg-raised p-xs">3</div>
+      <div class="bg-raised p-xs">4</div>
+    </div>
+    <article>
+      <h3>Grid</h3>
+      <p>The grid creates responsive, auto-filling columns based on <code>--grid-min-size</code>. Available modifiers are <code>.halves</code> and <code>.thirds</code>. <a href="layout-grid.html">Grid details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+      <div class="bg-sunken p-s">
+        <div class="sidebar" style="--sidebar-target-width: 3rem;">
+          <div class="bg-raised p-xs">Side</div>
+          <div class="bg-raised p-xs">Main content area</div>
+        </div>
+      </div>
+    <article>
+      <h3>Sidebar</h3>
+      <p>The sidebar places fixed-width content beside flexible content. It stacks vertically when the content area becomes too narrow. Use it for media objects and asides. <a href="layout-sidebar.html">Sidebar details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+      <div class="bg-sunken p-s flow-tight">
+        <div class="switcher gap-xs" style="--switcher-breakpoint: 4rem;">
+          <div class="bg-raised p-xs">1</div>
+          <div class="bg-raised p-xs">2</div>
+          <div class="bg-raised p-xs">3</div>
+          <div class="bg-raised p-xs">4</div>
+        </div>
+        <p style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg></p>
+        <div class="switcher">
+          <div class="bg-raised p-xs">1</div>
+          <div class="bg-raised p-xs">2</div>
+        </div>
+      </div>
+    <article>
+      <h3>Switcher</h3>
+      <p>The switcher arranges items in a row until the available width reaches <code>--switcher-breakpoint</code>, then stacks them vertically. Use it for pricing or feature cards. <a href="layout-switcher.html">Switcher details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+    <div class="flow bg-sunken p-s" style="--flow-space: var(--space-s);">
+      <div class="bg-raised p-xs">First item</div>
+      <div class="bg-raised p-xs">Second item</div>
+      <div class="bg-raised p-xs">Third item</div>
+    </div>
+    <article>
+      <h3>Flow</h3>
+      <p>Flow controls vertical spacing between direct children. <a href="layout-flow.html">Flow details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+    <div class="cluster bg-sunken p-s">
+      <div class="bg-raised p-xs">Design</div>
+      <div class="bg-raised p-xs">Build</div>
+      <div class="bg-raised p-xs">Ship</div>
+      <div class="bg-raised p-xs">Accessibility</div>
+      <div class="bg-raised p-xs">Performance</div>
+    </div>
+    <article>
+      <h3>Cluster</h3>
+      <p>A cluster arranges items horizontally and wraps them when the available space is insufficient. Use it for tags, filters, and button rows. <a href="layout-cluster.html">Cluster details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+    <div class="repel bg-sunken p-s">
+      <p class="bg-raised p-xs"><strong>Title</strong></p>
+      <button class="neutral bg-raised">Action</button>
+    </div>
+    <article>
+      <h3>Repel</h3>
+      <p>Repel places child groups at opposite ends. Use it in toolbars, card footers, and header rows. <a href="layout-repel.html">Repel details →</a></p>
+    </article>
+  </div>
+</article>
+
+<article class="card">
+  <div class="sidebar">
+    <div class="bg-sunken p-s">
+    <figure class="frame" style="--n: 4; --d: 3;">
+      <img src="../tests/assets/fuji.png" alt="">
+    </figure>
+    </div>
+    <article>
+      <h3>Frame</h3>
+      <p>Frame crops images and videos to a fixed aspect ratio. The default ratio is 16:9. <a href="layout-frame.html">Frame details →</a></p>
+    </article>
+  </div>
+</article>
+
+<h2>Composing layouts</h2>
+
+<p>Layout primitives follow these composition rules:</p>
+<ul>
+  <li>All primitives use the same <code>--gap</code> spacing token. Set it once on a parent to apply consistent spacing throughout the layout.</li>
+  <li>Primitives do not require a specific HTML element. Apply them to <code>&lt;div&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, or other elements.</li>
+</ul>
+
+<h3>Build a documentation layout</h3>
+<p>This documentation site places a <code>.sidebar</code> inside a <code>.container</code> to create its navigation and content layout:</p>
+
+<pre style="border: var(--border-width) solid var(--color-border-weak);"><code class="language-html">&lt;body&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;div class="sidebar container"&gt;
+    &lt;aside&gt;Navigation&lt;/aside&gt;
+    &lt;main&gt;Content&lt;/main&gt;
+  &lt;/div&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<h3>Build an article layout</h3>
+<p>Combine <code>.container.slim</code> with <code>.flow</code> to lay out an article or blog post. Add <code>.switcher</code> where the content requires columns. Set <code>--switcher-breakpoint</code> to control when those columns stack.</p>
+
+
+<div class="example">
+  <article class="resizable">
+      <div class="container slim | flow">
+    <h1>Article title</h1>
+    <p>Intro paragraph.</p>
+    <div class="switcher" style="--switcher-breakpoint: 24rem;">
+      <article class="card">...</article>
+      <article class="card">...</article>
+      <article class="card">...</article>
+    </div>
+  </div>
+  </article>
+  <pre><code class="language-html">&lt;main class="container slim | flow"&gt;
+  &lt;h1&gt;Article title&lt;/h1&gt;
+  &lt;p&gt;Intro paragraph.&lt;/p&gt;
+  &lt;div class="switcher" style="--switcher-breakpoint: 24rem;"&gt;
+    &lt;article class="card"&gt;...&lt;/article&gt;
+    &lt;article class="card"&gt;...&lt;/article&gt;
+    &lt;article class="card"&gt;...&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre>
+</div>
+
+
+
+<h3>Build a toolbar</h3>
+<p>A <code>.repel</code> containing <code>.cluster</code> groups keeps two action sets at opposite ends while each group wraps independently:</p>
+
+<pre style="border: var(--border-width) solid var(--color-border-weak);"><code class="language-html">&lt;div class="repel"&gt;
+  &lt;div class="cluster"&gt;
+    &lt;button&gt;Filter&lt;/button&gt;
+    &lt;button&gt;Sort&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="cluster"&gt;
+    &lt;button&gt;Export&lt;/button&gt;
+    &lt;button&gt;New item&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<h3>Build a card footer</h3>
+<p>A <code>.flow</code> inside a card with a <code>.repel</code> at the end for a label and action:</p>
+
+<pre style="border: var(--border-width) solid var(--color-border-weak);"><code class="language-html">&lt;article class="card"&gt;
+  &lt;h2&gt;Card title&lt;/h2&gt;
+  &lt;p&gt;Card content.&lt;/p&gt;
+  &lt;footer class="repel"&gt;
+    &lt;span class="badge"&gt;Draft&lt;/span&gt;
+    &lt;button&gt;Edit&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</code></pre>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

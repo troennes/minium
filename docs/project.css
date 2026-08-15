@@ -1,0 +1,105 @@
+@layer project {
+  main {
+    > h2 {font-size: var(--size-h4)}
+    > h3 {font-size: var(--size-body)}
+    > h4 {font-size: var(--size-small)}
+    > .eyebrow {color: var(--color-accent-text)}
+  }
+
+  .docs-shell {
+    container-type: inline-size;
+
+    > :last-child {
+      min-inline-size: var(--content-width);
+    }
+
+    > aside {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 1020;
+    }
+  }
+
+  .docs-nav-toggle {
+    display: none;
+    align-self: flex-start;
+
+    &::before {
+      content: "";
+      inline-size: 1.125em;
+      block-size: 1.125em;
+      background-color: currentcolor;
+      mask: var(--icon-hamburger) center / contain no-repeat;
+    }
+  }
+
+  /* Matches the docs .sidebar wrap threshold:
+     15rem sidebar + 68ch content + the default --space-s-m gap. */
+  @container (max-width: calc(
+    15rem + 68ch + clamp(1rem, 0.7054rem + 1.3095vw, 1.6875rem)
+  )) {
+    .docs-shell > aside .docs-nav-toggle {
+      display: inline-flex;
+    }
+
+    .docs-shell > aside {
+      position: static;
+      z-index: auto;
+    }
+
+    .docs-shell > aside:not([data-nav-open]) > #sidebar {
+      display: none;
+    }
+
+    .docs-shell > aside[data-nav-open] > #sidebar {
+      margin-block-start: var(--space-xs);
+    }
+  }
+
+  .example {
+    border-radius: var(--border-radius-m);
+
+    > * {
+      border-radius: 0;
+      padding: var(--space-s-m);
+      border: var(--border-width) solid var(--color-border-strong);
+      border-top: none;
+    }
+
+    > :first-child {
+      border-top: var(--border-width) solid var(--color-border-strong);
+      border-top-left-radius: var(--border-radius-m);
+      border-top-right-radius: var(--border-radius-m);
+    }
+
+    > :last-child {
+      border-bottom-left-radius: var(--border-radius-m);
+      border-bottom-right-radius: var(--border-radius-m);
+    }
+
+    > article {
+      position: relative;
+
+      > * + * {margin-block-start: var(--flow-space);}
+    }
+  }
+
+  @media (any-hover: hover) and (any-pointer: fine) {
+    .resizable {
+      resize: horizontal;
+      overflow: auto;
+      padding-bottom: 2rem;
+      min-width: 16rem;
+
+      &::after {
+        bottom: 0.7rem;
+        right: 0.7rem;
+        color: var(--color-accent-text);
+        content: "Resize me";
+        font-size: var(--size-small);
+        line-height: 0;
+        position: absolute;
+      }
+    }
+  }
+}

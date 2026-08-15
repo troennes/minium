@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Icon | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Icon</h1>
+
+<p>The <code>.icon</code> component sizes an inline SVG to match the surrounding text and aligns it with the text baseline. Minium does not include an icon set.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>.icon</code> to an inline SVG.</li>
+  <li>Use <code>currentColor</code> when the icon should inherit the text color.</li>
+  <li>Use <code>.small</code> or <code>.large</code> only when the icon should differ from the surrounding text size.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <p>
+      Default icon
+      <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      follows the surrounding text.
+    </p>
+    <p>
+      Small icon
+      <svg class="icon small" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      and large icon
+      <svg class="icon large" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      do not match the surrounding text size.
+    </p>
+  </article>
+  <pre><code class="language-html">&lt;p&gt;
+  Default icon
+  &lt;svg class="icon" aria-hidden="true" ...&gt;&lt;/svg&gt;
+  follows the surrounding text.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Small icon &lt;svg class="icon small" aria-hidden="true" ...&gt;&lt;/svg&gt;
+  and large icon &lt;svg class="icon large" aria-hidden="true" ...&gt;&lt;/svg&gt;
+  do not match the surrounding text size.
+&lt;/p&gt;</code></pre>
+</div>
+
+<h2>Text-relative sizing</h2>
+<p>A plain <code>.icon</code> is a <code>1em</code> square, so it scales with the surrounding text.</p>
+
+<div class="example">
+  <article>
+    <p>
+      Body text
+      <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      uses the default size.
+    </p>
+    <p>
+      <small>Small text
+      <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      uses a smaller icon automatically.</small>
+    </p>
+    <p class="lead">
+      Lead text
+      <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      uses a larger icon automatically.
+    </p>
+  </article>
+</div>
+
+<h2>Scoped overrides</h2>
+<p>Set <code>--icon-size</code> and <code>--icon-align</code> when an icon requires custom sizing or alignment. These custom properties inherit, so set them on the icon unless every icon in a wrapper should share the override.</p>
+
+<div class="example">
+  <article>
+    <p>
+      <button class="neutral" style="--icon-size: 1.25em; --icon-align: -0.2em;">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+        Custom
+      </button>
+    </p>
+  </article>
+  <pre><code class="language-html">&lt;button style="--icon-size: 1.25em; --icon-align: -0.2em;"&gt;
+  &lt;svg class="icon" aria-hidden="true" ...&gt;&lt;/svg&gt;
+  Custom
+&lt;/button&gt;</code></pre>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Use <code>aria-hidden="true"</code> for decorative icons next to visible text.</li>
+  <li>If a meaningful icon has no adjacent visible label, give it an accessible name with <code>aria-label</code> or an SVG <code>&lt;title&gt;</code>.</li>
+  <li>For icon-only buttons, label the button itself. See the <a href="content-button.html">Button documentation</a> for the complete pattern.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

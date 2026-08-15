@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Flow | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Flow</h1>
+
+<p>The <code>.flow</code> layout adds consistent vertical spacing between direct children, keeping sections readable without individual margins.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="flow"</code> to a parent.</li>
+  <li>Set the <code>--flow-space</code> custom property globally or override it on a specific flow container. The default value is <span id="flow-space"></span>.</li>
+  <li>Replace <code>.flow</code> with <code>.flow-tight</code> for compact spacing or <code>.flow-loose</code> for larger spacing.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <div class="switcher">
+      <div class="flow bg-raised p-s">
+        <h3>Default flow</h3>
+        <p>This paragraph introduces the section.</p>
+        <p>The following content remains visually grouped.</p>
+        <button type="button">Call to action</button>
+      </div>
+      <div class="flow-tight bg-raised p-s">
+        <h3>Tight flow</h3>
+        <p>Use tight flow in cards or sidebars.</p>
+      </div>
+      <div class="flow-loose bg-raised p-s">
+        <h3>Loose flow</h3>
+        <p>Use loose flow between landing-page sections.</p>
+      </div>
+    </div>
+  </article>
+</div>
+
+<p>The value of <code>--flow-space</code> inherits through descendant elements. Setting it on a parent therefore changes any nested flow container that uses <code>--flow-space</code>, unless a descendant sets its own value. By contrast, <code>.flow-tight</code> and <code>.flow-loose</code> apply spacing only between the direct children of the element they are added to. They do not affect nested flow containers.</p>
+
+<h2>Built-in flow</h2>
+<p>Flow applies by default to:</p>
+<ul>
+  <li>Classless <code>main</code>, <code>article</code>, and <code>section</code>.</li>
+  <li>Components such as <code>.card</code>, <code>.alert</code>, menu containers, and modal content.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <article class="card" style="--flow-space: 1.75em;">
+      <h3>Card with custom flow spacing</h3>
+      <p>This card overrides the default flow spacing with <code>1.75em</code>.</p>
+    </article>
+  </article>
+</div>
+
+<script>
+function populateFlowValues() {
+  const flowSpaceEl = document.getElementById("flow-space");
+  if (!flowSpaceEl) return;
+
+  const rootStyles = getComputedStyle(document.documentElement);
+  flowSpaceEl.textContent = rootStyles.getPropertyValue("--flow-space").trim();
+}
+populateFlowValues();
+</script>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

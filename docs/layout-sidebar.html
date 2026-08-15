@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sidebar | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Sidebar</h1>
+
+<p>The <code>.sidebar</code> layout arranges exactly two children in columns: a target-width sidebar and flexible main content. If the main content shrinks to its minimum width, the children stack vertically. Use this layout for page navigation and content, media objects, and form rows.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>.sidebar</code> to the parent.</li>
+  <li>Place exactly two children. The first is the sidebar; the second is the main content.</li>
+  <li>Optional custom properties:
+    <ul>
+      <li><code>--sidebar-target-width</code>: Sets the preferred sidebar width. The default is <code>15rem</code>.</li>
+      <li><code>--sidebar-content-min-width</code>: Sets the minimum main-content width. Increase the value to stack earlier or decrease it to stack later. The default is <code>50%</code>.</li>
+      <li><code>--gap</code>: Sets the space between the children. The default is <code>--space-s-m</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>Create a page with a side menu</h2>
+
+<p>Place an <code>&lt;aside&gt;</code> containing a <code>&lt;nav&gt;</code> and a <code>&lt;main&gt;</code> as the layout's two children. For a full-page shell, add <code>.container</code> to the sidebar parent.</p>
+
+<div class="example">
+  <article class="resizable">
+    <div class="sidebar bg-sunken p-xs" style="--sidebar-target-width: 12rem;">
+      <aside class="bg-raised p-xs">
+        <nav>
+          <ul>
+            <li><a href="#">Overview</a></li>
+            <li><a href="#" aria-current="page">Sidebar</a></li>
+            <li><a href="#">Cluster</a></li>
+            <li><a href="#">Grid</a></li>
+            <li><a href="#">Switcher</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="flow bg-raised p-s">
+        <h3 class="size-body">Main content</h3>
+        <p>The main content takes the remaining width and moves below the menu when the layout stacks.</p>
+      </main>
+    </div>
+  </article>
+</div>
+
+<h2>Create a media object</h2>
+
+<p>The <code>.media</code> modifier sizes the first child to its content, which supports an avatar, icon, or thumbnail beside text. It also vertically centers the two children. <code>.media</code> sidebars have a smaller <code>--gap</code> value by default.</p>
+
+<div class="example">
+  <article>
+    <div class="sidebar media">
+      <figure class="avatar">
+        <span>KT</span>
+      </figure>
+      <div>
+        <p><strong>Kim Trønnes</strong></p>
+        <p><small>Pushed 3 commits to <code>main</code> · 2h ago</small></p>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Prevent equal-height children</h2>
+
+<p>Use <code>.no-stretch</code> to prevent the children from stretching to the same height.</p>
+
+<h2>Place the sidebar on the right</h2>
+
+<p>Use <code>.reversed</code> to place the sidebar on the right for a table of contents or supplementary metadata.</p>
+
+<div class="example">
+  <article class="resizable">
+    <div class="sidebar reversed" style="--sidebar-target-width: 10rem;">
+      <aside class="flow-tight bg-sunken p-s">
+        <p class="eyebrow">On this page</p>
+        <nav>
+          <ul>
+            <li><a href="#">Introduction</a></li>
+            <li><a href="#">Examples</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <article class="flow bg-raised p-s">
+        <h3 class="size-body">Article</h3>
+        <p>The main reading column takes the available space. The table of contents appears on the right and moves above the article when the layout stacks.</p>
+      </article>
+    </div>
+  </article>
+</div>
+
+<script>
+function populateSidebarValues() {
+  const gapEl = document.getElementById("sidebar-gap");
+  if (!gapEl) return;
+
+  const rootStyles = getComputedStyle(document.documentElement);
+  gapEl.textContent = rootStyles.getPropertyValue("--gap").trim();
+}
+populateSidebarValues();
+</script>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

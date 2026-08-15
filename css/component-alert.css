@@ -1,0 +1,114 @@
+@layer components {
+  .alert {
+    --alert-padding: var(--space-s-m);
+
+    position: relative;
+    background-color: var(--color-fill);
+    color: inherit;
+    border-radius: var(--border-radius-m);
+    padding: var(--alert-padding);
+    box-shadow: var(--shadow-medium);
+    overflow: hidden;
+    border: var(--border-width) solid var(--color-border-weak);
+
+    /* Flow included */
+    > * + * {
+      margin-block-start: var(--flow-space);
+    }
+
+    /* A direct-child .close docks in the inline-end corner; the icon aligns
+       with the content edge while the hit area extends toward the corner.
+       A .close nested in a wrapper (e.g. .repel) stays in normal flow. */
+    > .close {
+      position: absolute;
+      inset-block-start: calc(var(--alert-padding) - var(--space-xs));
+      inset-inline-end: calc(var(--alert-padding) - var(--space-xs));
+      margin: 0;
+    }
+
+    &:has(> .close) {
+      padding-inline-end: calc(var(--alert-padding) + 1em + var(--space-xs) * 2);
+    }
+
+    a:not([role="button"], 
+    [role="link"]:not([role="button"])) {
+      color: inherit;
+    }
+
+    &:is(.accent, .info, .warning, .success, .danger) {
+      a:not([role="button"], 
+      [role="link"]:not([role="button"])) {
+        text-decoration-color: inherit;
+      }
+    }
+
+    &:is(.info, .warning, .success, .danger)::before {
+      display: block;
+      width: 1.5em;
+      height: 1.5em;
+      margin-inline-end: var(--space-xs);
+      float: inline-start;
+      background-color: currentcolor;
+      mask-position: left .25em;
+      mask-size: 1em auto;
+      mask-repeat: no-repeat;
+      content: "";
+
+      [dir="rtl"] & {
+        mask-position: right .25em;
+      }
+    }
+
+    &.primary {
+      background-color: var(--color-primary-fill);
+      color: var(--color-primary-text);
+      border-color: var(--color-primary-border-weak);
+    }
+
+    &.accent {
+      background-color: var(--color-accent-fill);
+      color: var(--color-accent-text);
+      border-color: var(--color-accent-border-weak);
+    }
+
+    &.info {
+      background-color: var(--color-info-fill);
+      color: var(--color-info-text);
+      border-color: var(--color-info-border-weak);
+
+      &::before {
+        mask-image: var(--icon-info);
+      }
+    }
+
+    &.warning {
+      background-color: var(--color-warning-fill);
+      color: var(--color-warning-text);
+      border-color: var(--color-warning-border-weak);
+
+      &::before {
+        mask-image: var(--icon-invalid);
+      }
+    }
+
+    &.success {
+      background-color: var(--color-success-fill);
+      color: var(--color-success-text);
+      border-color: var(--color-success-border-weak);
+
+      &::before {
+        mask-image: var(--icon-valid);
+      }
+    }
+
+    &.danger {
+      background-color: var(--color-danger-fill);
+      color: var(--color-danger-text);
+      border-color: var(--color-danger-border-weak);  
+
+      &::before {
+        mask-image: var(--icon-invalid);
+      }
+    }
+  }
+}

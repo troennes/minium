@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Card | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Card</h1>
+
+<p>A card groups related content and actions in a bordered container with built-in vertical spacing.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="card"</code> to an <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, or <code>&lt;div&gt;</code>.</li>
+  <li>Place content as direct children of the card to apply automatic spacing.</li>
+  <li>Customize the card padding with <code>--card-padding</code>.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <article class="card">
+      <h2>Minium</h2>
+      <p>Red lead, also called minium, is a dense orange-red pigment with a long material history.</p>
+      <p><a href="#">Read mineral note</a></p>
+    </article>
+  </article>
+</div>
+
+<h2>Header and footer sections</h2>
+<p>Direct child <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> elements extend to the card edges and include separators.</p>
+
+<div class="example">
+  <article>
+    <article class="card">
+      <header>Card Header</header>
+      <p>Main card content goes here.</p>
+      <footer>Card Footer</footer>
+    </article>
+  </article>
+</div>
+
+<h2>Media bleed</h2>
+<p>A direct child <code>&lt;figure&gt;</code> (without <code>.inset</code>) extends to card edges. Add <code>.inset</code> to keep it within card padding.</p>
+
+<div class="example">
+  <article>
+    <article class="card">
+      <figure>
+        <img alt="Placeholder gradient" src="../tests/assets/bridge-city.png">
+      </figure>
+      <p>Edge-to-edge media</p>
+    </article>
+
+    <article class="card">
+      <figure class="inset">
+        <img alt="Inset placeholder gradient" src="../tests/assets/bridge-city.png">
+      </figure>
+      <p>Inset media</p>
+    </article>
+  </article>
+</div>
+
+<h2>Card with sidebar layout</h2>
+<p>Combine <code>.card</code> with layout primitives such as <code>.sidebar</code> to arrange card content in a sidebar layout.</p>
+
+<div class="example">
+  <article>
+    <article class="card">
+      <div class="sidebar">
+        <figure>
+          <img alt="Avatar placeholder" src="../tests/assets/avatar-2.png">
+        </figure>
+        <div class="flow">
+          <h2>Ada Lovelace</h2>
+          <p>Early computing pioneer and writer on analytical engines.</p>
+          <p><a href="#">View profile</a></p>
+        </div>
+      </div>
+    </article>
+  </article>
+</div>
+
+<h2>Link cards</h2>
+<p>To make the entire card clickable, apply <code>.card</code> to an <code>&lt;a&gt;</code> element. Link cards provide hover and active feedback without applying link styling to their text.</p>
+
+<div class="example">
+  <article>
+    <a href="#" class="card">
+      <h2>Link card</h2>
+    </a>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li><code>.card</code> is a visual component; it does not add semantics by itself.</li>
+  <li>Prefer <code>article</code> for standalone, reusable content, <code>section</code> for a labeled page section, and <code>div</code> for purely visual grouping.</li>
+  <li>Do not nest links, buttons, or other interactive elements inside a link card.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

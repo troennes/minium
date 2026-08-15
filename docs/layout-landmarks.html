@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Landmarks | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Landmarks</h1>
+
+<p><code>css/base.css</code> styles semantic page landmarks and adds vertical spacing to classless content landmarks.</p>
+
+<h2>Use header and footer landmarks</h2>
+<p>Place <code>&lt;header&gt;</code> first and <code>&lt;footer&gt;</code> last among the direct children of <code>&lt;body&gt;</code>. Minium then applies surface colors, borders, and spacing to both landmarks. It also applies <code>margin-block-start: auto</code> to the footer so that it remains at the bottom of short pages.</p>
+<p>This documentation page uses the same pattern.</p>
+
+<pre style="border: var(--border-width) solid var(--color-border-weak);"><code class="language-html">&lt;body&gt;
+  &lt;header&gt;Site header&lt;/header&gt;
+  &lt;main&gt;Page content&lt;/main&gt;
+  &lt;footer&gt;Site footer&lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+
+<h2>Use classless content landmarks</h2>
+<p>Classless <code>main</code>, <code>article</code>, and <code>section</code> elements add <code>--flow-space</code> between consecutive direct children:</p>
+<p><code>&gt; * + * { margin-block-start: var(--flow-space); }</code></p>
+
+<div class="example">
+  <article>
+    <section>
+      <h3>Classless section</h3>
+      <p>Minium adds spacing between these elements.</p>
+    </section>
+  </article>
+</div>
+
+<h3>Change the default flow</h3>
+<p>Add <code>.flow-loose</code> to replace the default flow spacing with larger spacing.</p>
+
+<div class="example">
+  <article>
+    <section class="flow-loose">
+      <h3>Loose flow</h3>
+      <p>This section has larger spacing between its direct children.</p>
+    </section>
+  </article>
+</div>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

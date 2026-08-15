@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tooltip | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Tooltip</h1>
+
+<p>A tooltip displays a short message when the user hovers over or focuses an element. This component uses CSS only.</p>
+
+<h2>Usage</h2>
+
+<p>Add <code>data-tooltip="…"</code> to the target element. Set its value to the tooltip text.</p>
+
+<div class="example">
+  <article>
+    <p>The following examples add tooltips to an <em data-tooltip="Tooltip" tabindex="0">inline element</em>
+      and a <a href="#" data-tooltip="Tooltip">link</a>.</p>
+    <p><button data-tooltip="Tooltip">Tooltip button</button></p>
+  </article>
+</div>
+
+<p>Non-interactive inline elements use a dotted underline by default.</p>
+
+<p>Tooltips appear above the target by default. Set <code>data-placement</code> to <code>right</code>, <code>bottom</code>, or <code>left</code> to change the placement.</p>
+
+
+<div class="example">
+  <article>
+    <div class="switcher">
+      <button data-tooltip="Top" data-placement="top">Top</button>
+      <button data-tooltip="Right" data-placement="right">Right</button>
+      <button data-tooltip="Bottom" data-placement="bottom">Bottom</button>
+      <button data-tooltip="Left" data-placement="left">Left</button>
+    </div>
+  </article>
+  <pre class="language-html"><code>&lt;button data-tooltip="Top" data-placement="top"&gt;Top&lt;/button&gt;
+&lt;button data-tooltip="Right" data-placement="right"&gt;Right&lt;/button&gt;
+&lt;button data-tooltip="Bottom" data-placement="bottom"&gt;Bottom&lt;/button&gt;
+&lt;button data-tooltip="Left" data-placement="left"&gt;Left&lt;/button&gt;</code></pre>
+</div>
+
+<p>Tooltips appear on hover and <code>:focus-visible</code>.</p>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>The <code>data-tooltip</code> attribute is visual only. Add an <code>aria-label</code> to expose the text to assistive technologies.</li>
+  <li>For non-interactive elements, add <code>tabindex="0"</code> so keyboard users can focus the element and display its tooltip.</li>
+  <li>Long tooltip text can overflow the viewport near its edges.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

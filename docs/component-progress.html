@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Progress | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Progress</h1>
+
+<p>Minium styles the native <code>&lt;progress&gt;</code> and <code>&lt;meter&gt;</code> elements.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>&lt;progress&gt;</code> to show the completion of a task, such as an upload or another long-running action.</li>
+  <li>Use <code>&lt;meter&gt;</code> to show a value within a known range, such as quality, health, confidence, or capacity.</li>
+</ul>
+
+<h2>Progress examples</h2>
+
+<div class="example">
+  <article>
+    <label for="docs-progress-determinate">Upload progress</label>
+    <progress id="docs-progress-determinate" value="43" max="100">43%</progress>
+
+    <label for="docs-progress-indeterminate">Generating preview</label>
+    <progress id="docs-progress-indeterminate">Generating preview</progress>
+  </article>
+</div>
+
+<h2>Meter examples</h2>
+
+<div class="example">
+  <article>
+    <label for="docs-meter-low">Low confidence</label>
+    <meter id="docs-meter-low" min="0" max="100" low="40" high="70" optimum="99" value="33">33 out of 100</meter>
+
+    <label for="docs-meter-mid">Moderate confidence</label>
+    <meter id="docs-meter-mid" min="0" max="100" low="40" high="70" optimum="99" value="66">66 out of 100</meter>
+
+    <label for="docs-meter-high">High confidence</label>
+    <meter id="docs-meter-high" min="0" max="100" low="40" high="70" optimum="99" value="100">100 out of 100</meter>
+  </article>
+</div>
+
+<h2>Appearance</h2>
+<ul>
+  <li>The filled portion of <code>&lt;progress&gt;</code> uses the primary theme color.</li>
+  <li>The color of <code>&lt;meter&gt;</code> reflects its value relative to <code>low</code>, <code>high</code>, and <code>optimum</code>.</li>
+</ul>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Indeterminate <code>&lt;progress&gt;</code> elements animate unless the user requests reduced motion.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

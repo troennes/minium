@@ -1,0 +1,93 @@
+@layer components { 
+  /* Menu item look, used in .dropdown and aside nav (sidemenus) */
+  aside > nav:not([class], [aria-label="breadcrumb" i]), 
+  .dropdown [popover] {
+    --menu-border-radius: min(4px, var(--border-radius-s));
+
+    > * + * {
+      margin-block-start: var(--space-2xs);
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      position: relative;
+    }
+
+    li ul:not([popover], [popover] > ul) {
+      white-space: nowrap;
+      margin-inline-start: var(--space-2xs);
+      padding-inline-start: var(--space-xs);
+      position: relative;
+      border-inline-start: var(--border-width) solid var(--color-border-weak);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    > ul:not([class]) {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    a,
+    [role="link"] {
+      border-radius: var(--menu-border-radius);
+      text-decoration: none;
+      padding: var(--space-3xs) var(--space-2xs);
+      font-weight: var(--font-weight);
+
+      &:is(:hover, :active) {
+        background-image: linear-gradient(var(--color-fill), var(--color-fill));
+      }
+    }
+
+    button,
+    [role="button"] {
+      border-radius: var(--menu-border-radius);
+      text-align: left;
+      font-weight: var(--font-weight);
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      color: inherit;
+      padding: var(--space-3xs) var(--space-2xs);
+
+      &:is(:hover, :active) {
+        background-image: linear-gradient(var(--color-fill), var(--color-fill));
+      }
+    }
+
+    details {
+      border-radius: var(--menu-border-radius);
+      border: none;
+      box-shadow: none;
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      > *:not(summary) {
+        margin: 0;
+        margin-inline-start: var(--space-2xs);
+      }
+    }
+
+    summary {
+      padding: var(--space-3xs) var(--space-2xs);
+      border-radius: var(--menu-border-radius);
+    }
+
+    summary:hover:not([role="button"]){
+      border-radius: var(--menu-border-radius);
+    }
+
+    [aria-current] {
+      background-color: var(--color-fill-hover);
+      border-radius: var(--menu-border-radius);
+    }
+
+    [aria-disabled="true"] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Badge | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Badge</h1>
+
+<p>Use badges and pills to display compact status, count, or metadata labels alongside other content.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>.badge</code> for labels with rounded corners.</li>
+  <li>Use <code>.pill</code> for fully rounded labels.</li>
+  <li>Apply <code>.primary</code>, <code>.accent</code>, <code>.info</code>, <code>.success</code>, <code>.warning</code>, <code>.danger</code>, or <code>.muted</code> to either <code>.badge</code> or <code>.pill</code>.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <p>
+      <span class="badge">Default</span>
+      <span class="pill">Default pill</span>
+    </p>
+
+    <p>
+      <span class="badge primary">Primary</span>
+      <span class="badge accent">Accent</span>
+      <span class="badge info">Info</span>
+      <span class="badge success">Success</span>
+      <span class="badge warning">Warning</span>
+      <span class="badge danger">Danger</span>
+      <span class="badge muted">Muted</span>
+    </p>
+  </article>
+</div>
+
+<h2>Pill variants</h2>
+
+<div class="example">
+  <article>
+    <p>
+      <span class="pill primary">Primary</span>
+      <span class="pill accent">Accent</span>
+      <span class="pill info">Info</span>
+      <span class="pill success">Success</span>
+      <span class="pill warning">Warning</span>
+      <span class="pill danger">Danger</span>
+    </p>
+  </article>
+</div>
+
+<h2>Interactive badges</h2>
+<p>Links and buttons with <code>.badge</code> or <code>.pill</code> automatically receive hover, focus, and active styles.</p>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <a href="#" class="badge">Badge link</a>
+      <a href="#" class="pill accent">Accent pill link</a>
+      <button type="button" class="badge info">Info button badge</button>
+      <button type="button" class="pill danger">Danger pill button</button>
+    </div>
+  </article>
+</div>
+
+<h2>Badges with icons</h2>
+<p>Badges use <code>inline-flex</code> to align icons with their text.</p>
+
+<div class="example">
+  <article>
+    <p>
+      <span class="badge success">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+        Verified
+      </span>
+      <span class="pill warning">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+        Beta
+      </span>
+    </p>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Use <code>span</code> for static labels, <code>a</code> for links, and <code>button</code> for actions.</li>
+  <li>Hide decorative icons inside badges with <code>aria-hidden="true"</code>.</li>
+  <li>For rows of interactive badges, use <code>.cluster</code> to add consistent spacing between controls.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

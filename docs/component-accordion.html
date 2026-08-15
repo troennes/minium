@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Accordion | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Accordion</h1>
+
+<p>An accordion is a stack of expandable panels that lets users show or hide sections of content. It uses native <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements, which provide built-in disclosure semantics and work without JavaScript.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Wrap each panel in <code>&lt;details&gt;</code>.</li>
+  <li>Use <code>&lt;summary&gt;</code> as the interactive label.</li>
+  <li>Put content immediately after <code>&lt;summary&gt;</code>.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <details>
+      <summary>What is Minium CSS?</summary>
+      <p>Minium CSS is a semantic-first CSS library with modern defaults and composable layout primitives.</p>
+    </details>
+
+    <details>
+      <summary>Does this need JavaScript?</summary>
+      <p>No. It uses the browser's native details/summary behavior.</p>
+    </details>
+  </article>
+</div>
+
+<h2>Group accordion panels</h2>
+<p>Wrap multiple <code>&lt;details&gt;</code> in a container with <code>role="group"</code> to make them look like a connected set.</p>
+
+<div class="example">
+  <article>
+    <div role="group">
+      <details>
+        <summary>Design tokens</summary>
+        <p>Minium exposes color, spacing, and typography tokens as custom properties.</p>
+      </details>
+      <details>
+        <summary>Layout primitives</summary>
+        <p>Flow, cluster, grid, switcher, and <a href="layout.html">other layout primitives</a> are available in <code>@layer layout</code>.</p>
+      </details>
+      <details>
+        <summary>Components</summary>
+        <p>Semantic HTML provides the baseline; component styles add capability when needed.</p>
+      </details>
+    </div>
+  </article>
+</div>
+
+<h2>Style a summary as a button</h2>
+<p>Add <code>role="button"</code> to <code>&lt;summary&gt;</code> to apply button styling. Button variant and size classes, such as <code>.secondary</code>, <code>.accent</code>, and <code>.small</code>, also apply.</p>
+
+<div class="example">
+  <article>
+    <details>
+      <summary role="button">Account details</summary>
+      <p>Review the account owner and contact information.</p>
+    </details>
+
+    <details>
+      <summary role="button" class="secondary">Notification settings</summary>
+      <p>Choose which notifications you receive.</p>
+    </details>
+
+    <details>
+      <summary role="button" class="accent small">Display options</summary>
+      <p>Configure optional display settings.</p>
+    </details>
+  </article>
+</div>
+
+<h2>Modify an accordion</h2>
+<p>Use the following modifiers to change an accordion's presentation and initial state:</p>
+<ul>
+  <li>Use <code>.border-none</code> on <code>&lt;details&gt;</code> to remove its border and shadow.</li>
+  <li>Add <code>open</code> to <code>&lt;details&gt;</code> to expand the panel initially.</li>
+  <li>Give related <code>&lt;details&gt;</code> elements the same <code>name</code> to allow only one panel to remain open.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <details class="border-none" open>
+      <summary>Borderless accordion</summary>
+      <p>This panel keeps native accordion behavior without the default border and shadow frame.</p>
+    </details>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Give every <code>&lt;summary&gt;</code> a visible, non-empty label so the control has an accessible name.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

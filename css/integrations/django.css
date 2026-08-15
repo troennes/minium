@@ -1,0 +1,37 @@
+@layer base {
+  /* Django specific styling */
+
+  .helptext {
+    color: var(--color-text-muted);
+    line-height: 1.25;
+    font-size: var(--size-small);
+    display: block;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      
+      li {
+        color: var(--color-text-muted);
+        font-size: var(--size-small);
+      }
+    }
+  }
+
+  .errorlist {
+    list-style-type: none;
+    color: var(--color-danger-text);
+    font-size: var(--size-small);
+    line-height: 1.25;
+    padding: 0;
+  }
+
+  form > div:not([class]) > * + * {
+    margin-block-start: var(--flow-space-glue);
+  }
+
+  ul.messages {
+    list-style-type: none;
+    padding: 0;
+  }
+}

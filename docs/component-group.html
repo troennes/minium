@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Group | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Group</h1>
+
+<p>A group joins related elements into a single connected control or visual set. Depending on its contents, the group shares borders, rounds only its outer corners, or overlaps its children.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>role="group"</code> to the container. Use a <code>&lt;fieldset&gt;</code> for form controls and a <code>&lt;div&gt;</code> for other grouped elements.</li>
+  <li>Use children of similar height, such as inputs, selects, and buttons. Mixed heights prevent their borders from aligning.</li>
+  <li>Groups do not stack on small viewports. For responsive stacking, use <a href="layout-switcher.html">Switcher</a> instead.</li>
+</ul>
+
+<h2>Form group</h2>
+<p>This example combines an email input and submit button in a newsletter sign-up control.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset role="group">
+        <input name="email" type="email" placeholder="Enter your email" autocomplete="email" />
+        <input type="submit" value="Subscribe" />
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<p>A group can also connect multiple inputs in compact login and filter controls.</p>
+
+<div class="example">
+  <article>
+    <form>
+      <fieldset role="group">
+        <input name="email" type="email" placeholder="Email" autocomplete="email" />
+        <input name="password" type="password" placeholder="Password" />
+        <input type="submit" value="Log in" />
+      </fieldset>
+    </form>
+  </article>
+</div>
+
+<h2>Button group</h2>
+<p>This example joins buttons in a connected row. Button <a href="content-button.html">color modifiers</a> such as <code>.secondary</code>, <code>.accent</code>, and <code>.danger</code> work as usual.</p>
+
+<div class="example">
+  <article>
+    <div role="group" aria-label="Text alignment">
+      <a href="#" role="button">Link</a>
+      <a href="#" role="button" class="accent">Accent</a>
+      <button class="danger">Danger</button>
+    </div>
+  </article>
+</div>
+
+<h2>Avatar group</h2>
+<p>Group <a href="component-avatar.html">avatars</a> in an overlapping cluster with separating rings.</p>
+
+<div class="example">
+  <article>
+    <div role="group" aria-label="Project members">
+      <figure class="avatar"><img src="https://placehold.co/200x200/fde68a/713f12?text=K" alt="Kim"></figure>
+      <figure class="avatar"><img src="https://placehold.co/200x200/a7f3d0/064e3b?text=L" alt="Luna"></figure>
+      <figure class="avatar"><img src="https://placehold.co/200x200/c4b5fd/4c1d95?text=M" alt="Mika"></figure>
+      <figure class="avatar">+3</figure>
+    </div>
+  </article>
+</div>
+
+<h2>Accordion group</h2>
+<p>Group <a href="component-accordion.html">accordions</a> to present a stack of <code>&lt;details&gt;</code> panels as one connected set.</p>
+
+<div class="example">
+  <article>
+    <div role="group">
+      <details>
+        <summary>Design tokens</summary>
+        <p>Color, space, and typography variables are exposed as custom properties.</p>
+      </details>
+      <details>
+        <summary>Layout primitives</summary>
+        <p>Flow, cluster, grid, switcher, and more are available in <code>@layer layout</code>.</p>
+      </details>
+      <details>
+        <summary>Components</summary>
+        <p>Use semantic HTML first, then apply light component styles as needed.</p>
+      </details>
+    </div>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>A visual group has no accessible name by default. Add an <code>aria-label</code> when assistive technologies need to announce the group’s purpose, as shown by <code>aria-label="Text alignment"</code>.</li>
+  <li>Give each control a distinct accessible name that describes its action.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

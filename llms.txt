@@ -1,0 +1,1027 @@
+# Minium CSS
+Minium: the minimum CSS and HTML to build anything.
+
+Minium is a semantic-first CSS library that makes ordinary HTML look good, then adds class-light layouts and components for building real interfaces.
+
+## Minium CSS install notes
+1. When the package is published, install it with `npm install minium-css`.
+2. Until then, build from the repository and load the built stylesheet from `dist/minium.css`.
+3. Import font files from `dist/fonts`.
+4. Do not assume Tailwind, Bootstrap, or JavaScript component plugins exist. Minium CSS is plain CSS.
+5. Customize the system primarily through CSS custom properties, especially the semantic tokens in the theme layer.
+6. The library is built around semantic HTML first, layouts second, components/modifiers third, utilities fourth, and project classes for anything else.
+
+## How HTML feels with Minium
+Minium minimizes both the CSS shipped by the library and the HTML written by the user. The library carries the cost so users write less. Reach for tools in this order:
+
+1. **Semantic HTML, no classes.** `main`, `article`, `h1`, `p`, `ul`, `table`, `form`, `button`, `dialog`, `details` already look right. Top-level `header` and `footer` as direct children of `body` get automatic page-shell styling.
+2. **One layout or component class.** `.cluster`, `.grid`, `.sidebar`, `.card`, `.alert` carry their own composition and visual defaults.
+3. **A small modifier.** `.primary`, `.danger`, `.small`, `.secondary`, `.slim` — short words that tweak the layout/component.
+4. **A token-bounded utility.** `gap-l`, `p-m`, `radius-s`, `fg-muted` adjust one variable at a time. Preferred over `style="--var: ..."`.
+5. **A project class.** Anything specific to your project (`.hero`, `.pricing-comparison`, `.product-card`) lives in your own `@layer project` CSS.
+
+## Architecture
+Minium uses cascade layers to control specificity. The order is:
+
+```
+@layer tokens, theme, reset, base, layout, components, project, utilities;
+```
+
+- `tokens` — raw palette (Radix color scales).
+- `theme` — semantic roles, type scale, spacing scale, semantic colors, shadows, radii.
+- `reset` — foundational reset rules.
+- `base` — element defaults (the "no-class HTML looks good" layer).
+- `layout` — composition primitives. Structural only, no visual styling.
+- `components` — curated blocks and objects (card, badge, alert, modal, dropdown, tabs, accordion, avatar, icon, tooltip, etc.).
+- `project` — your own classes. Not shipped by the library.
+- `utilities` — token-bounded shortcuts. Escape hatches, not building blocks.
+
+## Minium CSS usage rules
+1. Prefer semantic HTML before adding classes. Many patterns are intentionally styled through native elements alone.
+2. Use documented layout classes for composition: `.flow`, `.cluster`, `.container`, `.grid`, `.repel`, `.switcher`, `.sidebar`, and `.frame`.
+3. Use documented component classes only where they exist, such as `.card`, `.alert`, `.badge`, `.pill`, `.avatar`, `.icon`, `.dropdown`, and `.skeleton`.
+4. Use semantic state and structure attributes where the library expects them: `role="group"`, `aria-current="page"`, `aria-invalid`, `aria-busy`, `aria-disabled`, and native attributes like `open`, `disabled`, `readonly`, `multiple`, and `popover`. Tooltips use `data-tooltip` and `data-placement` (see Tooltip).
+5. Do not invent large component APIs. If a pattern is not described here, build it from semantic HTML plus layout primitives, and a small amount of project CSS.
+6. Prefer theme-token overrides over component-specific overrides. Change shared variables first, then override a specific component only if necessary.
+7. Prefer token-bounded utility classes (`gap-l`, `p-m`, `bg-raised`, `radius-s`) over inline `style="--var: ..."`.
+8. Automatic vertical rhythm already exists in all components. Avoid stacking extra margin utilities or wrapping everything in `.flow` without reason.
+9. When a link should behave visually like a button, use `role="button"` and button modifiers rather than styling a plain text link as a pseudo-button.
+10. For forms, use the native HTML control pattern first. Minium CSS styles labels, helper text, validation state, and grouped controls around semantic form markup.
+11. For navigation, breadcrumbs, pagination, dropdown menus, accordions, and modals, prefer the native HTML structures described below instead of custom JavaScript widgets.
+
+## Customization model
+1. Minium CSS is configured through custom properties.
+2. The most important token groups are:
+   `--size-*` for type scale,
+   `--space-*` and `--gap` for spacing,
+   `--flow-space*` for vertical rhythm,
+   `--content-width` and `--main-width` for widths,
+   `--border-radius-*`, `--border-width`, and `--shadow-*` for shape and depth,
+   `--color-*` for semantic colors.
+3. Most components consume semantic tokens instead of hard-coded values. If you change a token like `--color-primary`, buttons, links, alerts, badges, and focus styles update together.
+4. Raw palette values can be Radix-style color scales, but agents should think in semantic roles such as text, surface, border, primary, accent, warning, success, and danger.
+5. If the design only needs a global shift in tone, density, spacing, width, radii, or typography, modify tokens in `theme.css` instead of writing new component CSS.
+
+## Adjusting one element with utilities
+Token-bounded utility classes are the preferred way to tune one element. They map directly to a design token, so they stay inside the system. Use them instead of `style="--var: ..."` for one-offs.
+
+Rules:
+1. Reach for a utility before adding inline `style`.
+2. Every utility is bounded to a token — there is no `gap-37px`. If you need an arbitrary value, use `style="--var: ..."` for a one-off, or define a project class for repeated patterns.
+3. If you stack four or more utilities on the same element, promote it to a project class named for its intent.
+4. Component-scoped escape valves (like `--sidebar-target-width`, `--switcher-breakpoint`, `--grid-min-size`, `--card-padding`, `--avatar-size`, `--n`/`--d` on `.frame`, alignment vars) do not have utility equivalents — for those, use `style="--var: ..."` or a project class.
+
+Example: tighten and center a cluster
+```html
+<div class="cluster gap-2xs" style="--cluster-horizontal-alignment: center;">
+  <span class="badge">Docs</span>
+  <span class="badge">API</span>
+  <span class="badge">Guides</span>
+</div>
+```
+
+Example: remove vertical spacing in a single flow container
+```html
+<article class="flow-none">
+  <h2>Compact panel</h2>
+  <p>No gap between direct children.</p>
+</article>
+```
+
+Example: make grid items wider (no utility for `--grid-min-size`)
+```html
+<div class="grid gap-s" style="--grid-min-size: 14rem;">
+  <article class="card">One</article>
+  <article class="card">Two</article>
+  <article class="card">Three</article>
+</div>
+```
+
+Example: reduce card padding (no utility for `--card-padding`)
+```html
+<article class="card" style="--card-padding: var(--space-s);">
+  <h2>Compact card</h2>
+  <p>Same component, denser interior spacing.</p>
+</article>
+```
+
+Example: custom avatar size (no utility for `--avatar-size`)
+```html
+<figure class="avatar" style="--avatar-size: 5rem;">KC</figure>
+```
+
+Example: tune the sidebar split (no utility for `--sidebar-target-width`)
+```html
+<div class="sidebar" style="--sidebar-target-width: 8rem;">
+  <figure class="avatar">AB</figure>
+  <div class="flow">
+    <h2>Alex Brown</h2>
+    <p>Profile summary text.</p>
+  </div>
+</div>
+```
+
+## Project-specific CSS in `project.css`
+Minium CSS is intentionally not meant to contain every possible app block or marketing pattern. When a UI need is specific to one product or repeats as a product-level pattern, put it in a project stylesheet such as `project.css`. Wrap all project.css code in `@layer project {...}`.
+
+Use `project.css` for:
+1. App-specific blocks like `.hero`, `.pricing-comparison`, `.dashboard-stat`, `.product-card`, or `.site-header`.
+2. Small wrappers around Minium primitives where your project needs a named pattern.
+3. Repeated utility stacks that should become a reusable project-level class.
+4. Brand-specific presentation that should not become part of the shared Minium API.
+
+Do not use `project.css` for:
+1. Rewriting core Minium element defaults unless you truly want to replace the library behavior.
+2. Creating a second utility framework.
+3. Forking shared primitives when a token change or a utility class would solve the problem.
+
+Recommended approach:
+1. Start with semantic HTML and Minium defaults.
+2. Add one or two Minium layout/component classes as needed.
+3. Use token-bounded utilities for one-off adjustments.
+4. Use `style="--var: ..."` only for component-scoped escape valves with no utility equivalent.
+5. When the pattern becomes project-specific or reusable, promote it into `project.css`.
+
+Example: project-level card variation
+```css
+.team-card {
+  --card-padding: var(--space-s);
+}
+```
+
+```html
+<article class="card team-card">
+  <div class="sidebar media">
+    <figure class="avatar">KC</figure>
+    <div class="flow-tight">
+      <h2>Kim Carter</h2>
+      <p>Design systems engineer</p>
+    </div>
+  </div>
+</article>
+```
+
+Example: project hero built from Minium primitives
+```css
+.hero {
+  --flow-space: var(--flow-space-loose);
+}
+```
+
+```html
+<section class="hero flow container slim py-2xl">
+  <p class="eyebrow">New release</p>
+  <h1>Build semantic interfaces faster</h1>
+  <p class="lead">Minium CSS provides semantic defaults, layouts, and lightweight components.</p>
+  <div class="cluster gap-s">
+    <a href="#" role="button">Get started</a>
+    <a href="#" role="button" class="secondary">Read docs</a>
+  </div>
+</section>
+```
+
+## Integrations
+1. Integrations are opt-in stylesheets that target markup produced by third-party tools (for example, Prism.js syntax tokens, Django form widgets). They ship alongside the core stylesheet, not inside it.
+2. Each integration is its own file under `dist/integrations/`. Include only the ones you use, after `dist/minium.css`.
+3. The core library styles HTML the user authors. Integrations style HTML produced by external tools. Anything tied to a specific JS library or framework belongs in the integration layer, not in core.
+4. Integrations may consume core tokens (for example `--color-success` for diff insertions), but core never depends on an integration.
+5. Integrations define their own tokens where they need colors that do not map onto Minium's semantic palette (for example syntax categories: `--keyword`, `--string`, `--comment`, `--function`, `--number`, `--constant`, `--operator`, `--tag`, `--punctuation`). They ship with light and dark variants of their own, independent of the main theme palette.
+6. Available today: Django forms and Prism syntax highlighting. The Prism integration provides CSS only; the Prism.js library is a separate dependency the user installs.
+7. The Django integration supports Django-rendered forms using the standard `{{ form }}` output or `{{ form.as_div }}`, which is Django's default div-based rendering style. It styles `.helptext`, `.errorlist`, and compact spacing inside unclassed field wrapper `div` elements.
+
+
+## Semantic defaults
+1. Plain text content is styled by default. Headings, paragraphs, lists, blockquotes, `hr`, inline text semantics, code, keyboard keys, sample output, captions, and tables all have built-in presentation.
+2. Classless `main`, `article`, and `section` receive automatic vertical flow between direct children.
+3. A top-level `header` and `footer` as direct children of `body` receive automatic page-shell styling, including sticky-footer behavior.
+4. Navigation patterns are identified by context: a `nav` that is a direct child of `header` becomes a navbar, `aside > nav` becomes a side menu, and `aria-label="Breadcrumb"` / `aria-label="Pagination"` style those patterns.
+5. Forms and fieldsets already provide consistent vertical rhythm for labels, controls, helper text, and actions.
+6. Adding any class to a semantic section opts it out of default classless flow behavior, so you manage spacing manually (with `.flow` or utilities).
+
+## Layout primitives
+Layout primitives are small, composable structural classes. They share spacing tokens and nest freely. They are based on Every Layout and CUBE CSS Boilerplate.
+
+### `.flow`
+Use `.flow` on a parent to create consistent vertical spacing between direct children.
+Default implementation: `.flow > * + * {margin-block-start: 1em}`
+
+Rules:
+- Adjust spacing with the `--flow-space` custom property, or use the utilities `.flow-tight`, `.flow-loose`, `.flow-none`.
+- Built-in flow already exists on classless `main`, `article`, and `section`, and in all components such as cards, alerts, modals, and menus.
+
+Example:
+```html
+<div class="flow">
+  <h2>Title</h2>
+  <p>Intro paragraph.</p>
+  <button>Continue</button>
+</div>
+```
+
+### `.cluster`
+Use `.cluster` for horizontal groups that wrap naturally.
+Default implementation uses horizontal flex and flex-wrap.
+
+Rules:
+- Good for tag rows, button toolbars, filters, compact metadata, and mixed inline controls.
+- Children stay in a horizontal row until wrapping is needed.
+- Tune gap with `gap-*` utilities.
+- Tune alignment with `--cluster-horizontal-alignment` and `--cluster-vertical-alignment` (no utility equivalents).
+
+Example:
+```html
+<div class="cluster gap-xs">
+  <button>All</button>
+  <button>Open</button>
+  <button>Closed</button>
+</div>
+```
+
+### `.container`
+Use `.container` to center content and apply horizontal gutters and a maximum width.
+
+Rules:
+- `.container` is the default page-width wrapper.
+- `.container.slim` is for narrower reading width.
+- `.container.full` spans the available width without the standard max-width cap.
+- Width behavior is driven by `--main-width` and `--content-width`.
+
+Example:
+```html
+<main class="container slim">
+  <article>
+    <h1>Documentation</h1>
+    <p>Readable long-form content.</p>
+  </article>
+</main>
+```
+
+### `.grid`
+Use `.grid` for responsive columns that wrap based on available space.
+Default implementation uses `grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr))`.
+
+Rules:
+- Good for cards, feature lists, galleries, and evenly distributed blocks.
+- Tune gap with `gap-*` utilities.
+- Tune item width with `--grid-min-size` and `--grid-placement` (`auto-fill` or `auto-fit`).
+- `.halves` and `.thirds` are preset variants for common column patterns. Halves give two columns and thirds give three when there is enough space.
+
+Example:
+```html
+<div class="grid thirds gap-s">
+  <article>One</article>
+  <article>Two</article>
+  <article>Three</article>
+</div>
+```
+
+### `.repel`
+Use `.repel` when content should push to opposite sides of a row.
+Default implementation is horizontal flex with `justify-content: space-between`.
+
+Rules:
+- Good for action bars, list item controls, and summary rows.
+- For page header navigation rows, prefer the semantic navbar pattern: `header > nav > ul`. A `nav` that is a direct child of `header` already behaves like a repelling row.
+- Wrapping is supported by default. Add `.nowrap` to prevent wrapping.
+- Tune gap with `gap-*` utilities.
+- Use `--repel-vertical-alignment` for cross-axis alignment.
+
+Example:
+```html
+<div class="repel">
+  <strong>Project</strong>
+  <a href="#">View details</a>
+</div>
+```
+
+### `.switcher`
+Use `.switcher` for item groups that sit in a row when there is space and stack vertically when there is not.
+
+Rules:
+- Good for pricing tiers, summaries, comparison blocks, and mixed promo cards.
+- Tune gap with `gap-*` utilities.
+- Tune the stack threshold with `--switcher-breakpoint` (no utility equivalent).
+- Tune cross-axis alignment with `--switcher-vertical-alignment`.
+
+Example:
+```html
+<div class="switcher gap-s">
+  <section>Starter</section>
+  <section>Team</section>
+  <section>Enterprise</section>
+</div>
+```
+
+### `.sidebar`
+Use `.sidebar` when one item should act like a narrow side column and the other like flexible content.
+
+Rules:
+- Good for media-object rows, profile summaries, avatar/content layouts, and documentation sidebars.
+- Place exactly two children: the first is the sidebar, the second is the main content.
+- Tune gap with `gap-*` utilities.
+- Tune the side column with `--sidebar-target-width` and the stack threshold with `--sidebar-content-min-width` (no utility equivalents).
+- Modifiers:
+  - `.reversed` — place the sidebar on the right.
+  - `.media` — lock the first child to its content size (avatar, icon, thumbnail beside text). This creates the typical media object layout.
+  - `.no-stretch` — do not stretch children to the same height.
+
+Example:
+```html
+<div class="sidebar media">
+  <figure class="avatar">AB</figure>
+  <div class="flow">
+    <h2>Alex Brown</h2>
+    <p>Design systems engineer.</p>
+  </div>
+</div>
+```
+
+### `.frame`
+Use `.frame` to keep media inside a fixed aspect ratio while cropping overflow cleanly.
+
+Rules:
+- Wrap a single `<img>` or `<video>` in a `<figure>` or `<div>` with `class="frame"`.
+- Default ratio is 16:9. Override with `--n` (numerator) and `--d` (denominator).
+- Media fills with `object-fit: cover`, so edges may be cropped to preserve the ratio.
+
+Example:
+```html
+<figure class="frame" style="--n: 1; --d: 1;">
+  <img src="/photo.jpg" alt="Square thumbnail">
+</figure>
+```
+
+## Content patterns
+
+### Typography
+Minium CSS styles common document content by default.
+
+Rules:
+- Use semantic headings `h1` through `h6`.
+- Use `hgroup` for a heading plus subtitle pair.
+- `.eyebrow` is for small overline-style introductory text. It uses tiny upper-case text.
+- `.lead` is for larger introductory paragraph text under a heading, also known as "lede".
+- Lists, blockquotes, captions, `small`, `mark`, `ins`, `del`, `abbr`, `sub`, `sup`, and similar elements are already styled semantically.
+
+### Code
+Minium CSS styles code-related content without a separate component class.
+
+Rules:
+- Use `code` for inline code fragments.
+- Use `kbd` for key labels.
+- Use `samp` for command or program output.
+- Use `<pre><code>` for code blocks.
+- Code blocks get a distinct surface and horizontal scrolling automatically.
+
+### Buttons
+Buttons apply to native buttons (`<button>`), button-like inputs, and elements with `role="button"`.
+
+Supported modifiers:
+- Tone: `.accent`, `.danger`, `.success`, `.warning`, `.info`, `.contrast`, `.neutral`
+- Emphasis: `.secondary`, `.tertiary`
+- Size: `.small`, `.large`
+- Width: `.full-width` (they are inline by default, unless they are in a form. In a form, buttons use 100% width.)
+
+Behavior:
+- Default button styling is the primary action style.
+- `.secondary` is the quieter secondary button treatment.
+- `.tertiary` is the lightest button treatment and is closer to a text action.
+- The `.full-width` utility makes the button fill the available width.
+- Inside forms, action buttons are typically full width by default.
+- `disabled` and `aria-disabled="true"` are supported.
+
+Example:
+```html
+<button class="accent">Save</button>
+<button class="secondary">Preview</button>
+<a href="/start" role="button" class="success large">Get started</a>
+```
+
+### Links
+Plain links are styled semantically and support a few modifiers.
+
+Supported modifiers:
+- `.secondary`
+- `.tertiary`
+- `.accent`
+- `.neutral`
+
+Behavior:
+- Use plain links for inline and navigational text actions.
+- `.secondary` and `.tertiary` reduce default emphasis.
+- `.accent` changes the link tone toward the accent color.
+- `.neutral` keeps the link closer to surrounding text color.
+- If the link should look and behave like a button, use `role="button"` and the button API instead.
+
+### Tables
+Tables are styled semantically.
+
+Supported modifiers:
+- `.striped` for banded body rows
+- `.centered` for centered cell content
+- `.border-none` to remove cell borders
+- `.full-width` to make the table use the full width of the container
+
+Behavior:
+- Use semantic table structure with `caption`, `thead`, `tbody`, and `tfoot` when appropriate.
+- Tables render as native `display: table` and size to their content. Use the `.full-width` utility to stretch a table to its container.
+- For tables wider than the container, wrap the `table` in a `<div class="overflow-x">` to enable horizontal scrolling. Use either `.full-width` or `.overflow-x` based on whether columns can compress; combining them is rarely useful.
+
+Example:
+```html
+<div class="overflow-x">
+  <table>...</table>
+</div>
+```
+
+## Forms
+
+### General form rules
+1. Use native form markup with `label`, `input`, `textarea`, `select`, `fieldset`, `legend`, and buttons.
+2. Helper text should be placed directly after the associated control.
+3. Declare validation state on the control with `aria-invalid`; Minium does not validate the value or set the attribute for you.
+4. Inside `form` and `fieldset`, Minium CSS already provides vertical spacing between controls and helper text.
+
+### Show validation state
+Minium styles the validation state declared by `aria-invalid` on an `input`, `textarea`, or `select`:
+- Omit `aria-invalid` when the control has no explicit validation result. The control keeps its default styling.
+- Set `aria-invalid="false"` to show an explicitly valid state.
+- Set `aria-invalid="true"` to show an invalid state.
+
+Set the attribute on the form control itself, including a checkbox, radio button, or switch. Text-like controls and textareas show a state icon. Controls use success or danger colors for their border and focus outline. Place a `small` element immediately after a text-like control, textarea, or select to explain the result; its text color follows the declared state.
+
+Example:
+```html
+<label for="email">Email</label>
+<input id="email" name="email" type="email" value="jane@" aria-invalid="true">
+<small>Please enter a complete email address.</small>
+
+<label for="terms">
+  <input id="terms" name="terms" type="checkbox" aria-invalid="false" checked>
+  Terms accepted
+</label>
+```
+
+### Text-like inputs
+Supported input examples include:
+- `text`
+- `email`
+- `number`
+- `password`
+- `tel`
+- `url`
+- `search`
+- `date`
+- `datetime-local`
+- `month`
+- `time`
+- `color`
+- `file`
+- `range`
+- `button`
+- `submit`
+- `reset`
+
+Behavior:
+- All text-like controls fill the available width by default.
+- Use `disabled` and `readonly` where appropriate.
+- Use `fieldset role="group"` for compact combined controls such as a search field plus submit action.
+- A `fieldset` shows a border and legend by default; `role="group"` or a layout class removes the box, and `.bare` removes it explicitly while keeping field spacing.
+
+### `textarea`
+Behavior:
+- Use a native `textarea` with a label.
+- It fills the available width and allows vertical resizing.
+- `.small` and `.large` are supported size modifiers.
+
+### `select`
+Behavior:
+- Use a native `select` with a label.
+- `multiple` and `optgroup` are supported as normal HTML features.
+- `.small` and `.large` are supported size modifiers.
+
+### `checkbox`
+Behavior:
+- For stacked (vertical) forms, the simplest pattern is wrapping the input inside the label.
+- For inline (horizontal) groups, use adjacent `input + label`.
+- Use `fieldset` to group related options.
+
+### `radio`
+Behavior:
+- Use `input type="radio"` with the same `name` for one-of-many choices.
+- For inline groups, use adjacent `input + label`.
+- Use `fieldset` and `legend` when the set answers one named question.
+
+### `switch`
+Behavior:
+- Use `input type="checkbox" role="switch"` for on/off settings.
+- For inline groups, use adjacent `input + label`.
+- Use `fieldset` and `legend` for grouped switch settings.
+
+## Components
+
+### Accordion
+Accordions use the native `details` and `summary` pattern.
+
+Behavior:
+- Wrap each panel in `details`.
+- Use `summary` as the interactive heading.
+- Put the panel content immediately after `summary`.
+- Give every `summary` a visible, non-empty label.
+- Use `open` on `details` to make a panel expanded by default.
+- Use the same `name` on multiple `details` when only one panel should be open at a time.
+- Wrap multiple accordions in a container with `role="group"` if they should look like one connected set.
+- Add `role="button"` to `summary` if you want it to inherit button styling.
+- Add `.border-none` to `details` if the standard framed panel look should be removed.
+
+Example:
+```html
+<details>
+  <summary>What is Minium CSS?</summary>
+  <p>Minium CSS is a semantic-first CSS library.</p>
+</details>
+```
+
+### Alert
+Use `.alert` for inline feedback and status messages.
+
+Supported modifiers:
+- `.primary`
+- `.accent`
+- `.info`
+- `.warning`
+- `.success`
+- `.danger`
+
+Behavior:
+- Add `.alert` to a container.
+- Use `role="alert"` for urgent announcements that assistive tech should treat assertively.
+- Alerts support rich internal content such as headings, paragraphs, and actions.
+- Alerts already include internal flow spacing between direct children.
+- A `.close` button as the last direct child is pinned in the top inline-end corner, and the alert reserves space for it. Dismissing needs one line of JavaScript. A `.close` nested in a wrapper (such as a `.repel` row) stays in normal flow.
+
+Example:
+```html
+<div class="alert warning" role="alert">
+  Your trial ends in 2 days.
+</div>
+```
+
+Dismissable example:
+```html
+<div class="alert info">
+  <h3>New documentation available</h3>
+  <p>Review the updated guidelines before the next release.</p>
+  <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+</div>
+```
+
+### Avatar
+Use `.avatar` for compact user images or initials.
+
+Supported modifiers:
+- Size: `.small` or `.large`
+- Shape: `.square` or `.squircle` (circle is default)
+
+Behavior:
+- Use a `figure` with `.avatar`.
+- Place an `img` inside for a photo avatar.
+- Plain text inside the avatar acts as initials fallback.
+- Use `--avatar-size` for custom sizing without creating a new size modifier.
+- Wrap multiple avatars in a container with `role="group"` for overlapping avatar groups.
+
+Example:
+```html
+<figure class="avatar">
+  <img src="/user.jpg" alt="Ava Carter">
+</figure>
+```
+
+### Badge and Pill
+Use `.badge` and `.pill` for small labels, status chips, and metadata markers.
+
+Supported modifiers:
+- `.primary`
+- `.accent`
+- `.info`
+- `.success`
+- `.warning`
+- `.danger`
+- `.muted`
+
+Behavior:
+- `.badge` is the default rounded-rectangle style.
+- `.pill` is the fully rounded style.
+- They can be used on `span`, `a`, or `button`.
+- Interactive badges and pills get hover/focus behavior automatically.
+- Only use one modifier as they cannot be combined
+
+Example:
+```html
+<span class="badge success">Active</span>
+<a href="#" class="pill accent">Upgrade</a>
+```
+
+### Icon
+Use `.icon` to size an inline SVG to match surrounding text.
+
+Behavior:
+- Minium does not include an icon set. Users choose their own SVG icons.
+- Docs examples commonly use Lucide inline SVGs, but Lucide is not a dependency.
+- Some Minium controls use internal CSS mask icons for component UI; those tokens are not a general icon library.
+- `.icon` is a 1em square and is baseline-aligned.
+- Icons follow text color when the SVG uses `currentColor`.
+- Because sizing is em-based, plain `.icon` should be used most of the time.
+- Use `.icon.small` or `.icon.large` only when an icon should be smaller or larger than the surrounding text.
+- `--icon-size` and `--icon-align` can be scoped to one icon or to the smallest wrapper that should affect its child icons.
+
+Example:
+```html
+<svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+  ...
+</svg>
+
+<svg class="icon large" aria-hidden="true" viewBox="0 0 24 24">
+  ...
+</svg>
+```
+
+### Breadcrumb
+Breadcrumbs are styled through semantic navigation.
+
+Behavior:
+- Use `nav aria-label="Breadcrumb"`.
+- Use `ol` inside the nav.
+- Mark the current page with `aria-current="page"`. The last item is usually plain text, so it sits on the `li`; if the current page links to itself, put it on the `a` instead.
+
+Example:
+```html
+<nav aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/docs" aria-current="page">Docs</a></li>
+  </ol>
+</nav>
+```
+
+### Card
+Use `.card` for a raised container with border, radius, shadow, and built-in internal spacing.
+
+Behavior:
+- Use it on `article`, `section`, `div`, or sometimes `a`.
+- Optionally use `--card-padding` to customize internal padding and density.
+- Direct child `header` and `footer` become card sections with separators.
+- A direct child `figure` bleeds edge-to-edge by default.
+- Add `.inset` to a direct child `figure` when the media should stay inside the card padding.
+- Cards already provide internal flow spacing, so extra `.flow` is often unnecessary.
+
+Link cards:
+- Use `a.card` to make the whole card one link. It shows hover/active feedback, and text inside keeps normal card styling (no link color or underline).
+- Do not nest links, buttons, or other interactive elements inside a link card.
+
+Example:
+```html
+<article class="card">
+  <h2>Card title</h2>
+  <p>Supporting text.</p>
+</article>
+```
+
+Example: link card
+```html
+<a href="/post" class="card">
+  <h2>Card title</h2>
+  <p>Supporting text.</p>
+</a>
+```
+
+### Dropdown
+Dropdowns use the native Popover API and CSS anchor positioning. Projects targeting browsers without those features should provide polyfills.
+
+Behavior:
+- Wrap the whole pattern in `.dropdown`.
+- Use a trigger element with `popovertarget`.
+- Use a popover panel element with a matching `id` and the `popover` attribute.
+- Use a generic container (such as `div`) as the popover panel for action lists. Use `nav` only when the panel contains navigation links, and label it with `aria-label` or `aria-labelledby`.
+- Button variants can also be used on the trigger.
+- Icon-only triggers should use `.icon-only` and an accessible name such as `aria-label`; mark the decorative SVG with `aria-hidden="true"`.
+- The panel is anchored to the trigger via CSS anchor positioning and flips block/inline to stay in the viewport.
+
+Accessibility:
+- Dropdowns are native popovers, not full ARIA menu buttons (no `role="menu"`, `aria-expanded`, or focus management — the APG menu button pattern requires JavaScript).
+- Keyboard: Enter/Space opens the popover, Tab moves through items, Escape or light dismiss closes it. Arrow-key navigation is not provided since it would require JavaScript.
+
+Modifiers (on `.dropdown`):
+- `.border-none` — removes the trigger button's border and shadow.
+- `.left` — aligns the panel to the trigger's left edge.
+- `.center` — centers the panel under the trigger.
+- Default alignment is to the trigger's right edge.
+
+Width custom properties (set on `.dropdown` or any ancestor):
+- `--dropdown-width` — panel `inline-size`. Default `max-content`.
+- `--dropdown-min-width` — panel `min-inline-size`. Default `12rem`.
+- `--dropdown-max-width` — panel `max-inline-size`. Default `calc(100% - var(--space-s-l))`.
+
+Nesting:
+- A `.dropdown` may be placed inside another dropdown's panel.
+
+Example:
+```html
+<div class="dropdown">
+  <button popovertarget="menu-1">Menu</button>
+  <div id="menu-1" popover>
+    <ul>
+      <li><a href="#">Profile</a></li>
+      <li>
+        <div class="dropdown">
+          <button popovertarget="nested-menu-1">Share</button>
+          <div id="nested-menu-1" popover>
+            <ul>
+              <li><a href="#">Copy link</a></li>
+              <li><a href="#">Email</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li><button>Sign out</button></li>
+    </ul>
+  </div>
+</div>
+```
+
+### Modal
+Modals use native `dialog`.
+
+Behavior:
+- Use a `dialog` element for dialog content.
+- Open with `showModal()` for a true modal dialog: the outside page becomes inert and focus is trapped inside.
+- Add `popover` and open with `popovertarget` for a non-modal dialog: no JavaScript needed, but the outside page stays interactive and focus can leave it. Scroll-locking while open is visual only and does not make the page inert.
+- Give every dialog an accessible name via `aria-labelledby` (pointing at a visible title) or `aria-label`.
+- Use `<form method="dialog">` for simple confirm/cancel flows so buttons close the dialog without JavaScript.
+- Direct child `header` and `footer` create structured sections similar to a card.
+- Modals already provide internal flow spacing, so extra `.flow` is often unnecessary.
+- A `.close` button as the last direct child of the dialog is pinned in the top inline-end corner, and the dialog keeps the title row clear of it. Keep it a direct child even when content is wrapped in an `article`. For `showModal()` dialogs wrap it in `<form method="dialog">` (the wrapper takes no space); for popover dialogs use `popovertarget` with `popovertargetaction="hide"`.
+
+Example:
+```html
+<dialog id="confirm-dialog" aria-labelledby="confirm-dialog-title">
+  <header><strong id="confirm-dialog-title">Confirm delete</strong></header>
+  <p>This action cannot be undone.</p>
+  <footer>
+    <form method="dialog" class="cluster" style="--cluster-horizontal-alignment: flex-end;">
+      <button class="secondary">Cancel</button>
+      <button class="danger">Delete</button>
+    </form>
+  </footer>
+  <form method="dialog">
+    <button class="close" aria-label="Close"></button>
+  </form>
+</dialog>
+<button type="button" onclick="document.getElementById('confirm-dialog').showModal()">Delete…</button>
+```
+
+### Navbar
+The navbar pattern applies to a `nav` that is a direct child of a `header`, or to any `nav` with the `.navbar` class.
+
+Behavior:
+- Place the `nav` as a direct child of a `header` (typical page-header position) — no class needed.
+- Outside a header, add `.navbar` to the `nav`.
+- Use one or more direct child `ul` groups inside the `nav`.
+- The `nav` behaves like a repelling row.
+- Each direct child `ul` behaves like a horizontal cluster.
+- If the page header constrains content width, put `.container` on the `nav` itself (`<header><nav class="container">`) so the `nav` stays a direct child of the `header`.
+- To always keep a navbar at the top of its scroll container, add `.sticky` to the `header` in the semantic pattern or to a standalone `nav.navbar`. The modifier sets `position: sticky`, `top: 0`, and `z-index: 1020`. It does not affect other elements.
+- Do not use this pattern for side menus, breadcrumbs, or pagination.
+- A `nav` outside a header and without `.navbar` gets only shared nav basics (no list bullets, links inherit text color).
+
+Example:
+```html
+<header>
+  <nav>
+    <ul>
+      <li><strong>Acme</strong></li>
+    </ul>
+    <ul>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#" role="button">Start</a></li>
+    </ul>
+  </nav>
+</header>
+```
+
+Example: navbar outside a header
+```html
+<nav class="navbar">
+  <ul>
+    <li><strong>Acme</strong></li>
+  </ul>
+  <ul>
+    <li><a href="#">Docs</a></li>
+  </ul>
+</nav>
+```
+
+Example: sticky navbar
+```html
+<header class="sticky">
+  <nav class="container">...</nav>
+</header>
+
+<nav class="navbar sticky">...</nav>
+```
+
+### Side menu
+The side menu pattern is semantic markup inside `aside`.
+
+Supported states:
+- `[aria-current]`
+- `[aria-disabled="true"]`
+
+Behavior:
+- Use `aside > nav > ul`.
+- Label the `nav` with `aria-label` (or `aria-labelledby`) so it is distinct from other nav landmarks; the `aside > nav` selector still applies.
+- Nest `ul` inside list items for hierarchy.
+- Use `aria-current="page"` on the current link (not the `li`) so the state is announced with the link.
+- Use `aria-disabled="true"` on unavailable items.
+- Use `li > hr` for a thematic break; `hr` already has separator semantics (no `role="separator"`).
+- `details` and `summary` can be used for collapsible menu sections (dropdown component).
+- Buttons, links, and summaries inside the menu inherit shared menu-item styling.
+- A plain `<aside>` stays its natural size — suitable for tables of contents, related-content panels, and inline callouts.
+- For a full-height side menu, add `.full-height` to the `<aside>` to fill the viewport, scroll a long inner `<nav>`, and pin a child `<footer>` to the bottom. This class controls sizing and internal overflow; it does not make the side menu sticky. Define sticky page-shell behavior with the shell's responsive rules in `@layer project`.
+
+Example:
+```html
+<aside>
+  <nav aria-label="Documentation">
+    <ul>
+      <li><a href="#" aria-current="page">Overview</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+</aside>
+```
+
+Full-height variant:
+```html
+<aside class="full-height">
+  <header>Workspace</header>
+  <nav aria-label="Workspace">
+    <ul>
+      <li><a href="#" aria-current="page">Overview</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+  <footer>Account</footer>
+</aside>
+```
+
+### Skeleton
+Use `.skeleton` for loading placeholders.
+
+Supported shapes:
+- `.line`
+- `.box`
+- `.circle`
+
+Behavior:
+- Add `.skeleton` plus one shape class.
+- Use `aria-hidden="true"` on the placeholder itself.
+- Put `aria-busy="true"` on the stable region being updated (the container that will hold the real content), then clear it (set `false` or remove) when content loads.
+- The shimmer effect is reduced automatically when reduced-motion is requested.
+
+Example:
+```html
+<article aria-busy="true">
+  <div class="skeleton line" aria-hidden="true"></div>
+  <div class="skeleton box" aria-hidden="true"></div>
+</article>
+```
+
+### Tabs
+Tabs links are styled on semantic navigation with the `.tabs` class. The strip renders as a horizontal row of links with a clear current state and an underline indicator.
+
+Behavior:
+- Use `nav class="tabs" aria-label="..."` with a descriptive label.
+- Inside, use a plain `ul` of list items.
+- Each item may contain a link (`a`) for tabs that navigate, or a `button` for tabs that switch panels in place.
+- Mark the current tab with `aria-current="page"` on its link or button (not the `li`).
+- Icons inside a tab inherit the link's text color, including the current state.
+- Minium ships CSS only. The strip styles the navigation, but switching panels in place requires your own mechanism — either routing (one URL per tab) or your own JavaScript. This is not a full ARIA Tabs widget, so do not claim managed-keyboard accessibility parity with a JavaScript widget.
+
+Example:
+```html
+<nav class="tabs" aria-label="Animals">
+  <ul>
+    <li><a href="#" aria-current="page">Snow leopard</a></li>
+    <li><a href="#">Honey bee</a></li>
+    <li><a href="#">Elephant</a></li>
+  </ul>
+</nav>
+```
+
+### Progress and meter
+Minium CSS styles native `<progress>` and `<meter>`.
+
+Behavior:
+- Use `progress` for completion state such as uploads or loading.
+- Use `meter` for measured values within a known range.
+- Indeterminate progress bars animate unless reduced motion is requested.
+- `meter` color shifts according to its semantic range values.
+- Give every `progress` and `meter` an accessible name. Associate a visible `label` (via `for`/`id`), or use `aria-label`/`aria-labelledby` when no visible label fits.
+
+Example:
+```html
+<label for="upload-progress">Uploading</label>
+<progress id="upload-progress" value="43" max="100">43%</progress>
+
+<label for="disk-meter">Disk usage</label>
+<meter id="disk-meter" min="0" max="100" low="30" high="80" optimum="100" value="72">72%</meter>
+```
+
+### Pagination
+Pagination is styled through semantic navigation.
+
+Supported states:
+- `aria-disabled="true"`
+- `aria-current="page"`
+
+Behavior:
+- Use `nav aria-label="Pagination"`.
+- Use a plain `ul` inside.
+- Mark the current page with `aria-current="page"` on its link or button (not the `li`).
+- Use `aria-disabled="true"` for unavailable controls.
+- Anchors, buttons, and button/link roles can be mixed as items if needed.
+
+Example:
+```html
+<nav aria-label="Pagination">
+  <ul>
+    <li><span aria-disabled="true">Previous</span></li>
+    <li><a href="#" aria-current="page">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</nav>
+```
+
+### Tooltip
+Tooltips use a CSS-only pattern driven by data attributes.
+
+Attributes:
+- `data-tooltip="..."` — the tooltip text (required).
+- `data-placement="..."` — placement: `top` (default), `right`, `bottom`, or `left`.
+
+Behavior:
+- Add `data-tooltip` to the target element with the tooltip text as its value.
+- Set `data-placement` if you need a side other than the default top.
+- For non-interactive inline elements, add `tabindex="0"` if keyboard users should be able to focus and reveal the tooltip.
+- Long tooltip text near viewport edges is not fully handled, so keep tooltip content short.
+- `data-tooltip` is visual only and not exposed to assistive tech; if it is the element's only label, also provide an accessible name (e.g. `aria-label`).
+
+Example:
+```html
+<button data-tooltip="Delete item" data-placement="top">
+  Delete
+</button>
+```
+
+## Utilities
+Utilities are token-bounded shortcuts: each one maps directly to a design token. Prefer them over inline `style="--var: ..."` for one-off adjustments. Every value comes from the theme scale, so utilities cannot drift outside the design system. Do not compose components with utility classes, create a project layer class instead.
+
+### Spacing
+All spacing utilities use the `--space-*` scale: `3xs`, `2xs`, `xs`, `s`, `m`, `l`, `xl`, `2xl`, `3xl`. A `-0` reset is also available on each axis.
+
+- Gap: `.gap-0`, `.gap-3xs` … `.gap-3xl`
+- Margin: `.m-0`, `.m-3xs` … `.m-3xl`; inline: `.mx-0`, `.mx-auto`, `.mx-3xs` … `.mx-3xl`; block: `.my-0`, `.my-3xs` … `.my-3xl`
+- Padding: `.p-0`, `.p-3xs` … `.p-3xl`; inline: `.px-0`, `.px-3xs` … `.px-3xl`; block: `.py-0`, `.py-3xs` … `.py-3xl`
+
+### Color
+- Surface backgrounds: `.bg-sunken`, `.bg-surface`, `.bg-raised`, `.bg-overlay`, `.bg-fill`, `.bg-transparent`, `.bg-contrast`
+- Semantic background alpha fills: `.bg-primary`, `.bg-accent`, `.bg-success`, `.bg-danger`, `.bg-warning`, `.bg-info`
+- Foreground text colors: `.fg-primary`, `.fg-accent`, `.fg-success`, `.fg-danger`, `.fg-warning`, `.fg-info`, `.fg-muted`
+
+### Typography
+- Size: `.size-h1`, `.size-h2`, `.size-h3`, `.size-h4`, `.size-body`, `.size-small`, `.size-tiny`
+- Weight: `.weight-normal`, `.weight-bold`
+
+### Borders and radius
+- Border: `.border-none`, `.border-weak`, `.border-strong`
+- Radius: `.radius-0`, `.radius-s`, `.radius-m`, `.radius-l`, `.radius-f`, plus `.rounded` (alias for `radius-f`)
+
+### Shadow
+`.shadow-none`, `.shadow-s`, `.shadow-m`, `.shadow-l`, `.shadow-inner`
+
+### Flow space
+Override vertical rhythm inside any flow container (`.flow`, classless `main`/`article`/`section`, `.card`, etc.):
+`.flow-glue`, `.flow-tight`, `.flow-loose`, `.flow-none`
+
+### Sizing
+`.full-width` — `inline-size: 100%`. Stretch an element to fill its container's inline size. Useful on elements that don't fill by default (such as `<table>`, `<figure>`, inline-block elements, flex/grid children).
+
+`.full-height` — `block-size: 100dvh`. Fill the dynamic viewport height. Useful for hero/splash sections and full-screen drawers. On an `<aside>`, it opts into the full-height side-menu pattern: the aside becomes a flex column, a child `<nav>` can scroll, and a child `<footer>` stays at the bottom (see Side menu).
+
+### Overflow
+`.overflow-x` and `.overflow-y` — scroll a container on one axis when its content overflows. Most often used to wrap a wide `<table>` so it scrolls horizontally without changing the table's `display: table` layout.
+
+### When to reach for a project class instead
+If you stack several utilities on the same element, that element wants to be a project class. Utilities are for the one-off; recurring patterns belong in your `@layer project` CSS, named for their intent.

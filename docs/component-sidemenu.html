@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Side menu | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Side menu</h1>
+
+<p>A side menu provides vertical navigation for app shells and documentation. Use a plain <code>&lt;nav&gt;</code> inside an <code>&lt;aside&gt;</code>. The component styles nested lists, links, buttons, and summaries. It also shares menu-item styling with dropdown popover menus.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add a <code>&lt;nav&gt;</code> containing a <code>&lt;ul&gt;</code> inside an <code>&lt;aside&gt;</code>.</li>
+  <li>Nest additional <code>&lt;ul&gt;</code> elements inside list items to create a hierarchy. Nested lists display an inline border to indicate their hierarchy.</li>
+  <li>Add native <code>&lt;details&gt;</code> elements to create collapsible sections.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <aside>
+      <nav aria-label="Documentation">
+        <ul>
+          <li>
+            <a href="#">Workspace</a>
+            <ul>
+              <li><a href="#">Chats</a></li>
+              <li><a href="#" aria-current="page">Agents</a></li>
+              <li>
+                <a href="#">Models</a>
+                <ul>
+                  <li><a href="#">GPT-5</a></li>
+                  <li><a href="#">GPT-5 mini</a></li>
+                  <li aria-disabled="true"><a href="#">Fine-tuning</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Files</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Evaluations</a></li>
+          <li aria-disabled="true"><a href="#">Deployments</a></li>
+          <li><hr></li>
+        </ul>
+
+        <h6 class="eyebrow">Administration</h6>
+        <ul>
+          <li><a href="#">Usage</a></li>
+          <li><a href="#">Billing</a></li>
+          <li>
+            <details open>
+              <summary>Settings</summary>
+              <ul>
+                <li><a href="#">API keys</a></li>
+                <li><a href="#">Members</a></li>
+                <li><a href="#">Security</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+  </article>
+</div>
+
+<h2>Create a full-height side menu</h2>
+
+<p>Add <code>.full-height</code> to the <code>&lt;aside&gt;</code> to fill the dynamic viewport height. The side menu becomes a flex column, its <code>&lt;nav&gt;</code> scrolls when the content overflows, and a direct child <code>&lt;footer&gt;</code> remains at the bottom.</p>
+
+<pre><code class="language-html">&lt;aside class=&quot;full-height&quot;&gt;
+  &lt;header&gt;Workspace&lt;/header&gt;
+  &lt;nav&gt;&lt;ul&gt;...&lt;/ul&gt;&lt;/nav&gt;
+  &lt;footer&gt;Account&lt;/footer&gt;
+&lt;/aside&gt;
+</code></pre>
+
+<p><code>.full-height</code> controls sizing and internal overflow; it does not make the side menu sticky. If a page shell needs sticky navigation, define that behavior with the shell's responsive rules in <code>@layer project</code>.</p>
+
+<p>Without <code>.full-height</code>, the <code>&lt;aside&gt;</code> retains its natural height. Use this behavior for tables of contents, related-content panels, and inline callouts that should not fill the viewport.</p>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Label the <code>&lt;nav&gt;</code> with <code>aria-label="Documentation"</code> or <code>aria-labelledby</code> so assistive technology can distinguish it from other navigation landmarks. Adding a label does not affect the <code>aside &gt; nav</code> selector.</li>
+  <li>Add <code>aria-current="page"</code> to the current link or button, not to the <code>&lt;li&gt;</code>. This placement announces the current state with the control.</li>
+  <li><code>aria-disabled="true"</code> announces the disabled state but does not remove the control from the tab order or prevent keyboard activation. Add <code>tabindex="-1"</code> to prevent disabled links and buttons from receiving keyboard focus.</li>
+  <li>Use <code>&lt;li&gt;&lt;hr&gt;&lt;/li&gt;</code> for a thematic break. The <code>&lt;hr&gt;</code> element already has separator semantics, so do not add <code>role="separator"</code>. To create a named group, use a heading followed by a separate <code>&lt;ul&gt;</code>.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

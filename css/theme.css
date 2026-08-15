@@ -1,0 +1,244 @@
+@font-face {
+  font-family: Inconsolata;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Inconsolata"), local("Inconsolata-Regular"), url("fonts/Inconsolata-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Inconsolata;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Inconsolata"), local("Inconsolata-Bold"), url("fonts/Inconsolata-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("PT Sans"), local("PTSans-Regular"), url("fonts/PTSans-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("PT Sans"), local("PTSans-Italic"), url("fonts/PTSans-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("PT Sans"), local("PTSans-BoldItalic"), url("fonts/PTSans-BoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("PT Sans"), local("PTSans-Bold"), url("fonts/PTSans-Bold.woff2") format("woff2");
+} 
+
+@layer theme {
+  :root {
+    /* Fluid text size variables, inspired by utopia.fyi */
+    --size-h1: clamp(2rem, 1.8043rem + 0.8696vw, 2.5rem);
+    --size-h2: clamp(1.5rem, 1.3043rem + 0.8696vw, 2rem);
+    --size-h3: clamp(1.25rem, 1.1033rem + 0.6522vw, 1.625rem);
+    --size-h4: clamp(1.125rem, 1.0272rem + 0.4348vw, 1.375rem);
+    --size-body: clamp(1rem, 0.9511rem + 0.2174vw, 1.125rem);
+    --size-small: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
+    --size-tiny: clamp(0.75rem, 0.7378rem + 0.0543vw, 0.7813rem);
+
+    /* @link https://utopia.fyi/space/calculator?c=360,16,1.2,1200,18,1.25,4,1,&s=0.6669|0.4444|0.2963,1.5|2.25|3.375|5.0625|7.5938,s-l&g=s,l,xl,12 */
+
+    /* modular scale 1.5^x  */
+    --space-3xs: 0.3125rem;
+    --space-2xs: clamp(0.4375rem, 0.4107rem + 0.119vw, 0.5rem);
+    --space-xs: clamp(0.6875rem, 0.6607rem + 0.119vw, 0.75rem);
+    --space-s: clamp(1rem, 0.9464rem + 0.2381vw, 1.125rem);
+    --space-m: clamp(1.5rem, 1.4196rem + 0.3571vw, 1.6875rem);
+    --space-l: clamp(2.25rem, 2.1161rem + 0.5952vw, 2.5625rem);
+    --space-xl: clamp(3.375rem, 3.1875rem + 0.8333vw, 3.8125rem);
+    --space-2xl: clamp(5.0625rem, 4.7946rem + 1.1905vw, 5.6875rem);
+    --space-3xl: clamp(7.625rem, 7.2232rem + 1.7857vw, 8.5625rem);
+
+    /* One-up pairs */
+    --space-3xs-2xs: clamp(0.3125rem, 0.2321rem + 0.3571vw, 0.5rem);
+    --space-2xs-xs: clamp(0.4375rem, 0.3036rem + 0.5952vw, 0.75rem);
+    --space-xs-s: clamp(0.6875rem, 0.5rem + 0.8333vw, 1.125rem);
+    --space-s-m: clamp(1rem, 0.7054rem + 1.3095vw, 1.6875rem);
+    --space-m-l: clamp(1.5rem, 1.0446rem + 2.0238vw, 2.5625rem);
+    --space-l-xl: clamp(2.25rem, 1.5804rem + 2.9762vw, 3.8125rem);
+    --space-xl-2xl: clamp(3.375rem, 2.3839rem + 4.4048vw, 5.6875rem);
+    --space-2xl-3xl: clamp(5.0625rem, 3.5625rem + 6.6667vw, 8.5625rem);
+
+    /* Custom pairs */
+    --space-s-l: clamp(1rem, 0.3304rem + 2.9762vw, 2.5625rem);
+
+    /* Vertical rhythm */
+    --flow-space-glue: 0.3em;
+    --flow-space-tight: 0.5em;
+    --flow-space: 1em;
+    --flow-space-loose: 1.5em;
+
+    /* Layout defaults */
+    --gap: var(--space-s-m);
+
+
+    --line-height: 1.5;
+    --font-weight: 400;
+    --font-weight-bold: 700;
+    --shadow-small: 0 1px 3px -1px rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 10%); /* buttons */
+    --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%); /* dropdowns, cards */
+    --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%); /* modals */
+    --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 5%);
+    --hover-multiplier: 0.95;
+    --text-underline-offset: 2px;
+    --text-decoration-thickness: 2px;
+    --content-width: 68ch;
+    --main-width: 75rem;
+    --border-radius-s: 0.4375rem;
+    --border-radius-m: 0.6875rem;
+    --border-radius-l: 1rem;
+    --border-radius-f: 9999px;
+    --border-width: 1px;
+    --outline-width: 2px;
+    --font: 'PT Sans', system-ui, 'Segoe UI', 'Noto Sans', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji','Segoe UI Emoji';
+    --font-mono: inconsolata, ui-monospace, sfmono-regular, consolas, 'Liberation Mono', menlo, monospace; 
+    --font-mono-size: 0.95em;
+
+
+
+    /* Colors */
+    color-scheme: light dark;
+
+    --color-text: var(--sand-12);
+    --color-text-muted: var(--sand-11);
+    --color-surface-sunken: light-dark(var(--sand-3), var(--sand-1));
+    --color-surface: var(--sand-2);
+    --color-surface-raised: light-dark(var(--sand-1), var(--sand-3));
+    --color-surface-overlay: light-dark(white, var(--sand-4));
+    --color-fill: var(--sand-a2);
+    --color-fill-hover: var(--sand-a3);
+    --color-fill-active: var(--sand-a4);
+    --color-border-weak: var(--sand-a5); /* visual-only elements */
+    --color-border-strong: var(--sand-a6); /* form */
+    --color-border-hover: var(--sand-a7);
+
+    --color-primary: var(--orange-9);
+    --color-primary-inverse: white;
+    --color-primary-hover: var(--orange-10);
+    --color-primary-focus: var(--orange-7);
+    --color-primary-fill: var(--orange-a2);
+    --color-primary-fill-hover: var(--orange-a3);
+    --color-primary-fill-active: var(--orange-a4);
+    --color-primary-border-weak: var(--orange-a5);
+    --color-primary-border-strong: var(--orange-a6);
+    --color-primary-text: var(--orange-11);
+
+    --color-accent: var(--indigo-9);
+    --color-accent-inverse: white;
+    --color-accent-hover: var(--indigo-10);
+    --color-accent-focus: var(--indigo-7);
+    --color-accent-fill: var(--indigo-a2);
+    --color-accent-fill-hover: var(--indigo-a3);
+    --color-accent-fill-active: var(--indigo-a4);
+    --color-accent-border-weak: var(--indigo-a5);
+    --color-accent-border-strong: var(--indigo-a6);
+    --color-accent-text: var(--indigo-11);
+
+    --color-success: var(--green-9);
+    --color-success-inverse: white;
+    --color-success-focus: var(--green-7);
+    --color-success-fill: var(--green-a2);
+    --color-success-fill-hover: var(--green-a3);
+    --color-success-fill-active: var(--green-a4);
+    --color-success-border-weak: var(--green-a5);
+    --color-success-border-strong: var(--green-a6);
+    --color-success-text: var(--green-11);
+
+    --color-danger: var(--red-9);
+    --color-danger-inverse: white;
+    --color-danger-focus: var(--red-7);
+    --color-danger-fill: light-dark(var(--red-a2), var(--red-a3));
+    --color-danger-fill-hover: light-dark(var(--red-a3), var(--red-a4));
+    --color-danger-fill-active: light-dark(var(--red-a4), var(--red-a5));
+    --color-danger-border-weak: light-dark(var(--red-a5), var(--red-a6));
+    --color-danger-border-strong: light-dark(var(--red-a6), var(--red-a7));
+    --color-danger-text: var(--red-11);
+
+    --color-warning: var(--amber-9);
+    --color-warning-inverse: black;
+    --color-warning-fill: var(--amber-a2);
+    --color-warning-fill-hover: var(--amber-a3);
+    --color-warning-fill-active: var(--amber-a4);
+    --color-warning-border-weak: var(--amber-a6);
+    --color-warning-border-strong: var(--amber-a7);
+    --color-warning-text: var(--amber-11);
+
+    --color-info: var(--blue-9);
+    --color-info-inverse: white;
+    --color-info-fill: var(--blue-a2);
+    --color-info-fill-hover: var(--blue-a3);
+    --color-info-fill-active: var(--blue-a4);
+    --color-info-border-weak: var(--blue-a5);
+    --color-info-border-strong: var(--blue-a6);
+    --color-info-text: var(--blue-11);
+
+    --color-contrast: var(--sand-12);
+    --color-contrast-inverse: var(--sand-2);
+
+    /* elements variables */
+    --code-inline-color-surface: var(--sand-a3);
+    --link-color: var(--color-text);
+    --link-color-decoration: var(--color-primary);
+    --link-decoration-thickness-hover: 1px;
+    --selection-color: color-mix(in oklch, var(--color-primary-hover) 35%, transparent);
+    --mark-color: light-dark(var(--orange-a5), var(--orange-a11));
+    --header-color-surface: light-dark(var(--sand-2), var(--sand-3));
+    --header-color-border: light-dark(transparent, var(--sand-a4));
+    --code-color-surface: light-dark(var(--sand-5), var(--sand-1));
+    --kbd-surface: light-dark(var(--sand-12), var(--sand-1));
+    --kbd-text: light-dark(var(--sand-2),var(--sand-12));
+    --dropdown-color-surface-hover: var(--sand-a3);
+    --form-color-surface: light-dark( var(--white-a10), var(--sand-a2));
+    --form-color-border-disabled: var(--sand-8);
+    --switch-color-surface: light-dark(var(--sand-8), var(--color-fill));
+    --switch-color-border: light-dark(var(--sand-8), var(--color-border-strong));
+    --modal-color-backdrop: var(--black-a7);
+
+
+    /* Icons, mostly from https://lucide.dev/ */
+    --icon-loading: url("data:image/svg+xml,%3Csvg role='status' aria-label='Loading' width='24' height='24' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 24C4 35.0457 12.9543 44 24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 24 24' to='360 24 24' dur='0.9s' repeatCount='indefinite' /%3E%3C/path%3E%3C/svg%3E");
+    --icon-hamburger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16'/%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='M4 19h16'/%3E%3C/svg%3E");
+    --icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    --icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+
+    /* --icon-date: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M16 2v4'/%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M3 10h18'/%3E%3C/svg%3E"); */
+    --icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+    --icon-minus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+    --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+
+    /* Hard-coded color for both light/dark modes - no light-dark() support and input does not support ::before/mask-image */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2382827c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 21-4.34-4.34'/%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3C/svg%3E");
+    --icon-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2330a46c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+    --icon-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e5484d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' x2='12' y1='8' y2='12'/%3E%3Cline x1='12' x2='12.01' y1='16' y2='16'/%3E%3C/svg%3E");
+    --icon-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2382827c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+}

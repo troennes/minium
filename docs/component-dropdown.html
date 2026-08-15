@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dropdown | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Dropdown</h1>
+
+<p>A dropdown is a button that opens a floating panel of actions or links. It uses the native Popover API and CSS anchor positioning, with no JavaScript required. Minium does currently not provide fallbacks for browsers without <a href="https://caniuse.com/css-anchor-positioning">support for these features</a>. Add polyfills if your project supports those browsers.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Wrap the dropdown in a container with <code>class="dropdown"</code>.</li>
+  <li>Add a trigger <code>&lt;button&gt;</code> with <code>popovertarget="menu-id"</code>.</li>
+  <li>Add a panel with <code>id="menu-id"</code> and the <code>popover</code> attribute. Place a list of links or buttons inside it.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <div class="dropdown">
+      <button popovertarget="dropdown-nav-panel">Products</button>
+      <nav id="dropdown-nav-panel" popover aria-label="Products">
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+</div>
+
+<h2>Button variants</h2>
+<p>You can apply any supported <a href="content-button.html">button</a> variant to the dropdown trigger.</p>
+
+<div class="example">
+  <article>
+    <div class="dropdown">
+      <button type="button" class="primary" popovertarget="dropdown-variant-primary">Primary</button>
+      <nav id="dropdown-variant-primary" popover>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><button type="button">Sign out</button></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dropdown">
+      <button type="button" class="secondary" popovertarget="dropdown-variant-secondary">Secondary</button>
+      <nav id="dropdown-variant-secondary" popover>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><button type="button">Sign out</button></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dropdown">
+      <button type="button" class="accent" popovertarget="dropdown-variant-accent">Accent</button>
+      <nav id="dropdown-variant-accent" popover>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Examples</a></li>
+          <li><button type="button">Close</button></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+  <pre class="language-html"><code>&lt;div class="dropdown"&gt;
+  &lt;button class="primary" popovertarget="dropdown-variant-1" type="button"&gt;Primary&lt;/button&gt;
+  &lt;nav id="dropdown-variant-1" popover&gt;
+    ...
+  &lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;div class="dropdown"&gt;
+  &lt;button class="secondary" popovertarget="dropdown-variant-2" type="button"&gt;Secondary&lt;/button&gt;
+  &lt;nav id="dropdown-variant-2" popover&gt;
+    ...
+  &lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;div class="dropdown"&gt;
+  &lt;button class="accent" popovertarget="dropdown-variant-3" type="button"&gt;Accent&lt;/button&gt;
+  &lt;nav id="dropdown-variant-3" popover&gt;
+    ...
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+<h2>Icon-only trigger</h2>
+<p>Use an <code>.icon-only</code> trigger for compact menus.</p>
+
+<div class="example">
+  <article>
+    <div class="dropdown left">
+      <button class="icon-only" popovertarget="dropdown-icon" aria-label="Open menu">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+      </button>
+      <div id="dropdown-icon" popover>
+        <ul>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><button type="button">Sign out</button></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+  <pre class="language-html"><code>&lt;div class="dropdown left"&gt;
+  &lt;button class="icon-only" popovertarget="dropdown-icon" aria-label="Open menu"&gt;
+    &lt;svg aria-hidden="true"&gt;...&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div id="dropdown-icon" popover&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+
+
+
+<h2>Borderless</h2>
+<p>Add <code>.border-none</code> to remove the trigger button's border and shadow. This modifier works well for icon-only triggers and triggers within navigation.</p>
+
+<div class="example">
+  <article>
+    <div class="dropdown border-none">
+      <button popovertarget="dropdown-borderless">More options</button>
+      <div id="dropdown-borderless" popover>
+        <ul>
+          <li><a href="#">Duplicate</a></li>
+          <li><a href="#">Move</a></li>
+          <li><button type="button">Archive</button></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Alignment</h2>
+<p>Use a modifier class to control the panel's inline alignment:</p>
+<ul>
+  <li>Default: aligns to the right edge of the trigger.</li>
+  <li><code>.left</code>: aligns to the left edge of the trigger.</li>
+  <li><code>.center</code>: centers the panel under the trigger.</li>
+</ul>
+<p>Panels use <code>position-try-fallbacks</code> to change their block or inline position when necessary to remain within the viewport.</p>
+
+<div class="example">
+  <article>
+    <div class="repel">
+      <div class="dropdown left">
+        <button popovertarget="dropdown-align-left">Left</button>
+        <div id="dropdown-align-left" popover>
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown center">
+        <button popovertarget="dropdown-align-center">Center</button>
+        <div id="dropdown-align-center" popover>
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button popovertarget="dropdown-align-right">Default (right)</button>
+        <div id="dropdown-align-right" popover>
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><button type="button">Sign out</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Width</h2>
+<p>Custom properties control the panel width. Set them inline, in <code>project.css</code>, or on an ancestor to size one or more dropdowns without a modifier class.</p>
+<ul>
+  <li><code>--dropdown-width</code> sets the panel's <code>inline-size</code>. The default is <code>max-content</code>.</li>
+  <li><code>--dropdown-min-width</code> sets the panel's <code>min-inline-size</code>. The default is <code>12rem</code>.</li>
+  <li><code>--dropdown-max-width</code> sets the panel's <code>max-inline-size</code>. The default is <code>calc(100% - var(--space-s-l))</code>.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <div class="dropdown" style="--dropdown-width: 28rem">
+      <button popovertarget="dropdown-wide">Fixed 28rem</button>
+      <div id="dropdown-wide" popover>
+        <ul>
+          <li><a href="#">A long item with descriptive helper text</a></li>
+          <li><a href="#">Another item</a></li>
+          <li><button type="button">One more</button></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Nested dropdowns</h2>
+<p>Place a <code>.dropdown</code> inside another dropdown panel to create a nested dropdown. The nested panel opens beside its parent menu from the top-right of its trigger.</p>
+
+<div class="example">
+  <article>
+    <div class="dropdown">
+      <button popovertarget="dropdown-nested-root">Actions</button>
+      <div id="dropdown-nested-root" popover>
+        <ul>
+          <li><a href="#">Edit</a></li>
+          <li>
+            <div class="dropdown">
+              <button popovertarget="dropdown-nested-share">Share</button>
+              <div id="dropdown-nested-share" popover>
+                <ul>
+                  <li><a href="#">Copy link</a></li>
+                  <li><a href="#">Email</a></li>
+                  <li><a href="#">Slack</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li><button type="button">Delete</button></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Minium dropdowns are native popovers, not full ARIA menu buttons. They do not implement the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">ARIA Authoring Practices Guide menu button pattern</a>. That pattern requires <code>role="menu"</code>, <code>aria-expanded</code>, and JavaScript-based focus management.</li>
+  <li>Keyboard users can open the popover with <kbd>Enter</kbd> or <kbd>Space</kbd>, move through its items with <kbd>Tab</kbd>, and close it with <kbd>Escape</kbd> or light dismiss. Dropdowns do not provide arrow-key navigation.</li>
+  <li>If the panel contains navigation links, use <code>&lt;nav&gt;</code> and provide an <code>aria-label</code>. For action lists and other content, use a generic container such as <code>&lt;div&gt;</code>.</li>
+  <li>Give each icon-only trigger an accessible name, such as an <code>aria-label</code>. Add <code>aria-hidden="true"</code> to its decorative SVG.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

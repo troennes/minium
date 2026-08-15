@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Skeleton | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Skeleton</h1>
+
+<p>Skeletons represent content while it loads.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>.skeleton</code> and one shape modifier: <code>.line</code>, <code>.box</code>, or <code>.circle</code>.</li>
+  <li>Mark placeholders with <code>aria-hidden="true"</code>.</li>
+  <li>Set <code>aria-busy="true"</code> on the region being updated. Remove the attribute when the content loads.</li>
+</ul>
+
+<div class="example">
+  <article aria-busy="true" aria-label="Loading content">
+    <div class="skeleton line" aria-hidden="true"></div>
+    <div class="skeleton line" aria-hidden="true" style="inline-size: 72%;"></div>
+    <div class="skeleton box" aria-hidden="true"></div>
+    <div class="skeleton circle" aria-hidden="true"></div>
+  </article>
+</div>
+
+<h2>Loading content pattern</h2>
+<p>Combine skeletons with layout primitives to match the final content structure.</p>
+
+<div class="example">
+  <article class="card" aria-busy="true" aria-label="Loading profile card">
+    <div class="sidebar no-stretch">
+      <div class="skeleton circle" aria-hidden="true"></div>
+      <div class="flow" style="inline-size: 100%;">
+        <div class="skeleton line" aria-hidden="true"></div>
+        <div class="skeleton line" aria-hidden="true" style="inline-size: 55%;"></div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Notes</h2>
+<ul>
+  <li><code>.line</code> spans the available width by default.</li>
+  <li><code>.box</code> and <code>.circle</code> use fixed dimensions by default. Override their dimensions with an inline style or project CSS.</li>
+  <li>Minium disables the shimmer animation when the user requests reduced motion.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

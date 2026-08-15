@@ -1,0 +1,92 @@
+@layer components {
+  .badge,
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    line-height: 1;
+    font-size: max(0.75em, var(--size-tiny));
+    font-weight: var(--font-weight-bold);
+    background-color: var(--color-fill);
+    color: var(--color-text);
+    padding: var(--space-3xs) var(--space-2xs);
+    border: var(--border-width) solid var(--color-border-weak);
+    box-shadow: var(--shadow-small);
+    border-radius: var(--border-radius-s);
+
+    &.primary {
+      background-color: var(--color-primary-fill);
+      color: var(--color-primary-text);
+      border-color: var(--color-primary-border-weak);
+    }
+
+    &.muted {
+      color: var(--color-text-muted);
+    }
+
+    &.accent {
+      background-color: var(--color-accent-fill);
+      color: var(--color-accent-text);
+      border-color: var(--color-accent-border-weak);
+    }
+
+    &.danger {
+      background-color: var(--color-danger-fill);
+      color: var(--color-danger-text);
+      border-color: var(--color-danger-border-weak);  
+    }
+
+    &.success {
+      background-color: var(--color-success-fill);
+      color: var(--color-success-text);
+      border-color: var(--color-success-border-weak);
+    }
+
+    &.warning {
+      background-color: var(--color-warning-fill);
+      color: var(--color-warning-text);
+      border-color: var(--color-warning-border-weak);
+    }
+
+    &.info {
+      background-color: var(--color-info-fill);
+      color: var(--color-info-text);
+      border-color: var(--color-info-border-weak);
+    }
+  }
+
+  .pill {
+    border-radius: var(--border-radius-f);
+  }
+
+  /* Links and buttons that are badges or pill gets hover and active styling */
+  :is(a, [role="link"] ,button, input[type="submit"], input[type="button"], input[type="reset"], [role="button"]){
+    &:is(.badge, .pill),
+    & :is(.badge, .pill) {
+      text-decoration: none;
+      cursor: pointer;
+
+      &:is(:focus, [aria-current], :hover) {
+        background-color: var(--color-fill-hover);
+
+        &.primary {background-color: var(--color-primary-fill-hover)}
+        &.accent {background-color: var(--color-accent-fill-hover)}
+        &.success {background-color: var(--color-success-fill-hover)}
+        &.warning {background-color: var(--color-warning-fill-hover)}
+        &.danger {background-color: var(--color-danger-fill-hover)}
+        &.info {background-color: var(--color-info-fill-hover)}
+      }
+
+      &:active {
+        background-color: var(--color-fill-active);
+
+        &.primary {background-color: var(--color-primary-fill-active)}
+        &.accent {background-color: var(--color-accent-fill-active)}
+        &.success {background-color: var(--color-success-fill-active)}
+        &.warning {background-color: var(--color-warning-fill-active)}
+        &.danger {background-color: var(--color-danger-fill-active)}
+        &.info {background-color: var(--color-info-fill-active)}
+      } 
+    }
+  }  
+}

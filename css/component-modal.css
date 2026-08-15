@@ -1,0 +1,94 @@
+@layer components {
+  dialog {
+    --modal-padding: var(--space-s-m);
+
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-m);
+    padding: var(--modal-padding);
+    color: inherit;
+    margin: auto;
+    background-color: var(--color-surface-overlay);
+    box-shadow: var(--shadow-large);
+    z-index: 1055;
+    max-inline-size: calc(100% - var(--space-s-l));
+    max-block-size: 85dvh;
+ 
+    /* Flow included */
+    > * + * {
+      margin-block-start: var(--flow-space);
+    }
+
+    &::backdrop {
+      background-color: var(--modal-color-backdrop, rgb(0 0 0 / 50%));
+      backdrop-filter: blur(.4rem);
+    }
+
+    /* Same idea as card */
+    > :is(header, footer),
+    > article > :is(header, footer) {
+      padding: var(--modal-padding);
+      background-color: var(--color-fill);
+    }
+
+    > header,
+    > article > header {
+      border-bottom: var(--border-width) solid var(--color-border-weak);
+      padding-bottom: var(--flow-space);
+    }
+
+    > footer,
+    > article > footer {
+      border-top: var(--border-width) solid var(--color-border-weak);
+      padding-top: var(--flow-space);
+    }
+
+    > :is(header, footer, hr),
+    > article > :is(header, footer, hr){
+      margin-inline: calc(var(--modal-padding) * -1);
+    }
+
+    > header:first-child,
+    > article > header:first-child {
+      margin-block-start: calc(var(--modal-padding) * -1);
+    }
+
+    > footer:last-child,
+    > article > footer:last-child,
+    > footer:has(+ :is(.close, form[method="dialog"]):last-child) {
+      margin-block-end: calc(var(--modal-padding) * -1);
+    }
+
+    /* Pinned close button, must be direct child of dialog */
+    > .close,
+    > form[method="dialog"] > .close {
+      position: absolute;
+      inset-block-start: calc(var(--modal-padding) - var(--space-xs));
+      inset-inline-end: calc(var(--modal-padding) - var(--space-xs));
+      margin: 0;
+    }
+
+    /* The wrapper form must not occupy flow */
+    > form[method="dialog"]:has(> .close:only-child) {
+      display: contents;
+    }
+
+    /* Keep the title row clear of the pinned close */
+    &:has(> .close, > form[method="dialog"] > .close) {
+      > :first-child:not(article, header, .close, form[method="dialog"]),
+      > article:first-child > :first-child:not(header) {
+        padding-inline-end: calc(1em + var(--space-xs) * 2);
+      }
+
+      > header:first-child,
+      > article:first-child > header:first-child {
+        padding-inline-end: calc(var(--modal-padding) + 1em + var(--space-xs) * 2);
+      }
+    }
+  }
+
+  /* Prevent scrolling when modal is open */
+  body:has(dialog:modal),
+  body:has(dialog[popover]:popover-open) { 
+    overflow: hidden; 
+  }
+}

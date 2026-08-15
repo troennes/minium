@@ -1,0 +1,62 @@
+@layer components {
+  [aria-busy="true"]:not(input, select, textarea, html, form, :has(.skeleton)) {
+    --loader-size: 1.5em;
+    --loader-align: -0.37em;
+
+    &::before {
+      display: inline-block;
+      height: var(--loader-size);
+      width: var(--loader-size);
+      mask: var(--icon-loading) center / contain no-repeat;
+      background-color: currentcolor;
+      vertical-align: var(--loader-align);
+      content: "";
+    }
+
+    &:not(:empty)::before {
+      margin-inline-end: var(--space-2xs);
+    }
+
+    &.loader-small::before {
+      --loader-size: 1em;
+      --loader-align: -0.125em;
+    }
+
+    &.loader-large::before {
+      --loader-size: 2em;
+      --loader-align: -0.5em;
+    }
+
+    &.overlay {
+      position: relative;
+
+      > * {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      &::before {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 1;
+      }
+    }
+  }
+
+  [aria-busy="true"]:is(
+    a,
+    button,
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [role="button"],
+    [role="link"]
+  ) {
+    pointer-events: none;
+  }  
+
+  [aria-busy="true"]:not(input, select, textarea, html, form):empty {
+    text-align: center;
+  }
+}

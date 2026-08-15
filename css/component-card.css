@@ -1,0 +1,79 @@
+@layer components {
+  .card {
+    --card-padding: var(--space-s-m);
+
+    background-color: var(--color-surface-raised);
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-m);
+    box-shadow: var(--shadow-medium);
+    padding: var(--card-padding);
+    overflow: hidden;
+
+    /* Flow included */
+    > * + * {
+      margin-block-start: var(--flow-space);
+    }
+
+    /* Elements that should ignore card horizontal padding */
+    > :is(figure:not(.inset), header, footer, hr) {
+      margin-inline: calc(var(--card-padding) * -1);
+    }
+
+    /* Top/bottom edge bleed when element touches card edges */
+    > :is(figure:not(.inset), header):first-child {
+      margin-block-start: calc(var(--card-padding) * -1);
+    }
+
+    > :is(figure:not(.inset), footer):last-child {
+      margin-block-end: calc(var(--card-padding) * -1);
+    }
+
+    > :is(header, footer) {
+      /* TODO: Consider removing bg on footer */
+      padding: var(--card-padding);
+      background-color: var(--color-fill);
+    }
+
+    > header {
+      border-bottom: var(--border-width) solid var(--color-border-weak);
+      padding-bottom: var(--flow-space);
+    }
+
+    > footer {
+      border-top: var(--border-width) solid var(--color-border-weak);
+      padding-top: var(--flow-space);
+    }
+
+    > .sidebar:only-child > figure:not(.inset) {
+      margin-block: calc(var(--card-padding) * -1);
+
+      &:first-child {
+        margin-inline-start: calc(var(--card-padding) * -1);
+      }
+    }
+
+    > .sidebar.reversed > figure:not(.inset):first-child {
+      margin-inline-end: calc(var(--card-padding) * -1);
+    }
+
+    /* Link cards hover effect */
+    &:is(a, [role="link"]) {
+      display: block;
+      color: inherit;
+      font-weight: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.1s ease-in-out;
+
+      &:hover,
+      &:focus-visible {
+        background-image: linear-gradient(var(--color-primary-fill), var(--color-primary-fill));
+        border-color: var(--color-primary-border-weak);
+      }
+
+      &:active {
+        background-image: linear-gradient(var(--color-primary-fill-active), var(--color-primary-fill-active));
+      }
+    }
+  }
+}

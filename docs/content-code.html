@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Code | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Content</p>
+<h1>Code</h1>
+
+<p>The typography layer styles inline code, keyboard input, sample output, and code blocks.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Use <code>&lt;code&gt;</code> for inline code fragments and identifiers.</li>
+  <li>Use <code>&lt;kbd&gt;</code> for keyboard shortcuts.</li>
+  <li>Use <code>&lt;samp&gt;</code> for sample output.</li>
+  <li>Wrap code blocks in <code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>.</li>
+</ul>
+
+<div class="example">
+  <article style="--flow-space: 0.5em;">
+    <p>Run <code>npm run build</code> to generate the production stylesheet.</p>
+    <p>Press <kbd>Cmd</kbd>+<kbd>K</kbd> to open quick search.</p>
+    <p>The terminal returns <samp>Build completed successfully.</samp></p>
+  </article>
+</div>
+
+<h2>Code blocks</h2>
+<p>Code blocks use a separate surface, a monospace font, internal padding, and horizontal scrolling. A <code>code</code> element inside <code>pre</code> does not use the inline chip styling.</p>
+
+<pre><code class="language-css">.flow > * + * {
+  margin-block-start: var(--flow-space);
+}
+
+.card {
+  --card-padding: var(--space-s-m);
+}</code></pre>
+  <pre><code class="language-html">&lt;div class="flow"&gt;
+  &lt;h2&gt;Section title&lt;/h2&gt;
+  &lt;p&gt;Readable vertical rhythm.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+
+<h2>Syntax highlighting</h2>
+<p>Code blocks render without syntax highlighting by default. To add syntax highlighting, load the Prism integration with the core stylesheet. See <a href="integrations.html">Integrations</a> for setup and theming.</p>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

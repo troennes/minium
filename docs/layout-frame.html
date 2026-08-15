@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Frame | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Layout</p>
+<h1>Frame</h1>
+
+<p>The <code>.frame</code> layout displays media at a specified aspect ratio. It uses <code>object-fit: cover</code>, which may crop the media's edges.</p>
+
+<p>Use <code>.frame</code> for gallery items, thumbnails, and card media with different source dimensions.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add <code>class="frame"</code> to a wrapper such as <code>&lt;figure&gt;</code> or <code>&lt;div&gt;</code>.</li>
+  <li>Add an <code>&lt;img&gt;</code> or <code>&lt;video&gt;</code> as a direct child of the wrapper.</li>
+  <li>Optionally, set these custom properties:
+    <ul>
+      <li><code>--n</code> sets the aspect-ratio numerator. The default is <span id="frame-n"></span>.</li>
+      <li><code>--d</code> sets the aspect-ratio denominator. The default is <span id="frame-d"></span>.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="example">
+  <article class="resizable">
+    <h2 class="size-body">Default 16:9 frame</h2>
+    <figure class="frame">
+      <img src="../tests/assets/fuji.png" alt="Placeholder media inside a default 16 by 9 frame">
+    </figure>
+
+    <div class="grid thirds">
+      <article>
+        <h2 class="size-body">1:1 ratio</h2>
+        <figure class="frame" style="--n: 1; --d: 1;">
+          <img src="../tests/assets/fuji.png" alt="Square placeholder media">
+        </figure>
+      </article>
+      <article>
+        <h2 class="size-body">4:5 ratio</h2>
+        <figure class="frame" style="--n: 4; --d: 5;">
+          <img src="../tests/assets/fuji.png" alt="Portrait placeholder media">
+        </figure>
+      </article>
+      <article>
+        <h2 class="size-body">3:2 ratio</h2>
+        <figure class="frame" style="--n: 3; --d: 2;">
+          <img src="../tests/assets/fuji.png" alt="Wide placeholder media">
+        </figure>
+      </article>
+    </div>
+  </article>
+</div>
+
+<script>
+function populateFrameValues() {
+  const numeratorEl = document.getElementById("frame-n");
+  const denominatorEl = document.getElementById("frame-d");
+  if (!numeratorEl || !denominatorEl) return;
+
+  const frame = document.querySelector(".frame");
+  if (!frame) return;
+
+  const frameStyles = getComputedStyle(frame);
+  numeratorEl.textContent = frameStyles.getPropertyValue("--n").trim();
+  denominatorEl.textContent = frameStyles.getPropertyValue("--d").trim();
+}
+populateFrameValues();
+</script>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

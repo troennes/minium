@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Utilities | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Utilities</p>
+<h1>Utilities overview</h1>
+
+<p>Utilities are small, single-purpose classes that map directly to a design token. Use utilities to adjust defaults. Use components and layouts as the primary building blocks.</p>
+
+<h2>Usage</h2>
+
+<p>Utilities reduce repetitive inline styles and project CSS. Instead of writing <code>style="--gap: var(--space-l)"</code>, write <code>class="gap-l"</code>. Instead of opening a project CSS file to set one padding value, use <code>p-m</code>.</p>
+
+<p>Every utility is bounded to a token. There is no <code>gap-37px</code>. For an arbitrary one-off value, use <code>style="--var: ..."</code>. For a repeated pattern, define a project class in <code>@layer project</code> and name it by intent.</p>
+
+<p>As a guideline, consider defining a project class when an element needs four or more utilities.</p>
+
+<h2>Spacing</h2>
+
+<p>Spacing utilities draw from the <code>--space-*</code> scale: <code>3xs</code>, <code>2xs</code>, <code>xs</code>, <code>s</code>, <code>m</code>, <code>l</code>, <code>xl</code>, <code>2xl</code>, <code>3xl</code>. Margin and padding utilities support every size in the scale and a <code>-0</code> reset.</p>
+
+<p>Gap utilities apply to any flex or grid container, including all layout primitives:</p>
+<pre><code class="language-css">.gap-0    { gap: 0 }
+.gap-3xs  { gap: var(--space-3xs) }
+.gap-2xs  { gap: var(--space-2xs) }
+.gap-xs   { gap: var(--space-xs) }
+.gap-s    { gap: var(--space-s) }
+.gap-m    { gap: var(--space-m) }
+.gap-l    { gap: var(--space-l) }
+.gap-xl   { gap: var(--space-xl) }
+.gap-2xl  { gap: var(--space-2xl) }
+.gap-3xl  { gap: var(--space-3xl) }
+</code></pre>
+
+<p>Margin utilities cover all sides, the inline axis, and the block axis:</p>
+<pre><code class="language-css">.m-s    { margin: var(--space-s) }
+.mx-l   { margin-inline: var(--space-l) }
+.my-xs  { margin-block: var(--space-xs) }
+.mx-auto { margin-inline: auto }
+</code></pre>
+
+<p>Padding follows the same pattern:</p>
+<pre><code class="language-css">.p-m    { padding: var(--space-m) }
+.px-s   { padding-inline: var(--space-s) }
+.py-l   { padding-block: var(--space-l) }
+</code></pre>
+
+<div class="example">
+  <article>
+    <div class="cluster gap-l">
+      <div class="bg-raised p-xs">gap-l</div>
+      <div class="bg-raised p-xs">bg-raised</div>
+      <div class="bg-raised p-xs">p-xs</div>
+    </div>
+  </article>
+</div>
+
+<h2>Color</h2>
+
+<p>Use surface background utilities for neutral surfaces:</p>
+
+<div class="cluster">
+  <div class="p-xs bg-sunken">.bg-sunken</div>
+  <div class="p-xs bg-surface">.bg-surface</div>
+  <div class="p-xs bg-raised">.bg-raised</div>
+  <div class="p-xs bg-overlay">.bg-overlay</div>
+  <div class="p-xs bg-contrast">.bg-contrast</div>
+  <div class="p-xs bg-transparent">.bg-transparent</div>
+</div>
+
+<p>Use semantic background utilities for tinted blocks. Each utility maps to a subtle <code>*-fill</code> color:</p>
+
+<div class="cluster">
+  <div class="p-xs bg-fill">.bg-fill</div>
+  <div class="p-xs bg-primary">.bg-primary</div>
+  <div class="p-xs bg-accent">.bg-accent</div>
+  <div class="p-xs bg-success">.bg-success</div>
+  <div class="p-xs bg-danger">.bg-danger</div>
+  <div class="p-xs bg-warning">.bg-warning</div>
+  <div class="p-xs bg-info">.bg-info</div>
+</div>
+
+
+
+<p>Text color utilities map to readable <code>*-text</code> variants:</p>
+
+<div class="cluster">
+  <div class="border-weak p-xs fg-muted">.fg-muted</div>
+  <div class="border-weak p-xs fg-primary">.fg-primary</div>
+  <div class="border-weak p-xs fg-accent">.fg-accent</div>
+  <div class="border-weak p-xs fg-success">.fg-success</div>
+  <div class="border-weak p-xs fg-danger">.fg-danger</div>
+  <div class="border-weak p-xs fg-warning">.fg-warning</div>
+  <div class="border-weak p-xs fg-info">.fg-info</div>
+</div>
+
+<h2>Typography</h2>
+
+<p>Use typography utilities to apply the available text-size and font-weight tokens:</p>
+<pre><code class="language-css">.size-h1    { font-size: var(--size-h1) }
+.size-h2    { font-size: var(--size-h2) }
+.size-h3    { font-size: var(--size-h3) }
+.size-h4    { font-size: var(--size-h4) }
+.size-body  { font-size: var(--size-body) }
+.size-small { font-size: var(--size-small) }
+.size-tiny  { font-size: var(--size-tiny) }
+
+.weight-normal { font-weight: var(--font-weight) }
+.weight-bold   { font-weight: var(--font-weight-bold) }
+</code></pre>
+
+<h2>Borders and radius</h2>
+
+<p>Borders share <code>--border-width</code> and one of the role colors:</p>
+<pre><code class="language-css">.border-none   { border: none }
+.border-weak   { border: var(--border-width) solid var(--color-border-weak) }
+.border-strong { border: var(--border-width) solid var(--color-border-strong) }
+</code></pre>
+
+<p>Border radius covers the full scale:</p>
+<pre><code class="language-css">.radius-0  { border-radius: 0 }
+.radius-s  { border-radius: var(--border-radius-s) }
+.radius-m  { border-radius: var(--border-radius-m) }
+.radius-l  { border-radius: var(--border-radius-l) }
+.radius-f  { border-radius: var(--border-radius-f) }
+.rounded   { border-radius: var(--border-radius-f) }
+</code></pre>
+
+<h2>Shadow</h2>
+
+<p>Use shadow utilities to apply the predefined elevation levels:</p>
+<pre><code class="language-css">.shadow-none  { box-shadow: none }
+.shadow-s     { box-shadow: var(--shadow-small) }
+.shadow-m     { box-shadow: var(--shadow-medium) }
+.shadow-l     { box-shadow: var(--shadow-large) }
+.shadow-inner { box-shadow: var(--shadow-inner) }
+</code></pre>
+
+<h2>Flow space</h2>
+
+<p>Override vertical rhythm in <code>.flow</code>, <code>.card</code>, or classless <code>main</code>, <code>article</code>, and <code>section</code> containers:</p>
+<pre><code class="language-css">.flow-glue > * + *  { margin-block-start: var(--flow-space-glue) }
+.flow-tight > * + * { margin-block-start: var(--flow-space-tight) }
+.flow-loose > * + * { margin-block-start: var(--flow-space-loose) }
+.flow-none > * + *  { margin-block-start: 0 }
+</code></pre>
+
+<h2>Sizing</h2>
+
+<p>Use <code>full-width</code> to fill the container's inline size. This utility is useful for tables, figures, inline-block elements, and flex or grid children:</p>
+<pre><code class="language-css">.full-width { inline-size: 100% }
+</code></pre>
+
+<p>Use <code>full-height</code> to fill the dynamic viewport height. Apply it to hero sections, splash sections, full-screen drawers, or as the opt-in trigger for a full-height <a href="component-sidemenu.html">side menu</a>:</p>
+<pre><code class="language-css">.full-height { block-size: 100dvh }
+</code></pre>
+
+<h2>Overflow</h2>
+
+<p>Use <code>overflow-x</code> or <code>overflow-y</code> to make overflowing content scroll on one axis. For example, wrap a wide table with <code>overflow-x</code> to preserve the table's <code>display: table</code> behavior:</p>
+<pre><code class="language-css">.overflow-x { overflow-x: auto }
+.overflow-y { overflow-y: auto }
+</code></pre>
+
+<pre><code class="language-html">&lt;div class=&quot;overflow-x&quot;&gt;
+  &lt;table&gt;...&lt;/table&gt;
+&lt;/div&gt;
+</code></pre>
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

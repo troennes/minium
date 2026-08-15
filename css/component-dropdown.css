@@ -1,0 +1,103 @@
+@layer components {
+  .dropdown > button[popovertarget] {
+    inline-size: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3xs);
+
+    /* Transparent button look is the default */
+    &:where(:not(.primary, .accent, .danger, .success, .warning, .info, .contrast, .neutral, .secondary, .tertiary, .icon-only, .close)) {
+      --button-surface: transparent;
+      --button-text: var(--color-text);
+
+      font-weight: var(--font-weight);
+
+      &:where(:not([popover] *)) {
+        border: var(--border-width) solid var(--color-border-strong);
+      }
+
+      &:hover {
+        background-color: var(--color-fill);
+      }
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .dropdown.border-none > button[popovertarget] {
+    border: none;
+    box-shadow: none;
+  }
+
+  .dropdown > button[popovertarget]::after {
+    content: "";
+    width: 1em;
+    height: 1em;
+    background-color: currentcolor;
+    mask: var(--icon-chevron) center / 100% no-repeat;
+    flex-shrink: 0;
+  }
+
+  .dropdown [popover] {
+    inline-size: var(--dropdown-width, max-content);
+    min-inline-size: var(--dropdown-min-width, 12rem);
+    max-inline-size: var(--dropdown-max-width, calc(100% - var(--space-s-l)));
+    padding: var(--space-2xs);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--color-surface-overlay);
+    border: var(--border-width) solid var(--color-border-weak);
+    border-radius: var(--border-radius-m);
+    box-shadow: var(--shadow-medium);
+    position-anchor: auto;
+    inset-block: anchor(bottom) auto;
+    inset-inline: auto anchor(right);
+    margin: var(--space-3xs) 0 0;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+
+    &:not(:popover-open) {
+      display: none;
+    }
+
+    :is(ul, ol) {
+      list-style: none;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .dropdown.left [popover] {
+    inset-inline: anchor(left) auto;
+  }
+
+  .dropdown.center [popover] {
+    inset-inline: anchor(center) auto;
+    translate: -50% 0;
+    position-try-fallbacks: flip-block;
+  }
+
+  /* Nested dropdowns */
+  .dropdown [popover] .dropdown [popover] {
+    inset-block: anchor(top) auto;
+    inset-inline: anchor(right) auto;
+    margin: 0;
+    margin-inline-start: var(--space-3xs);
+  }
+
+   /* Icon-only dropdowns */
+  .dropdown > button[popovertarget].icon-only {
+    inline-size: auto;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .dropdown > button[popovertarget].icon-only::after,
+  .dropdown > button[popovertarget]:has(> .icon:only-child)::after {
+    content: none;
+  }
+}
