@@ -7,26 +7,30 @@
 
 <p>Minium CSS styles semantic HTML elements by default, and adds layout primitives and common components. The library requires no JavaScript runtime, Sass pipeline, or configuration step.</p>
 
-<h2>Install</h2>
-<p>Until the npm package is published, run the build from the repository root:</p>
+<h2>Install with CDN</h2>
+<p>Load the minified stylesheet from jsDelivr without installing anything:</p>
 
-<pre><code class="language-bash">npm run build</code></pre>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css"&gt;</code></pre>
 
-<p>This creates the production stylesheets in <code>dist/</code>.</p>
+<h2>Install with npm</h2>
 
-<p>After the package is published, install it from npm:</p>
+<pre><code class="language-bash">npm install @troennes/minium</code></pre>
 
-<pre><code class="language-bash">npm install minium-css</code></pre>
+<p>In a bundled application, import the core stylesheet from your application's entry point:</p>
+
+<pre><code class="language-js">import "@troennes/minium";</code></pre>
+
+<p>To use the minified build explicitly, import its package subpath:</p>
+
+<pre><code class="language-js">import "@troennes/minium/min";</code></pre>
+
+<p>If your tools cannot import CSS from a package, copy the complete <code>node_modules/@troennes/minium/dist/</code> directory into your project's public assets. Keep the included <code>fonts/</code> directory beside the stylesheet so its relative font URLs continue to work.</p>
 
 <h2>Load the stylesheet</h2>
-<p>Use the core stylesheet in your page. If your project has its own CSS, load it after Minium so project rules can override the library cleanly.</p>
+<p>If you copied the npm package's <code>dist/</code> directory, link the core stylesheet from your page. Load your project's CSS after Minium so project rules can override the library cleanly.</p>
 
-<pre><code class="language-html">&lt;link rel="stylesheet" href="dist/minium.css"&gt;
+<pre><code class="language-html">&lt;link rel="stylesheet" href="/styles/minium/minium.min.css"&gt;
 &lt;link rel="stylesheet" href="project.css"&gt;</code></pre>
-
-<p>In a bundled app, import the built CSS from the package:</p>
-
-<pre><code class="language-js">import "minium-css";</code></pre>
 
 <h2>Start with semantic HTML</h2>
 <p>Minium CSS styles common document structure, forms, tables, buttons, links, and typographic elements by default. Add classes only when you need layout, a component, or a modifier.</p>

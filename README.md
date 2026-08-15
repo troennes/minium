@@ -30,15 +30,39 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 
 ## Quick start
 
-### Use the prebuilt CSS
+### Use the CDN
 
-Copy the contents of `dist/` into your project, then link the minified stylesheet:
+Load the minified stylesheet from jsDelivr without installing anything:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css">
+```
+
+### Install with npm
+
+```bash
+npm install @troennes/minium
+```
+
+Import the core stylesheet from your application's entry point:
+
+```js
+import "@troennes/minium";
+```
+
+To use the minified build explicitly, import its package subpath:
+
+```js
+import "@troennes/minium/min";
+```
+
+If your tools cannot import CSS from a package, copy the complete `node_modules/@troennes/minium/dist/` directory into your project's public assets. Then link the copied stylesheet:
 
 ```html
 <link rel="stylesheet" href="/styles/minium/minium.min.css">
 ```
 
-Keep the included `fonts/` directory beside the stylesheet if you want to use Minium's bundled fonts.
+Keep the included `fonts/` directory beside the stylesheet so its relative font URLs continue to work.
 
 ### Start with semantic HTML
 
@@ -49,7 +73,7 @@ Keep the included `fonts/` directory beside the stylesheet if you want to use Mi
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello, world</title>
-  <link rel="stylesheet" href="/styles/minium/minium.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css">
 </head>
 <body>
   <main class="container flow">
@@ -120,6 +144,8 @@ Please [open an issue](https://github.com/troennes/minium/issues) if you find re
 Minium targets the current stable releases of Chrome, Firefox, and Safari. Other Chromium-based browsers (such as Edge) should also work, but are not tested directly.
 
 ## Development
+
+Development requires Node.js 22 or later.
 
 ```bash
 npm install

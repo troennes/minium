@@ -4,12 +4,13 @@ Minium: the minimum CSS and HTML to build anything.
 Minium is a semantic-first CSS library that makes ordinary HTML look good, then adds class-light layouts and components for building real interfaces.
 
 ## Minium CSS install notes
-1. When the package is published, install it with `npm install minium-css`.
-2. Until then, build from the repository and load the built stylesheet from `dist/minium.css`.
-3. Import font files from `dist/fonts`.
-4. Do not assume Tailwind, Bootstrap, or JavaScript component plugins exist. Minium CSS is plain CSS.
-5. Customize the system primarily through CSS custom properties, especially the semantic tokens in the theme layer.
-6. The library is built around semantic HTML first, layouts second, components/modifiers third, utilities fourth, and project classes for anything else.
+1. Install the package with `npm install @troennes/minium`.
+2. In a bundled application, import the core stylesheet with `import "@troennes/minium";` or the minified build with `import "@troennes/minium/min";`. The npm package includes PT Sans and Inconsolata under `dist/fonts/`; bundlers that process CSS `url()` assets include them automatically.
+3. If the tools cannot import CSS from a package, copy the complete `node_modules/@troennes/minium/dist/` directory into the project's public assets and link the copied stylesheet. Keep `fonts/` beside the stylesheet so its relative font URLs continue to work.
+4. To use jsDelivr without installing the package, load `https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css`. The relative font URLs load the bundled fonts from the same pinned CDN package. Do not add separate font links. Keep the version pinned unless the project deliberately upgrades Minium.
+5. Do not assume Tailwind, Bootstrap, or JavaScript component plugins exist. Minium CSS is plain CSS.
+6. Customize the system primarily through CSS custom properties, especially the semantic tokens in the theme layer.
+7. The library is built around semantic HTML first, layouts second, components/modifiers third, utilities fourth, and project classes for anything else.
 
 ## How HTML feels with Minium
 Minium minimizes both the CSS shipped by the library and the HTML written by the user. The library carries the cost so users write less. Reach for tools in this order:
