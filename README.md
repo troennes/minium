@@ -4,7 +4,7 @@
 
 Minium is a semantic-first CSS library that makes ordinary HTML look good, then adds class-light layouts and components for building real interfaces.
 
-[See what it looks like](examples/dashboard.html) | [Read the documentation](docs/index.html)
+[See what it looks like](https://minium.style/examples/dashboard.html) | [Read the documentation](https://minium.style/docs/index.html)
 
 ## Why Minium?
 
@@ -32,7 +32,7 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 
 ### Use the prebuilt CSS
 
-Copy the contents of [`dist/`](dist/) into your project, then link the minified stylesheet:
+Copy the contents of `dist/` into your project, then link the minified stylesheet:
 
 ```html
 <link rel="stylesheet" href="/styles/minium/minium.min.css">
@@ -61,11 +61,11 @@ Keep the included `fonts/` directory beside the stylesheet if you want to use Mi
 </html>
 ```
 
-Explore the [quick-start documentation](docs/index.html) when you are ready to add layouts and components.
+Explore the [quick-start documentation](https://minium.style/docs/index.html) when you are ready to add layouts and components.
 
 ## Customize the theme
 
- Minium exposes custom properties for colors, type, spacing, radii, shadows, and component density. Override them in your project layer without specificity tricks. See the [customization guide](docs/customization.html) for details.
+ Minium exposes custom properties for colors, type, spacing, radii, shadows, and component density. Override them in your project layer without specificity tricks. See the [customization guide](https://minium.style/docs/customization.html) for details.
 
 ## Features
 
@@ -89,17 +89,17 @@ Explore the [quick-start documentation](docs/index.html) when you are ready to a
 
 ## Documentation
 
-- [Quick start](docs/index.html)
-- [Layouts](docs/layout.html)
-- [Components](docs/component-accordion.html)
-- [Forms](docs/forms.html)
-- [Utilities](docs/utility.html)
-- [Customization](docs/customization.html)
-- [Integrations](docs/integrations.html)
-- [Color palette](docs/colors.html)
-- [Complete AI-readable reference](llms.txt)
+- [Quick start](https://minium.style/docs/index.html)
+- [Layouts](https://minium.style/docs/layout.html)
+- [Components](https://minium.style/docs/component-accordion.html)
+- [Forms](https://minium.style/docs/forms.html)
+- [Utilities](https://minium.style/docs/utility.html)
+- [Customization](https://minium.style/docs/customization.html)
+- [Integrations](https://minium.style/docs/integrations.html)
+- [Color palette](https://minium.style/docs/colors.html)
+- [Complete AI-readable reference](https://minium.style/llms.txt)
 
-The [dashboard example](examples/dashboard.html) uses semantic HTML and Minium classes to build an application shell.
+The [dashboard example](https://minium.style/examples/dashboard.html) uses semantic HTML and Minium classes to build an application shell.
 
 ## Background
 
@@ -113,7 +113,7 @@ After three rebuilds, Minium’s core ideas feel settled. It works well for the 
 
 Minium 0.1.0 is the first public release. The library is ready to use, but it has not yet been tested across a wide range of websites, applications, and browsers.
 
-Please [open an issue](https://github.com/troennes/minium-css/issues) if you find rendering or accessibility problems, unclear documentation, awkward component boundaries, or APIs that require unnecessary HTML. Include a small reproduction and browser details when relevant.
+Please [open an issue](https://github.com/troennes/minium/issues) if you find rendering or accessibility problems, unclear documentation, awkward component boundaries, or APIs that require unnecessary HTML. Include a small reproduction and browser details when relevant.
 
 ## Browser support
 
@@ -129,9 +129,8 @@ npm run build     # build core CSS, minified CSS and fonts
 
 ## License
 
-Minium is available under the [MIT License](LICENSE).
+Minium is available under the [MIT License](https://github.com/troennes/minium/blob/main/LICENSE).
 
 ## About the name
 
 Minium is the historical name for red lead, an orange-red pigment. An unrelated CSS project also used the same name in 2018; this is a separate project.
-

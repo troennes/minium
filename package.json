@@ -15,13 +15,13 @@
     "semantic",
     "lightweight"
   ],
-  "homepage": "https://github.com/troennes/minium-css#readme",
+  "homepage": "https://minium.style",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/troennes/minium-css.git"
+    "url": "git+https://github.com/troennes/minium.git"
   },
   "bugs": {
-    "url": "https://github.com/troennes/minium-css/issues"
+    "url": "https://github.com/troennes/minium/issues"
   },
   "style": "dist/minium.css",
   "exports": {
