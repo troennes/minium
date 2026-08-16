@@ -7,7 +7,7 @@
 
 <p>Minium CSS styles semantic HTML elements by default, and adds layout primitives and common components. The library requires no JavaScript runtime, Sass pipeline, or configuration step.</p>
 
-<h2>Install with CDN</h2>
+<h2>Use from CDN</h2>
 <p>Load the minified stylesheet from jsDelivr without installing anything:</p>
 
 <pre><code class="language-html">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css"&gt;</code></pre>
@@ -24,13 +24,26 @@
 
 <pre><code class="language-js">import "@troennes/minium/min";</code></pre>
 
-<p>If your tools cannot import CSS from a package, copy the complete <code>node_modules/@troennes/minium/dist/</code> directory into your project's public assets. Keep the included <code>fonts/</code> directory beside the stylesheet so its relative font URLs continue to work.</p>
+<p>If your tools cannot import CSS from a package, copy the complete <code>node_modules/@troennes/minium/dist/</code> directory into your project's public assets.</p>
+
+<h2>Build from source</h2>
+<p>Choose this option if you want to modify Minium's source CSS before using it. Building requires Node.js 22 or later.</p>
+
+<ol>
+  <li><a href="https://github.com/troennes/minium/archive/refs/heads/main.zip">Download the latest source ZIP from GitHub</a>.</li>
+  <li>Extract the ZIP and open a terminal in the extracted <code>minium-main</code> directory.</li>
+  <li>Install the build dependencies and build Minium:
+    <pre><code class="language-bash">npm install
+npm run build</code></pre>
+  </li>
+  <li>Copy the complete <code>dist/</code> directory into your project's public assets.</li>
+</ol>
 
 <h2>Load the stylesheet</h2>
-<p>If you copied the npm package's <code>dist/</code> directory, link the core stylesheet from your page. Load your project's CSS after Minium so project rules can override the library cleanly.</p>
+<p>If you copied a <code>dist/</code> directory from the npm package or a source build, link the core stylesheet from your page. Keep the included <code>fonts/</code> directory beside the stylesheet so its relative font URLs continue to work. Load your project's CSS after Minium so project rules can override the library cleanly.</p>
 
-<pre><code class="language-html">&lt;link rel="stylesheet" href="/styles/minium/minium.min.css"&gt;
-&lt;link rel="stylesheet" href="project.css"&gt;</code></pre>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="/styles/minium.min.css"&gt;
+&lt;link rel="stylesheet" href="/styles/project.css"&gt;</code></pre>
 
 <h2>Start with semantic HTML</h2>
 <p>Minium CSS styles common document structure, forms, tables, buttons, links, and typographic elements by default. Add classes only when you need layout, a component, or a modifier.</p>

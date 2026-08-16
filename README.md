@@ -59,10 +59,32 @@ import "@troennes/minium/min";
 If your tools cannot import CSS from a package, copy the complete `node_modules/@troennes/minium/dist/` directory into your project's public assets. Then link the copied stylesheet:
 
 ```html
-<link rel="stylesheet" href="/styles/minium/minium.min.css">
+<link rel="stylesheet" href="/styles/minium.min.css">
 ```
 
 Keep the included `fonts/` directory beside the stylesheet so its relative font URLs continue to work.
+
+### Build from source
+
+Choose this option if you want to modify Minium's source CSS before using it. Building requires Node.js 22 or later.
+
+1. [Download the latest source ZIP from GitHub](https://github.com/troennes/minium/archive/refs/heads/main.zip).
+2. Extract the ZIP and open a terminal in the extracted `minium-main` directory.
+3. Install the build dependencies and build Minium:
+
+   ```bash
+   npm install
+   npm run build
+   ```
+
+4. Copy the complete `dist/` directory into your project's public assets.
+5. Link the copied stylesheet from your HTML:
+
+   ```html
+   <link rel="stylesheet" href="/styles/minium/minium.min.css">
+   ```
+
+Keep the generated `fonts/` directory beside the stylesheet so its relative font URLs continue to work.
 
 ### Start with semantic HTML
 

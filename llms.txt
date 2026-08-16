@@ -8,9 +8,10 @@ Minium is a semantic-first CSS library that makes ordinary HTML look good, then 
 2. In a bundled application, import the core stylesheet with `import "@troennes/minium";` or the minified build with `import "@troennes/minium/min";`. The npm package includes PT Sans and Inconsolata under `dist/fonts/`; bundlers that process CSS `url()` assets include them automatically.
 3. If the tools cannot import CSS from a package, copy the complete `node_modules/@troennes/minium/dist/` directory into the project's public assets and link the copied stylesheet. Keep `fonts/` beside the stylesheet so its relative font URLs continue to work.
 4. To use jsDelivr without installing the package, load `https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css`. The relative font URLs load the bundled fonts from the same pinned CDN package. Do not add separate font links. Keep the version pinned unless the project deliberately upgrades Minium.
-5. Do not assume Tailwind, Bootstrap, or JavaScript component plugins exist. Minium CSS is plain CSS.
-6. Customize the system primarily through CSS custom properties, especially the semantic tokens in the theme layer.
-7. The library is built around semantic HTML first, layouts second, components/modifiers third, utilities fourth, and project classes for anything else.
+5. To modify and build the source CSS, download `https://github.com/troennes/minium/archive/refs/heads/main.zip`, extract it, and open a terminal in the extracted `minium-main` directory. This download follows the moving `main` branch and requires Node.js 22 or later. Run `npm install`, then `npm run build`. Copy the complete generated `dist/` directory into the project's public assets and link `minium.min.css`. Keep the generated `fonts/` directory beside the stylesheet. The build also includes the readable `minium.css` and optional integration styles in `dist/integrations/`.
+6. Do not assume Tailwind, Bootstrap, or JavaScript component plugins exist. Minium CSS is plain CSS.
+7. Customize the system primarily through CSS custom properties, especially the semantic tokens in the theme layer.
+8. The library is built around semantic HTML first, layouts second, components/modifiers third, utilities fourth, and project classes for anything else.
 
 ## How HTML feels with Minium
 Minium minimizes both the CSS shipped by the library and the HTML written by the user. The library carries the cost so users write less. Reach for tools in this order:
