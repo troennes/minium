@@ -1,6 +1,6 @@
 {
   "name": "@troennes/minium",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The minimum CSS and HTML to build anything. A semantic-first, pure-CSS, modern CSS library",
   "type": "module",
   "license": "MIT",
