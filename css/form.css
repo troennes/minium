@@ -238,7 +238,17 @@
     background-image: var(--icon-search);
     background-size: 1em auto;
     background-position: center left var(--space-xs);
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
+
+    &.small {
+      padding-inline-start: calc(var(--space-2xs) + var(--space-2xs) + 1em);
+      background-position: center left var(--space-2xs);
+    }
+
+    &.large {
+      padding-inline-start: calc(var(--space-s) + var(--space-2xs) + 1em);
+      background-position: center left var(--space-s);
+    }
   }
 
   input:not([type="checkbox"], [type="radio"], [type="date"], [type="datetime-local"], 
@@ -269,10 +279,21 @@
   }
 
   select:not([multiple], [size]) {
+    padding-inline-end: calc(var(--space-xs) + var(--space-2xs) + 1.125em);
     background-image: var(--icon-select);
     background-position: center right var(--space-xs);
-    background-size: 1.125rem;
+    background-size: 1.125em;
     background-repeat: no-repeat;
+
+    &.small {
+      padding-inline-end: calc(var(--space-2xs) + var(--space-2xs) + 1.125em);
+      background-position: center right var(--space-2xs);
+    }
+
+    &.large {
+      padding-inline-end: calc(var(--space-s) + var(--space-2xs) + 1.125em);
+      background-position: center right var(--space-s);
+    }
   }
 
   select[multiple] option:checked {
@@ -331,11 +352,31 @@
   }
 
   [dir="rtl"] { 
-    input[type="search"],
     select:not([multiple], [size]),
     input:not([type="checkbox"], [type="radio"], [type="date"], [type="datetime-local"], 
     [type="month"], [type="time"], [type="week"], [type="range"])[aria-invalid] {
       background-position: center left var(--space-xs);
+
+      &.small {
+        background-position: center left var(--space-2xs);
+      }
+
+      &.large {
+        background-position: center left var(--space-s);
+      }
+    }
+
+    /* Search reserves inline-start padding, which is the right edge in RTL */
+    input[type="search"] {
+      background-position: center right var(--space-xs);
+
+      &.small {
+        background-position: center right var(--space-2xs);
+      }
+
+      &.large {
+        background-position: center right var(--space-s);
+      }
     }
 
     textarea[aria-invalid] {
