@@ -47,8 +47,9 @@
   "scripts": {
     "build": "node scripts/build-css.mjs",
     "build:themes": "node scripts/build-themes.mjs",
-    "test": "npm run test:lint && npm run test:size",
+    "test": "npm run test:lint && npm run test:themes && npm run test:size",
     "test:lint": "stylelint \"css/**/*.css\"",
+    "test:themes": "node scripts/check-themes.mjs",
     "test:size": "node scripts/check-size.mjs",
     "prepublishOnly": "npm run build && npm test"
   },

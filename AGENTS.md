@@ -35,7 +35,8 @@ Operating principles:
 - `npm run test:lint`: run stylelint on `css/**/*.css`.
 - `npx stylelint "css/**/*.css" --fix`: auto-fix lint issues where possible.
 - `npm run test:size`: check gzipped CSS size budget.
-- `npm test`: run full checks (lint + size).
+- `npm run test:themes`: check `css/roles.css` and `css/themes/*.css` match the generator and have complete roles, icons and the layer order statement.
+- `npm test`: run full checks (lint + themes + size).
 
 ## Coding Style & Naming Conventions
 - Use modern, plain CSS only (no Sass/Less).
