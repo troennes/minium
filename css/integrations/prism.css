@@ -1,4 +1,4 @@
-@layer theme {
+@layer tokens {
   :root {
     --syntax-comment: light-dark(#7d8b99, #999);
     --syntax-punctuation: light-dark(#5f6364, #ccc);

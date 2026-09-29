@@ -1,3 +1,5 @@
+@layer tokens, theme, reset, base, layout, components, project, utilities;
+
 @font-face {
   font-family: Inconsolata;
   font-style: normal;
@@ -46,7 +48,7 @@
   src: local("PT Sans"), local("PTSans-Bold"), url("fonts/PTSans-Bold.woff2") format("woff2");
 } 
 
-@layer theme {
+@layer tokens {
   :root {
     /* Fluid text size variables, inspired by utopia.fyi */
     --size-h1: clamp(2rem, 1.8043rem + 0.8696vw, 2.5rem);
@@ -120,100 +122,100 @@
     /* Colors */
     color-scheme: light dark;
 
-    --color-text: var(--sand-12);
-    --color-text-muted: var(--sand-11);
-    --color-surface-sunken: light-dark(var(--sand-3), var(--sand-1));
-    --color-surface: var(--sand-2);
-    --color-surface-raised: light-dark(var(--sand-1), var(--sand-3));
-    --color-surface-overlay: light-dark(white, var(--sand-4));
-    --color-fill: var(--sand-a2);
-    --color-fill-hover: var(--sand-a3);
-    --color-fill-active: var(--sand-a4);
-    --color-border-weak: var(--sand-a5); /* visual-only elements */
-    --color-border-strong: var(--sand-a6); /* form */
-    --color-border-hover: var(--sand-a7);
+    --color-text: var(--neutral-12);
+    --color-text-muted: var(--neutral-11);
+    --color-surface-sunken: light-dark(var(--neutral-3), var(--neutral-1));
+    --color-surface: var(--neutral-2);
+    --color-surface-raised: light-dark(var(--neutral-1), var(--neutral-3));
+    --color-surface-overlay: light-dark(white, var(--neutral-4));
+    --color-fill: var(--neutral-a2);
+    --color-fill-hover: var(--neutral-a3);
+    --color-fill-active: var(--neutral-a4);
+    --color-border-weak: var(--neutral-a5); /* visual-only elements */
+    --color-border-strong: var(--neutral-a6); /* form */
+    --color-border-hover: var(--neutral-a7);
 
-    --color-primary: var(--orange-9);
-    --color-primary-inverse: white;
-    --color-primary-hover: var(--orange-10);
-    --color-primary-focus: var(--orange-7);
-    --color-primary-fill: var(--orange-a2);
-    --color-primary-fill-hover: var(--orange-a3);
-    --color-primary-fill-active: var(--orange-a4);
-    --color-primary-border-weak: var(--orange-a5);
-    --color-primary-border-strong: var(--orange-a6);
-    --color-primary-text: var(--orange-11);
+    --color-primary: var(--primary-9);
+    --color-primary-inverse: var(--primary-inverse);
+    --color-primary-hover: var(--primary-10);
+    --color-primary-focus: var(--primary-7);
+    --color-primary-fill: var(--primary-a2);
+    --color-primary-fill-hover: var(--primary-a3);
+    --color-primary-fill-active: var(--primary-a4);
+    --color-primary-border-weak: var(--primary-a5);
+    --color-primary-border-strong: var(--primary-a6);
+    --color-primary-text: var(--primary-11);
 
-    --color-accent: var(--indigo-9);
-    --color-accent-inverse: white;
-    --color-accent-hover: var(--indigo-10);
-    --color-accent-focus: var(--indigo-7);
-    --color-accent-fill: var(--indigo-a2);
-    --color-accent-fill-hover: var(--indigo-a3);
-    --color-accent-fill-active: var(--indigo-a4);
-    --color-accent-border-weak: var(--indigo-a5);
-    --color-accent-border-strong: var(--indigo-a6);
-    --color-accent-text: var(--indigo-11);
+    --color-accent: var(--accent-9);
+    --color-accent-inverse: var(--accent-inverse);
+    --color-accent-hover: var(--accent-10);
+    --color-accent-focus: var(--accent-7);
+    --color-accent-fill: var(--accent-a2);
+    --color-accent-fill-hover: var(--accent-a3);
+    --color-accent-fill-active: var(--accent-a4);
+    --color-accent-border-weak: var(--accent-a5);
+    --color-accent-border-strong: var(--accent-a6);
+    --color-accent-text: var(--accent-11);
 
-    --color-success: var(--green-9);
-    --color-success-inverse: white;
-    --color-success-focus: var(--green-7);
-    --color-success-fill: var(--green-a2);
-    --color-success-fill-hover: var(--green-a3);
-    --color-success-fill-active: var(--green-a4);
-    --color-success-border-weak: var(--green-a5);
-    --color-success-border-strong: var(--green-a6);
-    --color-success-text: var(--green-11);
+    --color-success: var(--success-9);
+    --color-success-inverse: var(--success-inverse);
+    --color-success-focus: var(--success-7);
+    --color-success-fill: var(--success-a2);
+    --color-success-fill-hover: var(--success-a3);
+    --color-success-fill-active: var(--success-a4);
+    --color-success-border-weak: var(--success-a5);
+    --color-success-border-strong: var(--success-a6);
+    --color-success-text: var(--success-11);
 
-    --color-danger: var(--red-9);
-    --color-danger-inverse: white;
-    --color-danger-focus: var(--red-7);
-    --color-danger-fill: light-dark(var(--red-a2), var(--red-a3));
-    --color-danger-fill-hover: light-dark(var(--red-a3), var(--red-a4));
-    --color-danger-fill-active: light-dark(var(--red-a4), var(--red-a5));
-    --color-danger-border-weak: light-dark(var(--red-a5), var(--red-a6));
-    --color-danger-border-strong: light-dark(var(--red-a6), var(--red-a7));
-    --color-danger-text: var(--red-11);
+    --color-danger: var(--danger-9);
+    --color-danger-inverse: var(--danger-inverse);
+    --color-danger-focus: var(--danger-7);
+    --color-danger-fill: light-dark(var(--danger-a2), var(--danger-a3));
+    --color-danger-fill-hover: light-dark(var(--danger-a3), var(--danger-a4));
+    --color-danger-fill-active: light-dark(var(--danger-a4), var(--danger-a5));
+    --color-danger-border-weak: light-dark(var(--danger-a5), var(--danger-a6));
+    --color-danger-border-strong: light-dark(var(--danger-a6), var(--danger-a7));
+    --color-danger-text: var(--danger-11);
 
-    --color-warning: var(--amber-9);
-    --color-warning-inverse: black;
-    --color-warning-fill: var(--amber-a2);
-    --color-warning-fill-hover: var(--amber-a3);
-    --color-warning-fill-active: var(--amber-a4);
-    --color-warning-border-weak: var(--amber-a6);
-    --color-warning-border-strong: var(--amber-a7);
-    --color-warning-text: var(--amber-11);
+    --color-warning: var(--warning-9);
+    --color-warning-inverse: var(--warning-inverse);
+    --color-warning-fill: var(--warning-a2);
+    --color-warning-fill-hover: var(--warning-a3);
+    --color-warning-fill-active: var(--warning-a4);
+    --color-warning-border-weak: var(--warning-a6);
+    --color-warning-border-strong: var(--warning-a7);
+    --color-warning-text: var(--warning-11);
 
-    --color-info: var(--blue-9);
-    --color-info-inverse: white;
-    --color-info-fill: var(--blue-a2);
-    --color-info-fill-hover: var(--blue-a3);
-    --color-info-fill-active: var(--blue-a4);
-    --color-info-border-weak: var(--blue-a5);
-    --color-info-border-strong: var(--blue-a6);
-    --color-info-text: var(--blue-11);
+    --color-info: var(--info-9);
+    --color-info-inverse: var(--info-inverse);
+    --color-info-fill: var(--info-a2);
+    --color-info-fill-hover: var(--info-a3);
+    --color-info-fill-active: var(--info-a4);
+    --color-info-border-weak: var(--info-a5);
+    --color-info-border-strong: var(--info-a6);
+    --color-info-text: var(--info-11);
 
-    --color-contrast: var(--sand-12);
-    --color-contrast-inverse: var(--sand-2);
+    --color-contrast: var(--neutral-12);
+    --color-contrast-inverse: var(--neutral-2);
 
     /* elements variables */
-    --code-inline-color-surface: var(--sand-a3);
+    --code-inline-color-surface: var(--neutral-a3);
     --link-color: var(--color-text);
     --link-color-decoration: var(--color-primary);
     --link-decoration-thickness-hover: 1px;
     --selection-color: color-mix(in oklch, var(--color-primary-hover) 35%, transparent);
-    --mark-color: light-dark(var(--orange-a5), var(--orange-a11));
-    --header-color-surface: light-dark(var(--sand-2), var(--sand-3));
-    --header-color-border: light-dark(transparent, var(--sand-a4));
-    --code-color-surface: light-dark(var(--sand-5), var(--sand-1));
-    --kbd-surface: light-dark(var(--sand-12), var(--sand-1));
-    --kbd-text: light-dark(var(--sand-2),var(--sand-12));
-    --dropdown-color-surface-hover: var(--sand-a3);
-    --form-color-surface: light-dark( var(--white-a10), var(--sand-a2));
-    --form-color-border-disabled: var(--sand-8);
-    --switch-color-surface: light-dark(var(--sand-8), var(--color-fill));
-    --switch-color-border: light-dark(var(--sand-8), var(--color-border-strong));
-    --modal-color-backdrop: var(--black-a7);
+    --mark-color: light-dark(var(--primary-a5), var(--primary-a11));
+    --header-color-surface: light-dark(var(--neutral-2), var(--neutral-3));
+    --header-color-border: light-dark(transparent, var(--neutral-a4));
+    --code-color-surface: light-dark(var(--neutral-5), var(--neutral-1));
+    --kbd-surface: light-dark(var(--neutral-12), var(--neutral-1));
+    --kbd-text: light-dark(var(--neutral-2),var(--neutral-12));
+    --dropdown-color-surface-hover: var(--neutral-a3);
+    --form-color-surface: light-dark(rgb(255 255 255 / 80%), var(--neutral-a2));
+    --form-color-border-disabled: var(--neutral-8);
+    --switch-color-surface: light-dark(var(--neutral-8), var(--color-fill));
+    --switch-color-border: light-dark(var(--neutral-8), var(--color-border-strong));
+    --modal-color-backdrop: rgb(0 0 0 / 50%);
 
 
     /* Icons, mostly from https://lucide.dev/ */

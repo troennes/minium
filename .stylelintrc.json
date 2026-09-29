@@ -10,6 +10,12 @@
       }
     },
     {
+      "files": ["css/roles.css"],
+      "rules": {
+        "alpha-value-notation": null
+      }
+    },
+    {
       "files": ["css/theme.css"],
       "rules": {
         "custom-property-empty-line-before": null

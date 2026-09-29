@@ -1,5 +1,3 @@
-@layer tokens, theme, reset, base, layout, components, project, utilities;
-
 @layer base {
   html {
     text-rendering: optimizelegibility;

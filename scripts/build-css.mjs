@@ -10,6 +10,7 @@ const distIntegrationsDir = join(distDir, 'integrations');
 
 const colorsPath = join(cssDir, 'colors.css');
 const themePath = join(cssDir, 'theme.css');
+const roleNames = new Set(['neutral', 'primary', 'accent', 'success', 'danger', 'warning', 'info']);
 const readableOutPath = join(distDir, 'minium.css');
 const minOutPath = join(distDir, 'minium.min.css');
 
@@ -33,7 +34,7 @@ function collectUsedColorTokens(themeCss) {
 
   while (match) {
     const token = match[1];
-    if (/^[a-z]+-(?:a\d{1,2}|\d{1,2})$/i.test(token)) {
+    if (/^[a-z]+-(?:a\d{1,2}|\d{1,2})$/i.test(token) && !roleNames.has(token.split('-')[0])) {
       tokens.add(token);
     }
     match = varRe.exec(themeCss);
@@ -72,6 +73,10 @@ function splitColorSources(colorsCss) {
 
 function buildPrunedColorsCss(colorsCss, themeCss) {
   const usedTokens = collectUsedColorTokens(themeCss);
+  if (usedTokens.size === 0) {
+    return '';
+  }
+
   const { baseSource, p3Source } = splitColorSources(colorsCss);
   const baseTokens = collectDefinedColorTokens(baseSource);
   const p3Tokens = collectDefinedColorTokens(p3Source);
@@ -110,7 +115,7 @@ function buildBundleOrder() {
     .filter((entry) => entry.isFile() && entry.name.endsWith('.css'))
     .map((entry) => entry.name);
 
-  const fixedStart = ['theme.css', 'reset.css', 'base.css', 'typography.css', 'layout.css'];
+  const fixedStart = ['theme.css', 'roles.css', 'reset.css', 'base.css', 'typography.css', 'layout.css'];
   const fixedEnd = ['utilities.css'];
   const excluded = new Set(['colors.css', ...fixedStart, ...fixedEnd]);
 
@@ -157,7 +162,7 @@ const themeCss = readFileSync(themePath, 'utf8');
 const prunedColorsCss = removeComments(buildPrunedColorsCss(colorsCss, themeCss));
 
 const orderedFiles = buildBundleOrder();
-const bundleParts = [prunedColorsCss];
+const bundleParts = prunedColorsCss ? [prunedColorsCss] : [];
 
 for (const file of orderedFiles) {
   const path = join(cssDir, file);
