@@ -14,7 +14,9 @@ Operating principles:
 
 ## Project Structure & Module Organization
 - `css/theme.css`: layer order statement and library tokens in `@layer tokens` (type scale, flow spacing, semantic colors mapped to color roles).
-- `css/roles.css`: default theme's color role values (`--neutral-*`, `--primary-*`, …) in `@layer tokens`.
+- `css/roles.css`: default theme's color role values (`--neutral-*`, `--primary-*`, …) in `@layer tokens`. Generated; do not edit.
+- `css/themes/<name>.css`: opt-in color themes in `@layer theme`, copied to `dist/themes/`. Generated; do not edit.
+- `scripts/themes.json`: theme mapping (scale per role) and the default theme; input for `npm run build:themes`.
 - `css/reset.css`: foundational reset rules in `@layer reset` (box model, defaults, accessibility-focused baselines).
 - `css/base.css` and `css/typography.css`: base layer defaults (`@layer base`), including typography and semantic flow defaults.
 - `css/layout.css`: layout primitives and explicit flow utility (`@layer layout`).
@@ -26,7 +28,8 @@ Operating principles:
 - `docs/`: Project documentation
 
 ## Build, Test, and Development Commands
-- `npm run build`: build production CSS to `dist/` (`minium.css`, `minium.min.css`) and copy fonts to `dist/fonts`.
+- `npm run build`: build production CSS to `dist/` (`minium.css`, `minium.min.css`), copy fonts to `dist/fonts` and themes to `dist/themes`.
+- `npm run build:themes`: regenerate `css/roles.css` and `css/themes/*.css` from `scripts/themes.json` and `@radix-ui/colors`. Commit the output.
 - `wc -c css/*.css`: quick size check to keep the library lightweight.
 - `rg --line-number "@layer|--" css`: inspect layer usage and custom-property definitions.
 - `npm run test:lint`: run stylelint on `css/**/*.css`.
