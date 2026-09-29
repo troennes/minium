@@ -7,7 +7,7 @@ Status: agreed direction, not implemented.
 - Switch theme by loading one extra stylesheet. No build step for users.
 - Keep CSS size minimal: core carries one default theme, each extra theme is a small opt-in file.
 - Keep Radix quality, including Display P3 colors.
-- Remove `css/colors.css` and the color pruning in `scripts/build-css.mjs`.
+- Take `css/colors.css` out of the build (kept as a reference file) and remove the color pruning in `scripts/build-css.mjs`.
 
 Themes are shipped by the library. Users can still write their own, so the role names below are public API once documented.
 
@@ -30,13 +30,17 @@ Seven roles:
 | `accent` | indigo | |
 | `danger` | red | |
 | `success` | green | |
-| `warning` | amber | bright scale, dark inverse text |
+| `warning` | amber | |
 | `info` | blue | |
 
 Step sets:
 
 - `neutral`: 1, 2, 3, 4, 5, 8, 11, 12, a2–a7
 - Colored roles (all six share the same set, so any scale fits any role): 7, 9, 10, 11, a2–a7, a11, plus `--<role>-inverse`
+
+Role slots are named after Radix steps and always hold that step's value, so values can be copied straight from radix-ui.com or `@radix-ui/colors`. When a scale needs different behavior, the theme overrides semantic tokens instead of putting other steps into the slots (see [Overrides](#overrides)).
+
+`--<role>-inverse` is the text color on the role's step 9 solid. It belongs to the scale, not the role: white for most scales, dark for bright scales (sky, mint, lime, yellow, amber). Every `--color-<role>-inverse` in core points at `--<role>-inverse`; none are hardcoded.
 
 Each step is defined as `light-dark(<light>, <dark>)` in sRGB hex, with a Display P3 override block:
 
@@ -48,17 +52,39 @@ Each step is defined as `light-dark(<light>, <dark>)` in sRGB hex, with a Displa
 }
 ```
 
-Role-specific tweaks (for example danger's `light-dark(a2, a3)` fill, warning's a6/a7 borders) stay in core's semantic mapping, so they apply to whatever scale fills the role. A theme can override a single semantic token if its scale needs something different.
-
 Tokens that are not themed (`--white-a10`, `--black-a7`) become literal values in the tokens that use them.
+
+### Core mapping
+
+Core maps every semantic and element token to a role step. Radix scales share one step contract (step 8 is a solid border, a5 a subtle tint, and so on) at matching lightness, so a tweak tuned on one scale works on the others. Examples:
+
+| Token | Today | Core |
+|---|---|---|
+| `--mark-color` | `light-dark(orange-a5, orange-a11)` | `light-dark(var(--primary-a5), var(--primary-a11))` |
+| `--switch-color-surface` | `light-dark(sand-8, color-fill)` | `light-dark(var(--neutral-8), var(--color-fill))` |
+| `--color-danger-fill` | `light-dark(red-a2, red-a3)` | `light-dark(var(--danger-a2), var(--danger-a3))` |
+| `--color-warning-border-weak` | `amber-a6` | `var(--warning-a6)` |
+
+Role-specific tweaks (danger's `light-dark(a2, a3)` fills, warning's a6/a7 borders) stay in core, so they apply to whatever scale fills the role. The scales the mapping puts in those roles (crimson, tomato for danger; orange, yellow for warning) are close enough that the same tweaks hold.
+
+### Overrides
+
+A theme overrides a semantic token only when its scale breaks the step contract for a role. Overrides come from the type of scale, not the individual theme, so the same block applies to every theme of that type.
+
+| Scale type | Themes | Overrides |
+|---|---|---|
+| Gray scale as primary | gray, mauve, slate, sage, olive, sand | `--color-primary` → step 12, `--color-primary-inverse` → step 1, `--color-primary-hover` (value to be tuned, step 12 has no darker step), `--mark-color` → accent (a gray highlight is useless), `--color-primary-text` if it's the same as `--color-text-muted` |
+| Bright scale (sky, mint, lime, yellow, amber) in any colored role | several | None: dark text comes from the `--<role>-inverse` role value |
+
+Warning text on light backgrounds uses step 11, never step 9 (core already does this).
 
 ### Layers
 
-`css/colors.css` is removed, which frees `@layer tokens`:
+`css/colors.css` leaves the build, which frees `@layer tokens`:
 
 | Layer | Contents |
 |---|---|
-| `tokens` | All library defaults: role values (default theme), semantic mappings, radii, shadows, fonts, spacing. Everything in `theme.css` today moves here. |
+| `tokens` | All library defaults: role values (default theme, in the generated `css/roles.css`), semantic mappings, radii, shadows, fonts, spacing. Everything in `theme.css` today moves here. |
 | `theme` | Reserved for theme files and user-made themes. |
 | `project` | User overrides, as today. |
 
@@ -74,17 +100,80 @@ Every theme file starts with the full layer order statement, so load order is ir
 
 - Source: `css/themes/<name>.css`. Output: `dist/themes/<name>.css` (copied, not processed).
 - Folder is `themes/`, not `color-themes/`, so themes can later include radii, shadows and fonts.
-- Themes may be partial: a theme defines only the roles it changes, the rest fall back to the defaults.
-- **Each role is all or nothing**: a theme that defines any `--danger-*` step defines all of them.
+- A theme is named after its primary scale.
+- Themes may be partial: a theme defines only what differs from the default, the rest falls back to core.
+- **Each role is all or nothing**: a theme that defines any `--danger-*` step defines all of them, including `--danger-inverse`.
 
 Usage:
 
 ```html
 <link rel="stylesheet" href="minium.min.css">
-<link rel="stylesheet" href="themes/ocean.css">
+<link rel="stylesheet" href="themes/blue.css">
 ```
 
 Size: about 0.35 KB gzip per colored role including P3. A three-role theme (neutral, primary, accent) is about 1.3 KB gzip; a full seven-role theme about 2.5 KB.
+
+### Theme mapping
+
+31 themes, one per Radix scale. Neutrals follow the Radix pairing guide. Status roles default to green / amber / red / blue. When the primary or accent is in the same hue family as a status role (or close to it), that role moves to a clearly different hue so the two stay distinguishable.
+
+| Theme (primary) | Neutral | Accent | Success | Warning | Danger | Info |
+|---|---|---|---|---|---|---|
+| gray | gray | iris | green | amber | red | blue |
+| mauve | mauve | violet | green | amber | red | blue |
+| slate | slate | indigo | green | amber | red | sky |
+| sage | sage | teal | green | amber | red | blue |
+| olive | olive | lime | green | amber | red | blue |
+| sand | sand | gold | green | amber | red | blue |
+| bronze | sand | teal | green | amber | red | blue |
+| gold | sand | purple | green | amber | red | blue |
+| brown | sand | sky | green | amber | red | indigo |
+| **orange** (default) | sand | indigo | green | amber | red | blue |
+| tomato | mauve | teal | green | amber | crimson | blue |
+| red | mauve | gold | green | amber | crimson | blue |
+| ruby | mauve | jade | grass | amber | tomato | blue |
+| crimson | mauve | cyan | green | amber | tomato | indigo |
+| pink | mauve | mint | grass | amber | red | blue |
+| plum | mauve | iris | green | amber | red | cyan |
+| purple | mauve | gold | green | amber | red | blue |
+| violet | mauve | pink | green | amber | red | blue |
+| iris | slate | plum | green | amber | red | sky |
+| indigo | slate | orange | green | yellow | red | cyan |
+| blue | slate | purple | green | amber | red | cyan |
+| cyan | slate | violet | green | amber | red | blue |
+| sky | slate | pink | green | amber | red | blue |
+| teal | sage | orange | green | yellow | red | blue |
+| jade | sage | ruby | grass | amber | tomato | blue |
+| green | sage | gold | teal | amber | red | blue |
+| grass | olive | yellow | teal | orange | red | blue |
+| mint | sage | pink | green | amber | red | blue |
+| lime | olive | violet | jade | amber | red | blue |
+| yellow | sand | green | teal | orange | red | blue |
+| amber | sand | iris | green | orange | red | blue |
+
+Accent choices: the accent never matches the theme's status colors. Some are complements (tomato → teal, indigo → orange), some adjacent (blue → purple, yellow → green, violet → pink), and some pair with an earthy tone (bronze → teal like patina, red/purple/green → gold, brown → sky).
+
+Every row gets a theme file, including the current default. That gives 31 files. The default is expected to change (orange is a placeholder), and a file per row means:
+
+- the theme switcher treats every theme the same, including the default,
+- a user who picks `orange.css` explicitly keeps orange after the library's default changes.
+
+The default's own file is nearly empty (only what core can't express, see [Generator](#generator)). That's harmless.
+
+### Generator
+
+Theme files are generated, not hand-written: 31 files with sRGB and P3 values are too error-prone to maintain by hand.
+
+- The mapping table above lives as data (for example `scripts/themes.json`).
+- `scripts/build-themes.mjs` (dev only) reads the mapping and `@radix-ui/colors` (dev dependency) and writes `css/themes/<name>.css`.
+- `themes.json` names the default theme. The generator writes its role values to `css/roles.css` (core, `@layer tokens`). Changing the default means editing one line and regenerating.
+- Each theme file is the difference from the default:
+  - `neutral`, `primary` and `accent` are always emitted, so theme files stay stable when the default changes and the switcher never shows a mix of two themes.
+  - Status roles are emitted only when they differ from the default's, together with the matching icon tokens.
+  - Semantic overrides for the theme's scale type are emitted. If the default itself has overrides (for example a gray-primary default), themes without them emit the reset values.
+- Changing the default regenerates every file; the guard check fails if they are stale.
+- Inverse text: dark for bright scales, white otherwise.
+- Generated files are committed, so users and the `dist/` build never run the generator.
 
 ### Icons
 
@@ -107,20 +196,21 @@ Rules:
 
 ### Guard check
 
-A small script in `npm test` replaces the safety net the pruning build gave us:
+A small script in `npm test` catches hand edits and user-contributed themes:
 
+- `css/themes/` matches the generator output.
 - Each theme file defines each role completely or not at all.
 - A theme that defines `danger` / `success` also defines `--icon-invalid` / `--icon-valid`.
 - Each theme file starts with the layer order statement.
 
-## Example: `themes/ocean.css`
+## Example: `themes/blue.css`
 
-Cold gray neutral (slate), blue primary, green accent (grass). Status roles use the defaults.
+From the blue row: slate neutral, blue primary, purple accent, cyan info. Success, warning and danger use the defaults. Structure below with neutral and primary in full; accent (purple) and info (cyan) follow the same slot set.
 
 ```css
 @layer tokens, theme, reset, base, layout, components, project, utilities;
 
-/* Ocean: cold gray neutral (slate), blue primary, green accent (grass) */
+/* Blue: slate neutral, blue primary, purple accent, cyan info */
 @layer theme {
   :root {
     /* neutral: slate */
@@ -152,18 +242,8 @@ Cold gray neutral (slate), blue primary, green accent (grass). Status roles use 
     --primary-a11: light-dark(#006dcbf2, #70b8ff);
     --primary-inverse: white;
 
-    /* accent: grass */
-    --accent-7: light-dark(#94ce9a, #366740);
-    --accent-9: light-dark(#46a758, #46a758);
-    --accent-10: light-dark(#3e9b4f, #53b365);
-    --accent-11: light-dark(#2a7e3b, #71d083);
-    --accent-a2: light-dark(#0099000a, #5ef7780a);
-    --accent-a3: light-dark(#00970016, #70fe8c1b);
-    --accent-a4: light-dark(#009f0725, #57ff802c);
-    --accent-a5: light-dark(#00930536, #68ff8b3b);
-    --accent-a6: light-dark(#008f0a4d, #71ff8f4b);
-    --accent-a11: light-dark(#006514d5, #89ff9fcd);
-    --accent-inverse: white;
+    /* accent: purple (same slots as primary) */
+    /* info: cyan (same slots as primary) */
   }
 
   @supports (color: color(display-p3 1 1 1)) {
@@ -197,32 +277,23 @@ Cold gray neutral (slate), blue primary, green accent (grass). Status roles use 
         --primary-a6: light-dark(color(display-p3 0.004 0.463 0.922 / 0.291), color(display-p3 0.224 0.557 1 / 0.475));
         --primary-a11: light-dark(color(display-p3 0.15 0.44 0.84), color(display-p3 0.49 0.72 1));
 
-        /* accent: grass */
-        --accent-7: light-dark(color(display-p3 0.628 0.803 0.622), color(display-p3 0.258 0.4 0.264));
-        --accent-9: light-dark(color(display-p3 0.38 0.647 0.378), color(display-p3 0.38 0.647 0.378));
-        --accent-10: light-dark(color(display-p3 0.344 0.598 0.342), color(display-p3 0.426 0.694 0.426));
-        --accent-11: light-dark(color(display-p3 0.263 0.488 0.261), color(display-p3 0.535 0.807 0.542));
-        --accent-a2: light-dark(color(display-p3 0.024 0.565 0.024 / 0.036), color(display-p3 0.482 0.996 0.584 / 0.038));
-        --accent-a3: light-dark(color(display-p3 0.059 0.576 0.008 / 0.083), color(display-p3 0.549 0.992 0.588 / 0.106));
-        --accent-a4: light-dark(color(display-p3 0.035 0.565 0.008 / 0.134), color(display-p3 0.51 0.996 0.557 / 0.169));
-        --accent-a5: light-dark(color(display-p3 0.047 0.545 0.008 / 0.197), color(display-p3 0.553 1 0.588 / 0.227));
-        --accent-a6: light-dark(color(display-p3 0.031 0.502 0.004 / 0.275), color(display-p3 0.584 1 0.608 / 0.29));
-        --accent-a11: light-dark(color(display-p3 0.263 0.488 0.261), color(display-p3 0.535 0.807 0.542));
+        /* accent: purple, info: cyan */
       }
     }
   }
 }
 ```
 
-Note: check white text contrast on grass-9 when finalizing this theme.
+Note: the colored step set includes a7, which the original example omitted. The generator must emit it (`--color-warning-border-strong` uses warning a7, so any scale in any role needs it).
 
 ## Implementation steps
 
-1. **Roles in core.** Move `theme.css` into `@layer tokens`. Add the seven roles with literal values (sRGB + P3) for the default scales. Point all semantic and element tokens at roles, including the element tokens that reference `--sand-*` / `--orange-*` directly today (`--header-color-surface`, `--code-color-surface`, `--code-inline-color-surface`, `--kbd-*`, `--mark-color`, `--switch-*`, `--dropdown-color-surface-hover`, `--form-*`, `--color-contrast*`). No visual change expected.
-2. **Remove `colors.css`.** Delete it and the pruning in `scripts/build-css.mjs`; the build becomes concatenation plus copying `css/themes/` to `dist/themes/`. New theme values come from radix-ui.com/colors or the `@radix-ui/colors` package.
-3. **Guard check.** Add the theme validation script to `npm test`.
-4. **First theme.** Add `css/themes/ocean.css` and verify light/dark, P3 and non-P3, Chromium and Firefox.
-5. **Docs.** Update `docs/customization.html` (layer meanings, themes section, role list) and `llms.txt`. Add a theme switcher to the docs site (swap the theme `<link>` next to the light/dark toggle in `docs/main.js`).
+1. **Roles in core.** Move `theme.css` into `@layer tokens`. Add the seven roles with literal values (sRGB + P3) for the default scales. Point all semantic and element tokens at roles (see [Core mapping](#core-mapping)), including the element tokens that reference `--sand-*` / `--orange-*` directly today (`--header-color-surface`, `--code-color-surface`, `--code-inline-color-surface`, `--kbd-*`, `--mark-color`, `--switch-*`, `--dropdown-color-surface-hover`, `--form-*`, `--color-contrast*`). Point every `--color-<role>-inverse` at `--<role>-inverse`. Put the role values in their own file, `css/roles.css`, which the generator takes over in step 3. No visual change expected.
+2. **Move `colors.css` out of the build.** Move it with `git mv` to `reference/colors.css`, and add a header comment saying it's a reference copy, not built or linted, and that the generator uses `@radix-ui/colors` as its source. At the top level it stays out of the build (which reads `css/*.css`), stylelint (`css/**/*.css`) and the npm package (`files: ["dist"]`). Remove the pruning in `scripts/build-css.mjs`; the build becomes concatenation plus copying `css/themes/` to `dist/themes/`.
+3. **Generator.** Add `scripts/themes.json` (the mapping and the default), `scripts/build-themes.mjs` and `@radix-ui/colors` as a dev dependency. It writes `css/roles.css` and all 31 theme files, including the gray-primary override block and inverse rules. Regenerating with orange as default must leave `css/roles.css` unchanged from step 1.
+4. **Guard check.** Add the theme validation script to `npm test`.
+5. **First theme.** Generate `css/themes/blue.css` and verify light/dark, P3 and non-P3, Chromium and Firefox. Then verify one gray-primary theme (e.g. `slate`) and one bright-primary theme (e.g. `yellow`) to tune the overrides before generating the rest. Check `orange.css` switches back to the default look after another theme was loaded in the switcher.
+6. **Docs.** Update `docs/customization.html` (layer meanings, themes section, role list, override pattern) and `llms.txt`. Add a theme switcher to the docs site (swap the theme `<link>` next to the light/dark toggle in `docs/main.js`).
 
 ## Later
 
