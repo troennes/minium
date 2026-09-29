@@ -13,7 +13,6 @@ Operating principles:
 - Project-specific blocks go in `@layer project`, not in the library.
 
 ## Project Structure & Module Organization
-- `css/colors.css`: full Radix palette, no longer bundled; moves to `reference/colors.css` in step 2 of `docs/themes-plan.md`.
 - `css/theme.css`: layer order statement and library tokens in `@layer tokens` (type scale, flow spacing, semantic colors mapped to color roles).
 - `css/roles.css`: default theme's color role values (`--neutral-*`, `--primary-*`, …) in `@layer tokens`.
 - `css/reset.css`: foundational reset rules in `@layer reset` (box model, defaults, accessibility-focused baselines).

@@ -1,6 +1,5 @@
 {
   "extends": ["stylelint-config-standard"],
-  "ignoreFiles": ["css/colors.css"],
   "overrides": [
     {
       "files": ["css/reset.css"],
