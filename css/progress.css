@@ -3,11 +3,19 @@
   meter {
     appearance: none;
     block-size: 0.5em;
-    border: var(--border-width) solid var(--color-border-weak);
+    border: 0;
     border-radius: var(--border-radius-f);
-    box-shadow: var(--shadow-inner);
+
+    /* Track edge is an inset ring under the bar; the pill-shaped bar draws its own
+       darker edge (a dark alpha in both modes, so the fill edge never washes out) */
+    box-shadow:
+      inset 0 0 0 var(--border-width) var(--color-border-weak),
+      var(--shadow-inner);
     overflow: hidden;
     inline-size: 100%;
+
+    --progress-edge-color: light-dark(rgb(0 0 0 / 13%), rgb(0 0 0 / 35%));
+    --progress-edge: inset 0 0 0 var(--border-width) var(--progress-edge-color);
   }
 
   progress {
@@ -20,11 +28,15 @@
 
     &::-webkit-progress-value {
       background-color: var(--color-primary);
+      border-radius: var(--border-radius-f);
+      box-shadow: var(--progress-edge);
       transition: width 0.1s ease-in-out;
     }
 
     &::-moz-progress-bar {
       background-color: var(--color-primary);
+      border-radius: var(--border-radius-f);
+      box-shadow: var(--progress-edge);
     }
   }
 
@@ -36,10 +48,12 @@
 
     &::-webkit-progress-value {
       background-color: transparent;
+      box-shadow: none;
     }
 
     &::-moz-progress-bar {
       background-color: transparent;
+      box-shadow: none;
     }
   }
 
@@ -65,6 +79,8 @@
 
     &::-moz-meter-bar {
       background: var(--color-success);
+      border-radius: var(--border-radius-f);
+      box-shadow: var(--progress-edge);
     }
 
     &:-moz-meter-sub-optimum::-moz-meter-bar {
@@ -79,6 +95,13 @@
       background: transparent;
       border-radius: var(--border-radius-f);
       block-size: 0.5em;
+    }
+
+    &::-webkit-meter-optimum-value,
+    &::-webkit-meter-suboptimum-value,
+    &::-webkit-meter-even-less-good-value {
+      border-radius: var(--border-radius-f);
+      box-shadow: var(--progress-edge);
     }
 
     &::-webkit-meter-optimum-value {
