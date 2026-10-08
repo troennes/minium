@@ -4,7 +4,7 @@
     background-color: var(--form-color-surface);
     border: var(--border-width) solid var(--color-border-strong);
     border-radius: var(--border-radius-m);
-    box-shadow: var(--shadow-small);
+    /* box-shadow: var(--shadow-small); */
     line-height: var(--line-height);
   }
 
