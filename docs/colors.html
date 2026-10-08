@@ -47,15 +47,19 @@
 <p class="eyebrow">Getting started</p>
 <h1>Colors</h1>
 
-<p><code>css/colors.css</code> defines Minium's raw color scales. Map these scales to semantic tokens in <code>css/theme.css</code> to create or replace a theme without changing component styles.</p>
+<p>Minium builds its colors from <a href="https://www.radix-ui.com/colors">Radix Colors</a>. This page shows every Radix scale that the color themes use. To choose a theme or change a color, see <a href="customization.html">Customization</a>.</p>
 
-<h2>Radix color scales</h2>
-<p>Minium uses color scales from <a href="https://www.radix-ui.com/colors">Radix Colors</a>. Each solid scale has a corresponding alpha scale. For example, <code>--sand-*</code> uses solid colors, while <code>--sand-a*</code> uses partially transparent colors. <code>css/theme.css</code> maps these palette tokens to semantic tokens such as <code>--color-text</code>, <code>--color-surface</code>, and <code>--color-primary</code>.</p>
-
-<p>Separating palette tokens from semantic tokens keeps theme changes localized. To change a brand color, remap the relevant semantic tokens in <code>css/theme.css</code>. To replace the underlying palette, change the scale definitions in <code>css/colors.css</code>.</p>
+<h2>Scales, roles, and semantic tokens</h2>
+<p>Minium colors pass through three levels:</p>
+<ol>
+  <li><strong>Scale</strong>: A Radix color scale, such as blue or sand. Each scale has 12 solid steps and 12 alpha steps, with light and dark values.</li>
+  <li><strong>Role</strong>: A purpose, such as <code>primary</code> or <code>neutral</code>. A theme assigns one scale to each role, for example <code>--primary-9</code>.</li>
+  <li><strong>Semantic token</strong>: A token that components use, such as <code>--color-primary</code> or <code>--color-surface</code>. Each semantic token reads a role step.</li>
+</ol>
+<p>Components and semantic tokens never reference scale names. A theme changes colors by assigning different scales to roles. See <a href="customization.html#change-color-roles">Change color roles</a> for the role list and steps.</p>
 
 <h2>Full solid palette</h2>
-<p>The table lists the solid color scales loaded by this page. Its swatches update with the active light or dark theme.</p>
+<p>The table lists the solid steps of every scale. The swatches follow the active light or dark mode.</p>
 
 <div class="palette-reference" id="palette-reference" aria-live="polite"></div>
 
@@ -91,10 +95,6 @@
     </section>
   </div>
 </article>
-
-
-<h2>Build pruning</h2>
-<p>The production build excludes unused palette tokens. When you run <code>npm run build</code>, the build script finds the palette tokens referenced by <code>css/theme.css</code>. It then includes only those tokens in the production CSS.</p>
 
 
 <h2>Learn more about Radix Colors</h2>

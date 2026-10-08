@@ -111,7 +111,14 @@ Explore the [quick-start documentation](https://minium.style/docs/index.html) wh
 
 ## Customize the theme
 
- Minium exposes custom properties for colors, type, spacing, radii, shadows, and component density. Override them in your project layer without specificity tricks. See the [customization guide](https://minium.style/docs/customization.html) for details.
+Minium includes 31 color themes. Load one after the core stylesheet:
+
+```html
+<link rel="stylesheet" href="minium.min.css">
+<link rel="stylesheet" href="themes/blue.css">
+```
+
+Custom properties control colors, type, spacing, radii, shadows, and component density. Override them in `@layer theme` without specificity tricks. See the [customization guide](https://minium.style/docs/customization.html) for details.
 
 ## Features
 
@@ -120,14 +127,14 @@ Explore the [quick-start documentation](https://minium.style/docs/index.html) wh
 - **Common components.** Minium includes cards, alerts, modals, dropdowns, accordions, navigation, tabs, pagination, badges, avatars, skeletons, loading and progress states, and tooltips
 - **Class-light by design.** Components own their structure and appearance, so meaningful classes replace wrapper stacks and utility chains
 - **Accessible defaults.** Minium favors native elements and browser behavior, preserves visible focus states, styles semantic and ARIA states, and respects reduced-motion preferences
-- **Customization.** Custom properties in `theme.css` control color, type, spacing, radii, shadows, and density
+- **Customization.** Custom properties control color, type, spacing, radii, shadows, and density
 - **Pure modern CSS.** There is no Sass, preprocessor, build-time configuration, or JavaScript dependency
 - **MIT licensed.** Use Minium in personal, commercial, and open-source projects
 - **RTL support.** Logical properties and targeted RTL rules let layouts and components follow the document direction
-- **A 396-color palette.** Minium supports 31 twelve-step Radix Color scales plus black and white overlays, matching alpha colors, and Display P3 values for capable displays. The prebuilt library includes only colors referenced by the default theme
+- **31 color themes.** One theme per Radix Color scale, each a 1.3–2.7 KB gzipped stylesheet with light and dark values and Display P3 colors for capable displays. Load one file to switch themes, with no build step
 - **Light and dark modes.** Theme colors follow the system preference by default and can be explicitly set to light or dark
 - **Responsive layouts.** Fluid type and spacing, intrinsic layouts, wrapping, and constrained components adapt to available space without a large breakpoint system
-- **Small fixed bundle.** The current minified core is ~13.5 KiB gzipped, so its cost is predictable before you write any HTML
+- **Small fixed bundle.** The current minified core is ~14.2 KiB gzipped, so its cost is predictable before you write any HTML
 - **Token-bounded utilities.** Adjust spacing, gaps, radii, surfaces, and other common values without opening an unlimited utility API or reaching for inline styles
 - **Cascade layers.** Library styles remain predictable, and project overrides stay straightforward
 - **Opt-in integrations.** CSS for third-party markup ships separately from the core library

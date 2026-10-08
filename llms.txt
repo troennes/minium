@@ -29,8 +29,8 @@ Minium uses cascade layers to control specificity. The order is:
 @layer tokens, theme, reset, base, layout, components, project, utilities;
 ```
 
-- `tokens` — raw palette (Radix color scales).
-- `theme` — semantic roles, type scale, spacing scale, semantic colors, shadows, radii.
+- `tokens` — library defaults: the default theme's color roles, semantic colors, type scale, spacing scale, shadows, radii, fonts.
+- `theme` — color theme files and your own token overrides. Overrides `tokens`.
 - `reset` — foundational reset rules.
 - `base` — element defaults (the "no-class HTML looks good" layer).
 - `layout` — composition primitives. Structural only, no visual styling.
@@ -61,8 +61,32 @@ Minium uses cascade layers to control specificity. The order is:
    `--border-radius-*`, `--border-width`, and `--shadow-*` for shape and depth,
    `--color-*` for semantic colors.
 3. Most components consume semantic tokens instead of hard-coded values. If you change a token like `--color-primary`, buttons, links, alerts, badges, and focus styles update together.
-4. Raw palette values can be Radix-style color scales, but agents should think in semantic roles such as text, surface, border, primary, accent, warning, success, and danger.
-5. If the design only needs a global shift in tone, density, spacing, width, radii, or typography, modify tokens in `theme.css` instead of writing new component CSS.
+4. Do not edit the library files. Override tokens in `@layer theme { :root { ... } }` in your own stylesheet.
+5. If the design only needs a global shift in tone, density, spacing, width, radii, or typography, override tokens instead of writing new component CSS.
+
+## Color themes
+Minium ships 31 color themes in `dist/themes/`. Load one after the core stylesheet:
+
+```html
+<link rel="stylesheet" href="minium.min.css">
+<link rel="stylesheet" href="themes/blue.css">
+```
+
+With npm: `import "@troennes/minium/themes/blue.css";`
+
+Rules:
+- A theme is named after its primary Radix scale: gray, mauve, slate, sage, olive, sand, bronze, gold, brown, orange (default), tomato, red, ruby, crimson, pink, plum, purple, violet, iris, indigo, blue, cyan, sky, teal, jade, green, grass, mint, lime, yellow, amber.
+- Theme files declare the layer order and use `@layer theme`, so load order does not matter.
+- Load one theme at a time.
+
+Color roles:
+- Semantic tokens reference seven roles, never scale names: `neutral`, `primary`, `accent`, `danger`, `success`, `warning`, `info`.
+- Role tokens are named after Radix steps: `--neutral-1` … `--neutral-12`, `--primary-9`, `--primary-a5`, and so on. Each value is `light-dark(<light>, <dark>)`.
+- `neutral` steps: 1, 2, 3, 4, 5, 8, 11, 12, a2–a7.
+- Colored role steps: 7, 9, 10, 11, a2–a7, a11, plus `--<role>-text` (text color) and `--<role>-inverse` (text on the step 9 fill).
+- To change a color, redefine every step of its role in `@layer theme`. A partly defined role mixes two colors.
+- Bright scales (sky, mint, lime, yellow, amber) use `--<role>-text: light-dark(var(--neutral-12), var(--<role>-11))` and `--<role>-inverse: light-dark(var(--neutral-12), var(--neutral-1))`. Other scales use `var(--<role>-11)` and `white`.
+- Use semantic tokens (`--color-primary`, `--color-danger-text`) in project CSS, not role steps, unless no semantic token fits.
 
 ## Adjusting one element with utilities
 Token-bounded utility classes are the preferred way to tune one element. They map directly to a design token, so they stay inside the system. Use them instead of `style="--var: ..."` for one-offs.

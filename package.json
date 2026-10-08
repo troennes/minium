@@ -28,6 +28,7 @@
     ".": "./dist/minium.css",
     "./min": "./dist/minium.min.css",
     "./integrations/*": "./dist/integrations/*",
+    "./themes/*": "./dist/themes/*",
     "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json"
   },

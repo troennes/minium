@@ -1,6 +1,6 @@
 # Color themes plan
 
-Status: agreed direction, not implemented.
+Status: implemented.
 
 ## Goals
 
