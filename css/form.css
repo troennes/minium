@@ -157,27 +157,42 @@
   }
 
   input[type="file"] {
+    /* The input clips its content inside its border, so the field border is an inset ring the button can paint over */
+    border: none;
+    box-shadow:
+      inset 0 calc(-1 * var(--border-width)) 0 color-mix(in oklab, transparent, var(--shadow-small)),
+      inset 0 0 0 var(--border-width) var(--border-color);
+
     &::file-selector-button {
+      --border-color: var(--color-primary);
+
       background-color: var(--color-primary);
       color: var(--color-primary-inverse);
       padding: var(--space-2xs) var(--space-xs);
-      border: none;
-      /* Fill the input's content box; its fixed height and the border snap to device pixels differently at some zoom levels */
+      border: var(--border-width) solid var(--border-color);
+      border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
+      /* Fill the input's height so the button covers the ring on its side */
       block-size: 100%;
       font-weight: bold;
       line-height: var(--line-height);
       text-align: center;
       margin-inline-end: var(--space-xs);
       border-radius: 0;
+      border-start-start-radius: var(--border-radius-m);
+      border-end-start-radius: var(--border-radius-m);
       font-family: inherit;
     }
 
     &:is([aria-current], :hover)::file-selector-button {
-      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+
+      background-color: var(--border-color);
     }
 
     &:active::file-selector-button {
-      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+
+      background-color: var(--border-color);
     }
 
     &.small::file-selector-button {
