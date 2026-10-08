@@ -162,6 +162,8 @@
       color: var(--color-primary-inverse);
       padding: var(--space-2xs) var(--space-xs);
       border: none;
+      /* Fill the input's content box; its fixed height and the border snap to device pixels differently at some zoom levels */
+      block-size: 100%;
       font-weight: bold;
       line-height: var(--line-height);
       text-align: center;

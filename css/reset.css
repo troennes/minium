@@ -10,7 +10,8 @@
   /* Box sizing rules */
   *,
   *::before,
-  *::after {
+  *::after,
+  *::file-selector-button {
     box-sizing: border-box;
   }
 
