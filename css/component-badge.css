@@ -11,7 +11,7 @@
     color: var(--color-text);
     padding: var(--space-3xs) var(--space-2xs);
     border: var(--border-width) solid var(--color-border-weak);
-    box-shadow: var(--shadow-small);
+    /* box-shadow: var(--shadow-small); */
     border-radius: var(--border-radius-s);
 
     &.primary {

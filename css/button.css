@@ -11,7 +11,7 @@
 
     background-color: var(--button-surface);
     color: var(--button-text);
-    box-shadow: var(--shadow-small);
+    /* box-shadow: var(--shadow-small); */
     padding: var(--space-2xs) var(--space-xs);
     border: var(--border-width) solid var(--button-surface);
     border-radius: var(--border-radius-m);
@@ -78,12 +78,12 @@
       --button-text: var(--color-contrast-inverse);      
     }
 
-    &.neutral,
-    &.neutral.secondary {
+    &.neutral {
       --button-surface: transparent;
       --button-text: var(--color-text);
 
       border: var(--border-width) solid var(--color-border-strong);
+      box-shadow: var(--shadow-small);
 
       &:hover {
         --button-surface: var(--color-fill);
@@ -95,121 +95,70 @@
     }
   }
 
-  /* Secondary and tertiary buttons color support */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]):is(.secondary, .tertiary),
+  /* Secondary buttons have a soft fill (a4) and no border */
+  :where(button, input[type="submit"], input[type="button"], [role="button"]).secondary:not(.neutral),
   input[type="reset"] {
+    --button-surface: var(--color-primary-fill-active);
+    --button-text: var(--color-primary-text);
+
+    /* Light: tint with the text color to keep the hue. Dark: black */
+    --button-overlay-alpha: calc(1 - var(--hover-multiplier));
+    --button-overlay: light-dark(oklch(from var(--button-text) l c h / calc(1.5 * var(--button-overlay-alpha))), rgb(0 0 0 / calc(2 * var(--button-overlay-alpha))));
+
+    border-color: transparent;
+
+    /* Translucent fills barely change with the lightness multiplier, so an overlay darkens them */
+    &:is([aria-current], :hover, :active) {
+      background-color: var(--button-surface);
+      background-image: linear-gradient(var(--button-overlay), var(--button-overlay));
+      border-color: transparent;
+    }
+
+    &:active {
+      --button-overlay-alpha: calc(1 - var(--hover-multiplier) * var(--hover-multiplier));
+    }
+
     &.accent {
-      --button-text: var(--color-accent);
+      --button-surface: var(--color-accent-fill-active);
+      --button-text: var(--color-accent-text);
     }
 
     &.danger {
-      --button-text: var(--color-danger);
+      --button-surface: var(--color-danger-fill-active);
+      --button-text: var(--color-danger-text);
     }
 
     &.success {
-      --button-text: var(--color-success);
+      --button-surface: var(--color-success-fill-active);
+      --button-text: var(--color-success-text);
     }
 
     &.warning {
-      --button-text: var(--color-warning);
+      --button-surface: var(--color-warning-fill-active);
+      --button-text: var(--color-warning-text);
     }
 
     &.info {
-      --button-text: var(--color-info);
+      --button-surface: var(--color-info-fill-active);
+      --button-text: var(--color-info-text);
     }
 
     &.contrast {
+      --button-surface: var(--color-fill-active);
       --button-text: var(--color-contrast);
     }
   }
 
-  /* Secondary buttons have outline style */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]).secondary,
-  input[type="reset"] {
+  /* Tertiary buttons look like links: text color, role color only on the underline */
+  :where(button, input[type="submit"], input[type="button"], [role="button"]).tertiary {
     --button-surface: transparent;
-    --button-text: var(--color-primary);
-
-    color: var(--button-text);
-    border: var(--border-width) solid var(--button-text);
-
-    &:is([aria-current], :hover) {
-      --button-surface: var(--color-primary-fill);
-    }
-    
-    &:active {
-      --button-surface: var(--color-primary-fill-hover);
-    }
-
-    &.accent {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-accent-fill);
-      }
-
-      &:active {
-        --button-surface: var(--color-accent-fill-hover);
-      }
-    }
-
-    &.danger {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-danger-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-danger-fill-hover);
-      }
-    }
-
-    &.success {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-success-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-success-fill-hover);
-      }
-    }
-
-    &.warning {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-warning-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-warning-fill-hover);
-      }
-    }
-
-    &.info {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-info-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-info-fill-hover);
-      }
-    }
-
-    &.contrast {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-fill-hover);
-      }
-    }
-  }
-
-  /* Tertiary buttons are like links */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]).tertiary{
-    --button-surface: transparent;
-    --button-text: var(--color-primary); 
+    --button-text: var(--link-color);
 
     border-color: transparent;
     box-shadow: none;
     text-decoration: underline;
     text-decoration-thickness: var(--text-decoration-thickness);
+    text-decoration-color: var(--link-color-decoration);
 
     &:not(:is(:focus, [aria-current], :hover, :active)) {
       --button-surface: transparent;
@@ -220,7 +169,33 @@
     }
 
     &.neutral {
-      --button-text: var(--color-text)
+      --button-text: var(--color-text);
+
+      text-decoration-color: currentcolor;
+    }
+
+    &.accent {
+      text-decoration-color: var(--color-accent);
+    }
+
+    &.danger {
+      text-decoration-color: var(--color-danger);
+    }
+
+    &.success {
+      text-decoration-color: var(--color-success);
+    }
+
+    &.warning {
+      text-decoration-color: var(--color-warning);
+    }
+
+    &.info {
+      text-decoration-color: var(--color-info);
+    }
+
+    &.contrast {
+      text-decoration-color: var(--color-contrast);
     }
   }
 
@@ -242,7 +217,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: none;
+    /* box-shadow: none; */
 
     &:is(:hover, :focus-visible) {
       --button-surface: var(--color-fill);

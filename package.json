@@ -28,6 +28,7 @@
     ".": "./dist/minium.css",
     "./min": "./dist/minium.min.css",
     "./integrations/*": "./dist/integrations/*",
+    "./themes/*": "./dist/themes/*",
     "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json"
   },
@@ -46,8 +47,10 @@
   },
   "scripts": {
     "build": "node scripts/build-css.mjs",
-    "test": "npm run test:lint && npm run test:size",
+    "build:themes": "node scripts/build-themes.mjs",
+    "test": "npm run test:lint && npm run test:themes && npm run test:size",
     "test:lint": "stylelint \"css/**/*.css\"",
+    "test:themes": "node scripts/check-themes.mjs",
     "test:size": "node scripts/check-size.mjs",
     "prepublishOnly": "npm run build && npm test"
   },
@@ -55,6 +58,7 @@
     "access": "public"
   },
   "devDependencies": {
+    "@radix-ui/colors": "^3.0.0",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1"
   }

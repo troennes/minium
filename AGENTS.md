@@ -13,8 +13,10 @@ Operating principles:
 - Project-specific blocks go in `@layer project`, not in the library.
 
 ## Project Structure & Module Organization
-- `css/colors.css`: palette tokens in `@layer tokens` (Radix-style color scales).
-- `css/theme.css`: semantic theme tokens in `@layer theme` (type scale, flow spacing, semantic colors).
+- `css/theme.css`: layer order statement and library tokens in `@layer tokens` (type scale, flow spacing, semantic colors mapped to color roles).
+- `css/roles.css`: default theme's color role values (`--neutral-*`, `--primary-*`, …) in `@layer tokens`. Generated; do not edit.
+- `css/themes/<name>.css`: opt-in color themes in `@layer theme`, copied to `dist/themes/`. Generated; do not edit.
+- `scripts/themes.json`: theme mapping (scale per role) and the default theme; input for `npm run build:themes`.
 - `css/reset.css`: foundational reset rules in `@layer reset` (box model, defaults, accessibility-focused baselines).
 - `css/base.css` and `css/typography.css`: base layer defaults (`@layer base`), including typography and semantic flow defaults.
 - `css/layout.css`: layout primitives and explicit flow utility (`@layer layout`).
@@ -26,13 +28,15 @@ Operating principles:
 - `docs/`: Project documentation
 
 ## Build, Test, and Development Commands
-- `npm run build`: build production CSS to `dist/` (`minium.css`, `minium.min.css`) and copy fonts to `dist/fonts`.
+- `npm run build`: build production CSS to `dist/` (`minium.css`, `minium.min.css`), copy fonts to `dist/fonts` and themes to `dist/themes`.
+- `npm run build:themes`: regenerate `css/roles.css` and `css/themes/*.css` from `scripts/themes.json` and `@radix-ui/colors`. Commit the output.
 - `wc -c css/*.css`: quick size check to keep the library lightweight.
 - `rg --line-number "@layer|--" css`: inspect layer usage and custom-property definitions.
 - `npm run test:lint`: run stylelint on `css/**/*.css`.
 - `npx stylelint "css/**/*.css" --fix`: auto-fix lint issues where possible.
 - `npm run test:size`: check gzipped CSS size budget.
-- `npm test`: run full checks (lint + size).
+- `npm run test:themes`: check `css/roles.css` and `css/themes/*.css` match the generator and have complete roles, icons and the layer order statement.
+- `npm test`: run full checks (lint + themes + size).
 
 ## Coding Style & Naming Conventions
 - Use modern, plain CSS only (no Sass/Less).

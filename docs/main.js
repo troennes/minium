@@ -1,27 +1,42 @@
 "use strict";
 
-function changeThemeSelector(theme) {
-  if (theme === "dark") {
-    document.querySelector("html").setAttribute("data-theme", "dark")
-    localStorage.setItem("themePreference", "dark")
-  } else if (theme === "light") {
-    document.querySelector("html").setAttribute("data-theme", "light")
-    localStorage.setItem("themePreference", "light")
-  } else if (theme === "system") {
-    document.querySelector("html").removeAttribute("data-theme");
+// Light/dark toggle. The saved mode is applied by the <head> script of each page.
+const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const moonIcon = `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -2 24 24" width="24" fill="currentColor"><path d="M2 10c0 4.43 3.478 8 7.742 8 .658 0 1.302-.085 1.922-.248-2.996-2.2-4.896-5.786-4.896-9.752 0-2.09.527-4.095 1.489-5.853C4.699 2.863 2 6.097 2 10zm6.768-2c0 4.632 3.068 8.528 7.232 9.665A9.555 9.555 0 0 1 9.742 20C4.362 20 0 15.523 0 10S4.362 0 9.742 0c.868 0 1.71.117 2.511.335A10.086 10.086 0 0 0 8.768 8z"></path></svg>`;
+const sunIcon = `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-15a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM1 9h2a1 1 0 1 1 0 2H1a1 1 0 0 1 0-2zm16 0h2a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2zm.071-6.071a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM5.757 14.243a1 1 0 0 1 0 1.414L4.343 17.07a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM4.343 2.929l1.414 1.414a1 1 0 0 1-1.414 1.414L2.93 4.343A1 1 0 0 1 4.343 2.93zm11.314 11.314l1.414 1.414a1 1 0 0 1-1.414 1.414l-1.414-1.414a1 1 0 1 1 1.414-1.414z"></path></svg>`;
+
+function isDarkMode() {
+  const mode = document.documentElement.dataset.theme;
+  return mode ? mode === "dark" : darkModeQuery.matches;
+}
+
+function toggleColorScheme() {
+  const next = isDarkMode() ? "light" : "dark";
+
+  // Landing on the system's mode clears the override, so the page follows the system again
+  if ((next === "dark") === darkModeQuery.matches) {
+    delete document.documentElement.dataset.theme;
     localStorage.removeItem("themePreference");
+  } else {
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("themePreference", next);
   }
+
+  updateColorSchemeToggle();
 }
 
-function getThemeFromLocalStorage() {
-  const theme = localStorage.getItem("themePreference");
+// The button shows the mode it switches to: a moon in light mode, a sun in dark mode
+function updateColorSchemeToggle() {
+  const button = document.getElementById("color-scheme-toggle");
+  if (!button) return;
 
-  if (theme === "dark") {
-    document.querySelector("html").setAttribute("data-theme", "dark")
-  } else if (theme === "light") {
-    document.querySelector("html").setAttribute("data-theme", "light")
-  } 
+  const label = isDarkMode() ? "Switch to light mode" : "Switch to dark mode";
+  button.innerHTML = isDarkMode() ? sunIcon : moonIcon;
+  button.setAttribute("aria-label", label);
+  button.dataset.tooltip = label;
 }
+
+darkModeQuery.addEventListener("change", updateColorSchemeToggle);
 
 function populateExampleCodeBlocks() {
   const examples = document.querySelectorAll(".example");
@@ -133,15 +148,94 @@ function setupDocsNavToggle(sidebar) {
 }
 
 
+// Color theme: swaps one <link> to dist/themes/<name>.css, the same way users load a theme.
+// [name, primary swatch]; keep in sync with scripts/themes.json
+const colorThemes = [
+  ["bronze", "#a18072"],
+  ["gold", "#978365"],
+  ["brown", "#ad7f58"],
+  ["orange", "#f76b15"],
+  ["tomato", "#e54d2e"],
+  ["red", "#e5484d"],
+  ["ruby", "#e54666"],
+  ["crimson", "#e93d82"],
+  ["pink", "#d6409f"],
+  ["plum", "#ab4aba"],
+  ["purple", "#8e4ec6"],
+  ["violet", "#6e56cf"],
+  ["iris", "#5b5bd6"],
+  ["indigo", "#3e63dd"],
+  ["blue", "#0090ff"],
+  ["cyan", "#00a2c7"],
+  ["sky", "#7ce2fe"],
+  ["teal", "#12a594"],
+  ["jade", "#29a383"],
+  ["green", "#30a46c"],
+  ["grass", "#46a758"],
+  ["mint", "#86ead4"],
+  ["lime", "#bdee63"],
+  ["yellow", "#ffe629"],
+  ["amber", "#ffc53d"],
+  ["gray", "#202020"],
+  ["mauve", "#211f26"],
+  ["slate", "#1c2024"],
+  ["sage", "#1a211e"],
+  ["olive", "#1d211c"],
+  ["sand", "#21201c"]
+];
+const defaultColorTheme = "orange"; // also in the <head> script of each docs page
+// Relative to this script, so docs pages and the root index.html resolve the same folder
+const colorThemesPath = new URL("../dist/themes/", document.currentScript.src).href;
 
-getThemeFromLocalStorage()
+function setColorTheme(name) {
+  let link = document.getElementById("color-theme-link");
+
+  if (name === defaultColorTheme) {
+    link?.remove();
+    localStorage.removeItem("colorTheme");
+  } else {
+    if (!link) {
+      link = document.createElement("link");
+      link.id = "color-theme-link";
+      link.rel = "stylesheet";
+      document.head.append(link);
+    }
+    link.href = `${colorThemesPath}${name}.css`;
+    localStorage.setItem("colorTheme", name);
+  }
+
+  document.querySelectorAll("#color-theme-list button").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.colorTheme === name);
+  });
+}
+
+function buildColorThemeList() {
+  const list = document.getElementById("color-theme-list");
+  if (!list) return;
+
+  list.innerHTML = colorThemes.map(([name, primary]) => {
+    const label = name === defaultColorTheme ? `${name} (default)` : name;
+    return `<li><button data-color-theme="${name}"><span class="theme-swatch" style="background: ${primary}"></span> ${label}</button></li>`;
+  }).join("");
+
+  list.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-color-theme]");
+    if (button) setColorTheme(button.dataset.colorTheme);
+  });
+
+  setColorTheme(localStorage.getItem("colorTheme") || defaultColorTheme);
+}
+
+// The <head> script already loaded the saved theme; this syncs the link and the menu state
+setColorTheme(localStorage.getItem("colorTheme") || defaultColorTheme);
 
 document.addEventListener('DOMContentLoaded', function() {
   const header = document.getElementById('header');
   const sidebar = document.getElementById('sidebar');
   const footer = document.getElementById('footer');
 
-  header.innerHTML = `
+  // The root index.html has its own header markup
+  if (header) header.innerHTML = `
   <nav class="container">
   <ul>
     <li><strong><a href="/">Minium CSS</a></strong></li>
@@ -157,30 +251,25 @@ document.addEventListener('DOMContentLoaded', function() {
     </li>
     <li>
       <div class="dropdown">
-        <button popovertarget="theme-selector" class="icon-only" data-tooltip="Choose theme" data-placement="left">
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
+        <button popovertarget="color-theme-selector" class="icon-only" data-tooltip="Choose color theme" data-placement="left">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
         </button>
-        <nav id="theme-selector" popover>
-          <ul>
-            <li><button onclick="changeThemeSelector('dark')">
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -2 24 24" width="24" fill="currentColor"><path d="M2 10c0 4.43 3.478 8 7.742 8 .658 0 1.302-.085 1.922-.248-2.996-2.2-4.896-5.786-4.896-9.752 0-2.09.527-4.095 1.489-5.853C4.699 2.863 2 6.097 2 10zm6.768-2c0 4.632 3.068 8.528 7.232 9.665A9.555 9.555 0 0 1 9.742 20C4.362 20 0 15.523 0 10S4.362 0 9.742 0c.868 0 1.71.117 2.511.335A10.086 10.086 0 0 0 8.768 8z"></path></svg>
-              Dark
-            </button></li>
-            <li><button onclick="changeThemeSelector('light')">
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-15a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM1 9h2a1 1 0 1 1 0 2H1a1 1 0 0 1 0-2zm16 0h2a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2zm.071-6.071a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM5.757 14.243a1 1 0 0 1 0 1.414L4.343 17.07a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM4.343 2.929l1.414 1.414a1 1 0 0 1-1.414 1.414L2.93 4.343A1 1 0 0 1 4.343 2.93zm11.314 11.314l1.414 1.414a1 1 0 0 1-1.414 1.414l-1.414-1.414a1 1 0 1 1 1.414-1.414z"></path></svg>
-              Light
-            </button></li>
-            <li><button onclick="changeThemeSelector('system')">
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" fill="currentColor"><path d="M10 18c.112 0 .112-5.333 0-16a8 8 0 1 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path></svg>
-              System
-            </button></li>
-          </ul>
+        <nav id="color-theme-selector" popover>
+          <ul id="color-theme-list"></ul>
         </nav>
       </div>
+    </li>
+    <li>
+      <button id="color-scheme-toggle" class="icon-only" data-placement="left" onclick="toggleColorScheme()"></button>
     </li>
   </ul>
   </nav>
 `;
+
+  buildColorThemeList();
+  updateColorSchemeToggle();
+
+  if (!sidebar) return;
 
   sidebar.innerHTML = `
   <ul>

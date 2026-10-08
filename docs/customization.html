@@ -1,76 +1,197 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Customization | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<script>
+  /* Apply saved light/dark mode and color theme before first paint; docs/main.js handles changes */
+  try {
+    const mode = localStorage.getItem("themePreference");
+    if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
+    const colorTheme = localStorage.getItem("colorTheme");
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "orange") {
+      document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
+    }
+  } catch {}
+</script>
 </head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
 
 
 <p class="eyebrow">Getting Started</p>
 <h1>Customization</h1>
 
-<p>Customize Minium CSS by changing semantic tokens in <code>css/theme.css</code>, adding component overrides only when needed, placing product styles in <code>@layer project</code>, and loading only the integrations you use.</p>
+<p>Customize Minium CSS without editing the library. Load a color theme, override tokens in your own stylesheet, and put project-specific styles in <code>@layer project</code>. Each section below builds on the previous one, so start with a theme and add overrides only where the theme does not fit.</p>
 
-<h2>Change semantic tokens</h2>
-<p>Start with the shared tokens in <code>:root</code>. These tokens control the project-wide type scale, spacing, layout, shape, shadows, fonts, and semantic colors.</p>
+<h2>Use a color theme</h2>
+<p>Minium ships 31 color themes. To use one, load its stylesheet after the core stylesheet:</p>
 
-<div class="example">
-  <article>
-    <section>
-      <h4>Common token groups</h4>
-      <ul>
-        <li><code>--size-*</code>: Controls type scale.</li>
-        <li><code>--space-*</code> and <code>--gap</code>: Control spacing.</li>
-        <li><code>--flow-space*</code>: Controls vertical rhythm.</li>
-        <li><code>--content-width</code> and <code>--main-width</code>: Control layout width.</li>
-        <li><code>--border-radius-*</code>, <code>--border-width</code>, and <code>--shadow-*</code>: Control shape and depth.</li>
-        <li><code>--color-*</code>: Controls semantic color roles.</li>
-      </ul>
-    </section>
-  </article>
-  <pre><code class="language-css">:root {
-  --font: "PT Sans", system-ui, sans-serif;
-  --size-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
-  --gap: var(--space-s-m);
-  --content-width: 68ch;
-  --color-primary: var(--orange-9);
-  --color-surface: var(--sand-2);
-}</code></pre>
-</div>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="minium.min.css"&gt;
+&lt;link rel="stylesheet" href="themes/blue.css"&gt;</code></pre>
 
-<p>Components consume semantic tokens instead of hard-coded values. Changing <code>--color-primary</code> updates the buttons, links, focus states, badges, and alerts mapped to that token.</p>
+<p>With npm, import the theme from the package:</p>
 
-<h2>Customize the theme</h2>
-<p>The following example changes the system’s fonts, dimensions, spacing, corner radii, and primary colors.</p>
+<pre><code class="language-js">import "@troennes/minium";
+import "@troennes/minium/themes/blue.css";</code></pre>
 
-<pre><code class="language-css">:root {
-  --font: "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+<p>Theme files are in <code>dist/themes/</code>, next to <code>minium.min.css</code>. Each file is 1.3–2.7 KB gzipped and works in light and dark mode. Each theme file declares the full layer order, so a theme wins over the defaults even if it loads before <code>minium.css</code>.</p>
 
-  --content-width: 72ch;
-  --main-width: 80rem;
-  --gap: var(--space-m-l);
-  --flow-space: var(--flow-space-loose);
+<p>A theme is named after its primary color. It also sets a matching neutral (surfaces, text, and borders), an accent, and the status colors. The default theme is <code>orange</code>. To keep the current look if the default changes in a later release, load <code>themes/orange.css</code> explicitly.</p>
 
-  --border-radius-s: 0.25rem;
-  --border-radius-m: 0.5rem;
-  --border-radius-l: 0.75rem;
+<details>
+  <summary>All themes and their color scales</summary>
+  <div class="overflow-x">
+    <table>
+      <thead>
+        <tr><th>Theme (primary)</th><th>Neutral</th><th>Accent</th><th>Success</th><th>Warning</th><th>Danger</th><th>Info</th></tr>
+      </thead>
+      <tbody>
+      <tr><td><code>gray</code></td><td>gray</td><td>iris</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>mauve</code></td><td>mauve</td><td>violet</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>slate</code></td><td>slate</td><td>indigo</td><td>green</td><td>amber</td><td>red</td><td>sky</td></tr>
+      <tr><td><code>sage</code></td><td>sage</td><td>teal</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>olive</code></td><td>olive</td><td>lime</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>sand</code></td><td>sand</td><td>gold</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>bronze</code></td><td>sand</td><td>teal</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>gold</code></td><td>sand</td><td>purple</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>brown</code></td><td>sand</td><td>sky</td><td>green</td><td>amber</td><td>red</td><td>indigo</td></tr>
+      <tr><td><code>orange</code> (default)</td><td>sand</td><td>indigo</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>tomato</code></td><td>mauve</td><td>teal</td><td>green</td><td>amber</td><td>crimson</td><td>blue</td></tr>
+      <tr><td><code>red</code></td><td>mauve</td><td>gold</td><td>green</td><td>amber</td><td>crimson</td><td>blue</td></tr>
+      <tr><td><code>ruby</code></td><td>mauve</td><td>jade</td><td>grass</td><td>amber</td><td>tomato</td><td>blue</td></tr>
+      <tr><td><code>crimson</code></td><td>mauve</td><td>cyan</td><td>green</td><td>amber</td><td>tomato</td><td>indigo</td></tr>
+      <tr><td><code>pink</code></td><td>mauve</td><td>mint</td><td>grass</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>plum</code></td><td>mauve</td><td>iris</td><td>green</td><td>amber</td><td>red</td><td>cyan</td></tr>
+      <tr><td><code>purple</code></td><td>mauve</td><td>gold</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>violet</code></td><td>mauve</td><td>pink</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>iris</code></td><td>slate</td><td>plum</td><td>green</td><td>amber</td><td>red</td><td>sky</td></tr>
+      <tr><td><code>indigo</code></td><td>slate</td><td>orange</td><td>green</td><td>yellow</td><td>red</td><td>cyan</td></tr>
+      <tr><td><code>blue</code></td><td>slate</td><td>purple</td><td>green</td><td>amber</td><td>red</td><td>cyan</td></tr>
+      <tr><td><code>cyan</code></td><td>slate</td><td>violet</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>sky</code></td><td>slate</td><td>pink</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>teal</code></td><td>sage</td><td>orange</td><td>green</td><td>yellow</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>jade</code></td><td>sage</td><td>ruby</td><td>grass</td><td>amber</td><td>tomato</td><td>blue</td></tr>
+      <tr><td><code>green</code></td><td>sage</td><td>gold</td><td>teal</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>grass</code></td><td>olive</td><td>yellow</td><td>teal</td><td>orange</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>mint</code></td><td>sage</td><td>pink</td><td>green</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>lime</code></td><td>olive</td><td>violet</td><td>jade</td><td>amber</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>yellow</code></td><td>sand</td><td>green</td><td>teal</td><td>orange</td><td>red</td><td>blue</td></tr>
+      <tr><td><code>amber</code></td><td>sand</td><td>iris</td><td>green</td><td>orange</td><td>red</td><td>blue</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
 
-  --color-primary: var(--blue-9);
-  --color-primary-hover: var(--blue-10);
-  --color-primary-focus: var(--blue-7);
-  --color-primary-text: var(--blue-11);
-}</code></pre>
+<p>Color scales come from <a href="https://www.radix-ui.com/colors">Radix Colors</a>. See <a href="colors.html">Colors</a> for every scale.</p>
 
-<h2>Add project-specific styles and overrides</h2>
-<p>Do not modify Minium’s component styles for project-specific changes. Use semantic tokens first. If the token API cannot represent the required design, add the component override to your <code>project.css</code> inside <code>@layer project</code>.</p>
-
-<p>Project-specific styles also include named blocks such as <code>.hero</code>, <code>.pricing-comparison</code>, and <code>.product-card</code>; reusable utility combinations; and wrappers around Minium primitives.</p>
-
-<p>Minium declares <code>@layer project</code> between <code>components</code> and <code>utilities</code>:</p>
+<h2>Understand the layers</h2>
+<p>Minium uses cascade layers, so your overrides do not need higher specificity. The layer order is:</p>
 
 <pre><code class="language-css">@layer tokens, theme, reset, base, layout, components, project, utilities;</code></pre>
 
-<p>Rules in <code>@layer project</code> can override component styles without increasing selector specificity. Utility rules retain precedence when applied to the same element. Unlayered rules take precedence over all layered library rules.</p> 
-  
-<p>Here is an example <code>project.css</code> that adds a hero component:</p>
+<p>The layers that matter for customization are:</p>
+<ul>
+  <li><code>tokens</code>: Library defaults. Contains the default theme's colors, the semantic color tokens, type scale, spacing, radii, shadows, and fonts.</li>
+  <li><code>theme</code>: Theme files and your own token overrides. Rules here override <code>tokens</code>.</li>
+  <li><code>project</code>: Your project's classes and component overrides. Rules here override components, but not utilities.</li>
+</ul>
+<p>Unlayered rules override every layer. Prefer the named layers so that utilities keep working on top of your styles.</p>
 
+<h2>Change tokens</h2>
+<p>Components read custom properties instead of fixed values. To change a token, redefine it in <code>@layer theme</code>. The following example changes fonts, widths, spacing, and corner radii:</p>
+
+<pre><code class="language-css">@layer theme {
+  :root {
+    --font: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    --content-width: 72ch;
+    --main-width: 80rem;
+    --gap: var(--space-m-l);
+    --flow-space: var(--flow-space-loose);
+
+    --border-radius-s: 0.25rem;
+    --border-radius-m: 0.5rem;
+    --border-radius-l: 0.75rem;
+  }
+}</code></pre>
+
+<p>The main token groups are:</p>
+<ul>
+  <li><code>--size-*</code>: Type scale.</li>
+  <li><code>--space-*</code> and <code>--gap</code>: Spacing.</li>
+  <li><code>--flow-space*</code>: Vertical rhythm.</li>
+  <li><code>--content-width</code> and <code>--main-width</code>: Layout widths.</li>
+  <li><code>--border-radius-*</code>, <code>--border-width</code>, and <code>--shadow-*</code>: Shape and depth.</li>
+  <li><code>--color-*</code>: Semantic colors, such as <code>--color-text</code>, <code>--color-surface</code>, and <code>--color-primary</code>.</li>
+</ul>
+
+<p>Semantic color tokens can be changed one at a time. For example, the following rule darkens the primary hover color:</p>
+
+<pre><code class="language-css">@layer theme {
+  :root {
+    --color-primary-hover: var(--primary-11);
+  }
+}</code></pre>
+
+<p>To change a whole color, change its role instead, as described in the next section.</p>
+
+<h2 id="change-color-roles">Change color roles</h2>
+<p>Semantic color tokens do not reference color names such as orange or blue. They reference seven <dfn>roles</dfn>, and each role holds the values of one color scale:</p>
+
+<div class="overflow-x">
+  <table>
+    <thead>
+      <tr><th>Role</th><th>Used for</th><th>Default scale</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>neutral</code></td><td>Surfaces, text, and borders</td><td>sand</td></tr>
+      <tr><td><code>primary</code></td><td>Default buttons, links, focus, and selection</td><td>orange</td></tr>
+      <tr><td><code>accent</code></td><td><code>.accent</code> variants</td><td>indigo</td></tr>
+      <tr><td><code>danger</code></td><td><code>.danger</code> variants and invalid states</td><td>red</td></tr>
+      <tr><td><code>success</code></td><td><code>.success</code> variants and valid states</td><td>green</td></tr>
+      <tr><td><code>warning</code></td><td><code>.warning</code> variants</td><td>amber</td></tr>
+      <tr><td><code>info</code></td><td><code>.info</code> variants</td><td>blue</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Role tokens are named after <a href="https://www.radix-ui.com/colors">Radix Colors</a> steps, so you can copy values from Radix directly. Each role defines a fixed set of steps:</p>
+<ul>
+  <li><code>neutral</code>: <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>8</code>, <code>11</code>, <code>12</code>, and <code>a2</code>–<code>a7</code>.</li>
+  <li>Colored roles: <code>7</code>, <code>9</code>, <code>10</code>, <code>11</code>, <code>a2</code>–<code>a7</code>, <code>a11</code>, <code>text</code>, and <code>inverse</code>.</li>
+</ul>
+
+<p>Each step uses <code>light-dark()</code> with the light value first and the dark value second. <code>--&lt;role&gt;-text</code> is the role's text color, and <code>--&lt;role&gt;-inverse</code> is the text color on the role's solid step 9 fill.</p>
+
+<p>The following example replaces the primary role with Radix blue. The <code>a3</code>–<code>a7</code> steps are omitted here for brevity, but your theme must define them:</p>
+
+<pre><code class="language-css">@layer theme {
+  :root {
+    --primary-7: light-dark(#8ec8f6, #205d9e);
+    --primary-9: light-dark(#0090ff, #0090ff);
+    --primary-10: light-dark(#0588f0, #3b9eff);
+    --primary-11: light-dark(#0d74ce, #70b8ff);
+    --primary-a2: light-dark(#008cff0b, #1166fb18);
+    /* --primary-a3 to --primary-a7 */
+    --primary-a11: light-dark(#006dcbf2, #70b8ff);
+    --primary-text: var(--primary-11);
+    --primary-inverse: white;
+  }
+}</code></pre>
+
+<p><strong>Define every step of a role you change.</strong> If a step is missing, it keeps the default theme's value, and the role shows a mix of two colors.</p>
+
+<p>Some scales need different settings:</p>
+<ul>
+  <li><strong>Bright scales</strong> (sky, mint, lime, yellow, and amber): Step 9 is too light for white text, and step 11 drifts toward brown or olive in light mode. Set <code>--&lt;role&gt;-text: light-dark(var(--neutral-12), var(--&lt;role&gt;-11))</code> and <code>--&lt;role&gt;-inverse: light-dark(var(--neutral-12), var(--neutral-1))</code>.</li>
+  <li><strong>Gray scales as primary</strong> (gray, mauve, slate, sage, olive, and sand): Step 9 of a gray is not a usable solid color. Set <code>--color-primary</code> and <code>--color-primary-text</code> to <code>var(--neutral-12)</code>, <code>--color-primary-inverse</code> to <code>var(--neutral-1)</code>, and <code>--mark-color</code> to an accent value. The <code>gray</code>, <code>slate</code>, and other gray theme files show the complete set.</li>
+  <li><strong>Danger and success</strong>: The <code>--icon-invalid</code> and <code>--icon-valid</code> form icons have their color embedded in the SVG. If you change these roles, copy the tokens from <code>css/theme.css</code> and replace the <code>stroke</code> color with the new step 9 value.</li>
+</ul>
+
+<p>To start your own theme, copy the closest file from <code>dist/themes/</code> and edit its values. Theme files also include Display P3 values for wide-gamut screens. The P3 block is optional; without it, browsers use the sRGB values.</p>
+
+<h2>Add project styles</h2>
+<p>Do not modify Minium's component styles for project-specific changes. Change tokens first. If tokens cannot represent the design, add a component override to <code>@layer project</code> in your own stylesheet.</p>
+
+<p>Project styles also include named blocks such as <code>.hero</code>, <code>.pricing-comparison</code>, and <code>.product-card</code>, reusable combinations of utilities, and wrappers around Minium primitives. Rules in <code>@layer project</code> override component styles without higher specificity, and utilities still apply on top.</p>
+
+<p>The following <code>project.css</code> adds a hero block:</p>
 
 <pre><code class="language-css">@layer project {
   .hero {
@@ -82,9 +203,8 @@
   }
 }</code></pre>
 
-
 <h2>Load integration styles</h2>
-<p>Opt-in integration stylesheets provide styles for markup generated by third-party tools, such as Prism.js syntax tokens. Load only the integrations you use. See <a href="integrations.html">Integrations</a> for available stylesheets and loading instructions.</p>
+<p>Integration stylesheets style markup that third-party tools generate, such as Prism.js syntax tokens. Load only the integrations you use. See <a href="integrations.html">Integrations</a> for the available stylesheets.</p>
 
 
 </main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>

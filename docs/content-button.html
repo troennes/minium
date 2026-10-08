@@ -1,4 +1,15 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Button | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<script>
+  /* Apply saved light/dark mode and color theme before first paint; docs/main.js handles changes */
+  try {
+    const mode = localStorage.getItem("themePreference");
+    if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
+    const colorTheme = localStorage.getItem("colorTheme");
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "orange") {
+      document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
+    }
+  } catch {}
+</script>
 </head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
 
 
@@ -10,7 +21,8 @@
 <h2>Usage</h2>
 <ul>
   <li>Use <code>&lt;button&gt;</code> without classes for the primary button style.</li>
-  <li>Use <code>.secondary</code> or <code>.tertiary</code> for a lower-intensity button.</li>
+  <li>Use <code>.secondary</code> (soft tinted fill) or <code>.tertiary</code> (looks like a link) for a lower-intensity button.</li>
+  <li>On <code>.tertiary</code>, semantic variants only color the underline. Use a solid or <code>.secondary</code> button for actions that must stand out, such as destructive ones.</li>
   <li>Choose a semantic variant: <code>.accent</code>, <code>.danger</code>, <code>.success</code>, <code>.warning</code>, <code>.info</code>, <code>.contrast</code>, or <code>.neutral</code>.</li>
   <li>Use <code>.small</code> or <code>.large</code> to change the button size.</li>
 </ul>

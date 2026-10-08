@@ -1,12 +1,18 @@
 {
   "extends": ["stylelint-config-standard"],
-  "ignoreFiles": ["css/colors.css"],
   "overrides": [
     {
       "files": ["css/reset.css"],
       "rules": {
         "property-no-vendor-prefix": null,
         "value-keyword-case": null
+      }
+    },
+    {
+      "files": ["css/roles.css", "css/themes/*.css"],
+      "rules": {
+        "alpha-value-notation": null,
+        "color-hex-length": null
       }
     },
     {

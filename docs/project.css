@@ -6,6 +6,22 @@
     > .eyebrow {color: var(--color-accent-text)}
   }
 
+  /* Color theme menu */
+  #color-theme-selector {
+    max-block-size: 70vh;
+    overflow-y: auto;
+
+    [aria-pressed="true"] {font-weight: var(--font-weight-bold)}
+  }
+
+  .theme-swatch {
+    display: inline-block;
+    inline-size: 0.875rem;
+    block-size: 0.875rem;
+    border-radius: var(--border-radius-f);
+    box-shadow: inset 0 0 0 1px var(--color-border-weak);
+  }
+
   .docs-shell {
     container-type: inline-size;
 
