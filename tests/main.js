@@ -28,12 +28,6 @@ getThemeFromLocalStorage()
 // Color theme: swaps one <link> to dist/themes/<name>.css, like users load a theme
 // [name, primary swatch]; keep in sync with scripts/themes.json
 const colorThemes = [
-    ["gray", "#202020"],
-    ["mauve", "#211f26"],
-    ["slate", "#1c2024"],
-    ["sage", "#1a211e"],
-    ["olive", "#1d211c"],
-    ["sand", "#21201c"],
     ["bronze", "#a18072"],
     ["gold", "#978365"],
     ["brown", "#ad7f58"],
@@ -58,7 +52,13 @@ const colorThemes = [
     ["mint", "#86ead4"],
     ["lime", "#bdee63"],
     ["yellow", "#ffe629"],
-    ["amber", "#ffc53d"]
+    ["amber", "#ffc53d"],
+    ["gray", "#202020"],
+    ["mauve", "#211f26"],
+    ["slate", "#1c2024"],
+    ["sage", "#1a211e"],
+    ["olive", "#1d211c"],
+    ["sand", "#21201c"]
 ];
 
 function setColorTheme(name) {

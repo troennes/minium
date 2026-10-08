@@ -139,12 +139,6 @@ getThemeFromLocalStorage()
 // Color theme: swaps one <link> to dist/themes/<name>.css, the same way users load a theme.
 // [name, primary swatch]; keep in sync with scripts/themes.json
 const colorThemes = [
-  ["gray", "#202020"],
-  ["mauve", "#211f26"],
-  ["slate", "#1c2024"],
-  ["sage", "#1a211e"],
-  ["olive", "#1d211c"],
-  ["sand", "#21201c"],
   ["bronze", "#a18072"],
   ["gold", "#978365"],
   ["brown", "#ad7f58"],
@@ -169,7 +163,13 @@ const colorThemes = [
   ["mint", "#86ead4"],
   ["lime", "#bdee63"],
   ["yellow", "#ffe629"],
-  ["amber", "#ffc53d"]
+  ["amber", "#ffc53d"],
+  ["gray", "#202020"],
+  ["mauve", "#211f26"],
+  ["slate", "#1c2024"],
+  ["sage", "#1a211e"],
+  ["olive", "#1d211c"],
+  ["sand", "#21201c"]
 ];
 const defaultColorTheme = "orange"; // also in the <head> script of each docs page
 // Relative to this script, so docs pages and the root index.html resolve the same folder
