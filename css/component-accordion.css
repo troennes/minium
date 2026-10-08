@@ -4,8 +4,10 @@
     display: block;
 
     &:not(:has(> summary[role="button"]), .border-none) {
-      border: var(--border-width) solid var(--color-border-strong);
-      box-shadow: var(--shadow-small);
+      --border-color: var(--color-border-strong);
+
+      border: var(--border-width) solid var(--border-color);
+      border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     }
 
     &[open] summary::after{

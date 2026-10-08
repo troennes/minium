@@ -8,12 +8,13 @@
   :where(button, input[type="submit"], input[type="button"], input[type="reset"], [role="button"] ) {
     --button-surface: var(--color-primary);
     --button-text: var(--color-primary-inverse);
+    --border-color: var(--button-surface);
 
     background-color: var(--button-surface);
     color: var(--button-text);
-    /* box-shadow: var(--shadow-small); */
     padding: var(--space-2xs) var(--space-xs);
-    border: var(--border-width) solid var(--button-surface);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     border-radius: var(--border-radius-m);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height);
@@ -22,13 +23,15 @@
 
     /* auto-compute hover and active states */
     &:is([aria-current], :hover) {
+      --border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier)) c h);
+
       background-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier)) c h);
     }
 
     &:active {
+      --border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+
       background-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
     }
 
     /* size variations */
@@ -81,9 +84,7 @@
     &.neutral {
       --button-surface: transparent;
       --button-text: var(--color-text);
-
-      border: var(--border-width) solid var(--color-border-strong);
-      box-shadow: var(--shadow-small);
+      --border-color: var(--color-border-strong);
 
       &:hover {
         --button-surface: var(--color-fill);
@@ -100,18 +101,18 @@
   input[type="reset"] {
     --button-surface: var(--color-primary-fill-active);
     --button-text: var(--color-primary-text);
+    --border-color: transparent;
 
     /* Light: tint with the text color to keep the hue. Dark: black */
     --button-overlay-alpha: calc(1 - var(--hover-multiplier));
     --button-overlay: light-dark(oklch(from var(--button-text) l c h / calc(1.5 * var(--button-overlay-alpha))), rgb(0 0 0 / calc(2 * var(--button-overlay-alpha))));
 
-    border-color: transparent;
-
     /* Translucent fills barely change with the lightness multiplier, so an overlay darkens them */
     &:is([aria-current], :hover, :active) {
+      --border-color: transparent;
+
       background-color: var(--button-surface);
       background-image: linear-gradient(var(--button-overlay), var(--button-overlay));
-      border-color: transparent;
     }
 
     &:active {
@@ -155,7 +156,6 @@
     --button-text: var(--link-color);
 
     border-color: transparent;
-    box-shadow: none;
     text-decoration: underline;
     text-decoration-thickness: var(--text-decoration-thickness);
     text-decoration-color: var(--link-color-decoration);
@@ -217,7 +217,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* box-shadow: none; */
+    border-bottom-color: var(--border-color);
 
     &:is(:hover, :focus-visible) {
       --button-surface: var(--color-fill);

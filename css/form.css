@@ -1,10 +1,12 @@
 @layer base {
   /* Common styles */
   :where(input, select, textarea) {
+    --border-color: var(--color-border-strong);
+
     background-color: var(--form-color-surface);
-    border: var(--border-width) solid var(--color-border-strong);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     border-radius: var(--border-radius-m);
-    /* box-shadow: var(--shadow-small); */
     line-height: var(--line-height);
   }
 
@@ -49,7 +51,7 @@
 
   :is(input, select, textarea) {
     &[aria-invalid="false"] {
-      border-color: var(--color-success-border-strong);
+      --border-color: var(--color-success-border-strong);
 
       + small {
         color: var(--color-success-text);
@@ -57,7 +59,7 @@
     }
 
     &[aria-invalid="true"] {
-      border-color: var(--color-danger-border-strong);
+      --border-color: var(--color-danger-border-strong);
 
       + small {
         color: var(--color-danger-text);
@@ -104,8 +106,9 @@
   select[disabled],
   textarea[disabled],
   :where(fieldset[disabled]) :is(input:not([type="submit"], [type="button"], [type="reset"]), select, textarea) {
+    --border-color: var(--form-color-border-disabled);
+
     background-color: transparent;
-    border-color: var(--form-color-border-disabled); 
     opacity: 0.5;
     pointer-events: none;
   }
@@ -157,9 +160,8 @@
     &::file-selector-button {
       background-color: var(--color-primary);
       color: var(--color-primary-inverse);
-      box-shadow: var(--shadow-small);
       padding: var(--space-2xs) var(--space-xs);
-      border: var(--border-width) solid var(--color-primary);
+      border: none;
       font-weight: bold;
       line-height: var(--line-height);
       text-align: center;
@@ -170,12 +172,10 @@
 
     &:is([aria-current], :hover)::file-selector-button {
       background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
     }
 
     &:active::file-selector-button {
       background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
     }
 
     &.small::file-selector-button {
@@ -203,7 +203,6 @@
       background-color: var(--color-text);
       border-radius: var(--border-radius-f);
       border: none;
-      box-shadow: var(--shadow-small);
     }
 
     &::-webkit-slider-thumb {
@@ -212,7 +211,6 @@
       height: 1em;
       background-color: var(--color-text);
       border-radius: var(--border-radius-f);
-      box-shadow: var(--shadow-small);
     }
 
     &:active {

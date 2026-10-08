@@ -141,7 +141,7 @@
 
 <p>Use shadow utilities to apply the predefined elevation levels:</p>
 <pre><code class="language-css">.shadow-none  { box-shadow: none }
-.shadow-s     { box-shadow: var(--shadow-small) }
+.shadow-s     { border-bottom: var(--border-width) solid color-mix(in oklab, var(--border-color, var(--color-border-weak)), var(--shadow-small)) }
 .shadow-m     { box-shadow: var(--shadow-medium) }
 .shadow-l     { box-shadow: var(--shadow-large) }
 .shadow-inner { box-shadow: var(--shadow-inner) }

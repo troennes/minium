@@ -98,7 +98,7 @@
     --line-height: 1.5;
     --font-weight: 400;
     --font-weight-bold: 700;
-    --shadow-small: 0 1px 3px -1px rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 10%); /* buttons */
+    --shadow-small: black 8%; /* color-mix() amount that darkens the bottom border of buttons, badges and form controls */
     --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%); /* dropdowns, cards */
     --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%); /* modals */
     --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 5%);
