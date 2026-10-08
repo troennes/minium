@@ -181,6 +181,7 @@
       border-start-start-radius: var(--border-radius-m);
       border-end-start-radius: var(--border-radius-m);
       font-family: inherit;
+      font-size: inherit;
     }
 
     &:is([aria-current], :hover)::file-selector-button {
@@ -195,14 +196,21 @@
       background-color: var(--border-color);
     }
 
-    &.small::file-selector-button {
-      padding: var(--space-3xs) var(--space-2xs);
+    /* The input sets the size so its block-size matches text inputs; the button inherits it */
+    &.small {
       font-size: var(--size-small);
+
+      &::file-selector-button {
+        padding: var(--space-3xs) var(--space-2xs);
+      }
     }
 
-    &.large::file-selector-button {
-      padding: var(--space-xs) var(--space-s);
+    &.large {
       font-size: var(--size-h4);
+
+      &::file-selector-button {
+        padding: var(--space-xs) var(--space-s);
+      }
     }
   }
 
