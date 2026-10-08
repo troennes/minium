@@ -31,7 +31,8 @@
     --primary-a6: light-dark(#00b08663, #0effeb4a);
     --primary-a7: light-dark(#00a17d81, #34fde55e);
     --primary-a11: light-dark(#007763fd, #67ffded2);
-    --primary-inverse: black;
+    --primary-text: light-dark(var(--neutral-12), var(--primary-11));
+    --primary-inverse: light-dark(var(--neutral-12), var(--neutral-1));
 
     /* accent: pink */
     --accent-7: light-dark(#e7acd0, #833869);
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#c0007840, #fd51c75f);
     --accent-a7: light-dark(#b6006f53, #fd62c87b);
     --accent-a11: light-dark(#b60074d6, #ff8dcc);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
   }
 

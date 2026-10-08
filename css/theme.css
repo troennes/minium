@@ -144,7 +144,7 @@
     --color-primary-fill-active: var(--primary-a4);
     --color-primary-border-weak: var(--primary-a5);
     --color-primary-border-strong: var(--primary-a6);
-    --color-primary-text: var(--primary-11);
+    --color-primary-text: var(--primary-text);
 
     --color-accent: var(--accent-9);
     --color-accent-inverse: var(--accent-inverse);
@@ -155,7 +155,7 @@
     --color-accent-fill-active: var(--accent-a4);
     --color-accent-border-weak: var(--accent-a5);
     --color-accent-border-strong: var(--accent-a6);
-    --color-accent-text: var(--accent-11);
+    --color-accent-text: var(--accent-text);
 
     --color-success: var(--success-9);
     --color-success-inverse: var(--success-inverse);
@@ -165,7 +165,7 @@
     --color-success-fill-active: var(--success-a4);
     --color-success-border-weak: var(--success-a5);
     --color-success-border-strong: var(--success-a6);
-    --color-success-text: var(--success-11);
+    --color-success-text: var(--success-text);
 
     --color-danger: var(--danger-9);
     --color-danger-inverse: var(--danger-inverse);
@@ -175,7 +175,7 @@
     --color-danger-fill-active: light-dark(var(--danger-a4), var(--danger-a5));
     --color-danger-border-weak: light-dark(var(--danger-a5), var(--danger-a6));
     --color-danger-border-strong: light-dark(var(--danger-a6), var(--danger-a7));
-    --color-danger-text: var(--danger-11);
+    --color-danger-text: var(--danger-text);
 
     --color-warning: var(--warning-9);
     --color-warning-inverse: var(--warning-inverse);
@@ -184,7 +184,7 @@
     --color-warning-fill-active: var(--warning-a4);
     --color-warning-border-weak: var(--warning-a6);
     --color-warning-border-strong: var(--warning-a7);
-    --color-warning-text: var(--warning-11);
+    --color-warning-text: var(--warning-text);
 
     --color-info: var(--info-9);
     --color-info-inverse: var(--info-inverse);
@@ -193,7 +193,7 @@
     --color-info-fill-active: var(--info-a4);
     --color-info-border-weak: var(--info-a5);
     --color-info-border-strong: var(--info-a6);
-    --color-info-text: var(--info-11);
+    --color-info-text: var(--info-text);
 
     --color-contrast: var(--neutral-12);
     --color-contrast-inverse: var(--neutral-2);

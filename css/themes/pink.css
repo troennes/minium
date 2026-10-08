@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#c0007840, #fd51c75f);
     --primary-a7: light-dark(#b6006f53, #fd62c87b);
     --primary-a11: light-dark(#b60074d6, #ff8dcc);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: mint */
@@ -45,7 +46,8 @@
     --accent-a6: light-dark(#00b08663, #0effeb4a);
     --accent-a7: light-dark(#00a17d81, #34fde55e);
     --accent-a11: light-dark(#007763fd, #67ffded2);
-    --accent-inverse: black;
+    --accent-text: light-dark(var(--neutral-12), var(--accent-11));
+    --accent-inverse: light-dark(var(--neutral-12), var(--neutral-1));
 
     /* success: grass */
     --success-7: light-dark(#94ce9a, #366740);
@@ -59,6 +61,7 @@
     --success-a6: light-dark(#008f0a4d, #71ff8f4b);
     --success-a7: light-dark(#018b0f6b, #77fd925d);
     --success-a11: light-dark(#006514d5, #89ff9fcd);
+    --success-text: var(--success-11);
     --success-inverse: white;
 
     /* icons */

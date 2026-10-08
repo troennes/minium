@@ -47,7 +47,7 @@ function checkRoles(path, css, requireAll) {
 
   for (const role of ['neutral', ...colorRoles]) {
     const steps = (role === 'neutral' ? neutralSteps : colorSteps).map((step) => `--${role}-${step}`);
-    const all = role === 'neutral' ? steps : [...steps, `--${role}-inverse`];
+    const all = role === 'neutral' ? steps : [...steps, `--${role}-text`, `--${role}-inverse`];
     const present = all.filter((token) => srgb.has(token));
 
     if (present.length === 0) {

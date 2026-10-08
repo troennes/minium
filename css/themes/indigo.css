@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#003eff3e, #5178fd7c);
     --primary-a7: light-dark(#0037ed54, #5a7fff90);
     --primary-a11: light-dark(#002bb7c5, #9eb1ff);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: orange */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#ff81007d, #fd75045c);
     --accent-a7: light-dark(#ed6c008c, #ff832c75);
     --accent-a11: light-dark(#cc4e00, #ffa057);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* warning: yellow */
@@ -59,7 +61,8 @@
     --warning-a6: light-dark(#ebbc0097, #fec40046);
     --warning-a7: light-dark(#d2a10098, #fdcb225c);
     --warning-a11: light-dark(#9e6c00, #fee949f5);
-    --warning-inverse: black;
+    --warning-text: light-dark(var(--neutral-12), var(--warning-11));
+    --warning-inverse: light-dark(var(--neutral-12), var(--neutral-1));
 
     /* info: cyan */
     --info-7: light-dark(#7dcedc, #12677e);
@@ -73,6 +76,7 @@
     --info-a6: light-dark(#00a7c162, #00c7fd5e);
     --info-a7: light-dark(#009fbb82, #14cdff75);
     --info-a11: light-dark(#007491ef, #52e1fee5);
+    --info-text: var(--info-11);
     --info-inverse: white;
   }
 

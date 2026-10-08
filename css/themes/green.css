@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#00963c52, #44ffaa4b);
     --primary-a7: light-dark(#00914071, #50fdac5e);
     --primary-a11: light-dark(#00713fde, #46fea5d4);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: gold */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#64440040, #feebcb37);
     --accent-a7: light-dark(#63420055, #ffedcd48);
     --accent-a11: light-dark(#362100b4, #fee7c6c8);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* success: teal */
@@ -59,6 +61,7 @@
     --success-a6: light-dark(#00a6855e, #1cffe84b);
     --success-a7: light-dark(#0099807c, #2efde85f);
     --success-a11: light-dark(#008573, #0afed5d6);
+    --success-text: var(--success-11);
     --success-inverse: white;
 
     /* icons */

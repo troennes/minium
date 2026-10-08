@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#f92d0050, #ff4f3864);
     --primary-a7: light-dark(#e7280067, #fd644a7d);
     --primary-a11: light-dark(#cd2200ea, #ff977d);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: teal */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#00a6855e, #1cffe84b);
     --accent-a7: light-dark(#0099807c, #2efde85f);
     --accent-a11: light-dark(#008573, #0afed5d6);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* danger: crimson */
@@ -59,6 +61,7 @@
     --danger-a6: light-dark(#d0004b41, #fe459763);
     --danger-a7: light-dark(#bf004753, #fd559b7f);
     --danger-a11: light-dark(#c4004fe2, #ff92ad);
+    --danger-text: var(--danger-11);
     --danger-inverse: white;
 
     /* icons */

@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#ff81007d, #fd75045c);
     --primary-a7: light-dark(#ed6c008c, #ff832c75);
     --primary-a11: light-dark(#cc4e00, #ffa057);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: indigo */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#003eff3e, #5178fd7c);
     --accent-a7: light-dark(#0037ed54, #5a7fff90);
     --accent-a11: light-dark(#002bb7c5, #9eb1ff);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
   }
 

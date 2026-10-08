@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#0088f653, #0f89fd7f);
     --primary-a7: light-dark(#0083eb71, #2a91fe98);
     --primary-a11: light-dark(#006dcbf2, #70b8ff);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: purple */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#7a01d03b, #c16dfd61);
     --accent-a7: light-dark(#6d00c350, #c378fd7a);
     --accent-a11: light-dark(#52009aba, #d19dff);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* info: cyan */
@@ -59,6 +61,7 @@
     --info-a6: light-dark(#00a7c162, #00c7fd5e);
     --info-a7: light-dark(#009fbb82, #14cdff75);
     --info-a11: light-dark(#007491ef, #52e1fee5);
+    --info-text: var(--info-11);
     --info-inverse: white;
   }
 

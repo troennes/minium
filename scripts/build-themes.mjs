@@ -59,8 +59,11 @@ function roleLines(role, scale, indent, p3) {
     const dark = radixValue(scale, step, { dark: true, p3 });
     return `${indent}--${role}-${step}: light-dark(${light}, ${dark});`;
   });
+  // Bright scales use the neutral's darkest text: on their step 9 in both modes, and as role text in light mode
   if (!p3 && role !== 'neutral') {
-    lines.push(`${indent}--${role}-inverse: ${config.brightScales.includes(scale) ? 'black' : 'white'};`);
+    const bright = config.brightScales.includes(scale);
+    lines.push(`${indent}--${role}-text: ${bright ? `light-dark(var(--neutral-12), var(--${role}-11))` : `var(--${role}-11)`};`);
+    lines.push(`${indent}--${role}-inverse: ${bright ? 'light-dark(var(--neutral-12), var(--neutral-1))' : 'white'};`);
   }
   return `${indent}/* ${role}: ${scale} */\n${lines.join('\n')}`;
 }

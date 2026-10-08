@@ -36,11 +36,20 @@ Seven roles:
 Step sets:
 
 - `neutral`: 1, 2, 3, 4, 5, 8, 11, 12, a2–a7
-- Colored roles (all six share the same set, so any scale fits any role): 7, 9, 10, 11, a2–a7, a11, plus `--<role>-inverse`
+- Colored roles (all six share the same set, so any scale fits any role): 7, 9, 10, 11, a2–a7, a11, plus `--<role>-text` and `--<role>-inverse`
 
 Role slots are named after Radix steps and always hold that step's value, so values can be copied straight from radix-ui.com or `@radix-ui/colors`. When a scale needs different behavior, the theme overrides semantic tokens instead of putting other steps into the slots (see [Overrides](#overrides)).
 
 `--<role>-inverse` is the text color on the role's step 9 solid. It belongs to the scale, not the role: white for most scales, dark for bright scales (sky, mint, lime, yellow, amber). Every `--color-<role>-inverse` in core points at `--<role>-inverse`; none are hardcoded.
+
+`--<role>-text` is the role's text color, also owned by the scale: step 11 for most scales. Step 11 of a bright scale drifts to brown or olive in light mode and reads as a different color next to the step 9 solid, so bright scales use the neutral's darkest step instead:
+
+| Slot | Most scales | Bright scales |
+|---|---|---|
+| `--<role>-text` | `var(--<role>-11)` | `light-dark(var(--neutral-12), var(--<role>-11))` |
+| `--<role>-inverse` | `white` | `light-dark(var(--neutral-12), var(--neutral-1))` |
+
+Both reference other slots, so they need no P3 values and follow the theme's neutral. Every `--color-<role>-text` in core points at `--<role>-text`. This matches Radix, whose bright scales' contrast colors are the paired gray's step 12.
 
 Each step is defined as `light-dark(<light>, <dark>)` in sRGB hex, with a Display P3 override block:
 
@@ -74,9 +83,9 @@ A theme overrides a semantic token only when its scale breaks the step contract 
 | Scale type | Themes | Overrides |
 |---|---|---|
 | Gray scale as primary | gray, mauve, slate, sage, olive, sand | `--color-primary` → step 12, `--color-primary-inverse` → step 1, `--color-primary-hover` (value to be tuned, step 12 has no darker step), `--mark-color` → accent (a gray highlight is useless), `--color-primary-text` if it's the same as `--color-text-muted` |
-| Bright scale (sky, mint, lime, yellow, amber) in any colored role | several | None: dark text comes from the `--<role>-inverse` role value |
+| Bright scale (sky, mint, lime, yellow, amber) in any colored role | several | None: dark text comes from the `--<role>-text` and `--<role>-inverse` role values |
 
-Warning text on light backgrounds uses step 11, never step 9 (core already does this).
+Role text on light backgrounds uses `--<role>-text` (step 11, or neutral 12 for bright scales), never step 9.
 
 ### Layers
 
@@ -172,7 +181,7 @@ Theme files are generated, not hand-written: 31 files with sRGB and P3 values ar
   - Status roles are emitted only when they differ from the default's, together with the matching icon tokens.
   - Semantic overrides for the theme's scale type are emitted. If the default itself has overrides (for example a gray-primary default), themes without them emit the reset values.
 - Changing the default regenerates every file; the guard check fails if they are stale.
-- Inverse text: dark for bright scales, white otherwise.
+- Inverse and role text: neutral-based for bright scales, white and step 11 otherwise (see [Roles](#roles)).
 - Generated files are committed, so users and the `dist/` build never run the generator.
 
 ### Icons

@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#00a7c162, #00c7fd5e);
     --primary-a7: light-dark(#009fbb82, #14cdff75);
     --primary-a11: light-dark(#007491ef, #52e1fee5);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: violet */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#3100fb35, #8f6cfd6d);
     --accent-a7: light-dark(#2d01dd4a, #9879ff83);
     --accent-a11: light-dark(#1f0099af, #baa7ff);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
   }
 

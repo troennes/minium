@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#000aff34, #6d6ffd7a);
     --primary-a7: light-dark(#0008e647, #7777fe8e);
     --primary-a11: light-dark(#0600abac, #b1a9ff);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: plum */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#a400b03d, #f66dff56);
     --accent-a7: light-dark(#9900a852, #f07cfd70);
     --accent-a11: light-dark(#730086c1, #f19cfef3);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* info: sky */
@@ -59,7 +61,8 @@
     --info-a6: light-dark(#0092ca56, #28a5ff72);
     --info-a7: light-dark(#0089c172, #2badfe8b);
     --info-a11: light-dark(#00749e, #7cd3ffef);
-    --info-inverse: black;
+    --info-text: light-dark(var(--neutral-12), var(--info-11));
+    --info-inverse: light-dark(var(--neutral-12), var(--neutral-1));
   }
 
   @supports (color: color(display-p3 1 1 1)) {

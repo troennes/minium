@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#e4002440, #ff447665);
     --primary-a7: light-dark(#ce002553, #ff577d80);
     --primary-a11: light-dark(#c10030db, #ff949d);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: jade */
@@ -45,6 +46,7 @@
     --accent-a6: light-dark(#009a5753, #34ffc24b);
     --accent-a7: light-dark(#00945f74, #45fdc75e);
     --accent-a11: light-dark(#007152df, #21fec0d6);
+    --accent-text: var(--accent-11);
     --accent-inverse: white;
 
     /* success: grass */
@@ -59,6 +61,7 @@
     --success-a6: light-dark(#008f0a4d, #71ff8f4b);
     --success-a7: light-dark(#018b0f6b, #77fd925d);
     --success-a11: light-dark(#006514d5, #89ff9fcd);
+    --success-text: var(--success-11);
     --success-inverse: white;
 
     /* danger: tomato */
@@ -73,6 +76,7 @@
     --danger-a6: light-dark(#f92d0050, #ff4f3864);
     --danger-a7: light-dark(#e7280067, #fd644a7d);
     --danger-a11: light-dark(#cd2200ea, #ff977d);
+    --danger-text: var(--danger-11);
     --danger-inverse: white;
 
     /* icons */

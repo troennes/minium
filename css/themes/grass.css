@@ -31,6 +31,7 @@
     --primary-a6: light-dark(#008f0a4d, #71ff8f4b);
     --primary-a7: light-dark(#018b0f6b, #77fd925d);
     --primary-a11: light-dark(#006514d5, #89ff9fcd);
+    --primary-text: var(--primary-11);
     --primary-inverse: white;
 
     /* accent: yellow */
@@ -45,7 +46,8 @@
     --accent-a6: light-dark(#ebbc0097, #fec40046);
     --accent-a7: light-dark(#d2a10098, #fdcb225c);
     --accent-a11: light-dark(#9e6c00, #fee949f5);
-    --accent-inverse: black;
+    --accent-text: light-dark(var(--neutral-12), var(--accent-11));
+    --accent-inverse: light-dark(var(--neutral-12), var(--neutral-1));
 
     /* success: teal */
     --success-7: light-dark(#83cdc1, #1c6961);
@@ -59,6 +61,7 @@
     --success-a6: light-dark(#00a6855e, #1cffe84b);
     --success-a7: light-dark(#0099807c, #2efde85f);
     --success-a11: light-dark(#008573, #0afed5d6);
+    --success-text: var(--success-11);
     --success-inverse: white;
 
     /* warning: orange */
@@ -73,6 +76,7 @@
     --warning-a6: light-dark(#ff81007d, #fd75045c);
     --warning-a7: light-dark(#ed6c008c, #ff832c75);
     --warning-a11: light-dark(#cc4e00, #ffa057);
+    --warning-text: var(--warning-11);
     --warning-inverse: white;
 
     /* icons */
