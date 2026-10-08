@@ -149,15 +149,16 @@
     }
   }
 
-  /* Tertiary buttons are like links */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]).tertiary{
+  /* Tertiary buttons look like links: text color, role color only on the underline */
+  :where(button, input[type="submit"], input[type="button"], [role="button"]).tertiary {
     --button-surface: transparent;
-    --button-text: var(--color-primary); 
+    --button-text: var(--link-color);
 
     border-color: transparent;
     box-shadow: none;
     text-decoration: underline;
     text-decoration-thickness: var(--text-decoration-thickness);
+    text-decoration-color: var(--link-color-decoration);
 
     &:not(:is(:focus, [aria-current], :hover, :active)) {
       --button-surface: transparent;
@@ -168,31 +169,33 @@
     }
 
     &.neutral {
-      --button-text: var(--color-text)
+      --button-text: var(--color-text);
+
+      text-decoration-color: currentcolor;
     }
 
     &.accent {
-      --button-text: var(--color-accent);
+      text-decoration-color: var(--color-accent);
     }
 
     &.danger {
-      --button-text: var(--color-danger);
+      text-decoration-color: var(--color-danger);
     }
 
     &.success {
-      --button-text: var(--color-success);
+      text-decoration-color: var(--color-success);
     }
 
     &.warning {
-      --button-text: var(--color-warning);
+      text-decoration-color: var(--color-warning);
     }
 
     &.info {
-      --button-text: var(--color-info);
+      text-decoration-color: var(--color-info);
     }
 
     &.contrast {
-      --button-text: var(--color-contrast);
+      text-decoration-color: var(--color-contrast);
     }
   }
 
