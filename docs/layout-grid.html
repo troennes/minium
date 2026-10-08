@@ -1,4 +1,15 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Grid | Minium CSS</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<script>
+  /* Apply saved light/dark mode and color theme before first paint; docs/main.js handles changes */
+  try {
+    const mode = localStorage.getItem("themePreference");
+    if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
+    const colorTheme = localStorage.getItem("colorTheme");
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "orange") {
+      document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
+    }
+  } catch {}
+</script>
 </head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
 
 

@@ -171,7 +171,7 @@ const colorThemes = [
   ["yellow", "#ffe629"],
   ["amber", "#ffc53d"]
 ];
-const defaultColorTheme = "orange";
+const defaultColorTheme = "orange"; // also in the <head> script of each docs page
 
 function setColorTheme(name) {
   let link = document.getElementById("color-theme-link");
@@ -212,7 +212,7 @@ function buildColorThemeList() {
   setColorTheme(localStorage.getItem("colorTheme") || defaultColorTheme);
 }
 
-// Load the saved theme before the header is built to shorten the flash of default colors
+// The <head> script already loaded the saved theme; this syncs the link and the menu state
 setColorTheme(localStorage.getItem("colorTheme") || defaultColorTheme);
 
 document.addEventListener('DOMContentLoaded', function() {
