@@ -95,10 +95,10 @@
     }
   }
 
-  /* Secondary buttons have a soft fill (a3) and no border */
+  /* Secondary buttons have a soft fill (a4) and no border */
   :where(button, input[type="submit"], input[type="button"], [role="button"]).secondary:not(.neutral),
   input[type="reset"] {
-    --button-surface: var(--color-primary-fill-hover);
+    --button-surface: var(--color-primary-fill-active);
     --button-text: var(--color-primary-text);
 
     /* Light: tint with the text color to keep the hue. Dark: black */
@@ -119,32 +119,32 @@
     }
 
     &.accent {
-      --button-surface: var(--color-accent-fill-hover);
+      --button-surface: var(--color-accent-fill-active);
       --button-text: var(--color-accent-text);
     }
 
     &.danger {
-      --button-surface: var(--color-danger-fill-hover);
+      --button-surface: var(--color-danger-fill-active);
       --button-text: var(--color-danger-text);
     }
 
     &.success {
-      --button-surface: var(--color-success-fill-hover);
+      --button-surface: var(--color-success-fill-active);
       --button-text: var(--color-success-text);
     }
 
     &.warning {
-      --button-surface: var(--color-warning-fill-hover);
+      --button-surface: var(--color-warning-fill-active);
       --button-text: var(--color-warning-text);
     }
 
     &.info {
-      --button-surface: var(--color-info-fill-hover);
+      --button-surface: var(--color-info-fill-active);
       --button-text: var(--color-info-text);
     }
 
     &.contrast {
-      --button-surface: var(--color-fill-hover);
+      --button-surface: var(--color-fill-active);
       --button-text: var(--color-contrast);
     }
   }
