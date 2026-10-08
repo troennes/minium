@@ -78,12 +78,12 @@
       --button-text: var(--color-contrast-inverse);      
     }
 
-    &.neutral,
-    &.neutral.secondary {
+    &.neutral {
       --button-surface: transparent;
       --button-text: var(--color-text);
 
       border: var(--border-width) solid var(--color-border-strong);
+      box-shadow: var(--shadow-small);
 
       &:hover {
         --button-surface: var(--color-fill);
@@ -155,7 +155,7 @@
     --button-text: var(--color-primary); 
 
     border-color: transparent;
-    /* box-shadow: none; */
+    box-shadow: none;
     text-decoration: underline;
     text-decoration-thickness: var(--text-decoration-thickness);
 
