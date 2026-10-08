@@ -23,6 +23,7 @@
     }
   ],
   "rules": {
+    "comment-empty-line-before": null,
     "property-no-unknown": [
       true,
       {

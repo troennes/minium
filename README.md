@@ -35,7 +35,13 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 Load the minified stylesheet from jsDelivr without installing anything:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/minium.min.css">
+```
+
+To add a color theme, load its stylesheet after the core stylesheet:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/themes/blue.css">
 ```
 
 ### Install with npm
@@ -95,7 +101,7 @@ Keep the generated `fonts/` directory beside the stylesheet so its relative font
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello, world</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.1.0/dist/minium.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/minium.min.css">
 </head>
 <body>
   <main class="container flow">
@@ -134,7 +140,7 @@ Custom properties control colors, type, spacing, radii, shadows, and component d
 - **31 color themes.** One theme per Radix Color scale, each a 1.3–2.7 KB gzipped stylesheet with light and dark values and Display P3 colors for capable displays. Load one file to switch themes, with no build step
 - **Light and dark modes.** Theme colors follow the system preference by default and can be explicitly set to light or dark
 - **Responsive layouts.** Fluid type and spacing, intrinsic layouts, wrapping, and constrained components adapt to available space without a large breakpoint system
-- **Small fixed bundle.** The current minified core is ~14.2 KiB gzipped, so its cost is predictable before you write any HTML
+- **Small fixed bundle.** The current minified core is ~14.3 KiB gzipped, so its cost is predictable before you write any HTML
 - **Token-bounded utilities.** Adjust spacing, gaps, radii, surfaces, and other common values without opening an unlimited utility API or reaching for inline styles
 - **Cascade layers.** Library styles remain predictable, and project overrides stay straightforward
 - **Opt-in integrations.** CSS for third-party markup ships separately from the core library
@@ -162,9 +168,9 @@ I have worked on Minium on and off since 2022 and rebuilt it from scratch three 
 
 After three rebuilds, Minium’s core ideas feel settled. It works well for the sites and interfaces I build. Broader use will help reveal what still needs work before version 1.0.
 
-## Project status: 0.1
+## Project status: 0.2
 
-Minium 0.1.0 is the first public release. The library is ready to use, but it has not yet been tested across a wide range of websites, applications, and browsers.
+Minium 0.2 adds 31 color themes. The library is ready to use, but it has not yet been tested across a wide range of websites, applications, and browsers. Expect breaking changes in minor releases before 1.0. The [changelog](CHANGELOG.md) lists each change and the steps to upgrade.
 
 Please [open an issue](https://github.com/troennes/minium/issues) if you find rendering or accessibility problems, unclear documentation, awkward component boundaries, or APIs that require unnecessary HTML. Include a small reproduction and browser details when relevant.
 
@@ -178,8 +184,9 @@ Development requires Node.js 22 or later.
 
 ```bash
 npm install
-npm test          # lint + gzip size budget
-npm run build     # build core CSS, minified CSS and fonts
+npm test              # lint + theme check + gzip size budget
+npm run build         # build core CSS, minified CSS, fonts and themes
+npm run build:themes  # regenerate color roles and themes from scripts/themes.json
 ```
 
 ## License
