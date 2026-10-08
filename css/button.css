@@ -95,109 +95,57 @@
     }
   }
 
-  /* Secondary and tertiary buttons color support */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]):is(.secondary, .tertiary),
+  /* Secondary buttons have a soft fill (a3) and no border */
+  :where(button, input[type="submit"], input[type="button"], [role="button"]).secondary:not(.neutral),
   input[type="reset"] {
-    &.accent {
-      --button-text: var(--color-accent);
+    --button-surface: var(--color-primary-fill-hover);
+    --button-text: var(--color-primary-text);
+
+    /* Light: tint with the text color to keep the hue. Dark: black */
+    --button-overlay-alpha: calc(1 - var(--hover-multiplier));
+    --button-overlay: light-dark(oklch(from var(--button-text) l c h / calc(1.5 * var(--button-overlay-alpha))), rgb(0 0 0 / calc(2 * var(--button-overlay-alpha))));
+
+    border-color: transparent;
+
+    /* Translucent fills barely change with the lightness multiplier, so an overlay darkens them */
+    &:is([aria-current], :hover, :active) {
+      background-color: var(--button-surface);
+      background-image: linear-gradient(var(--button-overlay), var(--button-overlay));
+      border-color: transparent;
     }
 
-    &.danger {
-      --button-text: var(--color-danger);
-    }
-
-    &.success {
-      --button-text: var(--color-success);
-    }
-
-    &.warning {
-      --button-text: var(--color-warning);
-    }
-
-    &.info {
-      --button-text: var(--color-info);
-    }
-
-    &.contrast {
-      --button-text: var(--color-contrast);
-    }
-  }
-
-  /* Secondary buttons have outline style */
-  :where(button, input[type="submit"], input[type="button"], [role="button"]).secondary,
-  input[type="reset"] {
-    --button-surface: transparent;
-    --button-text: var(--color-primary);
-
-    color: var(--button-text);
-    border: var(--border-width) solid var(--button-text);
-
-    &:is([aria-current], :hover) {
-      --button-surface: var(--color-primary-fill);
-    }
-    
     &:active {
-      --button-surface: var(--color-primary-fill-hover);
+      --button-overlay-alpha: calc(1 - var(--hover-multiplier) * var(--hover-multiplier));
     }
 
     &.accent {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-accent-fill);
-      }
-
-      &:active {
-        --button-surface: var(--color-accent-fill-hover);
-      }
+      --button-surface: var(--color-accent-fill-hover);
+      --button-text: var(--color-accent-text);
     }
 
     &.danger {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-danger-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-danger-fill-hover);
-      }
+      --button-surface: var(--color-danger-fill-hover);
+      --button-text: var(--color-danger-text);
     }
 
     &.success {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-success-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-success-fill-hover);
-      }
+      --button-surface: var(--color-success-fill-hover);
+      --button-text: var(--color-success-text);
     }
 
     &.warning {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-warning-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-warning-fill-hover);
-      }
+      --button-surface: var(--color-warning-fill-hover);
+      --button-text: var(--color-warning-text);
     }
 
     &.info {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-info-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-info-fill-hover);
-      }
+      --button-surface: var(--color-info-fill-hover);
+      --button-text: var(--color-info-text);
     }
 
     &.contrast {
-      &:is([aria-current], :hover) {
-        --button-surface: var(--color-fill);
-      }
-      
-      &:active {
-        --button-surface: var(--color-fill-hover);
-      }
+      --button-surface: var(--color-fill-hover);
+      --button-text: var(--color-contrast);
     }
   }
 
@@ -221,6 +169,30 @@
 
     &.neutral {
       --button-text: var(--color-text)
+    }
+
+    &.accent {
+      --button-text: var(--color-accent);
+    }
+
+    &.danger {
+      --button-text: var(--color-danger);
+    }
+
+    &.success {
+      --button-text: var(--color-success);
+    }
+
+    &.warning {
+      --button-text: var(--color-warning);
+    }
+
+    &.info {
+      --button-text: var(--color-info);
+    }
+
+    &.contrast {
+      --button-text: var(--color-contrast);
     }
   }
 

@@ -386,7 +386,7 @@ Supported modifiers:
 
 Behavior:
 - Default button styling is the primary action style.
-- `.secondary` is the quieter secondary button treatment.
+- `.secondary` is the quieter treatment: a soft tinted fill with colored text and no border. `input[type="reset"]` uses it by default.
 - `.tertiary` is the lightest button treatment and is closer to a text action.
 - The `.full-width` utility makes the button fill the available width.
 - Inside forms, action buttons are typically full width by default.
