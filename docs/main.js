@@ -172,6 +172,8 @@ const colorThemes = [
   ["amber", "#ffc53d"]
 ];
 const defaultColorTheme = "orange"; // also in the <head> script of each docs page
+// Relative to this script, so docs pages and the root index.html resolve the same folder
+const colorThemesPath = new URL("../dist/themes/", document.currentScript.src).href;
 
 function setColorTheme(name) {
   let link = document.getElementById("color-theme-link");
@@ -186,7 +188,7 @@ function setColorTheme(name) {
       link.rel = "stylesheet";
       document.head.append(link);
     }
-    link.href = `../dist/themes/${name}.css`;
+    link.href = `${colorThemesPath}${name}.css`;
     localStorage.setItem("colorTheme", name);
   }
 
@@ -220,7 +222,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const sidebar = document.getElementById('sidebar');
   const footer = document.getElementById('footer');
 
-  header.innerHTML = `
+  // The root index.html has its own header markup
+  if (header) header.innerHTML = `
   <nav class="container">
   <ul>
     <li><strong><a href="/">Minium CSS</a></strong></li>
@@ -272,6 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 
   buildColorThemeList();
+
+  if (!sidebar) return;
 
   sidebar.innerHTML = `
   <ul>
