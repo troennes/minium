@@ -103,15 +103,17 @@
     inline-size: calc(var(--width) * var(--size));
     transition: 0.1s ease-in-out;
     border-radius: var(--border-radius-f);
-    padding: 1px;
 
     &::before {
       content: "";
       display: block;
       aspect-ratio: 1;
-      block-size: calc(var(--size) - (2 * var(--border-width)) - 2px);
+      block-size: var(--size);
+      margin: calc(-1 * var(--border-width));
+      border: var(--border-width) solid rgb(0 0 0 / 15%);
       border-radius: var(--border-radius-f);
-      background-color: var(--color-primary-inverse);
+      background-color: white;
+      background-clip: padding-box;
       transition: margin 0.1s ease-in-out;
     }
 
@@ -121,8 +123,7 @@
       background-color: var(--color-primary);
 
       &::before {
-        margin-inline-start: calc((var(--width) * var(--size)) - var(--size));
-        background-color: var(--color-primary-inverse);
+        margin-inline-start: calc((var(--width) - 1) * var(--size) - var(--border-width));
       }
 
       &[aria-invalid="false"] {
