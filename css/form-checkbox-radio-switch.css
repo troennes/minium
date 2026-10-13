@@ -103,14 +103,18 @@
     inline-size: calc(var(--width) * var(--size));
     transition: 0.1s ease-in-out;
     border-radius: var(--border-radius-f);
+    /* Like the file input: the track border is an inset ring the knob paints over, so nothing depends on how the border snaps */
+    border: none;
+    box-shadow:
+      inset 0 calc(-1 * var(--border-width)) 0 color-mix(in oklab, transparent, var(--shadow-small)),
+      inset 0 0 0 var(--border-width) var(--border-color);
 
     &::before {
       content: "";
       display: block;
       aspect-ratio: 1;
-      block-size: var(--size);
-      margin: calc(-1 * var(--border-width));
-      border: var(--border-width) solid rgb(0 0 0 / 15%);
+      block-size: 100%;
+      border: var(--border-width) solid rgb(0 0 0 / 10%);
       border-radius: var(--border-radius-f);
       background-color: white;
       background-clip: padding-box;
@@ -118,12 +122,13 @@
     }
 
     &:checked {
-      --border-color: var(--color-primary);
+      /* Cap lightness so a white knob still stands out on bright primaries; darker primaries are unchanged */
+      --border-color: oklch(from var(--color-primary) min(l, 0.72) c h);
 
-      background-color: var(--color-primary);
+      background-color: var(--border-color);
 
       &::before {
-        margin-inline-start: calc((var(--width) - 1) * var(--size) - var(--border-width));
+        margin-inline-start: calc((var(--width) - 1) * var(--size));
       }
 
       &[aria-invalid="false"] {
