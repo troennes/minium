@@ -46,14 +46,15 @@
 
   input:is([type="checkbox"]:not([role="switch"])):is(:checked, :indeterminate) {
     --border-color: var(--color-primary);
+    --inverse-color: var(--color-primary-inverse);
 
-    background-color: var(--color-primary);
+    background-color: var(--border-color);
 
     &::after {
       content: "";
       position: absolute;
       inset: 0;
-      background-color: var(--color-primary-inverse);
+      background-color: var(--inverse-color);
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: 100%;
@@ -61,14 +62,12 @@
 
     &[aria-invalid="false"] {
       --border-color: var(--color-success);
-
-      background-color: var(--color-success);
+      --inverse-color: var(--color-success-inverse);
     }
 
     &[aria-invalid="true"] {
       --border-color: var(--color-danger);
-
-      background-color: var(--color-danger);
+      --inverse-color: var(--color-danger-inverse);
     }
   }
 
@@ -89,19 +88,22 @@
 
     &:checked {
       --border-color: var(--color-primary);
+      --inverse-color: var(--color-primary-inverse);
 
       /* The dot is the background inside a thick border; borders snap to the same width on every side, so it stays centred */
       border-width: calc(var(--size) * 0.3);
       border-bottom-color: var(--border-color);
-      background-color: var(--color-primary-inverse);
+      background-color: var(--inverse-color);
       background-clip: padding-box;
 
       &[aria-invalid="false"] {
         --border-color: var(--color-success);
+        --inverse-color: var(--color-success-inverse);
       }
 
       &[aria-invalid="true"] {
         --border-color: var(--color-danger);
+        --inverse-color: var(--color-danger-inverse);
       }
     }
   }
