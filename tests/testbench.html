@@ -1584,8 +1584,130 @@ int main()
     </div>
   </article>
 
-
-
+  <article class="testcase">
+    <h3>Control sizes across text sizes</h3>
+    <ul>
+      <li>Check at 100%, 110%, 125% and 150% zoom in Chromium and Firefox, and at a few viewport widths (the type scale is fluid).</li>
+      <li>Checkbox, radio and switch should be whole pixels and crisp; the radio dot centred in its ring.</li>
+      <li>The switch knob fills the track height and ends flush with the track when checked.</li>
+      <li>The range thumb is centred vertically on its track.</li>
+      <li>The meter bar fills the full height of its track.</li>
+    </ul>
+    <div class="fixture flow">
+      <div class="size-tiny flow">
+        <p class="cluster">
+          <code>.size-tiny</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-tiny" aria-label="Radio">
+          <input type="radio" name="sizing-tiny" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-tiny-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-small flow">
+        <p class="cluster">
+          <code>.size-small</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-small" aria-label="Radio">
+          <input type="radio" name="sizing-small" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-small-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-body flow">
+        <p class="cluster">
+          <code>.size-body</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-body" aria-label="Radio">
+          <input type="radio" name="sizing-body" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-body-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h4 flow">
+        <p class="cluster">
+          <code>.size-h4</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h4" aria-label="Radio">
+          <input type="radio" name="sizing-h4" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h4-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h3 flow">
+        <p class="cluster">
+          <code>.size-h3</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h3" aria-label="Radio">
+          <input type="radio" name="sizing-h3" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h3-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h2 flow">
+        <p class="cluster">
+          <code>.size-h2</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h2" aria-label="Radio">
+          <input type="radio" name="sizing-h2" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h2-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h1 flow">
+        <p class="cluster">
+          <code>.size-h1</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h1" aria-label="Radio">
+          <input type="radio" name="sizing-h1" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h1-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+    </div>
+  </article>
 
 </section>
 

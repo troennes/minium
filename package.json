@@ -51,7 +51,7 @@
     "test": "npm run test:lint && npm run test:themes && npm run test:size",
     "test:lint": "stylelint \"css/**/*.css\"",
     "test:themes": "node scripts/check-themes.mjs",
-    "test:size": "node scripts/check-size.mjs",
+    "test:size": "npm run build && node scripts/check-size.mjs",
     "prepublishOnly": "npm run build && npm test"
   },
   "publishConfig": {
