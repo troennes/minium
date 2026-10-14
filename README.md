@@ -168,9 +168,9 @@ I have worked on Minium on and off since 2022 and rebuilt it from scratch three 
 
 After three rebuilds, Minium’s core ideas feel settled. It works well for the sites and interfaces I build. Broader use will help reveal what still needs work before version 1.0.
 
-## Project status: 0.2
+## Project status: 0.x
 
-Minium 0.2 adds 31 color themes. The library is ready to use, but it has not yet been tested across a wide range of websites, applications, and browsers. Expect breaking changes in minor releases before 1.0. The [changelog](CHANGELOG.md) lists each change and the steps to upgrade.
+The library is ready to use, but it has not yet been tested across a wide range of websites, applications, and browsers. Expect breaking changes in minor releases before 1.0. The [changelog](CHANGELOG.md) lists each change and the steps to upgrade.
 
 Please [open an issue](https://github.com/troennes/minium/issues) if you find rendering or accessibility problems, unclear documentation, awkward component boundaries, or APIs that require unnecessary HTML. Include a small reproduction and browser details when relevant.
 
