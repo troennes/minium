@@ -2,17 +2,20 @@
   /* Checkbox, radio and switches */
   input:is([type="checkbox"], [type="radio"]) {
     --size: 1em;
+    --border-color: var(--color-border-strong);
 
     appearance: none;
-    height: var(--size);
-    width: var(--size);
+    /* Whole pixels keep the ring, dot and knob crisp and centred at 100% zoom */
+    height: round(var(--size), 1px);
+    width: round(var(--size), 1px);
     position: relative;
     cursor: pointer;
     font-size: inherit;
     margin: 0;
     margin-block-end: -0.15em;
     margin-inline-end: var(--space-3xs);
-    border: var(--border-width) solid var(--color-border-strong);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
 
     &:focus {
       outline-offset: var(--outline-offset, 1px);
@@ -42,29 +45,30 @@
     }
   }
 
-  input:is([type="checkbox"]:not([role="switch"]), [type="radio"]):checked,
-  input[type="checkbox"]:indeterminate {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+  input:is([type="checkbox"]:not([role="switch"])):is(:checked, :indeterminate) {
+    --border-color: var(--color-primary);
+    --inverse-color: var(--color-primary-inverse);
+
+    background-color: var(--border-color);
 
     &::after {
       content: "";
       position: absolute;
       inset: 0;
-      background-color: var(--color-primary-inverse);
+      background-color: var(--inverse-color);
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: 100%;
     }
 
     &[aria-invalid="false"] {
-      background-color: var(--color-success);
-      border-color: var(--color-success);
+      --border-color: var(--color-success);
+      --inverse-color: var(--color-success-inverse);
     }
 
     &[aria-invalid="true"] {
-      background-color: var(--color-danger);
-      border-color: var(--color-danger);
+      --border-color: var(--color-danger);
+      --inverse-color: var(--color-danger-inverse);
     }
   }
 
@@ -83,51 +87,75 @@
   input[type="radio"] {
     border-radius: var(--border-radius-f);
 
-    &:checked::after {
-      /* TODO: Maybe better center alignment with border instead of mask-image */
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='4' fill='currentColor'/%3E%3C/svg%3E");
+    &:checked {
+      --border-color: var(--color-primary);
+      --inverse-color: var(--color-primary-inverse);
+
+      /* The dot is the background inside a thick border; borders snap to the same width on every side, so it stays centred */
+      border-width: calc(var(--size) * 0.3);
+      border-bottom-color: var(--border-color);
+      background-color: var(--inverse-color);
+      background-clip: padding-box;
+
+      &[aria-invalid="false"] {
+        --border-color: var(--color-success);
+        --inverse-color: var(--color-success-inverse);
+      }
+
+      &[aria-invalid="true"] {
+        --border-color: var(--color-danger);
+        --inverse-color: var(--color-danger-inverse);
+      }
     }
   }
 
   /* Switch component */
   input[type="checkbox"][role="switch"] {
     --width: 1.85;
+    --border-color: var(--switch-color-border);
 
     background-color: var(--switch-color-surface); 
-    inline-size: calc(var(--width) * var(--size));
+    inline-size: round(var(--width) * var(--size), 1px);
     transition: 0.1s ease-in-out;
-    border: var(--border-width) solid var(--switch-color-border);
     border-radius: var(--border-radius-f);
-    padding: 1px;
+    /* Like the file input: the track border is an inset ring the knob paints over, so nothing depends on how the border snaps */
+    border: none;
+    box-shadow:
+      inset 0 calc(-1 * var(--border-width)) 0 color-mix(in oklab, transparent, var(--shadow-small)),
+      inset 0 0 0 var(--border-width) var(--border-color);
 
     &::before {
       content: "";
       display: block;
       aspect-ratio: 1;
-      block-size: calc(var(--size) - (2 * var(--border-width)) - 2px);
+      block-size: 100%;
+      border: var(--border-width) solid rgb(0 0 0 / 10%);
       border-radius: var(--border-radius-f);
-      background-color: var(--color-primary-inverse);
-      box-shadow: var(--shadow-small);
+      background-color: white;
+      background-clip: padding-box;
       transition: margin 0.1s ease-in-out;
     }
 
     &:checked {
-      background-color: var(--color-primary);
-      border-color: var(--color-primary);
-      
+      /* Cap lightness so a white knob still stands out on bright primaries; darker primaries are unchanged */
+      --border-color: oklch(from var(--color-primary) min(l, 0.72) c h);
+
+      background-color: var(--border-color);
+
       &::before {
-        margin-inline-start: calc((var(--width) * var(--size)) - var(--size));
-        background-color: var(--color-primary-inverse);
+        margin-inline-start: calc(round(var(--width) * var(--size), 1px) - round(var(--size), 1px));
       }
 
       &[aria-invalid="false"] {
+        --border-color: var(--color-success);
+
         background-color: var(--color-success);
-        border-color: var(--color-success);
       }
 
       &[aria-invalid="true"] {
+        --border-color: var(--color-danger);
+
         background-color: var(--color-danger);
-        border-color: var(--color-danger);
       }
     }
 

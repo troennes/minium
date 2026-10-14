@@ -1,10 +1,12 @@
 @layer base {
   /* Common styles */
   :where(input, select, textarea) {
+    --border-color: var(--color-border-strong);
+
     background-color: var(--form-color-surface);
-    border: var(--border-width) solid var(--color-border-strong);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     border-radius: var(--border-radius-m);
-    /* box-shadow: var(--shadow-small); */
     line-height: var(--line-height);
   }
 
@@ -49,7 +51,7 @@
 
   :is(input, select, textarea) {
     &[aria-invalid="false"] {
-      border-color: var(--color-success-border-strong);
+      --border-color: var(--color-success-border-strong);
 
       + small {
         color: var(--color-success-text);
@@ -57,7 +59,7 @@
     }
 
     &[aria-invalid="true"] {
-      border-color: var(--color-danger-border-strong);
+      --border-color: var(--color-danger-border-strong);
 
       + small {
         color: var(--color-danger-text);
@@ -104,8 +106,9 @@
   select[disabled],
   textarea[disabled],
   :where(fieldset[disabled]) :is(input:not([type="submit"], [type="button"], [type="reset"]), select, textarea) {
+    --border-color: var(--form-color-border-disabled);
+
     background-color: transparent;
-    border-color: var(--form-color-border-disabled); 
     opacity: 0.5;
     pointer-events: none;
   }
@@ -154,65 +157,90 @@
   }
 
   input[type="file"] {
+    /* The input clips its content inside its border, so the field border is an inset ring the button can paint over */
+    border: none;
+    box-shadow:
+      inset 0 calc(-1 * var(--border-width)) 0 color-mix(in oklab, transparent, var(--shadow-small)),
+      inset 0 0 0 var(--border-width) var(--border-color);
+
     &::file-selector-button {
+      --border-color: var(--color-primary);
+
       background-color: var(--color-primary);
       color: var(--color-primary-inverse);
-      box-shadow: var(--shadow-small);
       padding: var(--space-2xs) var(--space-xs);
-      border: var(--border-width) solid var(--color-primary);
+      border: var(--border-width) solid var(--border-color);
+      border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
+      /* Fill the input's height so the button covers the ring on its side */
+      block-size: 100%;
       font-weight: bold;
       line-height: var(--line-height);
       text-align: center;
       margin-inline-end: var(--space-xs);
       border-radius: 0;
+      border-start-start-radius: var(--border-radius-m);
+      border-end-start-radius: var(--border-radius-m);
       font-family: inherit;
+      font-size: inherit;
     }
 
     &:is([aria-current], :hover)::file-selector-button {
-      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+
+      background-color: var(--border-color);
     }
 
     &:active::file-selector-button {
-      background-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
-      border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+
+      background-color: var(--border-color);
     }
 
-    &.small::file-selector-button {
-      padding: var(--space-3xs) var(--space-2xs);
+    /* The input sets the size so its block-size matches text inputs; the button inherits it */
+    &.small {
       font-size: var(--size-small);
+
+      &::file-selector-button {
+        padding: var(--space-3xs) var(--space-2xs);
+      }
     }
 
-    &.large::file-selector-button {
-      padding: var(--space-xs) var(--space-s);
+    &.large {
       font-size: var(--size-h4);
+
+      &::file-selector-button {
+        padding: var(--space-xs) var(--space-s);
+      }
     }
   }
 
   input[type="range"] {
     background-color: var(--color-fill);
     border-color: var(--color-border-weak);
-    height: 0.33em;
+    /* Track and thumb round to even pixels so the thumb centres on the track without a half-pixel offset */
+    height: round(0.33em, 2px);
     appearance: none;
     cursor: pointer;
     box-shadow: var(--shadow-inner);
 
     &::-moz-range-thumb {
-      width: 1em;
-      height: 1em;
-      background-color: var(--color-text);
+      width: round(1em, 2px);
+      height: round(1em, 2px);
+      /* Same knob as the switch, with a stronger rim since it mostly sits over the page */
+      background-color: white;
+      background-clip: padding-box;
+      border: var(--border-width) solid rgb(0 0 0 / 20%);
       border-radius: var(--border-radius-f);
-      border: none;
-      box-shadow: var(--shadow-small);
     }
 
     &::-webkit-slider-thumb {
       appearance: none;
-      width: 1em;
-      height: 1em;
-      background-color: var(--color-text);
+      width: round(1em, 2px);
+      height: round(1em, 2px);
+      background-color: white;
+      background-clip: padding-box;
+      border: var(--border-width) solid rgb(0 0 0 / 20%);
       border-radius: var(--border-radius-f);
-      box-shadow: var(--shadow-small);
     }
 
     &:active {
@@ -395,23 +423,42 @@
       border-radius: 0;
     }
 
-    :not(:first-child, button, input:is([type="submit"], [type="button"], [type="reset"])) {
+    /* Child-only: the descendant version also stripped borders inside a dropdown's popover */
+    > :not(:first-child, button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"])) {
       border-inline-start: 0;
     }
-    
-    :last-child {
-      border-bottom-right-radius: var(--border-radius-m);
-      border-top-right-radius: var(--border-radius-m);
+
+    > :first-child {
+      border-start-start-radius: var(--border-radius-m);
+      border-end-start-radius: var(--border-radius-m);
     }
 
-    :first-child {
-      border-bottom-left-radius: var(--border-radius-m);
-      border-top-left-radius: var(--border-radius-m);
+    > :last-child {
+      border-start-end-radius: var(--border-radius-m);
+      border-end-end-radius: var(--border-radius-m);
+    }
+
+    /* Split button: the dropdown trigger takes the group's corners and full height */
+    > .dropdown {
+      display: flex;
+      align-self: stretch;
+
+      > button[popovertarget] {
+        border-radius: inherit;
+      }
+    }
+
+    /* Divider between adjacent buttons, contrasting in every theme and colour variant */
+    > :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"]), .dropdown)
+      + :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"])),
+    > :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"]))
+      + .dropdown > button[popovertarget] {
+      border-inline-start-color: color-mix(in oklab, var(--button-surface), var(--button-text) 20%);
     }
 
     button,
     input:is([type="submit"], [type="button"], [type="reset"]) {
       width: unset;
     }
-  }  
+  }
 }

@@ -128,11 +128,13 @@
 
   /* Pagination */
   nav[aria-label="pagination" i] > :is(ol,ul) {
+    --border-color: var(--color-border-strong);
+
     inline-size: fit-content;
     max-inline-size: 100%;
-    border: var(--border-width) solid var(--color-border-strong);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     border-radius: var(--border-radius-s);
-    box-shadow: var(--shadow-small);
 
     li {
       /* stylelint-disable-next-line no-descending-specificity */

@@ -415,6 +415,8 @@ Behavior:
 - The `.full-width` utility makes the button fill the available width.
 - Inside forms, action buttons are typically full width by default.
 - `disabled` and `aria-disabled="true"` are supported.
+- Wrap buttons in a `div role="group"` to join them into one connected row. Adjacent buttons get a divider line that contrasts in every theme and tone.
+- Split button: inside a `role="group"`, put a `.dropdown` with an empty trigger after a button. The trigger shows only the chevron, takes the button look (not the transparent dropdown default), and joins the button with square inner corners. Give it an `aria-label`.
 
 Example:
 ```html
@@ -732,6 +734,7 @@ Behavior:
 - Button variants can also be used on the trigger.
 - Icon-only triggers should use `.icon-only` and an accessible name such as `aria-label`; mark the decorative SVG with `aria-hidden="true"`.
 - The panel is anchored to the trigger via CSS anchor positioning and flips block/inline to stay in the viewport.
+- Inside a `role="group"` after a button, a dropdown forms a split button: the trigger takes the button look, joins the button before it, and an empty trigger shows only the chevron (give it an `aria-label`).
 
 Accessibility:
 - Dropdowns are native popovers, not full ARIA menu buttons (no `role="menu"`, `aria-expanded`, or focus management — the APG menu button pattern requires JavaScript).
@@ -750,6 +753,22 @@ Width custom properties (set on `.dropdown` or any ancestor):
 
 Nesting:
 - A `.dropdown` may be placed inside another dropdown's panel.
+
+Split button example:
+```html
+<div role="group">
+  <button>Save</button>
+  <div class="dropdown">
+    <button popovertarget="save-menu" aria-label="More save options"></button>
+    <div id="save-menu" popover>
+      <ul>
+        <li><a href="#">Save as draft</a></li>
+        <li><a href="#">Save and publish</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+```
 
 Example:
 ```html

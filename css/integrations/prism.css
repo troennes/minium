@@ -151,6 +151,8 @@
   div.code-toolbar>.toolbar>.toolbar-item>a,
   div.code-toolbar>.toolbar>.toolbar-item>button,
   div.code-toolbar>.toolbar>.toolbar-item>span {
+    --border-color: var(--color-border-weak);
+
     display: inline-flex;
     align-items: center;
     gap: var(--space-3xs);
@@ -160,8 +162,8 @@
     background-color: var(--color-fill);
     color: var(--color-text);
     padding: var(--space-3xs) var(--space-2xs);
-    border: var(--border-width) solid var(--color-border-weak);
-    box-shadow: var(--shadow-small);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
     border-radius: var(--border-radius-s);
   }
 

@@ -94,7 +94,7 @@
     &::-webkit-meter-bar {
       background: transparent;
       border-radius: var(--border-radius-f);
-      block-size: 0.5em;
+      block-size: 100%;
     }
 
     &::-webkit-meter-optimum-value,

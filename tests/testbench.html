@@ -1087,13 +1087,77 @@ int main()
     <h3>Grouped buttons</h3>
     <ul>
       <li>You can use role="group" with buttons</li>
+      <li>Adjacent buttons of the same colour get a divider line that contrasts in every theme and colour variant.</li>
+      <li>Split button: a <code>.dropdown</code> after a button joins it; the empty trigger shows only the chevron and needs an <code>aria-label</code>.</li>
+      <li>The trigger matches the button look, has square corners on the joined side and the full height of the group; the popover keeps its own border and corners.</li>
     </ul>
-    <div class="fixture">
+    <div class="fixture flow">
       <div class="switcher">
         <div role="group">
           <a href="#" role="button">Button</a>
           <a href="#" role="button" class="accent">Button</a>
           <button class="danger">Button</button>
+        </div>
+      </div>
+      <div class="cluster">
+        <div role="group">
+          <button>Bold</button>
+          <button>Italic</button>
+          <button>Underline</button>
+        </div>
+        <div role="group">
+          <a href="#" role="button" class="accent">Previous</a>
+          <a href="#" role="button" class="accent">Next</a>
+        </div>
+      </div>
+      <div class="cluster">
+        <div role="group">
+          <button>Save</button>
+          <div class="dropdown">
+            <button popovertarget="split-save" aria-label="More save options"></button>
+            <div id="split-save" popover>
+              <ul>
+                <li><a href="#">Save as draft</a></li>
+                <li><a href="#">Save and publish</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div role="group">
+          <button class="success small">Merge</button>
+          <div class="dropdown">
+            <button class="success small" popovertarget="split-merge" aria-label="More merge options"></button>
+            <div id="split-merge" popover>
+              <ul>
+                <li><a href="#">Squash and merge</a></li>
+                <li><a href="#">Rebase and merge</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div role="group">
+          <button class="danger large">Delete</button>
+          <div class="dropdown">
+            <button class="danger large" popovertarget="split-delete" aria-label="More delete options"></button>
+            <div id="split-delete" popover>
+              <ul>
+                <li><a href="#">Delete for everyone</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div role="group">
+          <button>Back</button>
+          <div class="dropdown">
+            <button popovertarget="split-middle" aria-label="History"></button>
+            <div id="split-middle" popover>
+              <ul>
+                <li><a href="#">Page one</a></li>
+                <li><a href="#">Page two</a></li>
+              </ul>
+            </div>
+          </div>
+          <button>Forward</button>
         </div>
       </div>
     </div>
@@ -1584,8 +1648,130 @@ int main()
     </div>
   </article>
 
-
-
+  <article class="testcase">
+    <h3>Control sizes across text sizes</h3>
+    <ul>
+      <li>Check at 100%, 110%, 125% and 150% zoom in Chromium and Firefox, and at a few viewport widths (the type scale is fluid).</li>
+      <li>Checkbox, radio and switch should be whole pixels and crisp; the radio dot centred in its ring.</li>
+      <li>The switch knob fills the track height and ends flush with the track when checked.</li>
+      <li>The range thumb is centred vertically on its track.</li>
+      <li>The meter bar fills the full height of its track.</li>
+    </ul>
+    <div class="fixture flow">
+      <div class="size-tiny flow">
+        <p class="cluster">
+          <code>.size-tiny</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-tiny" aria-label="Radio">
+          <input type="radio" name="sizing-tiny" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-tiny-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-small flow">
+        <p class="cluster">
+          <code>.size-small</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-small" aria-label="Radio">
+          <input type="radio" name="sizing-small" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-small-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-body flow">
+        <p class="cluster">
+          <code>.size-body</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-body" aria-label="Radio">
+          <input type="radio" name="sizing-body" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-body-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h4 flow">
+        <p class="cluster">
+          <code>.size-h4</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h4" aria-label="Radio">
+          <input type="radio" name="sizing-h4" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h4-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h3 flow">
+        <p class="cluster">
+          <code>.size-h3</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h3" aria-label="Radio">
+          <input type="radio" name="sizing-h3" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h3-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h2 flow">
+        <p class="cluster">
+          <code>.size-h2</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h2" aria-label="Radio">
+          <input type="radio" name="sizing-h2" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h2-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+      <div class="size-h1 flow">
+        <p class="cluster">
+          <code>.size-h1</code>
+          <input type="checkbox" aria-label="Checkbox">
+          <input type="checkbox" checked aria-label="Checkbox, checked">
+          <input type="checkbox" checked aria-invalid="true" aria-label="Checkbox, checked, invalid">
+          <input type="radio" name="sizing-h1" aria-label="Radio">
+          <input type="radio" name="sizing-h1" checked aria-label="Radio, checked">
+          <input type="radio" name="sizing-h1-valid" checked aria-invalid="false" aria-label="Radio, checked, valid">
+          <input type="checkbox" role="switch" aria-label="Switch">
+          <input type="checkbox" role="switch" checked aria-label="Switch, checked">
+          <label><input type="checkbox" checked>Label</label>
+        </p>
+        <input type="range" min="0" max="10" value="4" aria-label="Range">
+        <meter min="0" max="100" low="40" high="70" optimum="99" value="66"></meter>
+      </div>
+    </div>
+  </article>
 
 </section>
 

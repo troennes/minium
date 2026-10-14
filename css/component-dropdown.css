@@ -7,7 +7,7 @@
     gap: var(--space-3xs);
 
     /* Transparent button look is the default */
-    &:where(:not(.primary, .accent, .danger, .success, .warning, .info, .contrast, .neutral, .secondary, .tertiary, .icon-only, .close)) {
+    &:where(:not(.primary, .accent, .danger, .success, .warning, .info, .contrast, .neutral, .secondary, .tertiary, .icon-only, .close, [role="group"] > .dropdown > *)) {
       --button-surface: transparent;
       --button-text: var(--color-text);
 

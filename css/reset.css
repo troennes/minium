@@ -10,7 +10,17 @@
   /* Box sizing rules */
   *,
   *::before,
-  *::after {
+  *::after,
+  *::file-selector-button {
+    box-sizing: border-box;
+  }
+
+  /* Vendor pseudo-elements get their own rules: one a browser doesn't know would drop the whole selector list */
+  *::-webkit-slider-thumb {
+    box-sizing: border-box;
+  }
+
+  *::-moz-range-thumb {
     box-sizing: border-box;
   }
 
