@@ -35,13 +35,13 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 Load the minified stylesheet from jsDelivr without installing anything:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/minium.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.3.0/dist/minium.min.css">
 ```
 
 To add a color theme, load its stylesheet after the core stylesheet:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/themes/blue.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.3.0/dist/themes/blue.css">
 ```
 
 ### Install with npm
@@ -101,7 +101,7 @@ Keep the generated `fonts/` directory beside the stylesheet so its relative font
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello, world</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.2.0/dist/minium.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.3.0/dist/minium.min.css">
 </head>
 <body>
   <main class="container flow">
