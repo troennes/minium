@@ -423,23 +423,42 @@
       border-radius: 0;
     }
 
-    :not(:first-child, button, input:is([type="submit"], [type="button"], [type="reset"])) {
+    /* Child-only: the descendant version also stripped borders inside a dropdown's popover */
+    > :not(:first-child, button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"])) {
       border-inline-start: 0;
     }
-    
-    :last-child {
-      border-bottom-right-radius: var(--border-radius-m);
-      border-top-right-radius: var(--border-radius-m);
+
+    > :first-child {
+      border-start-start-radius: var(--border-radius-m);
+      border-end-start-radius: var(--border-radius-m);
     }
 
-    :first-child {
-      border-bottom-left-radius: var(--border-radius-m);
-      border-top-left-radius: var(--border-radius-m);
+    > :last-child {
+      border-start-end-radius: var(--border-radius-m);
+      border-end-end-radius: var(--border-radius-m);
+    }
+
+    /* Split button: the dropdown trigger takes the group's corners and full height */
+    > .dropdown {
+      display: flex;
+      align-self: stretch;
+
+      > button[popovertarget] {
+        border-radius: inherit;
+      }
+    }
+
+    /* Divider between adjacent buttons, contrasting in every theme and colour variant */
+    > :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"]), .dropdown)
+      + :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"])),
+    > :is(button, [role="button"], input:is([type="submit"], [type="button"], [type="reset"]))
+      + .dropdown > button[popovertarget] {
+      border-inline-start-color: color-mix(in oklab, var(--button-surface), var(--button-text) 20%);
     }
 
     button,
     input:is([type="submit"], [type="button"], [type="reset"]) {
       width: unset;
     }
-  }  
+  }
 }

@@ -176,17 +176,36 @@
 
 <div class="example">
   <article>
-    <div role="group">
-      <a href="#" role="button">Button</a>
-      <a href="#" role="button" class="accent">Button</a>
-      <button class="danger">Button</button>
+    <div role="group" aria-label="Text style">
+      <button>Bold</button>
+      <button>Italic</button>
+      <button>Underline</button>
     </div>
-
     <div class="cluster">
       <button>Save</button>
       <button class="secondary">Preview</button>
       <button class="accent">Publish</button>
       <button class="neutral">Share</button>
+    </div>
+  </article>
+</div>
+
+<h2>Make a split button</h2>
+<p>Inside a <code>role="group"</code>, put a <a href="component-dropdown.html">dropdown</a> after a button to join a main action with a menu of related actions. Leave the trigger empty so it shows only the chevron.</p>
+
+<div class="example">
+  <article>
+    <div role="group">
+      <button>Save</button>
+      <div class="dropdown">
+        <button popovertarget="docs-split-save" aria-label="More save options"></button>
+        <div id="docs-split-save" popover>
+          <ul>
+            <li><a href="#">Save as draft</a></li>
+            <li><a href="#">Save and publish</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </article>
 </div>
