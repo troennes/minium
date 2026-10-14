@@ -217,14 +217,15 @@
   input[type="range"] {
     background-color: var(--color-fill);
     border-color: var(--color-border-weak);
-    height: 0.33em;
+    /* Track and thumb round to even pixels so the thumb centres on the track without a half-pixel offset */
+    height: round(0.33em, 2px);
     appearance: none;
     cursor: pointer;
     box-shadow: var(--shadow-inner);
 
     &::-moz-range-thumb {
-      width: 1em;
-      height: 1em;
+      width: round(1em, 2px);
+      height: round(1em, 2px);
       background-color: var(--color-text);
       border-radius: var(--border-radius-f);
       border: none;
@@ -232,8 +233,8 @@
 
     &::-webkit-slider-thumb {
       appearance: none;
-      width: 1em;
-      height: 1em;
+      width: round(1em, 2px);
+      height: round(1em, 2px);
       background-color: var(--color-text);
       border-radius: var(--border-radius-f);
     }
