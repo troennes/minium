@@ -226,16 +226,20 @@
     &::-moz-range-thumb {
       width: round(1em, 2px);
       height: round(1em, 2px);
-      background-color: var(--color-text);
+      /* Same knob as the switch, with a stronger rim since it mostly sits over the page */
+      background-color: white;
+      background-clip: padding-box;
+      border: var(--border-width) solid rgb(0 0 0 / 20%);
       border-radius: var(--border-radius-f);
-      border: none;
     }
 
     &::-webkit-slider-thumb {
       appearance: none;
       width: round(1em, 2px);
       height: round(1em, 2px);
-      background-color: var(--color-text);
+      background-color: white;
+      background-clip: padding-box;
+      border: var(--border-width) solid rgb(0 0 0 / 20%);
       border-radius: var(--border-radius-f);
     }
 
