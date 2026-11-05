@@ -580,17 +580,19 @@ Supported modifiers:
 - `.warning`
 - `.success`
 - `.danger`
+- `.with-icon` (opt-in status icon; only with `.info`, `.warning`, `.success`, `.danger`)
 
 Behavior:
 - Add `.alert` to a container.
 - Use `role="alert"` for urgent announcements that assistive tech should treat assertively.
 - Alerts support rich internal content such as headings, paragraphs, and actions.
 - Alerts already include internal flow spacing between direct children.
+- Semantic variants show no icon by default. Add `.with-icon` to show one; the whole content is indented past the icon.
 - A `.close` button as the last direct child is pinned in the top inline-end corner, and the alert reserves space for it. Dismissing needs one line of JavaScript. A `.close` nested in a wrapper (such as a `.repel` row) stays in normal flow.
 
 Example:
 ```html
-<div class="alert warning" role="alert">
+<div class="alert warning with-icon" role="alert">
   Your trial ends in 2 days.
 </div>
 ```

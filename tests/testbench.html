@@ -2356,6 +2356,49 @@ int main()
   </article>
 
   <article class="testcase">
+    <h3>Opt-in icon (.with-icon)</h3>
+    <ul>
+      <li>Semantic variants show no icon without .with-icon</li>
+      <li>Icon aligns with the first line of text</li>
+      <li>All content is indented past the icon; wrapped lines and later children never run under it</li>
+      <li>.with-icon on default, primary, and accent has no effect</li>
+      <li>Combines with a pinned .close</li>
+      <li>RTL: icon on the right, indent on the inline-start side</li>
+    </ul>
+    <div class="fixture resizable">
+      <div class="alert info">Info alert without .with-icon: no icon.</div>
+      <div class="alert info with-icon">Info alert with icon.</div>
+      <div class="alert warning with-icon">Warning alert with icon.</div>
+      <div class="alert success with-icon">Success alert with icon.</div>
+      <div class="alert danger with-icon">Danger alert with icon.</div>
+
+      <div class="alert info with-icon">
+        Bare text that is long enough to wrap onto several lines, so the hanging indent can be checked: every wrapped line should start at the same edge as the first line, never under the icon.
+      </div>
+
+      <div class="alert warning with-icon">
+        <h4>Rich content</h4>
+        <p>Paragraphs after the heading keep the same indent.</p>
+        <p><a href="#">An example link</a></p>
+      </div>
+
+      <div class="alert primary with-icon">Primary alert with .with-icon: no icon, no indent.</div>
+
+      <div class="alert success with-icon">
+        <h4>Icon and close together</h4>
+        <p>Content is padded on both inline sides.</p>
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+
+      <div class="alert danger with-icon" dir="rtl">
+        <h4>تنبيه</h4>
+        <p>الأيقونة تظهر في الزاوية اليمنى العليا.</p>
+        <button class="close" aria-label="Dismiss" onclick="this.closest('.alert').remove()"></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
     <h3>Flow modes and semantics</h3>
     <ul>
       <li>Default flow, compact flow, loose flow and disabled flow</li>

@@ -42,20 +42,21 @@
       }
     }
 
-    &:is(.info, .warning, .success, .danger)::before {
-      display: block;
-      width: 1.5em;
-      height: 1.5em;
-      margin-inline-end: var(--space-xs);
-      float: inline-start;
-      background-color: currentcolor;
-      mask-position: left .25em;
-      mask-size: 1em auto;
-      mask-repeat: no-repeat;
-      content: "";
+    &.with-icon:is(.info, .warning, .success, .danger) {
+      padding-inline-start: calc(var(--alert-padding) + 1em + var(--space-xs));
 
-      [dir="rtl"] & {
-        mask-position: right .25em;
+      &::before {
+        position: absolute;
+        inset-block-start: var(--alert-padding);
+        inset-inline-start: var(--alert-padding);
+        width: 1em;
+        height: 1.5em; 
+        height: 1lh; /* progressive enhancement */
+        background-color: currentcolor;
+        mask-position: center;
+        mask-size: 1em auto;
+        mask-repeat: no-repeat;
+        content: "";
       }
     }
 
