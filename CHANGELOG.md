@@ -5,6 +5,46 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-11-14
+
+Minium v0.4 switches the default colors to the Radix Themes defaults: indigo
+as the primary color on a slate neutral. Alerts are also quieter: status
+icons are now opt-in, and alert text uses the body text color.
+
+### Added
+
+- **Alert icons:** Add `.with-icon` to an `.info`, `.warning`, `.success`, or
+  `.danger` alert to show its status icon.
+
+### Changed
+
+- **Breaking — default theme:** The default theme is now `indigo` (neutral
+  slate, accent orange, success green, warning yellow, danger red, info
+  cyan) instead of `orange` (neutral sand, accent indigo, warning amber, info
+  blue). Sites that do not load a theme change color. To keep the previous
+  look, load `themes/orange.css`.
+- **Breaking — alert icons:** Semantic alert variants no longer show an icon
+  by default. Add `.with-icon` to keep it.
+- **Alert colors:** Alert text and icons use the body text color instead of
+  the variant color. Links inside an alert keep a variant-colored underline.
+- **Alert shadow:** Alerts no longer have a drop shadow.
+- The npm package now includes `llms.txt`.
+
+### Upgrade from 0.3
+
+1. Update the version in your CDN URL or run
+   `npm install @troennes/minium@0.4.0`.
+2. To keep the previous orange default, load the orange theme file after
+   `minium.css`:
+
+   ```html
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.4.0/dist/themes/orange.css">
+   ```
+
+   If you already load a theme file, no change is needed.
+3. To keep status icons on alerts, add `.with-icon` to `.info`, `.warning`,
+   `.success`, and `.danger` alerts.
+
 ## [0.3.0] - 2026-10-14
 
 Minium v0.3 replaces the small drop shadow on buttons, badges, and form
@@ -147,6 +187,7 @@ drop shadows.
 
 Initial public release.
 
+[0.4.0]: https://github.com/troennes/minium/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/troennes/minium/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/troennes/minium/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/troennes/minium/compare/v0.1.0...v0.1.1
