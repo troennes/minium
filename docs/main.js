@@ -188,19 +188,32 @@ const defaultColorTheme = "indigo"; // also in the <head> script of each docs pa
 const colorThemesPath = new URL("../dist/themes/", document.currentScript.src).href;
 
 function setColorTheme(name) {
-  let link = document.getElementById("color-theme-link");
+  const current = document.getElementById("color-theme-link");
+
+  // Drop a theme still loading from an earlier click
+  document.querySelectorAll("link[data-color-theme-pending]").forEach((link) => link.remove());
 
   if (name === defaultColorTheme) {
-    link?.remove();
+    current?.remove();
     localStorage.removeItem("colorTheme");
   } else {
-    if (!link) {
-      link = document.createElement("link");
-      link.id = "color-theme-link";
+    const href = `${colorThemesPath}${name}.css`;
+
+    // Load the new theme next to the old one and swap only once it has loaded.
+    // Changing href in place unloads the old sheet first, flashing the default theme.
+    if (current?.href !== href) {
+      const link = document.createElement("link");
       link.rel = "stylesheet";
-      document.head.append(link);
+      link.href = href;
+      link.dataset.colorThemePending = "";
+      link.addEventListener("load", () => {
+        document.getElementById("color-theme-link")?.remove();
+        link.id = "color-theme-link";
+        delete link.dataset.colorThemePending;
+      });
+      link.addEventListener("error", () => link.remove());
+      current ? current.after(link) : document.head.append(link);
     }
-    link.href = `${colorThemesPath}${name}.css`;
     localStorage.setItem("colorTheme", name);
   }
 
