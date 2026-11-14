@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><title>Open Graph image</title><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css">
+<!-- Source for /og-image.png (1200×630). Run npm run build, then: chrome-headless-shell --hide-scrollbars --window-size=1200,630 --virtual-time-budget=2000 --screenshot=og-image.png scripts/og-image.html -->
+<style>
+  html, body {
+    inline-size: 1200px;
+    block-size: 630px;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 56px 64px 48px;
+    font-size: 20px;
+    background: var(--color-surface, Canvas);
+  }
+
+  h1 {
+    font-size: 64px;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .tagline {
+    font-size: 30px;
+    color: var(--color-text-muted);
+    margin-block-start: 12px;
+  }
+
+  .demo {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 32px;
+    align-items: stretch;
+
+    > .card {margin: 0;}
+
+    > pre {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+  }
+
+  .facts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    color: var(--color-text-muted);
+
+    strong {color: var(--color-text);}
+  }
+</style>
+</head><body>
+
+<div>
+  <h1>Minium CSS</h1>
+  <p class="tagline">The minimum CSS and HTML to build anything</p>
+</div>
+
+<div class="demo">
+  <article class="card">
+    <h3>Account settings</h3>
+    <form>
+      <label>
+        Workspace name
+        <input type="text" value="Acme Analytics">
+      </label>
+      <button type="button">Save changes</button>
+    </form>
+  </article>
+  <pre class="language-html"><code>&lt;article class="card"&gt;
+  &lt;h3&gt;Account settings&lt;/h3&gt;
+  &lt;form&gt;
+    &lt;label&gt;
+      Workspace name
+      &lt;input type="text" value="Acme Analytics"&gt;
+    &lt;/label&gt;
+    &lt;button&gt;Save changes&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/article&gt;</code></pre>
+</div>
+
+<p class="facts"><span><strong>~15 KB</strong> gzipped · <strong>No</strong> JavaScript · <strong>No</strong> build step</span><span>minium.style</span></p>
+
+<script src="../docs/prism.js"></script>
+</body></html>
