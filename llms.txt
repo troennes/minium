@@ -587,6 +587,7 @@ Behavior:
 - Use `role="alert"` for urgent announcements that assistive tech should treat assertively.
 - Alerts support rich internal content such as headings, paragraphs, and actions.
 - Alerts already include internal flow spacing between direct children.
+- Alert text keeps the body text color and the icon uses the muted text color in all variants. The variant color applies to the background, border, and link underlines.
 - Semantic variants show no icon by default. Add `.with-icon` to show one; the whole content is indented past the icon.
 - A `.close` button as the last direct child is pinned in the top inline-end corner, and the alert reserves space for it. Dismissing needs one line of JavaScript. A `.close` nested in a wrapper (such as a `.repel` row) stays in normal flow.
 
