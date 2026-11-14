@@ -183,7 +183,7 @@ const colorThemes = [
   ["olive", "#1d211c"],
   ["sand", "#21201c"]
 ];
-const defaultColorTheme = "orange"; // also in the <head> script of each docs page
+const defaultColorTheme = "indigo"; // also in the <head> script of each docs page
 // Relative to this script, so docs pages and the root index.html resolve the same folder
 const colorThemesPath = new URL("../dist/themes/", document.currentScript.src).href;
 

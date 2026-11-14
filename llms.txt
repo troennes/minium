@@ -75,7 +75,7 @@ Minium ships 31 color themes in `dist/themes/`. Load one after the core styleshe
 With npm: `import "@troennes/minium/themes/blue.css";`
 
 Rules:
-- A theme is named after its primary Radix scale: gray, mauve, slate, sage, olive, sand, bronze, gold, brown, orange (default), tomato, red, ruby, crimson, pink, plum, purple, violet, iris, indigo, blue, cyan, sky, teal, jade, green, grass, mint, lime, yellow, amber.
+- A theme is named after its primary Radix scale: gray, mauve, slate, sage, olive, sand, bronze, gold, brown, orange, tomato, red, ruby, crimson, pink, plum, purple, violet, iris, indigo (default), blue, cyan, sky, teal, jade, green, grass, mint, lime, yellow, amber.
 - Theme files declare the layer order and use `@layer theme`, so load order does not matter.
 - Load one theme at a time.
 

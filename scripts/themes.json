@@ -1,5 +1,5 @@
 {
-  "default": "orange",
+  "default": "indigo",
   "grayScales": ["gray", "mauve", "slate", "sage", "olive", "sand"],
   "brightScales": ["sky", "mint", "lime", "yellow", "amber"],
   "themes": {

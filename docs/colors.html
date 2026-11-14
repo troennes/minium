@@ -47,7 +47,7 @@
     const mode = localStorage.getItem("themePreference");
     if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
     const colorTheme = localStorage.getItem("colorTheme");
-    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "orange") {
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "indigo") {
       document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
     }
   } catch {}
