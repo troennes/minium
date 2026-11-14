@@ -30,101 +30,19 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 
 ## Quick start
 
-### Use the CDN
-
-Load the minified stylesheet from jsDelivr without installing anything:
+Load the minified stylesheet from jsDelivr:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.4.0/dist/minium.min.css">
 ```
 
-To add a color theme, load its stylesheet after the core stylesheet:
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.4.0/dist/themes/blue.css">
-```
-
-### Install with npm
+Or install the package with npm:
 
 ```bash
 npm install @troennes/minium
 ```
 
-Import the core stylesheet from your application's entry point:
-
-```js
-import "@troennes/minium";
-```
-
-To use the minified build explicitly, import its package subpath:
-
-```js
-import "@troennes/minium/min";
-```
-
-If your tools cannot import CSS from a package, copy the complete `node_modules/@troennes/minium/dist/` directory into your project's public assets. Then link the copied stylesheet:
-
-```html
-<link rel="stylesheet" href="/styles/minium.min.css">
-```
-
-Keep the included `fonts/` directory beside the stylesheet so its relative font URLs continue to work.
-
-### Build from source
-
-Choose this option if you want to modify Minium's source CSS before using it. Building requires Node.js 22 or later.
-
-1. [Download the latest source ZIP from GitHub](https://github.com/troennes/minium/archive/refs/heads/main.zip).
-2. Extract the ZIP and open a terminal in the extracted `minium-main` directory.
-3. Install the build dependencies and build Minium:
-
-   ```bash
-   npm install
-   npm run build
-   ```
-
-4. Copy the complete `dist/` directory into your project's public assets.
-5. Link the copied stylesheet from your HTML:
-
-   ```html
-   <link rel="stylesheet" href="/styles/minium/minium.min.css">
-   ```
-
-Keep the generated `fonts/` directory beside the stylesheet so its relative font URLs continue to work.
-
-### Start with semantic HTML
-
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello, world</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.4.0/dist/minium.min.css">
-</head>
-<body>
-  <main class="container flow">
-    <h1>Hello, world</h1>
-    <p>Your HTML already has a design system.</p>
-    <button>Continue</button>
-  </main>
-</body>
-</html>
-```
-
-Explore the [quick-start documentation](https://minium.style/docs/index.html) when you are ready to add layouts and components.
-
-## Customize the theme
-
-Minium includes 31 color themes. Load one after the core stylesheet:
-
-```html
-<link rel="stylesheet" href="minium.min.css">
-<link rel="stylesheet" href="themes/blue.css">
-```
-
-Custom properties control colors, type, spacing, radii, shadows, and component density. Override them in `@layer theme` without specificity tricks. See the [customization guide](https://minium.style/docs/customization.html) for details.
+The [quick start guide](https://minium.style/docs/index.html) covers color themes, bundler imports, self-hosting, and building from source.
 
 ## Features
 
