@@ -81,6 +81,7 @@
     }
 
     > .avatar {
+      position: relative; /* all avatars positioned so DOM order decides stacking */
       box-shadow: 0 0 0 4px var(--avatar-ring-color, var(--color-surface));
 
       + .avatar {
