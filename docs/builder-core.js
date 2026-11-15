@@ -212,7 +212,7 @@ function scaleLength(value, factor) {
   return `${+(Number(match[1]) * factor).toFixed(4)}${match[2]}`;
 }
 
-/* options: { radius, fonts: "default" | "system", scale, contentWidth, borderWidth, fontBaseUrl } */
+/* options: { radius, fonts: "default" | "system", scale, contentWidth, borderWidth, underlineThickness, fontBaseUrl } */
 export function applyTokens(themeCss, options) {
   let css = themeCss;
 
@@ -238,6 +238,9 @@ export function applyTokens(themeCss, options) {
 
   if (options.contentWidth) css = replaceToken(css, "--content-width", () => `${options.contentWidth}ch`);
   if (options.borderWidth) css = replaceToken(css, "--border-width", () => `${options.borderWidth}px`);
+  if (options.underlineThickness) {
+    css = replaceToken(css, "--text-decoration-thickness", () => `${options.underlineThickness}px`);
+  }
 
   return css;
 }

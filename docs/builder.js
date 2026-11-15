@@ -235,6 +235,7 @@ function readOptions() {
       scale: Number(data.get("scale")),
       contentWidth: contentWidth && contentWidth !== 68 ? contentWidth : null,
       borderWidth: data.get("borderWidth") === "1" ? null : Number(data.get("borderWidth")),
+      underlineThickness: data.get("underlineThickness") === "2" ? null : Number(data.get("underlineThickness")),
       fontBaseUrl: `https://cdn.jsdelivr.net/npm/@troennes/minium@${source.version}/dist/fonts/`,
     },
   };
@@ -244,13 +245,14 @@ function describe(options) {
   const colors = options.theme === "custom"
     ? `custom (${ROLES.map((role) => `${role}: ${options.mapping[role]}`).join(", ")})`
     : options.theme;
-  const { radius, fonts, scale, contentWidth, borderWidth } = options.tokens;
+  const { radius, fonts, scale, contentWidth, borderWidth, underlineThickness } = options.tokens;
   const tokens = [
     radius !== "medium" && `radius: ${radius}`,
     fonts !== "default" && `fonts: ${fonts}`,
     scale !== 1 && `scale: ${Math.round(scale * 100)}%`,
     contentWidth && `content width: ${contentWidth}ch`,
     borderWidth && `border width: ${borderWidth}px`,
+    underlineThickness && `underline thickness: ${underlineThickness}px`,
   ].filter(Boolean);
   const date = new Date().toISOString().slice(0, 10);
 
@@ -286,7 +288,8 @@ function fitPreview() {
   if (!doc?.documentElement) return;
   const fit = () => {
     preview.style.blockSize = "";
-    preview.style.blockSize = `${doc.documentElement.scrollHeight}px`;
+    /* Round up: scaled content has fractional heights, and scrollHeight rounds them down */
+    preview.style.blockSize = `${Math.ceil(doc.documentElement.getBoundingClientRect().height)}px`;
   };
   fit();
   doc.fonts?.ready.then(fit);
@@ -339,10 +342,10 @@ async function copy(button) {
 
 form.addEventListener("change", (event) => {
   if (event.target.name === "theme") {
-    if (event.target.value === "custom") document.querySelector("#builder-custom-roles").open = true;
-    else applyThemeToRoles(event.target.value);
+    const custom = event.target.value === "custom";
+    document.querySelector("#builder-custom-roles").hidden = !custom;
+    if (!custom) applyThemeToRoles(event.target.value);
   } else if (event.target.name?.startsWith("role-")) {
-    form.querySelector('input[name="theme"][value="custom"]').checked = true;
     updateRoleSwatches();
   }
   rebuild();

@@ -16,6 +16,7 @@
       display: block;
       inline-size: 100%;
       min-block-size: 20rem;
+      box-sizing: content-box; /* the height set by builder.js is the content height, without borders */
       border: var(--border-width) solid var(--color-border-strong);
       border-radius: var(--border-radius-m);
     }
@@ -123,11 +124,11 @@
     <legend>Color theme</legend>
     <div id="builder-themes" class="grid"></div>
   </fieldset>
-  <details id="builder-custom-roles">
-    <summary>Customize color roles</summary>
-    <p>Choose a color scale for each role. Changing a role switches the theme to <em>Custom</em>.</p>
+  <fieldset id="builder-custom-roles" hidden>
+    <legend>Color roles</legend>
+    <p>Choose a color scale for each role. The roles start from the theme you had selected.</p>
     <div id="builder-roles" class="grid thirds"></div>
-  </details>
+  </fieldset>
 
   <h2>Tokens</h2>
   <div class="grid halves">
@@ -151,15 +152,22 @@
       </select>
     </label>
     <label>
-      Content width (ch)
-      <input type="number" name="contentWidth" min="40" max="120" step="1" value="68">
-    </label>
-    <label>
       Border width
       <select name="borderWidth">
         <option value="1" selected>1px (default)</option>
         <option value="2">2px</option>
       </select>
+    </label>
+    <label>
+      Underline thickness
+      <select name="underlineThickness">
+        <option value="1">1px</option>
+        <option value="2" selected>2px (default)</option>
+      </select>
+    </label>
+    <label>
+      Content width (ch)
+      <input type="number" name="contentWidth" min="40" max="120" step="1" value="68">
     </label>
   </div>
   <fieldset>
