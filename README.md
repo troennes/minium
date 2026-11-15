@@ -6,7 +6,7 @@ Minium is a semantic-first CSS library that makes ordinary HTML look good, then 
 
 [See what it looks like](https://minium.style/examples/dashboard.html) | [Read the documentation](https://minium.style/docs/index.html)
 
-![minium — semantic HTML styled into a themeable, responsive app](https://raw.githubusercontent.com/yasirwhite/opendemo-media/main/troennes-minium/minium-demo.gif)
+![Minium: semantic HTML styled into a themeable, responsive app](docs/assets/minium-demo.gif)
 
 ## Why Minium?
 
