@@ -355,6 +355,12 @@ form.addEventListener("input", (event) => {
 });
 form.addEventListener("submit", (event) => event.preventDefault());
 
+/* Same sun and moon icons as the docs header toggle (sunIcon and moonIcon come from docs/main.js) */
+for (const button of document.querySelectorAll("#builder-preview-mode [data-mode]")) {
+  const icon = button.dataset.mode === "light" ? sunIcon : moonIcon;
+  button.insertAdjacentHTML("afterbegin", `${icon.replace("<svg ", '<svg aria-hidden="true" ')} `);
+}
+
 document.querySelector("#builder-preview-mode").addEventListener("click", (event) => {
   const button = event.target.closest("[data-mode]");
   if (!button) return;
