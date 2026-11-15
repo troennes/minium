@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Builder | Minium CSS</title><meta name="description" content="Pick the modules, colors and tokens you need, preview the result, and download one CSS file."><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<script>
+  /* Apply saved light/dark mode and color theme before first paint; docs/main.js handles changes */
+  try {
+    const mode = localStorage.getItem("themePreference");
+    if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
+    const colorTheme = localStorage.getItem("colorTheme");
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "indigo") {
+      document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
+    }
+  } catch {}
+</script>
+<style>
+  @layer project {
+    #builder-preview {
+      display: block;
+      inline-size: 100%;
+      min-block-size: 20rem;
+      border: var(--border-width) solid var(--color-border-strong);
+      border-radius: var(--border-radius-m);
+    }
+
+    #builder-preview-mode [aria-pressed="true"] {font-weight: var(--font-weight-bold)}
+  }
+</style>
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Getting Started</p>
+<h1>Builder</h1>
+
+<p>Pick the modules, colors and tokens you need, preview the result, and download one CSS file. The builder assembles the file in your browser from the current source on the <code>main</code> branch.</p>
+
+<p id="builder-status" role="status">Loading source files…</p>
+
+<form id="builder" class="flow" hidden>
+
+  <h2>Modules</h2>
+  <p>The core is always included: tokens, reset, base styles, typography, layouts, buttons and forms.</p>
+  <fieldset>
+    <legend>Components and utilities</legend>
+    <div id="builder-modules" class="grid halves"></div>
+  </fieldset>
+
+  <h2>Colors</h2>
+  <label>
+    Color theme
+    <select id="builder-theme" name="theme"></select>
+  </label>
+  <details>
+    <summary>Customize color roles</summary>
+    <p>Choose a color scale for each role. Changing a role switches the theme to <em>Custom</em>.</p>
+    <div id="builder-roles" class="grid thirds"></div>
+  </details>
+
+  <h2>Tokens</h2>
+  <div class="grid halves">
+    <label>
+      Border radius
+      <select name="radius">
+        <option value="none">None</option>
+        <option value="small">Small</option>
+        <option value="medium" selected>Medium (default)</option>
+        <option value="large">Large</option>
+      </select>
+    </label>
+    <label>
+      Scaling of text and space
+      <select name="scale">
+        <option value="0.9">90%</option>
+        <option value="0.95">95%</option>
+        <option value="1" selected>100% (default)</option>
+        <option value="1.05">105%</option>
+        <option value="1.1">110%</option>
+      </select>
+    </label>
+    <label>
+      Content width (ch)
+      <input type="number" name="contentWidth" min="40" max="120" step="1" value="68">
+    </label>
+    <label>
+      Border width
+      <select name="borderWidth">
+        <option value="1" selected>1px (default)</option>
+        <option value="2">2px</option>
+      </select>
+    </label>
+  </div>
+  <fieldset>
+    <legend>Fonts</legend>
+    <label><input type="radio" name="fonts" value="default" checked> PT Sans and Inconsolata, loaded from jsDelivr</label>
+    <label><input type="radio" name="fonts" value="system"> System fonts only, with no font files</label>
+  </fieldset>
+</form>
+
+<section id="builder-output" class="flow" hidden>
+  <h2>Preview</h2>
+  <div id="builder-preview-mode" role="group" aria-label="Preview color scheme">
+    <button type="button" class="secondary" data-mode="light" aria-pressed="true">Light</button>
+    <button type="button" class="secondary" data-mode="dark" aria-pressed="false">Dark</button>
+  </div>
+  <iframe id="builder-preview" title="Preview of the custom build"></iframe>
+
+  <h2>Download</h2>
+  <p id="builder-size" aria-live="polite"></p>
+  <div class="cluster">
+    <button type="button" id="builder-download">Download CSS</button>
+    <button type="button" id="builder-copy" class="secondary">Copy to clipboard</button>
+  </div>
+</section>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script><script type="module" src="builder.js"></script></body></html>
