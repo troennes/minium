@@ -21,6 +21,78 @@
     }
 
     #builder-preview-mode [aria-pressed="true"] {font-weight: var(--font-weight-bold)}
+
+    /* Theme picker: cards filled with the theme color and labeled with its name, so the choice
+       never depends on color alone. The selected card adds a check mark, bold text and a ring. */
+    #builder-themes {
+      --grid-min-size: 9.25rem;
+      gap: var(--space-xs);
+
+      label {
+        position: relative;
+        display: flex;
+        inline-size: auto;
+        justify-self: stretch;
+        align-items: center;
+        gap: var(--space-3xs);
+        margin: 0;
+        padding: var(--space-xs) var(--space-s);
+        border-radius: var(--border-radius-s);
+        background: var(--swatch);
+        color: white;
+        white-space: nowrap;
+        cursor: pointer;
+
+        &.bright {color: #1c2024;}
+
+        &.custom {
+          background: var(--color-surface-raised, var(--color-surface));
+          color: var(--color-text);
+          box-shadow: inset 0 0 0 var(--border-width) var(--color-border-strong);
+        }
+
+        /* The radio stays in the accessibility tree and keyboard order, but is not visible */
+        > input {
+          position: absolute;
+          inset: 0;
+          inline-size: 100%;
+          block-size: 100%;
+          margin: 0;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        &:has(:checked) {
+          font-weight: var(--font-weight-bold);
+          box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-text);
+
+          &::before {
+            content: "";
+            flex: none;
+            inline-size: 1em;
+            block-size: 1em;
+            background-color: currentcolor;
+            mask: var(--icon-check) center / contain no-repeat;
+          }
+        }
+
+        &:has(:focus-visible) {
+          outline: var(--outline-width) solid var(--color-primary-focus, var(--color-primary));
+          outline-offset: 6px;
+        }
+      }
+
+      .theme-swatch.custom {
+        background: conic-gradient(#e5484d, #ffc53d, #30a46c, #0090ff, #8e4ec6, #e5484d);
+      }
+    }
+
+    #builder-themes .theme-swatch,
+    #builder-roles .theme-swatch {
+      flex: none;
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
   }
 </style>
 </head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
@@ -41,13 +113,17 @@
     <legend>Components and utilities</legend>
     <div id="builder-modules" class="grid halves"></div>
   </fieldset>
+  <fieldset>
+    <legend>Integrations</legend>
+    <div id="builder-integrations" class="grid halves"></div>
+  </fieldset>
 
   <h2>Colors</h2>
-  <label>
-    Color theme
-    <select id="builder-theme" name="theme"></select>
-  </label>
-  <details>
+  <fieldset>
+    <legend>Color theme</legend>
+    <div id="builder-themes" class="grid"></div>
+  </fieldset>
+  <details id="builder-custom-roles">
     <summary>Customize color roles</summary>
     <p>Choose a color scale for each role. Changing a role switches the theme to <em>Custom</em>.</p>
     <div id="builder-roles" class="grid thirds"></div>

@@ -11,6 +11,11 @@ export const BUNDLE_ORDER = [
   "utilities.css",
 ];
 
+/* Integrations ship separately in dist/integrations/; in a custom build they come last */
+export const INTEGRATION_FILES = ["integrations/django.css", "integrations/prism.css"];
+
+export const ALL_FILES = [...BUNDLE_ORDER, ...INTEGRATION_FILES];
+
 export const CORE_FILES = [
   "theme.css", "roles.css", "reset.css", "base.css", "typography.css", "layout.css",
   "button.css", "form.css", "form-checkbox-radio-switch.css",
@@ -32,6 +37,8 @@ export const MODULES = [
   { id: "skeleton", label: "Skeleton", files: ["component-skeleton.css"] },
   { id: "tooltip", label: "Tooltip", files: ["component-tooltip.css"] },
   { id: "utilities", label: "Utilities", files: ["utilities.css"] },
+  { id: "django", label: "Django forms", group: "integrations", files: ["integrations/django.css"] },
+  { id: "prism", label: "Prism.js syntax highlighting", group: "integrations", files: ["integrations/prism.css"] },
 ];
 
 export const ROLES = ["neutral", "primary", "accent", "success", "danger", "warning", "info"];
@@ -60,7 +67,15 @@ export function filesFor(moduleIds) {
   for (const module of MODULES) {
     if (moduleIds.includes(module.id)) module.files.forEach((file) => wanted.add(file));
   }
-  return BUNDLE_ORDER.filter((file) => wanted.has(file));
+  return ALL_FILES.filter((file) => wanted.has(file));
+}
+
+/* Light-mode color of a scale step, for swatches. Neutral scales have no step 9, so they fall back to 8. */
+export function swatchColor(library, scale, step = "9") {
+  const entry = library.color[scale] ?? library.neutral[scale];
+  const line = entry?.srgb.find((value) => value.startsWith(`--ROLE-${step}:`) || value.startsWith(`--neutral-${step}:`))
+    ?? entry?.srgb.find((value) => value.startsWith("--neutral-8:"));
+  return line?.match(/light-dark\((#[0-9a-f]{6,8})/i)?.[1] ?? "transparent";
 }
 
 /* Color roles
@@ -101,7 +116,8 @@ export function parseRoleGroups(css) {
    Color lines use the placeholder "--ROLE-". Also keeps the "gray primary" token overrides and the
    gray scale list from scripts/themes.json. */
 export function buildScaleLibrary(cssFiles, themesConfig) {
-  const library = { neutral: {}, color: {}, grayPrimary: null, grayScales: themesConfig.grayScales };
+  const library = { neutral: {}, color: {}, grayPrimary: null, grayScales: themesConfig.grayScales,
+    brightScales: themesConfig.brightScales };
 
   for (const css of cssFiles) {
     for (const group of parseGroups(css)) {
