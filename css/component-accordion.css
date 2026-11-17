@@ -79,15 +79,13 @@
     }
 
     &:has(+ details) {
+      border-bottom-color: var(--border-color);
+
       &,
       & summary:hover:not([role="button"]) {
         border-end-start-radius: 0;
         border-end-end-radius: 0;
       }
-    }
-
-    &:not(:last-child) {
-      box-shadow: none;
     }
   }
 
