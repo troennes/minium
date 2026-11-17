@@ -45,6 +45,10 @@ export const ROLES = ["neutral", "primary", "accent", "success", "danger", "warn
 
 export const RADIUS = { none: 0, small: 0.5, medium: 1, large: 1.5 };
 
+/* Density sets line height and multiplies the flow spacing. Glue spacing stays fixed so that
+   related items, such as a label and its help text, stay together. */
+export const DENSITY = { compact: { lineHeight: 1.35, flow: 0.75 }, airy: { lineHeight: 1.65, flow: 1.25 } };
+
 const SYSTEM_FONT = "system-ui, 'Segoe UI', 'Noto Sans', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji','Segoe UI Emoji'";
 const SYSTEM_FONT_MONO = "ui-monospace, sfmono-regular, consolas, 'Liberation Mono', menlo, monospace";
 const SYSTEM_FONT_SERIF = "ui-serif, georgia, cambria, 'Times New Roman', times, serif";
@@ -275,7 +279,7 @@ function scaleLength(value, factor) {
 }
 
 /* options: { radius, font: "default" | "system" | font id, headingFont: "body" | "serif" | "mono" | font id,
-   monoFont: "default" | "system" | font id, scale, contentWidth, borderWidth, underlineThickness, fontBaseUrl } */
+   monoFont: "default" | "system" | font id, density: "compact" | "airy", scale, contentWidth, borderWidth, underlineThickness, fontBaseUrl } */
 export function applyTokens(themeCss, options) {
   let css = themeCss;
 
@@ -319,6 +323,14 @@ export function applyTokens(themeCss, options) {
 
   if (options.fontBaseUrl) css = css.replace(/url\("fonts\//g, `url("${options.fontBaseUrl}`);
   if (faces.length) css = css.replace("@layer tokens {", `${faces.join("\n")}\n\n@layer tokens {`);
+
+  const density = DENSITY[options.density];
+  if (density) {
+    css = replaceToken(css, "--line-height", () => String(density.lineHeight));
+    for (const token of ["--flow-space-tight", "--flow-space", "--flow-space-loose"]) {
+      css = replaceToken(css, token, (value) => scaleLength(value, density.flow));
+    }
+  }
 
   if (options.scale && options.scale !== 1) {
     css = css.replace(/(--(?:size|space)-[a-z0-9-]+\s*:\s*)([^;]+);/g,

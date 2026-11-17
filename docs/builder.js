@@ -329,6 +329,7 @@ function readOptions() {
       headingFont: data.get("headingFont"),
       monoFont: data.get("monoFont"),
       scale: Number(data.get("scale")),
+      density: data.get("density") === "default" ? null : data.get("density"),
       contentWidth: contentWidth && contentWidth !== 68 ? contentWidth : null,
       borderWidth: data.get("borderWidth") === "1" ? null : Number(data.get("borderWidth")),
       underlineThickness: data.get("underlineThickness") === "2" ? null : Number(data.get("underlineThickness")),
@@ -341,13 +342,14 @@ function describe(options) {
   const colors = options.theme === "custom"
     ? `custom (${ROLES.map((role) => `${role}: ${options.mapping[role]}`).join(", ")})`
     : options.theme;
-  const { radius, font, headingFont, monoFont, scale, contentWidth, borderWidth, underlineThickness } = options.tokens;
+  const { radius, font, headingFont, monoFont, density, scale, contentWidth, borderWidth, underlineThickness } = options.tokens;
   const tokens = [
     radius !== "medium" && `radius: ${radius}`,
     font !== "default" && `body font: ${font}`,
     headingFont !== "body" && `heading font: ${headingFont}`,
     monoFont !== "default" && `code font: ${monoFont}`,
     scale !== 1 && `scale: ${Math.round(scale * 100)}%`,
+    density && `density: ${density}`,
     contentWidth && `content width: ${contentWidth}ch`,
     borderWidth && `border width: ${borderWidth}px`,
     underlineThickness && `underline thickness: ${underlineThickness}px`,
