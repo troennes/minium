@@ -4,7 +4,7 @@
 
 Minium is a semantic-first CSS library that makes ordinary HTML look good, then adds class-light layouts and components for building real interfaces.
 
-[See what it looks like](https://minium.style/examples/dashboard.html) | [Read the documentation](https://minium.style/docs/index.html)
+[See what it looks like](https://minium.style/examples/dashboard.html) | [Read the documentation](https://minium.style/docs/index.html) | [Customize your build](https://minium.style/docs/customizer.html)
 
 ![Minium: semantic HTML styled into a themeable, responsive app](docs/assets/minium-demo.gif)
 
@@ -43,6 +43,8 @@ Or install the package with npm:
 ```bash
 npm install @troennes/minium
 ```
+
+Or pick the modules, colors, fonts and tokens you need in the [customizer](https://minium.style/docs/customizer.html), and download one CSS file.
 
 The [quick start guide](https://minium.style/docs/index.html) covers color themes, bundler imports, self-hosting, and building from source.
 

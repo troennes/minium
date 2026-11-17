@@ -17,6 +17,7 @@
 <h1>Customization</h1>
 
 <p>Customize Minium CSS without editing the library. Load a color theme, override tokens in your own stylesheet, and put project-specific styles in <code>@layer project</code>. Each section below builds on the previous one, so start with a theme and add overrides only where the theme does not fit.</p>
+<p>To try themes, fonts and tokens without writing CSS, use the <a href="customizer.html">customizer</a>. It previews your choices and downloads them as one file.</p>
 
 <h2>Use a color theme</h2>
 <p>Minium ships 31 color themes. To use one, load its stylesheet after the core stylesheet:</p>
@@ -98,6 +99,7 @@ import "@troennes/minium/themes/blue.css";</code></pre>
 <pre><code class="language-css">@layer theme {
   :root {
     --font: "IBM Plex Sans", system-ui, sans-serif;
+    --font-heading: "IBM Plex Serif", ui-serif, serif;
     --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
     --content-width: 72ch;
@@ -113,6 +115,7 @@ import "@troennes/minium/themes/blue.css";</code></pre>
 
 <p>The main token groups are:</p>
 <ul>
+  <li><code>--font</code>, <code>--font-heading</code>, and <code>--font-mono</code>: Body, heading, and code fonts. Headings use <code>--font</code> by default.</li>
   <li><code>--size-*</code>: Type scale.</li>
   <li><code>--space-*</code> and <code>--gap</code>: Spacing.</li>
   <li><code>--flow-space*</code>: Vertical rhythm.</li>

@@ -292,6 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <ul>
           <li><a href="index.html">Quick start</a></li>
           <li><a href="customization.html">Customization</a></li>
+          <li><a href="customizer.html">Customizer</a></li>
           <li><a href="colors.html">Colors</a></li>
         </ul>
       </details>
