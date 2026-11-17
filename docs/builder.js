@@ -9,7 +9,7 @@ const output = document.querySelector("#builder-output");
 const preview = document.querySelector("#builder-preview");
 const sizeText = document.querySelector("#builder-size");
 
-const PREVIEW_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><style id="build"></style></head><body>
+const PREVIEW_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><style>[hidden] {display: none !important}</style><style id="build"></style></head><body>
 <header data-module="nav">
   <nav class="container">
     <ul><li><strong>Acme</strong></li></ul>
@@ -20,7 +20,7 @@ const PREVIEW_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"
     </ul>
   </nav>
 </header>
-<main class="container flow">
+<main class="container flow" style="padding-block-end: var(--space-m)">
   <hgroup>
     <h1>Preview</h1>
     <p>Semantic HTML with your modules, colors and tokens. Here is <a href="#">a link</a> and some <code>inline code</code>.</p>
@@ -59,7 +59,15 @@ const PREVIEW_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"
       <h2>$124,560</h2>
       <p data-module="badge"><span class="badge success">+12.4%</span> <span class="badge info">Info</span> <span class="badge warning">Warning</span></p>
       <p data-module="progress"><progress value="72" max="100">72%</progress></p>
-      <div data-module="avatar"><figure class="avatar">KT</figure> <figure class="avatar small">A</figure></div>
+      <label data-module="progress">Server load
+        <meter id="preview-meter" min="0" max="100" low="50" high="80" optimum="20" value="30">30%</meter>
+      </label>
+      <div role="group" data-module="avatar">
+        <figure class="avatar"><img src="../tests/assets/avatar-3.png" alt="Ken"></figure>
+        <figure class="avatar"><img src="../tests/assets/avatar-4.png" alt="Lina"></figure>
+        <figure class="avatar"><img src="../tests/assets/avatar-5.png" alt="Mike"></figure>
+        <figure class="avatar">+3</figure>
+      </div>
     </article>
   </section>
 
@@ -119,16 +127,21 @@ const PREVIEW_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"
   }
 }</code></pre>
 
-  <form data-module="django">
-    <div>
-      <label for="id_email">Email</label>
-      <input type="email" id="id_email" value="ada@example">
-      <span class="helptext">We never share your email.</span>
-      <ul class="errorlist"><li>Enter a valid email address.</li></ul>
-    </div>
-  </form>
 </main>
 <script src="prism.js"></script>
+<script>
+  /* Step the meter through its optimum, low and high ranges every 3 seconds, to show each color */
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const meter = document.querySelector("#preview-meter");
+    const values = [30, 65, 90];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % values.length;
+      meter.value = values[index];
+      meter.textContent = values[index] + "%";
+    }, 3000);
+  }
+</script>
 </body></html>`;
 
 let source;
@@ -377,7 +390,8 @@ function updatePreview(options) {
   style.textContent = latest.css;
   doc.documentElement.dataset.theme = previewMode;
   for (const element of doc.querySelectorAll("[data-module]")) {
-    element.hidden = !options.moduleIds.includes(element.dataset.module);
+    /* toggleAttribute, since SVG elements such as icons have no hidden property */
+    element.toggleAttribute("hidden", !options.moduleIds.includes(element.dataset.module));
   }
   fitPreview();
 }
