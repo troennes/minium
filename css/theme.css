@@ -114,6 +114,7 @@
     --border-width: 1px;
     --outline-width: 2px;
     --font: 'PT Sans', system-ui, 'Segoe UI', 'Noto Sans', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji','Segoe UI Emoji';
+    --font-heading: var(--font);
     --font-mono: inconsolata, ui-monospace, sfmono-regular, consolas, 'Liberation Mono', menlo, monospace; 
     --font-mono-size: 0.95em;
 

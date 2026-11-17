@@ -6,7 +6,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     text-wrap: balance;
-    font-family: var(--font-heading, inherit);
+    font-family: var(--font-heading);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-heading, inherit);
   }

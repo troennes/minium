@@ -172,8 +172,21 @@
   </div>
   <fieldset>
     <legend>Fonts</legend>
-    <label><input type="radio" name="fonts" value="default" checked> PT Sans and Inconsolata, loaded from jsDelivr</label>
-    <label><input type="radio" name="fonts" value="system"> System fonts only, with no font files</label>
+    <p>Font files load from jsDelivr. System fonts need no font files.</p>
+    <div class="grid halves">
+      <label>
+        Body font
+        <select name="font"></select>
+      </label>
+      <label>
+        Heading font
+        <select name="headingFont"></select>
+      </label>
+      <label>
+        Code font
+        <select name="monoFont"></select>
+      </label>
+    </div>
   </fieldset>
 </form>
 

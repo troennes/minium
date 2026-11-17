@@ -47,6 +47,62 @@ export const RADIUS = { none: 0, small: 0.5, medium: 1, large: 1.5 };
 
 const SYSTEM_FONT = "system-ui, 'Segoe UI', 'Noto Sans', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji','Segoe UI Emoji'";
 const SYSTEM_FONT_MONO = "ui-monospace, sfmono-regular, consolas, 'Liberation Mono', menlo, monospace";
+const SYSTEM_FONT_SERIF = "ui-serif, georgia, cambria, 'Times New Roman', times, serif";
+
+/* Fonts from Fontsource, served by jsDelivr. Each URL pins the version, and every font has
+   400 and 700 weights in the latin and latin-ext subsets. "use" sets where the builder offers the font:
+   body fonts are also offered for headings, and only body fonts load italics. */
+const FONTSOURCE_URL = "https://cdn.jsdelivr.net/fontsource/fonts/";
+const UNICODE_RANGES = {
+  latin: "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+  "latin-ext": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
+};
+const FALLBACKS = { sans: SYSTEM_FONT, serif: SYSTEM_FONT_SERIF, mono: SYSTEM_FONT_MONO };
+
+export const FONTS = [
+  { id: "dm-sans", family: "DM Sans", version: "5.3.0", use: "body", category: "sans" },
+  { id: "geist", family: "Geist", version: "5.3.0", use: "body", category: "sans" },
+  { id: "ibm-plex-sans", family: "IBM Plex Sans", version: "5.3.0", use: "body", category: "sans" },
+  { id: "inter", family: "Inter", version: "5.3.0", use: "body", category: "sans" },
+  { id: "merriweather", family: "Merriweather", version: "5.3.0", use: "body", category: "serif" },
+  { id: "montserrat", family: "Montserrat", version: "5.3.0", use: "body", category: "sans" },
+  { id: "open-sans", family: "Open Sans", version: "5.3.0", use: "body", category: "sans" },
+  { id: "poppins", family: "Poppins", version: "5.3.0", use: "body", category: "sans" },
+  { id: "pt-sans", family: "PT Sans", version: "5.3.0", use: "body", category: "sans" },
+  { id: "roboto", family: "Roboto", version: "5.3.0", use: "body", category: "sans" },
+  { id: "bricolage-grotesque", family: "Bricolage Grotesque", version: "5.3.0", use: "heading", category: "sans" },
+  { id: "fraunces", family: "Fraunces", version: "5.3.0", use: "heading", category: "serif" },
+  { id: "outfit", family: "Outfit", version: "5.3.0", use: "heading", category: "sans" },
+  { id: "playfair-display", family: "Playfair Display", version: "5.3.0", use: "heading", category: "serif" },
+  { id: "space-grotesk", family: "Space Grotesk", version: "5.3.0", use: "heading", category: "sans" },
+  { id: "fira-code", family: "Fira Code", version: "5.3.0", use: "mono", category: "mono" },
+  { id: "geist-mono", family: "Geist Mono", version: "5.3.0", use: "mono", category: "mono" },
+  { id: "ibm-plex-mono", family: "IBM Plex Mono", version: "5.3.0", use: "mono", category: "mono" },
+  { id: "inconsolata", family: "Inconsolata", version: "5.3.0", use: "mono", category: "mono" },
+  { id: "jetbrains-mono", family: "JetBrains Mono", version: "5.3.0", use: "mono", category: "mono" },
+];
+
+/* The fonts bundled with Minium, which theme.css already loads */
+const BUNDLED = { font: "pt-sans", mono: "inconsolata" };
+
+function fontStack(font) {
+  return `"${font.family}", ${FALLBACKS[font.category]}`;
+}
+
+function fontFaces(font, variants) {
+  return variants.flatMap(([weight, style]) => Object.entries(UNICODE_RANGES).map(([subset, range]) => `@font-face {
+  font-family: "${font.family}";
+  font-style: ${style};
+  font-weight: ${weight};
+  font-display: swap;
+  src: url("${FONTSOURCE_URL}${font.id}@${font.version}/${subset}-${weight}-${style}.woff2") format("woff2");
+  unicode-range: ${range};
+}`)).join("\n");
+}
+
+const BODY_VARIANTS = [[400, "normal"], [400, "italic"], [700, "normal"], [700, "italic"]];
+const MONO_VARIANTS = [[400, "normal"], [700, "normal"]];
+const HEADING_VARIANTS = [[700, "normal"]];
 
 /* Same as scripts/build-css.mjs */
 export function removeComments(css) {
@@ -206,13 +262,20 @@ function replaceToken(css, name, transform) {
   return css.replace(pattern, (_, prefix, value) => `${prefix}${transform(value.trim())};`);
 }
 
+/* Removes the @font-face rules of one bundled font family */
+function removeFontFaces(css, family) {
+  return css.replace(/@font-face\s*{[^}]*}\s*/g,
+    (rule) => (rule.match(/font-family:\s*"?([^";]+)"?;/)?.[1] === family ? "" : rule));
+}
+
 function scaleLength(value, factor) {
   const match = value.match(/^(-?[\d.]+)(rem|px|em)$/);
   if (!match) throw new Error(`Cannot scale ${value}`);
   return `${+(Number(match[1]) * factor).toFixed(4)}${match[2]}`;
 }
 
-/* options: { radius, fonts: "default" | "system", scale, contentWidth, borderWidth, underlineThickness, fontBaseUrl } */
+/* options: { radius, font: "default" | "system" | font id, headingFont: "body" | "serif" | "mono" | font id,
+   monoFont: "default" | "system" | font id, scale, contentWidth, borderWidth, underlineThickness, fontBaseUrl } */
 export function applyTokens(themeCss, options) {
   let css = themeCss;
 
@@ -223,13 +286,39 @@ export function applyTokens(themeCss, options) {
     }
   }
 
-  if (options.fonts === "system") {
-    css = css.replace(/@font-face\s*{[^}]*}\s*/g, "");
-    css = replaceToken(css, "--font", () => SYSTEM_FONT);
-    css = replaceToken(css, "--font-mono", () => SYSTEM_FONT_MONO);
-  } else if (options.fontBaseUrl) {
-    css = css.replace(/url\("fonts\//g, `url("${options.fontBaseUrl}`);
+  /* Fonts: "default" keeps the bundled font, "system" uses system fonts, anything else is a font id */
+  const findFont = (id) => FONTS.find((font) => font.id === id);
+  const bodyId = options.font === "default" || !options.font ? BUNDLED.font : options.font;
+  const monoId = options.monoFont === "default" || !options.monoFont ? BUNDLED.mono : options.monoFont;
+  const faces = [];
+
+  if (bodyId !== BUNDLED.font) {
+    css = removeFontFaces(css, "PT Sans");
+    const font = findFont(bodyId);
+    if (font) faces.push(fontFaces(font, BODY_VARIANTS));
+    css = replaceToken(css, "--font", () => (font ? fontStack(font) : SYSTEM_FONT));
   }
+
+  if (monoId !== BUNDLED.mono) {
+    css = removeFontFaces(css, "Inconsolata");
+    const font = findFont(monoId);
+    if (font) faces.push(fontFaces(font, MONO_VARIANTS));
+    css = replaceToken(css, "--font-mono", () => (font ? fontStack(font) : SYSTEM_FONT_MONO));
+  }
+
+  /* Headings: "body" keeps the library default (--font-heading: var(--font)) */
+  const heading = options.headingFont ?? "body";
+  if (heading === "serif") css = replaceToken(css, "--font-heading", () => SYSTEM_FONT_SERIF);
+  else if (heading === "mono") css = replaceToken(css, "--font-heading", () => "var(--font-mono)");
+  else if (heading !== "body" && heading !== bodyId) {
+    const font = findFont(heading);
+    if (!font) throw new Error(`No font named "${heading}"`);
+    faces.push(fontFaces(font, HEADING_VARIANTS));
+    css = replaceToken(css, "--font-heading", () => fontStack(font));
+  }
+
+  if (options.fontBaseUrl) css = css.replace(/url\("fonts\//g, `url("${options.fontBaseUrl}`);
+  if (faces.length) css = css.replace("@layer tokens {", `${faces.join("\n")}\n\n@layer tokens {`);
 
   if (options.scale && options.scale !== 1) {
     css = css.replace(/(--(?:size|space)-[a-z0-9-]+\s*:\s*)([^;]+);/g,

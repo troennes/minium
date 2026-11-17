@@ -54,6 +54,7 @@ Minium uses cascade layers to control specificity. The order is:
 ## Customization model
 1. Minium CSS is configured through custom properties.
 2. The most important token groups are:
+   `--font`, `--font-heading` and `--font-mono` for body, heading and code fonts (headings use `--font` by default),
    `--size-*` for type scale,
    `--space-*` and `--gap` for spacing,
    `--flow-space*` for vertical rhythm,

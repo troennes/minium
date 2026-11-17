@@ -1,6 +1,6 @@
 /* Minium builder UI: loads the source CSS, reads the form, and shows, sizes and downloads the build */
 import {
-  ALL_FILES, MODULES, ROLES, buildCss, buildScaleLibrary, swatchColor, themeMapping,
+  ALL_FILES, FONTS, MODULES, ROLES, buildCss, buildScaleLibrary, swatchColor, themeMapping,
 } from "./builder-core.js";
 
 const form = document.querySelector("#builder");
@@ -176,7 +176,25 @@ function moduleCheckboxes(group, checked) {
     <label><input type="checkbox" name="module" value="${module.id}"${checked ? " checked" : ""}> ${module.label}</label>`).join("");
 }
 
+/* Font selects: the bundled default first, then Fontsource fonts by name, then system fonts */
+function fontOptions(use, skip) {
+  return FONTS.filter((font) => font.use === use && font.id !== skip)
+    .map((font) => `<option value="${font.id}">${font.family}</option>`).join("");
+}
+
+function renderFontSelects() {
+  form.elements.font.innerHTML = `<option value="default" selected>PT Sans (default)</option>
+    ${fontOptions("body", "pt-sans")}<option value="system">System font</option>`;
+  form.elements.headingFont.innerHTML = `<option value="body" selected>Same as body font (default)</option>
+    <option value="mono">Same as code font</option><option value="serif">Serif (system font)</option>
+    <optgroup label="Body fonts">${fontOptions("body")}</optgroup>
+    <optgroup label="Heading fonts">${fontOptions("heading")}</optgroup>`;
+  form.elements.monoFont.innerHTML = `<option value="default" selected>Inconsolata (default)</option>
+    ${fontOptions("mono", "inconsolata")}<option value="system">System monospace font</option>`;
+}
+
 function renderControls() {
+  renderFontSelects();
   document.querySelector("#builder-modules").innerHTML = moduleCheckboxes("components", true);
   document.querySelector("#builder-integrations").innerHTML = moduleCheckboxes("integrations", false);
 
@@ -231,7 +249,9 @@ function readOptions() {
     mapping,
     tokens: {
       radius: data.get("radius"),
-      fonts: data.get("fonts"),
+      font: data.get("font"),
+      headingFont: data.get("headingFont"),
+      monoFont: data.get("monoFont"),
       scale: Number(data.get("scale")),
       contentWidth: contentWidth && contentWidth !== 68 ? contentWidth : null,
       borderWidth: data.get("borderWidth") === "1" ? null : Number(data.get("borderWidth")),
@@ -245,10 +265,12 @@ function describe(options) {
   const colors = options.theme === "custom"
     ? `custom (${ROLES.map((role) => `${role}: ${options.mapping[role]}`).join(", ")})`
     : options.theme;
-  const { radius, fonts, scale, contentWidth, borderWidth, underlineThickness } = options.tokens;
+  const { radius, font, headingFont, monoFont, scale, contentWidth, borderWidth, underlineThickness } = options.tokens;
   const tokens = [
     radius !== "medium" && `radius: ${radius}`,
-    fonts !== "default" && `fonts: ${fonts}`,
+    font !== "default" && `body font: ${font}`,
+    headingFont !== "body" && `heading font: ${headingFont}`,
+    monoFont !== "default" && `code font: ${monoFont}`,
     scale !== 1 && `scale: ${Math.round(scale * 100)}%`,
     contentWidth && `content width: ${contentWidth}ch`,
     borderWidth && `border width: ${borderWidth}px`,
