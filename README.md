@@ -35,7 +35,7 @@ The library takes on more CSS when it lets users write meaningfully less HTML. F
 Load the minified stylesheet from jsDelivr:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.4.0/dist/minium.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@troennes/minium@0.5.0/dist/minium.min.css">
 ```
 
 Or install the package with npm:

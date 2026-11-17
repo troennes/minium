@@ -5,6 +5,44 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-11-17
+
+Minium v0.5 lets you set a separate font for headings and fixes minor
+issues with buttons, accordions, alerts, avatars and mark. 
+
+### Added
+
+- **Heading font:** Set `--font-heading` to use a different font for
+  headings. It defaults to `--font`.
+- **Customizer:** The docs have a new customizer page. Pick colors, fonts,
+  density and integrations, preview the result, and share a link to your
+  build.
+
+### Changed
+
+- **Breaking — hover token:** `--hover-multiplier: 0.95` is replaced by
+  `--hover-darken: 0.05`. It sets how much OKLCH lightness drops on hover,
+  and press drops it twice as much.
+
+### Fixed
+
+- **Hover and active on dark buttons:** Dark buttons now darken visibly on 
+  hover and press. Buttons now lose a fixed amount of lightness instead of 
+  a percentage, so mid-tone buttons darken slightly more than before.
+- **Accordion:** In a grouped accordion, only the last panel has the darker
+  bottom edge.
+- **Avatar groups:** Grouped avatars stack in DOM order.
+- **Mark:** `<mark>` padding no longer changes with `--border-radius-s`.
+- **Alert shadow:** Alerts have a slightly darker bottom border, like 
+  buttons, badges and form controls.
+
+### Upgrade from 0.4
+
+1. Update the version in your CDN URL or run
+   `npm install @troennes/minium@0.5.0`.
+2. If you override `--hover-multiplier`, set `--hover-darken` to
+   `1 - <your value>` instead (for example `0.95` → `0.05`).
+
 ## [0.4.0] - 2026-11-14
 
 Minium v0.4 switches the default colors to the Radix Themes defaults: indigo
@@ -187,6 +225,7 @@ drop shadows.
 
 Initial public release.
 
+[0.5.0]: https://github.com/troennes/minium/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/troennes/minium/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/troennes/minium/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/troennes/minium/compare/v0.1.1...v0.2.0
