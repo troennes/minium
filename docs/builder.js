@@ -1,4 +1,4 @@
-/* Minium builder UI: loads the source CSS, reads the form, and shows, sizes and downloads the build */
+/* Minium customizer UI (docs/customizer.html): loads the source CSS, reads the form, and shows, sizes and downloads the build */
 import {
   ALL_FILES, FONTS, MODULES, ROLES, buildCss, buildScaleLibrary, swatchColor, themeMapping,
 } from "./builder-core.js";
@@ -324,7 +324,7 @@ function applyQuery(search) {
 }
 
 function shareUrl() {
-  return `https://minium.style/docs/builder.html${shareQuery()}`;
+  return `https://minium.style/docs/customizer.html${shareQuery()}`;
 }
 
 function readOptions() {
@@ -501,5 +501,5 @@ try {
   output.hidden = false;
   status.remove();
 } catch (error) {
-  status.textContent = `Could not load the source files (${error.message}). The builder needs to run from a web server, not a local file.`;
+  status.textContent = `Could not load the source files (${error.message}). The customizer needs to run from a web server, not a local file.`;
 }

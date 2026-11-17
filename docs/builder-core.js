@@ -1,5 +1,5 @@
-/* Minium builder: pure functions that assemble a custom build from the source CSS.
-   Used by docs/builder.js in the browser. Has no DOM access, so it also runs in Node. */
+/* Minium customizer: pure functions that assemble a custom build from the source CSS.
+   Used by docs/builder.js (the UI of docs/customizer.html) in the browser. Has no DOM access, so it also runs in Node. */
 
 /* Same order as scripts/build-css.mjs. Update both when adding a CSS file. */
 export const BUNDLE_ORDER = [
