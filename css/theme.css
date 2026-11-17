@@ -102,7 +102,7 @@
     --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%); /* dropdowns, cards */
     --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%); /* modals */
     --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 5%);
-    --hover-multiplier: 0.95;
+    --hover-darken: 0.05; /* OKLCH lightness drop on hover, doubled for active */
     --text-underline-offset: 2px;
     --text-decoration-thickness: 2px;
     --content-width: 68ch;

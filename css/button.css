@@ -23,15 +23,15 @@
 
     /* auto-compute hover and active states */
     &:is([aria-current], :hover) {
-      --border-color: oklch(from var(--button-surface) calc(l - (1 - var(--hover-multiplier))) c h);
+      --border-color: oklch(from var(--button-surface) calc(l - var(--hover-darken)) c h);
 
-      background-color: oklch(from var(--button-surface) calc(l - (1 - var(--hover-multiplier))) c h);
+      background-color: oklch(from var(--button-surface) calc(l - var(--hover-darken)) c h);
     }
 
     &:active {
-      --border-color: oklch(from var(--button-surface) calc(l - 2 * (1 - var(--hover-multiplier))) c h);
+      --border-color: oklch(from var(--button-surface) calc(l - 2 * var(--hover-darken)) c h);
 
-      background-color: oklch(from var(--button-surface) calc(l - 2 * (1 - var(--hover-multiplier))) c h);
+      background-color: oklch(from var(--button-surface) calc(l - 2 * var(--hover-darken)) c h);
     }
 
     /* size variations */
@@ -104,10 +104,10 @@
     --border-color: transparent;
 
     /* Light: tint with the text color to keep the hue. Dark: black */
-    --button-overlay-alpha: calc(1 - var(--hover-multiplier));
+    --button-overlay-alpha: var(--hover-darken);
     --button-overlay: light-dark(oklch(from var(--button-text) l c h / calc(1.5 * var(--button-overlay-alpha))), rgb(0 0 0 / calc(2 * var(--button-overlay-alpha))));
 
-    /* Translucent fills barely change with the lightness multiplier, so an overlay darkens them */
+    /* Translucent fills barely change when lightness drops, so an overlay darkens them */
     &:is([aria-current], :hover, :active) {
       --border-color: transparent;
 
@@ -116,7 +116,7 @@
     }
 
     &:active {
-      --button-overlay-alpha: calc(1 - var(--hover-multiplier) * var(--hover-multiplier));
+      --button-overlay-alpha: calc(2 * var(--hover-darken));
     }
 
     &.accent {
