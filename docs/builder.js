@@ -238,6 +238,82 @@ function updateRoleSwatches() {
   }
 }
 
+/* Shareable links: the query string holds every form field that differs from its default,
+   for example ?theme=crimson&radius=large&module=-modal,prism. Checkbox lists only record the changes:
+   "-modal" removes a default module and "prism" adds one. Custom roles are only kept with theme=custom. */
+let defaults;
+
+function formState() {
+  const state = {};
+  for (const element of form.elements) {
+    if (!element.name) continue;
+    if (element.type === "checkbox") state[element.name] ??= [];
+    if ((element.type === "checkbox" || element.type === "radio") && !element.checked) continue;
+    if (element.type === "checkbox") state[element.name].push(element.value);
+    else state[element.name] = element.value;
+  }
+  return state;
+}
+
+function shareQuery() {
+  const state = formState();
+  const params = new URLSearchParams();
+  for (const [name, value] of Object.entries(state)) {
+    if (name.startsWith("role-") && state.theme !== "custom") continue;
+    const text = Array.isArray(value)
+      ? [...defaults[name].filter((item) => !value.includes(item)).map((item) => `-${item}`),
+        ...value.filter((item) => !defaults[name].includes(item))].join(",")
+      : value === defaults[name] ? "" : value;
+    if (text) params.set(name, text);
+  }
+  const query = params.toString().replaceAll("%2C", ",");
+  return query ? `?${query}` : "";
+}
+
+/* Applies a query string to the form. Unknown names and values are ignored. */
+function applyQuery(search) {
+  const params = new URLSearchParams(search);
+  for (const [name, value] of params) {
+    const field = form.elements[name];
+    if (!field || name === "theme" || name.startsWith("role-")) continue;
+    if (field instanceof RadioNodeList && field[0]?.type === "checkbox") {
+      const changes = value.split(",");
+      for (const box of field) {
+        if (changes.includes(`-${box.value}`)) box.checked = false;
+        else if (changes.includes(box.value)) box.checked = true;
+      }
+    } else if (field instanceof RadioNodeList) {
+      const radio = [...field].find((option) => option.value === value);
+      if (radio) radio.checked = true;
+    } else if (field.tagName === "SELECT") {
+      if ([...field.options].some((option) => option.value === value)) field.value = value;
+    } else if (field.type === "number") {
+      const number = Number(value);
+      if (Number.isFinite(number)) field.value = Math.min(Number(field.max), Math.max(Number(field.min), number));
+    }
+  }
+
+  const theme = params.get("theme");
+  if (theme && [...form.elements.theme].some((radio) => radio.value === theme)) {
+    form.elements.theme.value = theme;
+    if (theme === "custom") {
+      for (const role of ROLES) {
+        const select = form.elements[`role-${role}`];
+        const value = params.get(`role-${role}`);
+        if (value && [...select.options].some((option) => option.value === value)) select.value = value;
+      }
+      updateRoleSwatches();
+      document.querySelector("#builder-custom-roles").hidden = false;
+    } else {
+      applyThemeToRoles(theme);
+    }
+  }
+}
+
+function shareUrl() {
+  return `https://minium.style/docs/builder.html${shareQuery()}`;
+}
+
 function readOptions() {
   const data = new FormData(form);
   const mapping = Object.fromEntries(ROLES.map((role) => [role, data.get(`role-${role}`)]));
@@ -279,7 +355,7 @@ function describe(options) {
   const date = new Date().toISOString().slice(0, 10);
 
   return `Minium ${source.version}+main custom build, ${date} | modules: core${options.moduleIds.map((id) => `, ${id}`).join("")}`
-    + ` | colors: ${colors}${tokens.length ? ` | ${tokens.join(", ")}` : ""} | https://minium.style/docs/builder.html`;
+    + ` | colors: ${colors}${tokens.length ? ` | ${tokens.join(", ")}` : ""} | ${shareUrl()}`;
 }
 
 async function gzipSize(text) {
@@ -336,6 +412,7 @@ async function rebuild() {
     return;
   }
 
+  history.replaceState(null, "", `${location.pathname}${shareQuery()}${location.hash}`);
   updatePreview(options);
   const size = await gzipSize(latest.minified);
   if (run !== pending) return;
@@ -351,10 +428,10 @@ function download() {
   URL.revokeObjectURL(link.href);
 }
 
-async function copy(button) {
+async function copy(button, text) {
   const label = button.textContent;
   try {
-    await navigator.clipboard.writeText(latest.minified);
+    await navigator.clipboard.writeText(text);
     button.textContent = "Copied";
   } catch {
     button.textContent = "Copy failed";
@@ -394,11 +471,14 @@ document.querySelector("#builder-preview-mode").addEventListener("click", (event
 });
 
 document.querySelector("#builder-download").addEventListener("click", download);
-document.querySelector("#builder-copy").addEventListener("click", (event) => copy(event.currentTarget));
+document.querySelector("#builder-copy").addEventListener("click", (event) => copy(event.currentTarget, latest.minified));
+document.querySelector("#builder-link").addEventListener("click", (event) => copy(event.currentTarget, shareUrl()));
 
 try {
   source = await loadSource();
   renderControls();
+  defaults = formState();
+  applyQuery(location.search);
   preview.addEventListener("load", rebuild);
   preview.srcdoc = PREVIEW_HTML;
   form.hidden = false;
