@@ -23,15 +23,15 @@
 
     /* auto-compute hover and active states */
     &:is([aria-current], :hover) {
-      --border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--button-surface) calc(l - (1 - var(--hover-multiplier))) c h);
 
-      background-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier)) c h);
+      background-color: oklch(from var(--button-surface) calc(l - (1 - var(--hover-multiplier))) c h);
     }
 
     &:active {
-      --border-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--button-surface) calc(l - 2 * (1 - var(--hover-multiplier))) c h);
 
-      background-color: oklch(from var(--button-surface) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      background-color: oklch(from var(--button-surface) calc(l - 2 * (1 - var(--hover-multiplier))) c h);
     }
 
     /* size variations */

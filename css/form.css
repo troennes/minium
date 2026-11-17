@@ -185,13 +185,13 @@
     }
 
     &:is([aria-current], :hover)::file-selector-button {
-      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l - (1 - var(--hover-multiplier))) c h);
 
       background-color: var(--border-color);
     }
 
     &:active::file-selector-button {
-      --border-color: oklch(from var(--color-primary) calc(l * var(--hover-multiplier) * var(--hover-multiplier)) c h);
+      --border-color: oklch(from var(--color-primary) calc(l - 2 * (1 - var(--hover-multiplier))) c h);
 
       background-color: var(--border-color);
     }
