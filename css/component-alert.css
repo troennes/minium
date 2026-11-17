@@ -1,6 +1,7 @@
 @layer components {
   .alert {
     --alert-padding: var(--space-s-m);
+    --border-color: var(--color-border-weak);
 
     position: relative;
     background-color: var(--color-fill);
@@ -8,7 +9,8 @@
     border-radius: var(--border-radius-m);
     padding: var(--alert-padding);
     overflow: hidden;
-    border: var(--border-width) solid var(--color-border-weak);
+    border: var(--border-width) solid var(--border-color);
+    border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
 
     /* Flow included */
     > * + * {
@@ -57,23 +59,23 @@
 
     &.primary {
       --alert-color: var(--primary-11);
+      --border-color: var(--color-primary-border-weak);
 
       background-color: var(--color-primary-fill);
-      border-color: var(--color-primary-border-weak);
     }
 
     &.accent {
       --alert-color: var(--accent-11);
+      --border-color: var(--color-accent-border-weak);
 
       background-color: var(--color-accent-fill);
-      border-color: var(--color-accent-border-weak);
     }
 
     &.info {
       --alert-color: var(--info-11);
+      --border-color: var(--color-info-border-weak);
 
       background-color: var(--color-info-fill);
-      border-color: var(--color-info-border-weak);
 
       &::before {
         mask-image: var(--icon-info);
@@ -82,9 +84,9 @@
 
     &.warning {
       --alert-color: var(--warning-11);
+      --border-color: var(--color-warning-border-weak);
 
       background-color: var(--color-warning-fill);
-      border-color: var(--color-warning-border-weak);
 
       &::before {
         mask-image: var(--icon-invalid);
@@ -93,9 +95,9 @@
 
     &.success {
       --alert-color: var(--success-11);
+      --border-color: var(--color-success-border-weak);
 
       background-color: var(--color-success-fill);
-      border-color: var(--color-success-border-weak);
 
       &::before {
         mask-image: var(--icon-valid);
@@ -104,9 +106,9 @@
 
     &.danger {
       --alert-color: var(--danger-11);
+      --border-color: var(--color-danger-border-weak);
 
       background-color: var(--color-danger-fill);
-      border-color: var(--color-danger-border-weak);  
 
       &::before {
         mask-image: var(--icon-invalid);
