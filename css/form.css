@@ -324,6 +324,12 @@
     }
   }
 
+  /* Chrome blends a translucent select background with white for the popup list */
+  select option {
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+  }
+
   select[multiple] option:checked {
     background-color: var(--color-fill-hover);
   }
