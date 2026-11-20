@@ -1,5 +1,10 @@
 @layer components {
   [data-tooltip] {
+    /* Placement direction: -1, 0 or 1 on each axis. Default is top */
+    --tooltip-x: 0;
+    --tooltip-y: -1;
+    --tooltip-gap: 0.375rem;
+
     position: relative;
 
     &:not(a, button, input, img) {
@@ -8,28 +13,32 @@
       cursor: help;
     }
 
+    /* Both start at the midpoint of the placement edge */
     &::before,
     &::after {
       display: block;
       z-index: 1080;
       position: absolute;
+      top: calc(50% + var(--tooltip-y) * 50%);
+      left: calc(50% + var(--tooltip-x) * 50%);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      inset-inline-start: 50%;
+      background-color: var(--tooltip-background-color, var(--color-contrast));
     }
 
-    /* Text 
-     * TODO: BUG: Tooltip text might overflow if close to the edge or long text. 
-     * Use anchor positioning to fix when it has wider support (~2027) 
+    /* Text: the edge facing the element sits --tooltip-gap from it
+     * TODO: BUG: Tooltip text might overflow if close to the edge or long text.
+     * Use anchor positioning to fix when it has wider support (~2027)
      */
     &::before {
-      inset-block-end: calc(100% + 0.625rem);
+      transform: translate(
+        calc((var(--tooltip-x) - 1) * 50% + var(--tooltip-x) * var(--tooltip-gap)),
+        calc((var(--tooltip-y) - 1) * 50% + var(--tooltip-y) * var(--tooltip-gap))
+      );
       padding: var(--space-3xs) var(--space-2xs);
       overflow: hidden;
-      transform: translate(-50%, 0.25rem);
       border-radius: var(--border-radius-s);
-      background-color: var(--tooltip-background-color, var(--color-contrast));
       content: attr(data-tooltip);
       color: var(--tooltip-color, var(--color-contrast-inverse));
       font-style: normal;
@@ -39,58 +48,30 @@
       white-space: nowrap;
     }
 
-    /* Caret */
+    /* Caret: a diamond centred on the text's edge; the half over the text blends in.
+       0.442rem side gives a 0.625rem diagonal, so the caret is 0.3125rem deep */
     &::after {
-      inset-block-end: calc(100% - 0.25rem);
-      transform: translate(-50%, -0.3125rem);
-      border-top: 0.3125rem solid;
-      border-right: 0.3125rem solid transparent;
-      border-left: 0.3125rem solid transparent;
-      background-color: transparent;
       content: "";
-      color: var(--tooltip-background-color, var(--color-contrast));
+      width: 0.442rem;
+      height: 0.442rem;
+      transform: translate(
+        calc(-50% + var(--tooltip-x) * var(--tooltip-gap)),
+        calc(-50% + var(--tooltip-y) * var(--tooltip-gap))
+      ) rotate(45deg);
     }
 
     &[data-placement="bottom"] {
-      &::before,
-      &::after {
-        inset-block: 100% auto;
-        transform: translate(-50%, 0.25rem);
-      }
-
-      &::after {
-        transform: translate(-50%, -0.3125rem);
-        border: 0.3125rem solid transparent;
-        border-bottom: 0.3125rem solid;
-      }
+      --tooltip-y: 1;
     }
 
     &[data-placement="left"] {
-      &::before,
-      &::after {
-        inset: 50% 100% auto auto;
-        transform: translate(-0.25rem, -50%);
-      }
-
-      &::after {
-        transform: translate(0.3125rem, -50%);
-        border: 0.3125rem solid transparent;
-        border-left: 0.3125rem solid;
-      }
+      --tooltip-x: -1;
+      --tooltip-y: 0;
     }
 
     &[data-placement="right"] {
-      &::before,
-      &::after {
-        inset: 50% auto auto 100%;
-        transform: translate(0.25rem, -50%);
-      }
-
-      &::after {
-        transform: translate(-0.3125rem, -50%);
-        border: 0.3125rem solid transparent;
-        border-right: 0.3125rem solid;
-      }
+      --tooltip-x: 1;
+      --tooltip-y: 0;
     }
 
     /* Display */
