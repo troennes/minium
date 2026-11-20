@@ -298,6 +298,12 @@
     color: var(--color-text);
   }
 
+  /* Chrome's date/time picker icon is opaque with no hover state; mute it like Firefox does */
+  input::-webkit-calendar-picker-indicator {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+
   select[multiple] option:checked {
     background-color: var(--color-fill-hover);
   }
