@@ -47,8 +47,8 @@
         inset-block-start: var(--alert-padding);
         inset-inline-start: var(--alert-padding);
         width: 1em;
-        height: 1.5em; 
-        height: 1lh; /* progressive enhancement */
+        height: 1.5em; /* fallback for browsers without lh */
+        height: 1lh;
         background-color: var(--color-text-muted);
         mask-position: center;
         mask-size: 1em auto;

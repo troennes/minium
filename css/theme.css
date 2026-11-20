@@ -5,7 +5,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("Inconsolata"), local("Inconsolata-Regular"), url("fonts/Inconsolata-Regular.woff2") format("woff2");
+  src: url("fonts/Inconsolata-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local("Inconsolata Bold"), local("Inconsolata-Bold"), url("fonts/Inconsolata-Bold.woff2") format("woff2");
+  src: url("fonts/Inconsolata-Bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -21,7 +21,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("PT Sans"), local("PTSans-Regular"), url("fonts/PTSans-Regular.woff2") format("woff2");
+  src: url("fonts/PTSans-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: local("PT Sans Italic"), local("PTSans-Italic"), url("fonts/PTSans-Italic.woff2") format("woff2");
+  src: url("fonts/PTSans-Italic.woff2") format("woff2");
 }
 
 @font-face {
@@ -37,7 +37,7 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: local("PT Sans Bold Italic"), local("PTSans-BoldItalic"), url("fonts/PTSans-BoldItalic.woff2") format("woff2");
+  src: url("fonts/PTSans-BoldItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -45,7 +45,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local("PT Sans Bold"), local("PTSans-Bold"), url("fonts/PTSans-Bold.woff2") format("woff2");
+  src: url("fonts/PTSans-Bold.woff2") format("woff2");
 } 
 
 @layer tokens {
@@ -220,7 +220,7 @@
 
 
     /* Icons, mostly from https://lucide.dev/ */
-    --icon-loading: url("data:image/svg+xml,%3Csvg role='status' aria-label='Loading' width='24' height='24' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 24C4 35.0457 12.9543 44 24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 24 24' to='360 24 24' dur='0.9s' repeatCount='indefinite' /%3E%3C/path%3E%3C/svg%3E");
+    --icon-loading: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 24a20 20 0 1 0 20-20' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 24 24' to='360 24 24' dur='0.9s' repeatCount='indefinite' /%3E%3C/path%3E%3C/svg%3E");
     --icon-hamburger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16'/%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='M4 19h16'/%3E%3C/svg%3E");
     --icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     --icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");

@@ -22,16 +22,15 @@
     cursor: pointer;
 
     /* auto-compute hover and active states */
-    &:is([aria-current], :hover) {
-      --border-color: oklch(from var(--button-surface) calc(l - var(--hover-darken)) c h);
+    &:is([aria-current], :hover, :active) {
+      --button-hover: oklch(from var(--button-surface) calc(l - var(--hover-darken)) c h);
+      --border-color: var(--button-hover);
 
-      background-color: oklch(from var(--button-surface) calc(l - var(--hover-darken)) c h);
+      background-color: var(--button-hover);
     }
 
     &:active {
-      --border-color: oklch(from var(--button-surface) calc(l - 2 * var(--hover-darken)) c h);
-
-      background-color: oklch(from var(--button-surface) calc(l - 2 * var(--hover-darken)) c h);
+      --button-hover: oklch(from var(--button-surface) calc(l - 2 * var(--hover-darken)) c h);
     }
 
     /* size variations */

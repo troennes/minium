@@ -39,15 +39,6 @@
       display: none;
     }
 
-    &::marker {
-      display: none;
-      list-style-type: none;
-    }
-
-    &::-moz-list-bullet {
-      list-style-type: none;
-    }
-
     &[role="button"] {
       width: 100%;
       text-align: left;
