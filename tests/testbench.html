@@ -1612,6 +1612,86 @@ int main()
   </article>
 
   <article class="testcase">
+    <h3>Field sizes (.small and .large)</h3>
+    <ul>
+      <li>Within a column, padding grows with size; text starts at the same inset in every field.</li>
+      <li>Search, select and validation icons sit the same distance from the edge as the text, and text never runs under an icon.</li>
+      <li>The textarea validation icon lines up with the first line of text.</li>
+      <li>Color and file inputs are the same height as the text input; the file button fills the field height and matches its padding.</li>
+      <li>In each row, the field and the button of the same size are the same height.</li>
+      <li>RTL: search icon on the right, select and validation icons on the left, with the same insets as LTR.</li>
+    </ul>
+    <div class="fixture flow">
+      <div class="grid thirds">
+        <div class="flow-tight">
+          <code>.small</code>
+          <input class="small" type="text" placeholder="Text" aria-label="Text, small">
+          <input class="small" type="search" placeholder="Search" aria-label="Search, small">
+          <input class="small" type="text" value="Valid" aria-invalid="false" aria-label="Valid, small">
+          <input class="small" type="text" value="Invalid" aria-invalid="true" aria-label="Invalid, small">
+          <select class="small" aria-label="Select, small"><option>Select</option><option>Option</option></select>
+          <textarea class="small" rows="2" aria-invalid="true" aria-label="Textarea, invalid, small">Invalid textarea</textarea>
+          <input class="small" type="color" value="#00beef" aria-label="Color, small">
+          <input class="small" type="file" aria-label="File, small">
+        </div>
+        <div class="flow-tight">
+          <code>default</code>
+          <input type="text" placeholder="Text" aria-label="Text">
+          <input type="search" placeholder="Search" aria-label="Search">
+          <input type="text" value="Valid" aria-invalid="false" aria-label="Valid">
+          <input type="text" value="Invalid" aria-invalid="true" aria-label="Invalid">
+          <select aria-label="Select"><option>Select</option><option>Option</option></select>
+          <textarea rows="2" aria-invalid="true" aria-label="Textarea, invalid">Invalid textarea</textarea>
+          <input type="color" value="#00beef" aria-label="Color">
+          <input type="file" aria-label="File">
+        </div>
+        <div class="flow-tight">
+          <code>.large</code>
+          <input class="large" type="text" placeholder="Text" aria-label="Text, large">
+          <input class="large" type="search" placeholder="Search" aria-label="Search, large">
+          <input class="large" type="text" value="Valid" aria-invalid="false" aria-label="Valid, large">
+          <input class="large" type="text" value="Invalid" aria-invalid="true" aria-label="Invalid, large">
+          <select class="large" aria-label="Select, large"><option>Select</option><option>Option</option></select>
+          <textarea class="large" rows="2" aria-invalid="true" aria-label="Textarea, invalid, large">Invalid textarea</textarea>
+          <input class="large" type="color" value="#00beef" aria-label="Color, large">
+          <input class="large" type="file" aria-label="File, large">
+        </div>
+      </div>
+      <div class="flow-tight">
+        <p class="cluster"><code>.small</code><input class="small" type="text" placeholder="Height" aria-label="Height, small"><button class="small">Button</button></p>
+        <p class="cluster"><code>default</code><input type="text" placeholder="Height" aria-label="Height"><button>Button</button></p>
+        <p class="cluster"><code>.large</code><input class="large" type="text" placeholder="Height" aria-label="Height, large"><button class="large">Button</button></p>
+      </div>
+      <div class="grid thirds" dir="rtl">
+        <div class="flow-tight">
+          <code dir="ltr">.small (rtl)</code>
+          <input class="small" type="search" placeholder="بحث" aria-label="Search, small, RTL">
+          <input class="small" type="text" value="صالح" aria-invalid="false" aria-label="Valid, small, RTL">
+          <select class="small" aria-label="Select, small, RTL"><option>اختر</option><option>خيار</option></select>
+          <textarea class="small" rows="2" aria-invalid="true" aria-label="Textarea, invalid, small, RTL">غير صالح</textarea>
+          <input class="small" type="file" aria-label="File, small, RTL">
+        </div>
+        <div class="flow-tight">
+          <code dir="ltr">default (rtl)</code>
+          <input type="search" placeholder="بحث" aria-label="Search, RTL">
+          <input type="text" value="صالح" aria-invalid="false" aria-label="Valid, RTL">
+          <select aria-label="Select, RTL"><option>اختر</option><option>خيار</option></select>
+          <textarea rows="2" aria-invalid="true" aria-label="Textarea, invalid, RTL">غير صالح</textarea>
+          <input type="file" aria-label="File, RTL">
+        </div>
+        <div class="flow-tight">
+          <code dir="ltr">.large (rtl)</code>
+          <input class="large" type="search" placeholder="بحث" aria-label="Search, large, RTL">
+          <input class="large" type="text" value="صالح" aria-invalid="false" aria-label="Valid, large, RTL">
+          <select class="large" aria-label="Select, large, RTL"><option>اختر</option><option>خيار</option></select>
+          <textarea class="large" rows="2" aria-invalid="true" aria-label="Textarea, invalid, large, RTL">غير صالح</textarea>
+          <input class="large" type="file" aria-label="File, large, RTL">
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
     <h3>Form on different surfaces</h3>
     <ul>
       <li></li>
