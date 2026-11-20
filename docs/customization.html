@@ -187,7 +187,7 @@ import "@troennes/minium/themes/blue.css";</code></pre>
   <li><strong>Danger and success</strong>: The <code>--icon-invalid</code> and <code>--icon-valid</code> form icons have their color embedded in the SVG. If you change these roles, copy the tokens from <code>css/theme.css</code> and replace the <code>stroke</code> color with the new step 9 value.</li>
 </ul>
 
-<p>To start your own theme, copy the closest file from <code>dist/themes/</code> and edit its values. Theme files also include Display P3 values for wide-gamut screens. The P3 block is optional; without it, browsers use the sRGB values.</p>
+<p>To start your own theme, copy the closest file from <code>dist/themes/</code> and edit its values. Theme files also include Display P3 values for wide-gamut screens, except for gray scales, where P3 makes no visible difference. The P3 block is optional; without it, browsers use the sRGB values.</p>
 
 <h2>Add project styles</h2>
 <p>Do not modify Minium's component styles for project-specific changes. Change tokens first. If tokens cannot represent the design, add a component override to <code>@layer project</code> in your own stylesheet.</p>

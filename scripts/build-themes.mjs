@@ -87,7 +87,7 @@ function scalesOf(name) {
   return { primary: name, ...theme };
 }
 
-function isGrayPrimary(name) {
+export function isGrayScale(name) {
   return config.grayScales.includes(name);
 }
 
@@ -99,10 +99,18 @@ function renderColors(roles, tokenGroups, indent) {
     ...roles.map(([role, scale]) => roleLines(role, scale, inner, false)),
     ...tokenGroups.map(([title, tokens]) => tokenLines(title, tokens, inner))
   ];
-  const p3 = roles.map(([role, scale]) => roleLines(role, scale, p3Inner, true));
+  // Gray scales get no P3 values: they are the sRGB colors written another way, with no visible difference
+  const p3 = roles
+    .filter(([, scale]) => !isGrayScale(scale))
+    .map(([role, scale]) => roleLines(role, scale, p3Inner, true));
+
+  const srgbBlock = `${indent}:root {\n${srgb.join('\n\n')}\n${indent}}\n`;
+  if (p3.length === 0) {
+    return srgbBlock;
+  }
 
   return (
-    `${indent}:root {\n${srgb.join('\n\n')}\n${indent}}\n\n` +
+    `${srgbBlock}\n` +
     `${indent}@supports (color: color(display-p3 1 1 1)) {\n` +
     `${indent}  @media (color-gamut: p3) {\n` +
     `${indent}    :root {\n${p3.join('\n\n')}\n${indent}    }\n` +
@@ -114,7 +122,7 @@ function renderColors(roles, tokenGroups, indent) {
 function buildRolesCss(defaultName) {
   const scales = scalesOf(defaultName);
   const roles = ['neutral', ...colorRoles].map((role) => [role, scales[role]]);
-  const tokenGroups = isGrayPrimary(defaultName) ? [['gray primary', grayPrimaryOverrides]] : [];
+  const tokenGroups = isGrayScale(defaultName) ? [['gray primary', grayPrimaryOverrides]] : [];
 
   // Baked icon colors in theme.css must match the default theme
   for (const [role, token] of Object.entries(bakedIcons)) {
@@ -144,9 +152,9 @@ function buildThemeCss(name, defaultName) {
   ];
 
   const tokenGroups = [];
-  if (isGrayPrimary(name) && !isGrayPrimary(defaultName)) {
+  if (isGrayScale(name) && !isGrayScale(defaultName)) {
     tokenGroups.push(['gray primary', grayPrimaryOverrides]);
-  } else if (!isGrayPrimary(name) && isGrayPrimary(defaultName)) {
+  } else if (!isGrayScale(name) && isGrayScale(defaultName)) {
     const reset = Object.fromEntries(Object.keys(grayPrimaryOverrides).map((token) => [token, readThemeToken(token)]));
     tokenGroups.push(['reset gray primary', reset]);
   }

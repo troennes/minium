@@ -140,8 +140,8 @@ export function swatchColor(library, scale, step = "9") {
 
 /* Color roles
    roles.css and css/themes/*.css hold role groups such as "/* primary: blue *\/" in an sRGB block
-   and again in a P3 block. Every non-neutral group has the same steps and only refers to its own
-   role and to neutral, so a scale can move to another role by renaming "--primary-" to "--accent-". */
+   and again in a P3 block. Gray scales have no P3 values. Every non-neutral group has the same steps
+   and only refers to its own role and to neutral, so a scale can move to another role by renaming "--primary-" to "--accent-". */
 
 /* Returns role groups ({ block, role, scale, lines }) and token groups ({ block, title, lines }),
    such as "/* gray primary *\/" that the generator adds after the roles. */
@@ -232,9 +232,11 @@ export function renderRoles(mapping, library) {
   for (const role of ROLES) {
     const scale = mapping[role];
     const entry = role === "neutral" ? library.neutral[scale] : library.color[scale];
-    if (!entry?.srgb || !entry?.p3) throw new Error(`No ${role} scale named "${scale}"`);
+    const gray = library.grayScales.includes(scale);
+    if (!entry?.srgb || (!entry.p3 && !gray)) throw new Error(`No ${role} scale named "${scale}"`);
 
-    for (const block of ["srgb", "p3"]) {
+    // Gray scales have no P3 values, like in scripts/build-themes.mjs
+    for (const block of gray ? ["srgb"] : ["srgb", "p3"]) {
       const lines = entry[block].map((line) => line.replaceAll("--ROLE-", `--${role}-`));
       blocks[block].push(`/* ${role}: ${scale} */`, ...lines, "");
     }
@@ -242,11 +244,14 @@ export function renderRoles(mapping, library) {
 
   const indent = (lines, spaces) => lines.map((line) => (line ? " ".repeat(spaces) + line : "")).join("\n").trimEnd();
 
-  return `@layer tokens {
-  :root {
+  const srgb = `  :root {
 ${indent(blocks.srgb, 4)}
   }
+`;
+  if (blocks.p3.length === 0) return `@layer tokens {\n${srgb}}\n`;
 
+  return `@layer tokens {
+${srgb}
   @supports (color: color(display-p3 1 1 1)) {
     @media (color-gamut: p3) {
       :root {

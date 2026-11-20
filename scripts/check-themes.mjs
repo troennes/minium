@@ -6,6 +6,7 @@ import {
   colorRoles,
   colorSteps,
   generateThemes,
+  isGrayScale,
   layerOrder,
   neutralSteps,
   rolesPath,
@@ -59,7 +60,9 @@ function checkRoles(path, css, requireAll) {
 
     defined.push(role);
     const missing = all.filter((token) => !srgb.has(token));
-    const missingP3 = steps.filter((token) => !p3.has(token));
+    // Gray scales have no P3 values (see renderColors in build-themes.mjs)
+    const scale = css.match(new RegExp(`/\\* ${role}: ([a-z]+) \\*/`))?.[1];
+    const missingP3 = isGrayScale(scale) ? [] : steps.filter((token) => !p3.has(token));
     if (missing.length > 0) {
       errors.push(`${path}: role ${role} is incomplete, missing ${missing.join(', ')}`);
     }

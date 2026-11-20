@@ -83,22 +83,6 @@
   @supports (color: color(display-p3 1 1 1)) {
     @media (color-gamut: p3) {
       :root {
-        /* neutral: sand */
-        --neutral-1: light-dark(color(display-p3 0.992 0.992 0.989), color(display-p3 0.067 0.067 0.063));
-        --neutral-2: light-dark(color(display-p3 0.977 0.977 0.973), color(display-p3 0.098 0.098 0.094));
-        --neutral-3: light-dark(color(display-p3 0.943 0.942 0.936), color(display-p3 0.135 0.135 0.129));
-        --neutral-4: light-dark(color(display-p3 0.913 0.912 0.903), color(display-p3 0.164 0.163 0.156));
-        --neutral-5: light-dark(color(display-p3 0.885 0.883 0.873), color(display-p3 0.193 0.192 0.183));
-        --neutral-8: light-dark(color(display-p3 0.738 0.734 0.713), color(display-p3 0.384 0.378 0.357));
-        --neutral-11: light-dark(color(display-p3 0.388 0.388 0.37), color(display-p3 0.707 0.703 0.68));
-        --neutral-12: light-dark(color(display-p3 0.129 0.126 0.111), color(display-p3 0.933 0.933 0.926));
-        --neutral-a2: light-dark(color(display-p3 0.161 0.161 0.024 / 0.028), color(display-p3 0.992 0.992 0.988 / 0.034));
-        --neutral-a3: light-dark(color(display-p3 0.067 0.067 0.008 / 0.063), color(display-p3 0.996 0.996 0.992 / 0.072));
-        --neutral-a4: light-dark(color(display-p3 0.129 0.129 0.012 / 0.099), color(display-p3 0.992 0.992 0.953 / 0.106));
-        --neutral-a5: light-dark(color(display-p3 0.098 0.067 0.008 / 0.126), color(display-p3 1 1 0.965 / 0.135));
-        --neutral-a6: light-dark(color(display-p3 0.102 0.075 0.004 / 0.161), color(display-p3 1 0.976 0.929 / 0.177));
-        --neutral-a7: light-dark(color(display-p3 0.098 0.098 0.004 / 0.208), color(display-p3 1 0.984 0.929 / 0.236));
-
         /* primary: gold */
         --primary-7: light-dark(color(display-p3 0.788 0.753 0.677), color(display-p3 0.327 0.31 0.277));
         --primary-9: light-dark(color(display-p3 0.579 0.517 0.41), color(display-p3 0.579 0.517 0.41));
