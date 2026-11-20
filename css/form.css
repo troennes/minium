@@ -149,9 +149,12 @@
     }
   }
 
-  input[type="color"]::-moz-color-swatch,
+  input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: var(--border-radius-s);
+  }
+
   input[type="color"]::-webkit-color-swatch {
-    /* TODO: BUG: this does not work in Chrome */
     border: none;
     border-radius: var(--border-radius-s);
   }
