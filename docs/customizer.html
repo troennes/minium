@@ -23,6 +23,31 @@
 
     #builder-preview-mode [aria-pressed="true"] {font-weight: var(--font-weight-bold)}
 
+    /* Size and download controls stay in view while the form scrolls */
+    #builder-bar {
+      position: sticky;
+      inset-block-end: 0;
+      z-index: 10;
+      padding-block: var(--space-xs);
+      margin-block-end: calc(var(--gap) * -1); /* cancel the body's flex gap, so the bar meets the footer */
+      border-block-start: var(--border-width) solid var(--color-border-strong);
+      background: var(--color-surface-raised, var(--color-surface));
+      box-shadow: 0 -4px 12px -6px rgb(0 0 0 / 20%);
+
+      &[hidden] {display: none}
+
+      > .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2xs) var(--space-s);
+      }
+
+      p {margin: 0}
+      .cluster {gap: var(--space-2xs)}
+    }
+
     /* Theme picker: cards filled with the theme color and labeled with its name, so the choice
        never depends on color alone. The selected card adds a check mark, bold text and a ring. */
     #builder-themes {
@@ -207,15 +232,23 @@
   </div>
   <iframe id="builder-preview" title="Preview of the custom build"></iframe>
 
-  <h2>Download</h2>
-  <p id="builder-size" aria-live="polite"></p>
-  <p>The page address holds your choices, so you can bookmark or share it. The downloaded file names the same link in its first comment.</p>
-  <div class="cluster">
-    <button type="button" id="builder-download">Download CSS</button>
-    <button type="button" id="builder-copy" class="secondary">Copy to clipboard</button>
-    <button type="button" id="builder-link" class="secondary">Copy link to this build</button>
-  </div>
+
+  
 </section>
 
 
-</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script><script type="module" src="builder.js"></script></body></html>
+
+</main></div>
+
+<!-- Sticks to the bottom of the screen while you change options, and settles above the footer -->
+<div id="builder-bar" hidden>
+  <div class="container">
+    <p id="builder-size" aria-live="polite"></p>
+    <div class="cluster">
+      <button type="button" id="builder-download" class="small">Download CSS</button>
+      <button type="button" id="builder-copy" class="secondary small">Copy to clipboard</button>
+      <button type="button" id="builder-link" class="secondary small">Copy link to this build</button>
+    </div>
+  </div>
+</div>
+<footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script><script type="module" src="builder.js"></script></body></html>

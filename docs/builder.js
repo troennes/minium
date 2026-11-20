@@ -6,6 +6,7 @@ import {
 const form = document.querySelector("#builder");
 const status = document.querySelector("#builder-status");
 const output = document.querySelector("#builder-output");
+const bar = document.querySelector("#builder-bar");
 const preview = document.querySelector("#builder-preview");
 const sizeText = document.querySelector("#builder-size");
 
@@ -499,6 +500,7 @@ try {
   preview.srcdoc = PREVIEW_HTML;
   form.hidden = false;
   output.hidden = false;
+  bar.hidden = false;
   status.remove();
 } catch (error) {
   status.textContent = `Could not load the source files (${error.message}). The customizer needs to run from a web server, not a local file.`;
