@@ -23,37 +23,37 @@
       backdrop-filter: blur(.4rem);
     }
 
-    /* Same idea as card */
-    > :is(header, footer),
-    > article > :is(header, footer) {
-      padding: var(--modal-padding);
-      background-color: var(--color-fill);
+    /* Same idea as card: header and footer bleed to the edges, directly or inside an article */
+    &,
+    > article {
+      > :is(header, footer) {
+        padding: var(--modal-padding);
+        background-color: var(--color-fill);
+      }
+
+      > header {
+        border-bottom: var(--border-width) solid var(--color-border-weak);
+        padding-bottom: var(--flow-space);
+      }
+
+      > footer {
+        border-top: var(--border-width) solid var(--color-border-weak);
+        padding-top: var(--flow-space);
+      }
+
+      > :is(header, footer, hr) {
+        margin-inline: calc(var(--modal-padding) * -1);
+      }
+
+      > header:first-child {
+        margin-block-start: calc(var(--modal-padding) * -1);
+      }
+
+      > footer:last-child {
+        margin-block-end: calc(var(--modal-padding) * -1);
+      }
     }
 
-    > header,
-    > article > header {
-      border-bottom: var(--border-width) solid var(--color-border-weak);
-      padding-bottom: var(--flow-space);
-    }
-
-    > footer,
-    > article > footer {
-      border-top: var(--border-width) solid var(--color-border-weak);
-      padding-top: var(--flow-space);
-    }
-
-    > :is(header, footer, hr),
-    > article > :is(header, footer, hr){
-      margin-inline: calc(var(--modal-padding) * -1);
-    }
-
-    > header:first-child,
-    > article > header:first-child {
-      margin-block-start: calc(var(--modal-padding) * -1);
-    }
-
-    > footer:last-child,
-    > article > footer:last-child,
     > footer:has(+ :is(.close, form[method="dialog"]):last-child) {
       margin-block-end: calc(var(--modal-padding) * -1);
     }
