@@ -976,6 +976,7 @@ Behavior:
 - Use `meter` for measured values within a known range.
 - Indeterminate progress bars animate unless reduced motion is requested.
 - `meter` color shifts according to its semantic range values.
+- Bar height is `--progress-size` (default `0.5em`, scales with font size). Set that property to change it; otherwise the Chrome meter fill won't match the track.
 - Give every `progress` and `meter` an accessible name. Associate a visible `label` (via `for`/`id`), or use `aria-label`/`aria-labelledby` when no visible label fits.
 
 Example:

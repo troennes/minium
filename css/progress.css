@@ -1,8 +1,12 @@
 @layer base {
   progress,
   meter {
+    --progress-size: 0.5em;
+    --progress-edge-color: light-dark(rgb(0 0 0 / 13%), rgb(0 0 0 / 35%));
+    --progress-edge: inset 0 0 0 var(--border-width) var(--progress-edge-color);
+
     appearance: none;
-    block-size: 0.5em;
+    block-size: var(--progress-size);
     border: 0;
     border-radius: var(--border-radius-f);
 
@@ -13,9 +17,6 @@
       var(--shadow-inner);
     overflow: hidden;
     inline-size: 100%;
-
-    --progress-edge-color: light-dark(rgb(0 0 0 / 13%), rgb(0 0 0 / 35%));
-    --progress-edge: inset 0 0 0 var(--border-width) var(--progress-edge-color);
   }
 
   progress {
@@ -94,7 +95,7 @@
     &::-webkit-meter-bar {
       background: transparent;
       border-radius: var(--border-radius-f);
-      block-size: 100%;
+      block-size: var(--progress-size);
     }
 
     &::-webkit-meter-optimum-value,
