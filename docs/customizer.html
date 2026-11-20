@@ -112,11 +112,11 @@
   <p>The core is always included: tokens, reset, base styles, typography, layouts, buttons and forms.</p>
   <fieldset>
     <legend>Components and utilities</legend>
-    <div id="builder-modules" class="grid halves"></div>
+    <div id="builder-modules" class="grid thirds gap-xs"></div>
   </fieldset>
   <fieldset>
     <legend>Integrations</legend>
-    <div id="builder-integrations" class="grid halves"></div>
+    <div id="builder-integrations" class="grid thirds gap-xs"></div>
   </fieldset>
 
   <h2>Colors</h2>
@@ -131,7 +131,7 @@
   </fieldset>
 
   <h2>Tokens</h2>
-  <div class="grid halves">
+  <div class="grid thirds gap-s">
     <label>
       Border radius
       <select name="radius">
@@ -139,16 +139,6 @@
         <option value="small">Small</option>
         <option value="medium" selected>Medium (default)</option>
         <option value="large">Large</option>
-      </select>
-    </label>
-    <label>
-      Scaling of text and space
-      <select name="scale">
-        <option value="0.9">90%</option>
-        <option value="0.95">95%</option>
-        <option value="1" selected>100% (default)</option>
-        <option value="1.05">105%</option>
-        <option value="1.1">110%</option>
       </select>
     </label>
     <label>
@@ -166,8 +156,14 @@
       </select>
     </label>
     <label>
-      Content width (ch)
-      <input type="number" name="contentWidth" min="40" max="120" step="1" value="68">
+      Scaling of text and space
+      <select name="scale">
+        <option value="0.9">90%</option>
+        <option value="0.95">95%</option>
+        <option value="1" selected>100% (default)</option>
+        <option value="1.05">105%</option>
+        <option value="1.1">110%</option>
+      </select>
     </label>
     <label>
       Density of line height and spacing
@@ -177,11 +173,15 @@
         <option value="airy">Airy</option>
       </select>
     </label>
+    <label>
+      Content width (ch)
+      <input type="number" name="contentWidth" min="40" max="120" step="1" value="68">
+    </label>
   </div>
   <fieldset>
     <legend>Fonts</legend>
     
-    <div class="grid halves">
+    <div class="grid thirds gap-s">
       <label>
         Body font
         <select name="font"></select>
