@@ -5,6 +5,35 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-11-21
+
+Minium v0.5.1 fixes form controls and meters in Chrome, and makes theme
+files smaller.
+
+### Added
+
+- **Progress size:** Set `--progress-size` on `<progress>` or `<meter>` to
+  change the bar height. It defaults to `0.5em`.
+
+### Changed
+
+- **Bundled fonts:** The default fonts always load from the bundled files,
+  instead of a locally installed copy, so text looks the same on every
+  machine.
+- **Themes:** Gray scales (`gray`, `mauve`, `olive`, `sage`, `sand`,
+  `slate`) no longer include Display P3 values, which made no visible
+  difference.
+
+### Fixed
+
+- **Select in Chrome:** The options list now has an opaque background.
+- **Color input in Chrome:** The color swatch has rounded corners and no
+  border, as intended.
+- **Date and time inputs in Chrome:** The picker icon is muted and shows a 
+  pointer cursor.
+- **Meter in Chrome:** The meter fill is as tall as the track.
+
+
 ## [0.5.0] - 2026-11-17
 
 Minium v0.5 lets you set a separate font for headings and fixes minor
@@ -225,6 +254,7 @@ drop shadows.
 
 Initial public release.
 
+[0.5.1]: https://github.com/troennes/minium/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/troennes/minium/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/troennes/minium/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/troennes/minium/compare/v0.2.0...v0.3.0
