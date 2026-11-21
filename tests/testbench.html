@@ -93,6 +93,7 @@
                   <li><a href="#navs">Navs</a></li>
                   <li><a href="#progress">Progress</a></li>
                   <li><a href="#pagination">Pagination</a></li>
+                  <li><a href="#segmented">Segmented</a></li>
                   <li><a href="#tabs">Tabs</a></li>
                   <li><a href="#tooltip">Tooltip</a></li>
                 </ul>
@@ -3847,6 +3848,120 @@ int main()
           <li><a href="#">Next very long to test wrapping</a></li>
         </ul>
       </nav>
+    </div>
+  </article>
+</section>
+
+<section id="segmented">
+  <h2>Segmented control</h2>
+
+  <article class="testcase">
+    <h3>Radio segmented control</h3>
+    <ul>
+      <li><code>fieldset.segmented</code> with labels wrapping radios. Arrow keys move the selection; no JS.</li>
+      <li>Selected segment gets the pagination current fill and bold text. Segments share the widest width.</li>
+      <li>Legend sits above the strip, not in the border.</li>
+    </ul>
+    <div class="fixture container slim">
+      <form>
+        <fieldset class="segmented">
+          <legend>View</legend>
+          <label><input type="radio" name="tb-seg-view" value="day" checked> Day</label>
+          <label><input type="radio" name="tb-seg-view" value="week"> Week</label>
+          <label><input type="radio" name="tb-seg-view" value="month"> Month</label>
+          <label><input type="radio" name="tb-seg-view" value="year"> Year</label>
+        </fieldset>
+      </form>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Without legend, next to inputs and buttons</h3>
+    <ul>
+      <li><code>div.segmented[role="radiogroup"]</code> with <code>aria-label</code>.</li>
+      <li>Default size has the same height as buttons and inputs.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="cluster">
+        <div class="segmented" role="radiogroup" aria-label="Sort">
+          <label><input type="radio" name="tb-seg-sort" checked> Newest</label>
+          <label><input type="radio" name="tb-seg-sort"> Oldest</label>
+        </div>
+        <input type="search" placeholder="Search" aria-label="Search">
+        <button>Apply</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Checkbox toggles</h3>
+    <ul>
+      <li>Checkboxes make a multi-select toggle group with the same styles.</li>
+    </ul>
+    <div class="fixture container slim">
+      <fieldset class="segmented">
+        <legend>Format</legend>
+        <label><input type="checkbox" checked> Bold</label>
+        <label><input type="checkbox"> Italic</label>
+        <label><input type="checkbox" checked> Underline</label>
+      </fieldset>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Sizes</h3>
+    <ul>
+      <li><code>.small</code> matches pagination; <code>.large</code> matches large buttons.</li>
+    </ul>
+    <div class="fixture container slim flow">
+      <div class="segmented small" role="radiogroup" aria-label="Small">
+        <label><input type="radio" name="tb-seg-s" checked> One</label>
+        <label><input type="radio" name="tb-seg-s"> Two</label>
+        <label><input type="radio" name="tb-seg-s"> Three</label>
+      </div>
+      <div class="segmented" role="radiogroup" aria-label="Default">
+        <label><input type="radio" name="tb-seg-m" checked> One</label>
+        <label><input type="radio" name="tb-seg-m"> Two</label>
+        <label><input type="radio" name="tb-seg-m"> Three</label>
+      </div>
+      <div class="segmented large" role="radiogroup" aria-label="Large">
+        <label><input type="radio" name="tb-seg-l" checked> One</label>
+        <label><input type="radio" name="tb-seg-l"> Two</label>
+        <label><input type="radio" name="tb-seg-l"> Three</label>
+      </div>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Disabled</h3>
+    <ul>
+      <li>One disabled segment, and a whole <code>fieldset[disabled]</code>.</li>
+    </ul>
+    <div class="fixture container slim flow">
+      <fieldset class="segmented">
+        <legend>Plan</legend>
+        <label><input type="radio" name="tb-seg-d" checked> Free</label>
+        <label><input type="radio" name="tb-seg-d"> Pro</label>
+        <label><input type="radio" name="tb-seg-d" disabled> Enterprise</label>
+      </fieldset>
+      <fieldset class="segmented" disabled>
+        <legend>Plan (disabled)</legend>
+        <label><input type="radio" name="tb-seg-d2" checked> Free</label>
+        <label><input type="radio" name="tb-seg-d2"> Pro</label>
+      </fieldset>
+    </div>
+  </article>
+
+  <article class="testcase">
+    <h3>Full width</h3>
+    <ul>
+      <li><code>.full-width</code> utility stretches the strip; segments stay equal.</li>
+    </ul>
+    <div class="fixture container slim">
+      <div class="segmented full-width" role="radiogroup" aria-label="Billing">
+        <label><input type="radio" name="tb-seg-f" checked> Monthly</label>
+        <label><input type="radio" name="tb-seg-f"> Yearly</label>
+      </div>
     </div>
   </article>
 </section>

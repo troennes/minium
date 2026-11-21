@@ -6,7 +6,8 @@ export const BUNDLE_ORDER = [
   "theme.css", "roles.css", "reset.css", "base.css", "typography.css", "layout.css",
   "button.css", "component-accordion.css", "component-alert.css", "component-avatar.css",
   "component-badge.css", "component-card.css", "component-dropdown.css", "component-icon.css",
-  "component-loading.css", "component-menu.css", "component-modal.css", "component-skeleton.css",
+  "component-loading.css", "component-menu.css", "component-modal.css", "component-segmented.css",
+  "component-skeleton.css",
   "component-tooltip.css", "form-checkbox-radio-switch.css", "form.css", "nav.css", "progress.css",
   "utilities.css",
 ];
@@ -34,6 +35,7 @@ export const MODULES = [
   { id: "modal", label: "Modal", files: ["component-modal.css"] },
   { id: "nav", label: "Navigation (navbar, side menu, tabs, pagination, breadcrumb)", files: ["nav.css", "component-menu.css"] },
   { id: "progress", label: "Progress and meter", files: ["progress.css"] },
+  { id: "segmented", label: "Segmented control", files: ["component-segmented.css"] },
   { id: "skeleton", label: "Skeleton", files: ["component-skeleton.css"] },
   { id: "tooltip", label: "Tooltip", files: ["component-tooltip.css"] },
   { id: "utilities", label: "Utilities", files: ["utilities.css"] },

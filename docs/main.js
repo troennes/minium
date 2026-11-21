@@ -360,6 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="component-tabs.html">Tabs</a></li>
           <li><a href="component-progress.html">Progress</a></li>
           <li><a href="component-pagination.html">Pagination</a></li>
+          <li><a href="component-segmented.html">Segmented control</a></li>
           <li><a href="component-tooltip.html">Tooltip</a></li>
         </ul>
       </details>

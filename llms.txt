@@ -41,7 +41,7 @@ Minium uses cascade layers to control specificity. The order is:
 ## Minium CSS usage rules
 1. Prefer semantic HTML before adding classes. Many patterns are intentionally styled through native elements alone.
 2. Use documented layout classes for composition: `.flow`, `.cluster`, `.container`, `.grid`, `.repel`, `.switcher`, `.sidebar`, and `.frame`.
-3. Use documented component classes only where they exist, such as `.card`, `.alert`, `.badge`, `.pill`, `.avatar`, `.icon`, `.dropdown`, and `.skeleton`.
+3. Use documented component classes only where they exist, such as `.card`, `.alert`, `.badge`, `.pill`, `.avatar`, `.icon`, `.dropdown`, `.segmented`, and `.skeleton`.
 4. Use semantic state and structure attributes where the library expects them: `role="group"`, `aria-current="page"`, `aria-invalid`, `aria-busy`, `aria-disabled`, and native attributes like `open`, `disabled`, `readonly`, `multiple`, and `popover`. Tooltips use `data-tooltip` and `data-placement` (see Tooltip).
 5. Do not invent large component APIs. If a pattern is not described here, build it from semantic HTML plus layout primitives, and a small amount of project CSS.
 6. Prefer theme-token overrides over component-specific overrides. Change shared variables first, then override a specific component only if necessary.
@@ -540,6 +540,7 @@ Behavior:
 - Use `input type="radio"` with the same `name` for one-of-many choices.
 - For inline groups, use adjacent `input + label`.
 - Use `fieldset` and `legend` when the set answers one named question.
+- For a compact row of joined options (view switchers, filters), use a segmented control (see Segmented control).
 
 ### `switch`
 Behavior:
@@ -1012,6 +1013,32 @@ Example:
     <li><a href="#">Next</a></li>
   </ul>
 </nav>
+```
+
+### Segmented control
+A segmented control is a row of joined options built from native radios (pick one) or checkboxes (toggle several). It needs no JavaScript: selection, arrow-key navigation, and form submission are native.
+
+Classes:
+- `.segmented` on the group container
+- Size modifiers on the container: `.small`, `.large` (match button sizes; default matches button and input height)
+
+Behavior:
+- Use `fieldset class="segmented"` with a `legend` as the visible group name; the legend renders above the control.
+- Without a visible name, use `div class="segmented" role="radiogroup"` with `aria-label`.
+- Each option is a `label` that wraps its `input`. Do not use the adjacent `input + label` pattern here.
+- The input is visually hidden but stays focusable; the selected label gets a fill and bold text.
+- Segments share the width of the widest one. Add `.full-width` to stretch the control.
+- `disabled` on an input disables one option; `disabled` on the `fieldset` disables all.
+- Use tabs, not a segmented control, to switch between content panels.
+
+Example:
+```html
+<fieldset class="segmented">
+  <legend>View</legend>
+  <label><input type="radio" name="view" value="day" checked> Day</label>
+  <label><input type="radio" name="view" value="week"> Week</label>
+  <label><input type="radio" name="view" value="month"> Month</label>
+</fieldset>
 ```
 
 ### Tooltip

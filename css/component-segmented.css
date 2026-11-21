@@ -1,0 +1,93 @@
+@layer components {
+  /* Segmented control: joined radios (single choice) or checkboxes (toggles), styled like pagination */
+  .segmented {
+    --border-color: var(--color-border-strong);
+
+    /* Equal-width segments, sized by the widest label */
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    border: 0;
+    padding: 0;
+
+    > legend {
+      padding: 0;
+      margin-block-end: var(--flow-space-glue);
+    }
+
+    /* Cancel form flow and radio/checkbox label spacing */
+    > * {
+      margin: 0;
+    }
+
+    > label {
+      position: relative;
+      inline-size: auto;
+      padding: var(--space-2xs) var(--space-xs);
+      border: var(--border-width) solid var(--border-color);
+      border-bottom-color: color-mix(in oklab, var(--border-color), var(--shadow-small));
+      line-height: var(--line-height);
+      text-align: center;
+      white-space: nowrap;
+
+      /* The radio covers the segment, invisible but focusable and clickable */
+      > input {
+        position: absolute;
+        inset: 0;
+        inline-size: auto;
+        block-size: auto;
+        margin: 0;
+        opacity: 0;
+      }
+    }
+
+    > label + label {
+      border-inline-start: 0;
+    }
+
+    > label:first-of-type {
+      border-start-start-radius: var(--border-radius-m);
+      border-end-start-radius: var(--border-radius-m);
+    }
+
+    > label:last-of-type {
+      border-start-end-radius: var(--border-radius-m);
+      border-end-end-radius: var(--border-radius-m);
+    }
+
+    > label:hover {
+      background-color: var(--color-fill);
+    }
+
+    > label:has(> :checked) {
+      background-color: var(--color-fill-hover);
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* Lift the ring above the neighbouring borders */
+    > label:has(> :focus-visible) {
+      z-index: 1;
+      outline: var(--outline-width, 2px) solid var(--color-primary-focus);
+      outline-offset: var(--outline-offset, 1px);
+    }
+
+    /* :disabled also matches radios inside fieldset[disabled] */
+    > label:has(> :disabled) {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Size variations */
+    &.small > label {
+      padding: var(--space-3xs) var(--space-2xs);
+      font-size: var(--size-small);
+    }
+
+    &.large > label {
+      padding: var(--space-xs) var(--space-s);
+      font-size: var(--size-h4);
+    }
+  }
+}

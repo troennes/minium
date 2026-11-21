@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Segmented control | Minium CSS</title><meta name="description" content="A row of joined options for choosing one value, or toggling several, without JavaScript."><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><link rel="stylesheet" href="../dist/minium.css"><link rel="stylesheet" href="../dist/integrations/prism.css"><link rel="stylesheet" href="project.css">
+<script>
+  /* Apply saved light/dark mode and color theme before first paint; docs/main.js handles changes */
+  try {
+    const mode = localStorage.getItem("themePreference");
+    if (mode === "dark" || mode === "light") document.documentElement.dataset.theme = mode;
+    const colorTheme = localStorage.getItem("colorTheme");
+    if (/^[a-z]+$/.test(colorTheme ?? "") && colorTheme !== "indigo") {
+      document.write(`<link id="color-theme-link" rel="stylesheet" href="../dist/themes/${colorTheme}.css">`);
+    }
+  } catch {}
+</script>
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+</head><body><header id="header"></header><div class="sidebar container docs-shell"><aside class="full-height"><nav id="sidebar"></nav></aside><main>
+
+
+<p class="eyebrow">Components</p>
+<h1>Segmented control</h1>
+
+<p>A segmented control is a row of joined options. Users pick one option, or toggle several. It is built from native radio buttons or checkboxes, so it works without JavaScript, submits with the form, and supports the arrow keys.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>Add the <code>segmented</code> class to a <code>&lt;fieldset&gt;</code>.</li>
+  <li>Name the group with a <code>&lt;legend&gt;</code>. It appears above the control.</li>
+  <li>Add one <code>&lt;label&gt;</code> per option, with the radio button inside the label.</li>
+  <li>Give all radio buttons the same <code>name</code>, and add <code>checked</code> to the selected one.</li>
+</ul>
+
+<div class="example">
+  <article>
+    <fieldset class="segmented">
+      <legend>View</legend>
+      <label><input type="radio" name="view" value="day" checked> Day</label>
+      <label><input type="radio" name="view" value="week"> Week</label>
+      <label><input type="radio" name="view" value="month"> Month</label>
+      <label><input type="radio" name="view" value="year"> Year</label>
+    </fieldset>
+  </article>
+</div>
+
+<p>All segments get the width of the widest one.</p>
+
+<h2>Without a visible label</h2>
+<p>To leave out the legend, use a <code>&lt;div class="segmented" role="radiogroup"&gt;</code> and name the group with <code>aria-label</code>. The default size has the same height as buttons and inputs.</p>
+
+<div class="example">
+  <article>
+    <div class="cluster">
+      <div class="segmented" role="radiogroup" aria-label="Sort">
+        <label><input type="radio" name="sort" value="newest" checked> Newest</label>
+        <label><input type="radio" name="sort" value="oldest"> Oldest</label>
+      </div>
+      <button>Apply</button>
+    </div>
+  </article>
+</div>
+
+<h2>Toggle group</h2>
+<p>Use checkboxes instead of radio buttons to let users turn on several options.</p>
+
+<div class="example">
+  <article>
+    <fieldset class="segmented">
+      <legend>Format</legend>
+      <label><input type="checkbox" name="format" value="bold" checked> Bold</label>
+      <label><input type="checkbox" name="format" value="italic"> Italic</label>
+      <label><input type="checkbox" name="format" value="underline"> Underline</label>
+    </fieldset>
+  </article>
+</div>
+
+<h2>Sizes</h2>
+<p>Add <code>small</code> or <code>large</code> next to <code>segmented</code>. The sizes match the button sizes.</p>
+
+<div class="example">
+  <article class="flow">
+    <div>
+      <div class="segmented small" role="radiogroup" aria-label="Small example">
+        <label><input type="radio" name="size-s" checked> One</label>
+        <label><input type="radio" name="size-s"> Two</label>
+        <label><input type="radio" name="size-s"> Three</label>
+      </div>
+    </div>
+    <div>
+      <div class="segmented" role="radiogroup" aria-label="Default example">
+        <label><input type="radio" name="size-m" checked> One</label>
+        <label><input type="radio" name="size-m"> Two</label>
+        <label><input type="radio" name="size-m"> Three</label>
+      </div>
+    </div>
+    <div>
+      <div class="segmented large" role="radiogroup" aria-label="Large example">
+        <label><input type="radio" name="size-l" checked> One</label>
+        <label><input type="radio" name="size-l"> Two</label>
+        <label><input type="radio" name="size-l"> Three</label>
+      </div>
+    </div>
+  </article>
+</div>
+
+<h2>Full width</h2>
+<p>Add the <code>full-width</code> utility to make the control fill its container. The segments stay the same width.</p>
+
+<div class="example">
+  <article>
+    <div class="segmented full-width" role="radiogroup" aria-label="Billing">
+      <label><input type="radio" name="billing" value="monthly" checked> Monthly</label>
+      <label><input type="radio" name="billing" value="yearly"> Yearly</label>
+    </div>
+  </article>
+</div>
+
+<h2>Disabled</h2>
+<p>Add <code>disabled</code> to an input to disable one option, or to the <code>&lt;fieldset&gt;</code> to disable the whole control.</p>
+
+<div class="example">
+  <article>
+    <fieldset class="segmented">
+      <legend>Plan</legend>
+      <label><input type="radio" name="plan" value="free" checked> Free</label>
+      <label><input type="radio" name="plan" value="pro"> Pro</label>
+      <label><input type="radio" name="plan" value="enterprise" disabled> Enterprise</label>
+    </fieldset>
+  </article>
+</div>
+
+<h2>Accessibility notes</h2>
+<ul>
+  <li>Keyboard support comes from the browser. With radio buttons, <kbd>Tab</kbd> moves focus into the group and the arrow keys change the selection. With checkboxes, each option is a tab stop, and <kbd>Space</kbd> toggles it.</li>
+  <li>Screen readers announce the options as radio buttons or checkboxes, with the legend or <code>aria-label</code> as the group name.</li>
+  <li>Don't use a segmented control to switch between panels of content. Use <a href="component-tabs.html">tabs</a> instead.</li>
+</ul>
+
+
+</main></div><footer id="footer">Footer</footer><script src="main.js"></script><script src="prism.js"></script></body></html>
